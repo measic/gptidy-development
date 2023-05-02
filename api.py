@@ -1,21 +1,18 @@
 import openai
-from samples import *
+from prompts import *
 openai.api_key = "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"
 
-def get_response(context, content, operation):
+def get_response():
     completion = openai.ChatCompletion.create(
     model="gpt-3.5-turbo",
+    temperature=0,
     messages=[
-        {"role": "system", "content": "You are a refactoring tool for Jupyter Notebooks. Notebook context: " + context},
-        {"role": "user", "content": "CODE: " + content},
-        {"role": "user", "content": "OPERATION: " + operation},
+        {"role": "user", "content": "Suggest a new variable name for variables ['a, b, data'] \
+         CONTEXT: {im analyzing rainfall data} \
+         CODE: {data = pd.read_csv('data.csv')\ndata.columns = ['sun', 'mm']\na = data['sun'].mean()\nb = data['mm'].max()} \
+         Output format: [list of tuples of variables and their new names]"},
     ]
     )
     return completion.choices[0].message
 
-# Q: What's your profession? What's the project about? Any other details?
-context = "im a data scientist. this project is about heart attack analysis and prediction. the main point is to predict if a person is vulnerable to a heart attack or not"
-content = ["data = pd.read_csv('data.csv')\n", "data.columns = ['age', 'rate']\n", "a = data['age'].mean()\n", "b = data['rate'].max()\n"]
-operation = samples[Operation.RenameVariable]["prompt"]("data, a, and b")
-
-print(get_response(context, str(content), operation))
+print(get_response())
