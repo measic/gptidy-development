@@ -27,12 +27,27 @@ class Notebook:
                     # convert outputs to string format
                     output_as_string = ''.join(output['text'])
                     relevant_outputs.append(output_as_string)
+                # if the output has 'value' (only seen one case so far) 
+                elif "evalue" in output:
+                    # convert outputs to string format
+                    output_as_string = ''.join(output['evalue'])
+                    relevant_outputs.append(output_as_string)
                 # this should not happen
                 else:
                     raise Exception("No data or name in output")
         else:
             relevant_outputs = None
         return relevant_outputs
+    
+    def get_single_cell_src_lines(self, cell_id, lines):
+        cell = self.notebook['cells'][cell_id]
+        if type(cell['source']) == list:
+            src_lines = cell['source'][lines[0]:lines[1] + 1]
+        else:
+            assert type(cell['source']) == str
+            src_lines = cell['source'].split('\n')[lines[0]:lines[1] + 1]
+            src_lines = ''.join(src_lines)
+        return src_lines
 
     def get_single_cell(self, cell_id, include_outputs=True):
         cell = self.notebook['cells'][cell_id]
