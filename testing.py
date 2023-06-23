@@ -5,16 +5,18 @@ from prompts import *
 # setup notebook
 url = "https://raw.githubusercontent.com/YerevaNN/mimic3-benchmarks/b37f83d2f432c67190c631ff554a1a832d9caaa5~1/mimic3benchmark/readers.py"
 # read notebook in from file
-with open("sample.ipynb") as f:
+with open("test.ipynb") as f:
     notebook = json.load(f)
 notebook = Notebook(notebook)
 
 # # set project context
 # right now fetching it from github readme + user company/bio but can write it myself too
-project_context = fetch_github_project_info(url)
+project_context = "the project's purpose is to construct benchmark machine learning datasets from the MIMIC-III clinical database. I specifically focus on four key inpatient clinical prediction tasks: mortality prediction, decompensation detection, length of stay forecasting, and phenotype classification. My goal is to provide benchmarks for machine learning researchers in the healthcare field, aiming to accelerate progress, foster debate, and enable reproducibility and comparison of different ideas."
+
+# print(project_context)
 
 # # generating different prompts
-# introduction_md = introduction_prompt(notebook, project_context)
+introduction_md = introduction_prompt(notebook, project_context)
 
 # process_md = cell_process_prompt(notebook, cell_id=3, technical=False)
 
@@ -40,6 +42,10 @@ project_context = fetch_github_project_info(url)
 # extract_function = extract_function(notebook, context="this project is about analyzing jeopardy data", cell_id=7, lines=(3,13))
 
 
-context = "The purpose of this project is to provide a Python suite that constructs benchmark datasets for machine learning using the MIMIC-III clinical database. The project focuses on creating a multitask learning benchmark dataset for four key inpatient clinical prediction tasks, including mortality prediction, decompensation detection, length of stay forecasting, and phenotype classification."
+# context = "The purpose of this project is to provide a Python suite that constructs benchmark datasets for machine learning using the MIMIC-III clinical database. The project focuses on creating a multitask learning benchmark dataset for four key inpatient clinical prediction tasks, including mortality prediction, decompensation detection, length of stay forecasting, and phenotype classification."
 
-extract_variable = extract_variable(notebook, context=context, cell_id=2, segment='self._data[index][0]')
+# extract_variable = extract_variable(notebook, context=context, cell_id=2, segment='self._data[index][0]')
+
+introduction = "Analyzing Jeopardy Questions to Win Big\r\n\r\n# Background\r\n\r\nJeopardy is a popular TV game show where contestants answer questions to win money. In this project, we will analyze a dataset of Jeopardy questions to identify patterns in the questions that could help us win big.\r\n\r\n# Goals\r\n\r\nThe goal of this project is to answer the following questions:\r\n- How often do the answers appear in the questions?\r\n- How often are new questions repeats of older ones?\r\n- Are high-value questions harder or easier than low-value questions?\r\n- Which words commonly appear in high-value questions?\r\n\r\n# Structure\r\n\r\nThis notebook is organized into the following sections:\r\n- Data loading and cleaning\r\n- Answer overlap analysis\r\n- Question overlap analysis\r\n- High-value vs. low-value questions analysis\r\n- Common word analysis"
+summarize = cell_summarize_prompt(notebook, cell_id=10, introduction=introduction)
+print(summarize)

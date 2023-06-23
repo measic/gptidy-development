@@ -8,7 +8,7 @@ def prompt():
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         temperature=0,
-        messages= testing.extract_variable
+        messages= testing.summarize
     )
     if completion.choices[0].finish_reason != "stop":
         raise Exception("OpenAI API did not return a valid response")
