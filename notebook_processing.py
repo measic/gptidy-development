@@ -53,18 +53,21 @@ class Notebook:
         cell = self.notebook['cells'][cell_id]
         cell['source'] = ''.join(cell['source'])
         object = {
+            'id': cell_id,
             'type': cell['cell_type'],
             'src': cell['source']
         }
         if include_outputs:
-            object['outputs'] = self._get_single_cell_text_outputs(cell)
+            output = self._get_single_cell_text_outputs(cell)
+            if output:
+                object['outputs'] = output
         return object
 
     def get_multiple_cells(self, cell_ids, include_outputs=True):
         return [self.get_single_cell(cell_id, include_outputs) for cell_id in cell_ids]
 
-    def get_all_cells(self, include_outputs=True):
-        return [self.get_single_cell(cell_id, include_outputs) for cell_id in range(self.num_cells)]
+    def get_all_cells(self, include_outputs=True, include_markdown=True):
+        return [self.get_single_cell(cell_id, include_outputs) for cell_id in range(self.num_cells) if include_markdown or self.notebook['cells'][cell_id]['cell_type'] != 'markdown']
 
     def update_cell_src(self, cell_id, new_src):
         self.notebook['cells'][cell_id]['source'] = new_src
