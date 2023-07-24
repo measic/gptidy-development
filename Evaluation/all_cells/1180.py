@@ -1,0 +1,1 @@
+shop_infp.loc[:,'cos_sim_between_wk_1_2':'cos_sim_between_wk_1_3']

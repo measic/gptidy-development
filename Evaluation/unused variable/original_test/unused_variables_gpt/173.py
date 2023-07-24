@@ -1,0 +1,1 @@
+sim = acnsim.Simulator(cn, sch, events, start, period=period)

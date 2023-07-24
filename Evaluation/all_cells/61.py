@@ -1,0 +1,21 @@
+B = square(3)
+X_dil = dilation(X,selem=B)
+X_ero = erosion(X,selem=B)
+
+X_open = dilation(X_ero,selem=B)
+X_close = erosion(X_dil,selem=B)
+
+plt.figure(figsize=[10,5])
+plt.subplot(1,3,1)
+plt.imshow(X,interpolation='nearest',cmap=plt.cm.gray)
+plt.title('$X$')
+plt.subplot(1,3,2)
+plt.imshow(X_open,interpolation='nearest',cmap=plt.cm.gray)
+plt.title('opening of $X$ by $B$')
+plt.subplot(1,3,3)
+plt.imshow(X_close,interpolation='nearest',cmap=plt.cm.gray)
+plt.title('closing of $X$ by $B$')
+plt.figure(figsize=[6,6])
+plt.imshow(X,interpolation='nearest',cmap=plt.cm.gray,alpha=.3)
+plt.imshow(X_open,interpolation='nearest',cmap=plt.cm.gray,alpha=.3)
+plt.imshow(X_close,interpolation='nearest',cmap=plt.cm.gray,alpha=.3);

@@ -1,0 +1,6 @@
+print(sign_dict['16'])
+print(sign_dict['33'])
+print(sign_dict['11'])
+print(sign_dict['38'])
+print(sign_dict['35'])
+print(sign_dict['17'])

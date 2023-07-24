@@ -1,0 +1,1 @@
+tm.minimize(tm.sum(x[i,j]*costs.get((i,j), 0)))

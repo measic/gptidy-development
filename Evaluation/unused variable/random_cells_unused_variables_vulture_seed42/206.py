@@ -1,0 +1,1 @@
+random_average_min_path_length = np.average([nx.average_shortest_path_length(C) for C in nx.connected_component_subgraphs(random_degree_graph)])

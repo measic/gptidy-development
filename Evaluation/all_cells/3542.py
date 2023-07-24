@@ -1,0 +1,1 @@
+#ekos.copy_workspace(source_uuid='default_workspace', target_alias='lena_1')

@@ -1,0 +1,1 @@
+ekos.print_workspaces()

@@ -1,0 +1,1 @@
+dw_obj.calculate_ek_value(water_body = wb)

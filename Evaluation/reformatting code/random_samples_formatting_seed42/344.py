@@ -1,0 +1,1 @@
+np.shape(act_train*.1)

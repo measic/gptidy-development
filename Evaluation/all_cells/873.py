@@ -1,0 +1,1 @@
+df['SECTORUNIT SBB'].unique()

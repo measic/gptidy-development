@@ -1,0 +1,6 @@
+print('KNN R-squared: ' + str(knn_grid_score))
+print('Decision Tree R-squared: ' + str(dt_grid_score))
+print('KNN Mean Absolute Error: ' + str(knn_mae))
+print('Decision Tree Mean Absolute Error: ' + str(dt_mae))
+print('KNN Explained Variance Score: ' + str(knn_evs))
+print('Decision Explained Variance Score: ' + str(dt_evs))

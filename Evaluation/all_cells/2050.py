@@ -1,0 +1,5 @@
+plt.plot(df_train_log.index, np.exp(df_train_log), label='Train')
+plt.plot(df_test_log.index, np.exp(df_test_log), label='Test')
+plt.plot(predictions_log.index, np.exp(predictions_log), label='ARIMA(0,0,2) LOG')
+plt.plot(predictions.index, predictions, label='ARIMA(1,0,0)')
+plt.legend(loc='best')

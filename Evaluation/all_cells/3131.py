@@ -1,0 +1,1 @@
+np.unique(lights_labels, return_counts=True)

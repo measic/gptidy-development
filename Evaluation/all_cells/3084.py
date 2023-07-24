@@ -1,0 +1,5 @@
+plt.bar(['knn', 'dt'], [knn_evs, dt_evs])
+plt.title('Comparing Explained Variance Score')
+plt.xlabel('algorithm')
+plt.ylabel('explained variance score')
+plt.show()

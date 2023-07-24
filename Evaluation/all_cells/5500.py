@@ -1,0 +1,1 @@
+type(sig.parameters) #映射代理

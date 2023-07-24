@@ -1,0 +1,1 @@
+optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate)

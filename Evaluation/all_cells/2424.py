@@ -1,0 +1,1 @@
+r = EdlibRunner("global", revcomp=True, cyclic=False)

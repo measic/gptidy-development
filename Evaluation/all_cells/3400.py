@@ -1,0 +1,1 @@
+plt.imshow(np.array(hisdb[0][1])[:,:,], cmap='flag')

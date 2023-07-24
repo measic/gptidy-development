@@ -1,0 +1,1 @@
+y_pred = VGG16Seq.predict(arr_X_test)

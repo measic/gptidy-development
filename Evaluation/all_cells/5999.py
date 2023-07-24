@@ -1,0 +1,1 @@
+qgrid.show_grid(df.cos_sim[0], export_mode=True)

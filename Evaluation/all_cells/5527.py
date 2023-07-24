@@ -1,0 +1,1 @@
+twitter_archive.rating_numerator.value_counts()

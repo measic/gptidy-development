@@ -1,0 +1,1 @@
+test.test_regression_ouptimize_theta(regression_optimize_theta, kernel)

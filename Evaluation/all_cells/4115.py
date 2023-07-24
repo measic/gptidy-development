@@ -1,0 +1,15 @@
+plt.figure(figsize=(20,10))
+
+plt.subplot(2, 1, 1)
+plt.plot(np.array(df['u1_z']/100)[:2000])
+plt.plot(u1_z[:2000])
+plt.xlabel('time[ms]')
+plt.ylabel(f'u1_z [deg/sec]')
+plt.grid()
+
+plt.subplot(2, 1, 2)
+plt.plot(np.array(df['u2_z']/100)[:2000])
+plt.plot(u2_z[:2000])
+plt.xlabel('time[ms]')
+plt.ylabel(f'u2_z [deg/sec]')
+plt.grid()

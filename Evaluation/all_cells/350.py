@@ -1,0 +1,1 @@
+sigma_Pa_grid = M_Nm_grid * y_m_grid / (-s_d[I_m4])

@@ -1,0 +1,1 @@
+#shop_info.loc[ids_zero_morethan1_count_in_last_three_week_but_no_zero_in_last_two_week,:]

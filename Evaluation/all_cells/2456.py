@@ -1,0 +1,1 @@
+intvl_len(interval([1, 2], [4, 5]))

@@ -1,0 +1,2 @@
+### Teste
+test.isnull().sum()

@@ -1,0 +1,1 @@
+hidden1 = tf.layers.dense(X, n_hidden1, activation=tf.nn.elu, name="hidden1")

@@ -1,0 +1,1 @@
+learn.fit_one_cycle(3, lr)

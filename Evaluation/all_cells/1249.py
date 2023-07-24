@@ -1,0 +1,6 @@
+min_x = min(test_data[:,0])
+min_y = min(test_data[:,1])
+max_x = max(test_data[:,0])
+max_y = max(test_data[:,1])
+x_ax = np.linspace(min_x, max_x, 1000)
+y_ax = np.linspace(min_y, max_y, 300)

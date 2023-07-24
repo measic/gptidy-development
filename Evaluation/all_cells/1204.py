@@ -1,0 +1,1 @@
+stable_wave_model = shop_info.loc[:,'wave_model2_1':'wave_model2_7']

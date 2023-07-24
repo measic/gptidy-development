@@ -1,0 +1,1 @@
+split = StratifiedShuffleSplit(1, .8, 42)

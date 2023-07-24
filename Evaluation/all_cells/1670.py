@@ -1,0 +1,1 @@
+df = pd.read_csv(join(path, 'survey_results_public.csv'), low_memory=False)

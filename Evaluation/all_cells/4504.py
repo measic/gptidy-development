@@ -1,0 +1,1 @@
+merged.to_csv(exportpath + "profile.csv", index = False)

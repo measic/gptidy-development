@@ -1,0 +1,1 @@
+print(str(len(comm_enrich_scores) / len(communities)))

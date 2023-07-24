@@ -1,0 +1,1 @@
+qgrid.show_grid(df.rel_freq[0], export_mode=True)

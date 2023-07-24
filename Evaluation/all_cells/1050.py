@@ -1,0 +1,1 @@
+test.test_periodic_kernel(periodic_kernel)

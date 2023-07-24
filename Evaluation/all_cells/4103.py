@@ -1,0 +1,1 @@
+print('Peak aggregate current: {0} A'.format(sim.peak))

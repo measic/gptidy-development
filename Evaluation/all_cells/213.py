@@ -1,0 +1,16 @@
+img = np.zeros((800,800,3))
+y, x = np.indices(img.shape[:2])
+cx,cy = 300, 300
+circle1 = (x-cx)**2+(y-cy)**2<200**2
+cx,cy = 500, 500
+circle2 = (x-cx)**2+(y-cy)**2<200**2
+cx,cy = 300, 500
+circle3 = (x-cx)**2+(y-cy)**2<200**2
+cx,cy = 500, 300
+circle4 = (x-cx)**2+(y-cy)**2<200**2
+img[circle1]+=(.2,0,0)
+img[circle2]+=(.2,0,0)
+img[circle3]+=(.2,0,0)
+img[circle4]+=(.2,0,0)
+img[circle1 & circle2 & circle3 & circle4] =(0,0,1)
+plt.imshow(img, interpolation='bilinear')

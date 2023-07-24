@@ -1,0 +1,1 @@
+print(len(dico)-len(norare_dico),"/",len(dico), "words removed")

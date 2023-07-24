@@ -1,0 +1,1 @@
+print(str(len([comm for comm in comm_enrich_scores if comm[1] >= .5]) / len(comm_enrich_scores)))

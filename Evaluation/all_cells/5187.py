@@ -1,0 +1,1 @@
+sns.heatmap(treino_dropna.corr(), annot = True)

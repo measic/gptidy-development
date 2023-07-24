@@ -1,0 +1,1 @@
+X_pca = PCA(n_components=2, random_state=2018).fit_transform(wine_data.data)

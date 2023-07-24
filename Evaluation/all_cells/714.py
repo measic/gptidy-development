@@ -1,0 +1,1 @@
+print("Maior acurácia obtida durante o treino: {}".format(max(test_acc)))

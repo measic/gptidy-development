@@ -1,0 +1,1 @@
+!pip install plotly==3.3.0

@@ -1,0 +1,2 @@
+X=series.values
+X

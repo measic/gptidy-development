@@ -1,0 +1,2 @@
+ACCstderror = ACCgrpstd / n
+ACCstderror

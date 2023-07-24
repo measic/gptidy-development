@@ -1,0 +1,1 @@
+SVG(model_to_dot(model, show_shapes=True).create(prog='dot', format='svg'))

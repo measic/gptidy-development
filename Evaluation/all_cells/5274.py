@@ -1,0 +1,1 @@
+optimizer = tf.train.AdagradOptimizer(learning_rate=learning_rate)

@@ -1,0 +1,1 @@
+gROOT.ProcessLine('obj0->findGammaCalibrationConstants()')

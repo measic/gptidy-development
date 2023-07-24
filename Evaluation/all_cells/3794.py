@@ -1,0 +1,1 @@
+len(data.symbol.unique())

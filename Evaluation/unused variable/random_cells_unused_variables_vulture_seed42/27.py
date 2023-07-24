@@ -1,0 +1,1 @@
+f_bar, var = util.draw_latent_func(GPC, optimize_theta, kernel, x_new, x, y)

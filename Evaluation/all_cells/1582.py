@@ -1,0 +1,1 @@
+yearly_data = After2009.resample('A', dim='time', how='mean', keep_attrs=True)

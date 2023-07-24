@@ -1,0 +1,1 @@
+print len(ids_zero_morethan1_count_in_last_three_week_and_two_week)

@@ -1,0 +1,1 @@
+prelogits = tf.squeeze(end_points["PreLogits"], axis=[1, 2])

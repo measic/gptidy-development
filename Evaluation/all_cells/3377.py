@@ -1,0 +1,1 @@
+labels_with_vs_tree = get_label_tree(list(labels_with_vs))

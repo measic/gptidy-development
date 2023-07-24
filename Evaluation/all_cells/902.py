@@ -1,0 +1,1 @@
+df_gt.plot.bar(figsize=(20,8.0),title='Aantal MBO 4 Afgestudeerden - Thuismarkt')

@@ -1,0 +1,1 @@
+accuracy_score(y_pred_extra_trees, y_pred)

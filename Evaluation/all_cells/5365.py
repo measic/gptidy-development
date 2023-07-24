@@ -1,0 +1,1 @@
+tm2.maximize(12 * desk + 20 * cell)

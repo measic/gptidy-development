@@ -1,0 +1,1 @@
+ps_gmm.best_params

@@ -1,0 +1,5 @@
+plt.figure(figsize=(8,5))
+plt.boxplot([heterogeneity.values(), heterogeneity_smart.values()], vert=False)
+plt.yticks([1, 2], ['k-means', 'k-means++'])
+plt.rcParams.update({'font.size': 16})
+plt.tight_layout()

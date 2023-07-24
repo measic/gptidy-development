@@ -1,0 +1,1 @@
+data = xr.open_mfdataset(r'C:\MAIACData\nc_monthly_daily\*.nc')['data']

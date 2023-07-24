@@ -1,0 +1,1 @@
+wiki_influenza = getWiki("Influenza")

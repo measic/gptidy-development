@@ -1,0 +1,1 @@
+plt.hist(X, bins=200);

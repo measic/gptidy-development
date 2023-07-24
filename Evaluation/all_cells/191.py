@@ -1,0 +1,2 @@
+print('The %sth Quarter is the most profitable quarter with a Quarterly Average Revenue of $%0.2f and total quarterly revenue of $%0.2f.' \
+      %(max(dfqq.idxmax()),dfqq.Revenue.max()[1], dfqq.Revenue.max()[3]))

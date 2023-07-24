@@ -1,0 +1,5 @@
+data = ex.artifact('data.json', 'data_loc')
+do_preproc = ex.action(preprocessing, [data,])
+data_x = ex.artifact('data_clean_X.json', 'intermediate_X', parent=do_preproc)
+data_y = ex.artifact('data_clean_y.json', 'intermediate_y', parent=do_preproc)
+ex.__exit__()

@@ -1,0 +1,1 @@
+subset = subset.isel(time=np.argsort(subset.time))

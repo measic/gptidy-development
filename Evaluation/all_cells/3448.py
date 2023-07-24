@@ -1,0 +1,1 @@
+print("value = %f" %1.0)       # we can use C-style string formatting

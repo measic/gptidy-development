@@ -1,0 +1,1 @@
+wiki = graphlab.SFrame('people_wiki.gl/')

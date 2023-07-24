@@ -1,0 +1,1 @@
+d4.loc['Colorado', 'two']

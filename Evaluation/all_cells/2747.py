@@ -1,0 +1,6 @@
+reversed_quatrain_model = MultinomialHMM(n_components=30, n_iter=50, verbose=True)
+reversed_volta_model = MultinomialHMM(n_components=30, n_iter=50, verbose=True)
+reversed_couplet_model = MultinomialHMM(n_components=30, n_iter=50, verbose=True)
+reversed_quatrain_model.fit(np.concatenate(reversed_converted_quatrain_lines), quatrain_lengths)
+reversed_volta_model.fit(np.concatenate(reversed_converted_volta_lines), volta_lengths)
+reversed_couplet_model.fit(np.concatenate(reversed_converted_couplet_lines), couplet_lengths)

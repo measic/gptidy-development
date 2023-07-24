@@ -1,0 +1,1 @@
+plot_residuals(model_ridge, X_train, y)

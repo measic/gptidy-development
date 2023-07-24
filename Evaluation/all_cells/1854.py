@@ -1,0 +1,1 @@
+training.get_word_Xlengths('CHOCOLATE')

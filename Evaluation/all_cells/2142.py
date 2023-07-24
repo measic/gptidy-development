@@ -1,0 +1,1 @@
+! python ../.convert_notebook_to_script.py --input ch08.ipynb --output ch08.py

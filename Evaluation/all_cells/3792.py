@@ -1,0 +1,1 @@
+data[data.symbol == "FB"].head()

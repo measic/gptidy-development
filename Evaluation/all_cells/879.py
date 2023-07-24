@@ -1,0 +1,1 @@
+df_aantal_zwolle.plot.bar(figsize=(8,5.0),title='Aantal MBO Afgestudeerden Regio Zwolle')

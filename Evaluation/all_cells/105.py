@@ -1,0 +1,3 @@
+with tf.Session() as sess:
+    saver.restore(sess, INCEPTION_V3_CHECKPOINT_PATH)
+    # ...

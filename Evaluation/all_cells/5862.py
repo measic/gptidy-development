@@ -1,0 +1,1 @@
+test_images_np = np.asarray(test_images)

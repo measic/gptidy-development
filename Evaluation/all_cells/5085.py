@@ -1,0 +1,2 @@
+### Treino
+train.isnull().sum()

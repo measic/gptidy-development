@@ -1,0 +1,1 @@
+Area = Area.set_index('time')

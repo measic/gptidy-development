@@ -1,0 +1,1 @@
+ext_pnicer_discrete.save_fits(path="/tmp/temp.fits")

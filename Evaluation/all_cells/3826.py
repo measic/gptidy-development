@@ -1,0 +1,1 @@
+interact(mostrar_evolucion_credito, P = 1000000, I = 17, N = 20)

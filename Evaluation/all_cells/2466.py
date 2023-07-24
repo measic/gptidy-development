@@ -1,0 +1,1 @@
+run_command("echo something")

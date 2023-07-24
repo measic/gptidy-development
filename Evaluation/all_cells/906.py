@@ -1,0 +1,1 @@
+df_gas.plot.bar(figsize=(20,8.0),title='Aantal MBO 4 Afgestudeerden - Aangrenzend Secundair')

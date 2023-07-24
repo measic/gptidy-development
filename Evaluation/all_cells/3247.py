@@ -1,0 +1,1 @@
+dict = create_anottations(lista)

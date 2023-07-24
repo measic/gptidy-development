@@ -1,0 +1,1 @@
+[v.name for v in tf.global_variables()]

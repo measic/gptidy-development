@@ -1,0 +1,1 @@
+df['rating'].describe()

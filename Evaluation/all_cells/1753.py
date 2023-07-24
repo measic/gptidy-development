@@ -1,0 +1,1 @@
+assert len(frustration_array) == len(date_array) == len(density_array) == len(threshold_array)

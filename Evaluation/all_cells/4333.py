@@ -1,0 +1,1 @@
+a = pd.read_csv('https://raw.githubusercontent.com/RayleighKim/Example_datasets/master/ade_sales.csv')

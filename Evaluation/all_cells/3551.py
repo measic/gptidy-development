@@ -1,0 +1,1 @@
+w.apply_data_filter(step = 0) # This sets the first level of data filter in the IndexHandler 

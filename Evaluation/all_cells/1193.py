@@ -1,0 +1,1 @@
+ids_zero_morethan1_count_in_last_three_week_and_two_week = [i for i in ids_zero_morethan1_count_in_last_three_week if i not in ids_zero_morethan1_count_in_last_three_week_but_no_zero_in_last_two_week]

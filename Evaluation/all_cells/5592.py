@@ -1,0 +1,1 @@
+sn.lcfit.get_fit_splines()

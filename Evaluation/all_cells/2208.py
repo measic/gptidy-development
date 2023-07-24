@@ -1,0 +1,1 @@
+factorize(charac, 3)

@@ -1,0 +1,1 @@
+subset = data.isel(x=slice(x_start, y_stop), y=slice(y_start, y_stop))

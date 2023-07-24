@@ -1,0 +1,1 @@
+combined.plot.scatter("female_per", "sat_score")

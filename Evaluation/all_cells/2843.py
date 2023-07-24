@@ -1,0 +1,1 @@
+plot_residuals(model_elastic, X_train, y)

@@ -1,0 +1,1 @@
+stable_wave_model.to_csv('stable_wave_model.csv', sep=",", index = True)

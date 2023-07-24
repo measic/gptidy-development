@@ -1,0 +1,1 @@
+uniao.loc[(uniao['PassagemNumero']=='3701')]

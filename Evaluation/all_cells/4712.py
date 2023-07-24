@@ -1,0 +1,1 @@
+re.split('\s+', text)

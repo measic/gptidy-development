@@ -1,0 +1,1 @@
+root_mean_squared_error(x_values, y_values, 1.7, 10) # 104.50076235766578

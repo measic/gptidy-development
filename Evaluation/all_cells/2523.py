@@ -1,0 +1,1 @@
+print(storage.bivariate_redundancies.redundancy)

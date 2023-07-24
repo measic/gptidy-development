@@ -1,0 +1,1 @@
+stats.ttest_1samp(posttest.ExplicitMem,2)

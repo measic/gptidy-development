@@ -1,0 +1,1 @@
+tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES, scope="hidden1")

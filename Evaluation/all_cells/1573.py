@@ -1,0 +1,1 @@
+Area = Area[['LSOA', 'value']].dropna()

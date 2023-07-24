@@ -1,0 +1,1 @@
+df.memory_usage(deep=True)

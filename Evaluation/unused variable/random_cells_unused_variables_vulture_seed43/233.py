@@ -1,0 +1,1 @@
+sum(1 for completed_process, outcome in outcomes if completed_process.stderr == "")

@@ -1,0 +1,2 @@
+### Treino
+train.info()

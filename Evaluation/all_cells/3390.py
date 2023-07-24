@@ -1,0 +1,1 @@
+%timeit diva.to_encoding(array)

@@ -1,0 +1,1 @@
+len(frustration_array)

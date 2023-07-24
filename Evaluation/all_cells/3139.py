@@ -1,0 +1,1 @@
+sgd_clf.predict([black_array.flatten()])

@@ -1,0 +1,1 @@
+qgrid.show_grid(df.phrase_sent, export_mode=True)

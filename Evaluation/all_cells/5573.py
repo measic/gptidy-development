@@ -1,0 +1,1 @@
+df.rating.value_counts()

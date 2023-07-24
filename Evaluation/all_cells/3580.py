@@ -1,0 +1,1 @@
+dw_obj.water_body_indicator_df[wb].dropna(subset = ['REFERENCE_VALUE'])

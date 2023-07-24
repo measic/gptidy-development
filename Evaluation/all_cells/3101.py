@@ -1,0 +1,1 @@
+test_black = np.zeros((255, 255, 3))

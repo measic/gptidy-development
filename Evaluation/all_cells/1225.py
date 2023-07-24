@@ -1,0 +1,1 @@
+shop_info = shop_info.join(regression_predict)

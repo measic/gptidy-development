@@ -1,0 +1,201 @@
+notebook_id,repo_name,file_path,author_sector,author_job,author_field,genre
+0,JaeDukSeo/Daily-Neural-Network-Practice-2,Understanding_Concepts/PCA_Collection/b\ kernel\ pca.ipynb,academia,student,ds,ad
+2,kaphka/imi-master-thesis,notebooks/data/hisdb.ipynb,academia,student,ds,ex
+3,askdjango/networkons-201801,Python\ Day\ 3.ipynb,industry,educator,cs,cd
+4,reedan88/QAQC_Sandbox,Metadata_Review/Metadata_Review.ipynb,initiative/institute,academic,es,ex
+6,chipk215/ncaa_basketball,Models/Tournament_Model_LR-Delta_No_Opp_Stats.ipynb,industry,software-engineer,cs,ex
+8,bpjsincl/marchmadness,DataAccessExamples.ipynb,academia,software-engineer,cs,pa
+9,wigasper/viral-mirna-database,community_enrichment_analysis.ipynb,academia,student,ls,pa
+10,gardiac2002/monkies,Sessions\ Analysis.ipynb,industry,software-engineer,cs,ex
+11,qzlvyh/dlab-berkeley-python-fundamentals,Day_1/05_Strings.ipynb,academia,academic,cs,cd
+12,FelixandLiu/learning,optimal-road-trip/Computing\ the\ optimal\ road\ trip\ across\ the\ U.S..ipynb,industry,data-scientist,cs,ad
+14,rsumner31/pymc3-23,docs/source/notebooks/dp_mix.ipynb,ud/open-source,data-scientist,ds,td
+15,r-hopper/W207-Summer-2017-Final,analysis/hopper_miller_zhang_final0814.ipynb,academia,student,ds,pa
+16,jiangzl2016/prob_prog_final_project,final-project/final-notebook.ipynb,academia,student,ds,pa
+19,iharnoor/PhylogeneticNetworks,Phylogenetics.ipynb,academia,student,ds,ex
+20,rsumner31/pymc3,docs/source/notebooks/GP-Latent.ipynb,open-source,data-scientist,ds,td
+21,tychovdo/Char-RNN-Understanding,DiagnosticClassifier.ipynb,industry,researcher,ds,ex
+22,jmartu/TFM,convnet/VGG16_04_bottleneck.ipynb,academia,student,ds,ex
+23,biggstd/pyluminate,notebooks/Al\ Review\ Figures.ipynb,academia,academic,ps,ex
+24,Areej32/project-1,Clean\ Data/Models.ipynb,academia,student,ds,ex
+25,andreydung/metriclearning,ViewingAngles.ipynb,academia,academic,ds,ex
+27,amcm29/MachineLearning_Marathon,boston_model.ipynb,industry,data-scientist,ds,ex
+29,modflowpy/flopy,examples/Notebooks/flopy3_Zaidel_example.ipynb,initiative/institute,academic,es,td
+30,ChuckBowers/info370-group11,ml_analysis.ipynb,academia,student,ds,pa
+31,jbirky/photonCounting,analysis.ipynb,academia,student,ps,pa
+32,ColinDuc/BosonTeam,New_TEST.ipynb,academia,student,?,pa
+33,QuantEcon/econometrics,Notebook_01_wald/statistical_decision_functions_text.ipynb,academia,academic,ss,cd
+34,bjoernrost/ml-live,ml-live.ipynb,industry,it,ds,ad
+35,gustavonalle/bfs,examples.ipynb,unknown,unknown,?,td
+36,seangtkelley/personal-health-tracking,college-summary.ipynb,academia,student,cs,ex
+38,fastforwardlabs/cuckoofilter,bench_marking_notebook.ipynb,industry,data-scientist,ds,ex
+40,NeelChakraborty/ISI_Bank_Profitability,regression.ipynb,industry,data-scientist,ds,ex
+42,SultanovAR/augmentation,deeppavlov/models/evolution/Results_analysis.ipynb,academia,academic,ds,td
+43,informatik-mannheim/sysplace_demo_orderstatus,python/TangibleTouch.ipynb,academia,academic,cs,ex
+44,srjit/data-visualizations,nyse/src/NYSE-Data\ Analysis.ipynb,academia,academic,ds,ex
+45,tepickering/HALcoll,notebooks/TF\ testing.ipynb,academia,academic,es,ex
+46,roei60/Data-Science-Hotels,Clustering.ipynb,industry,software-engineer,cs,pa
+47,madalinabuzau/tensorflow-eager-tutorials,02_using_metrics_in_eager_mode.ipynb,academia,academic,ds,td
+48,GoogleCloudPlatform/training-data-analyst,courses/fast-and-lean-data-science/02_Dataset_playground.ipynb,industry,data-scientist,ds,cd
+50,usgs-bcb/prov-it,prov-tutorial.ipynb,initiative/institute,academic,ls,td
+52,nanomishka/ods_ml,docker_files/check_docker.ipynb,industry,data-scientist,ds,ex
+53,ucbrise/flor-camp2018,src/tutorial.ipynb,academia,academic,ds,cd
+55,jackdesmarais/DabTransporterPaper,scripts/Figure\ 1\ Library\ Construction.ipynb,academia,academic,ls,ex
+56,RafaelGoncalves8/breaking-captcha,deliver/Break\ captcha.ipynb,academia,student,en,pa
+57,GoSAUN/Hartmann,Codes/Graficas\ \ Hartmann.ipynb,academia,student,ps,ex
+58,josmanual/finde,finde.ipynb,academia,academic,cs,ex
+61,aterrel/HPCPythonSC2012,03_Scaling_Python.ipynb,academia,academic,cs,cd
+62,LiChangNY/jarvis,jarvis/test.ipynb,unknown,unknown,?,td
+63,jclifton333/glucose,notebooks/model-smoothed-fitted-q.ipynb,academia,academic,ms,ex
+64,angadkalra/QuantumComputingProject,StructBalance/DataExperiments.ipynb,academia,student,ds,ex
+65,llv22/tensorflow_srclearnt,tensorflow/contrib/eager/python/examples/nmt_with_attention/nmt_with_attention.ipynb,industry,technical-writer?,ds,td
+66,s8rhdobi/fuzzingbook,notebooks/MutationFuzzer.ipynb,academia,academic,cs,cd
+68,jpbarto/ml_lifecycle_lab,03\ Hyperparameter\ tuning.ipynb,industry,it,cs,cd
+71,learn-co-students/derivative-rules-nyc-ds-060319,index.ipynb,for-profit-education,educator,ds,cd
+72,milanchestojanovic/TestRepo,pileUpFilter/notebook/pileUpFilterMustRead.ipynb,academia,academic,ps,ex
+73,brunoalvarez89/PrestamoBanco,prestamo_banco.ipynb,academia,academic,ds,ex
+74,annafeit/optimizing-the-french-keyboard,Define\ scenario\ and\ optimize.ipynb,academia,academic,cs,ex
+75,unccv/neural_networks,notebooks/A\ Brief\ History\ of\ Neural\ Networks.ipynb,unknown,unknown,ds,cd
+76,kurtrm/navigation_lights_ml,nav_lights_analysis.ipynb,industry,data-scientist,ds,ex
+77,kangwonlee/test-pytest-xdist-py36,Ch05_Stress.in.Beams/ex05.004.numpy_sympy.BendingStress.W200.section_cantilever_m.ipynb,academia,academic,en,cd
+78,naomi-e/ML-hw2,hwa2.ipynb,academia,student,?,cd
+80,ank91/Mixture_Gaussian_CM_of_Planets,List-Misture_G.ipynb,academia,student,ps,cd
+81,cmdavis4/sf-elections,geodatabase_from_source_data.ipynb,unknown,unknown,ds,ex
+83,WilliamJCole/IS352_Week_7,IS362\ Week\ 7\ Assignment.ipynb,academia,student,cs,pa
+84,meidata/sentiment_analysis,scrap-user-review.ipynb,unknown,unknown,ds,ex
+85,christopherhadley/kaggle-housing,kaggle-housing.ipynb,industry,data-scientist,ds,ex
+89,maruf90/Google-s-TensorFlow,tensorflow/examples/udacity/1_notmnist.ipynb,industry,researcher,ds,cd
+90,opesci/devito,examples/seismic/tutorials/02_rtm.ipynb,academia,academic,ms,td
+93,warsi22/handdetection,samples/core/tutorials/keras/overfit_and_underfit.ipynb,industry,software-engineer,ds,td
+96,AISpace2/AISpace2,notebooks/search/search.ipynb,academia,software-engineer,cs,cd
+97,vuillaut/cta-lstchain,notebooks/tutorial_gammalearn.ipynb,academia,academic,ps,td
+99,hananiel/gcptraining,blogs/babyweight/babyweight.ipynb,industry,data-scientist,ds,td
+100,jltobias/ArcGIS,labs/create_data.ipynb,industry,software-engineer,cs,pa
+101,edrias/seniorprojecteeg-master-fork,PCA/Emmanuil-PCA.ipynb,academia,student,cs,ex
+102,davenquinn/Attitude,docs/example-notebooks/Plotting-Interactive.ipynb,academia,academic,es,td
+103,van-dang/FEniCS-Colab,FDM_FEM_1D.ipynb,academia,academic,ms,cd
+108,acesaif/ml_crash_course,self_practice/trading/part_1/project_1/portfolio_optimization.ipynb,unknown,unknown,?,pa
+109,leftaroundabout/linearmap-family,test/matrices.ipynb,academia,student,es,td
+110,bjodah/pyneqsys,examples/chem_equil_ammonia.ipynb,academia,academic,ms,td
+112,r-jain/aima-python,rl.ipynb,academia,student?,ds,cd
+113,andrewfhughes/CFD_1,lessons/05_Step_4.ipynb,academia,academic,en,cd
+114,manhcuogntin4/handwritting-ocr,GapClassifier-BiRNN.ipynb,academia,student,ds,ex
+115,dataforcast/OC_Datascientist,P7/P7_Keras.ipynb,for-profit-education,educator,ds,ex
+116,christinabejjani/controltransfer,expt1/analysis/SSAnalysis.ipynb,academia,academic,ls,ex
+117,Merinorus/adaisawesome,Homework/03\ -\ Interactive\ Viz/HW3_Interactive_Viz.ipynb,academia,student,cs,pa
+119,stanlo229/MicrosoftMLwithPython,Module5/Bias-Variance-Trade-Off.ipynb,academia,academic,ds,cd
+120,mdeff/dlaudio,audio_features.ipynb,academia,academic,ds,ex
+121,dragonfly90/mxnet_Realtime_Multi-Person_Pose_Estimation,testModel.ipynb,academia,academic,ds,ex
+123,h2oai/h2o-3,h2o-docs/src/product/tutorials/gbm/gbmTuning.ipynb,industry,data-scientist,ds,td
+125,kgcornell/Airbnb-Price-and-Occupancy-Rate-Prediction-in-Seattle,Project.ipynb,academia,student,ds,pa
+126,julienroy13/COMP767-assignments,Week2-MDP/dynamicProgramming.ipynb,academia,student,ds,pa
+128,lucasputer/CienciaDeDatos,tp4/TP4.ipynb,academia,student,ds,pa
+129,IBM/powerai-transfer-learning,notebooks/Classifying-House-And-Pool-Images.ipynb,industry,educator?,ds,td
+130,BouchardLab/cv_paper_plots,accuracy_slope/accuracy_slope.ipynb,academia,academic,ls,ex
+131,aMartin6/Final_Project,Final_Project.ipynb,academia,student,ms,pa
+132,CFerraren/PyBank,2-EDA.ipynb,unknown,unknown,ds,ex
+133,yyu/jupyter_scratchbook,ipyleaflet.ipynb,unknown,unknown,cs,ex
+135,simonvdberg/POC,LocCat.ipynb,unknown,unknown,?,ex
+136,Petelr/ml2019,Proj2_Linear\ Classification.ipynb,academia,student,ds,pa
+137,ChrisMats/MusicGAN,src/MusicGan.ipynb,academia,academic,ds,pa
+139,cabb99/IntroCompBio,PreProcessing.ipynb,academia,academic,ls,pa
+141,KevinKrupa13/HackingChallenges,sorting_searching/selection_sort/selection_sort_solution.ipynb,industry,software-engineer,cs,cd
+142,Moony2D/CME-LMU,Lecture3_SLE/Lecture3_SLE.ipynb,academia,academic,ss,cd
+143,aalto1/digitalepidemiology,influenza.ipynb,academia,student,ds,pa
+144,dogeplusplus/AIND-RecurrentNeuralNetworks,RNN_project.ipynb,industry,researcher,ds,pa
+145,tkawchak/KaggleResearch,AutomatedModelBuilding/DataProcessing.ipynb,industry,software-engineer,ds,ex
+148,Keyrat06/Gaussian_Processes,P-Set/Gaussian\ PSet.ipynb,academia,academic,ds,pa
+150,remyclem/CartPole-RL,Reinforcement_CartPole.ipynb,industry,data-scientist,ds,ex
+152,Bjarten/numpy-tutorial,numpy-examples.ipynb,industry,data-scientist,ds,td
+153,olemke/linemixing-test,linemixing.ipynb,academia,academic,es,ex
+154,arvindshekar07/MachineLearning,Assignement1/Ass1.ipynb,academia,student,cs,pa
+156,tukichen/Bayesian_AB_testing,Bayesian_AB_testing.ipynb,academia,academic,ds,ad
+159,PeteLowth/glm-utils,glm-build.ipynb,industry,data-scientist,ds,ex
+160,nskh/grads,lqr.ipynb,academia,researcher,ds,ex
+161,adrifmonte/finding-donors,finding_donors.ipynb,industry,software-engineer,cs,pa
+162,maplezzz/Leetcode,Easy.ipynb,academia,student,cs,pa
+163,tensorflow/agents,tf_agents/colabs/2_environments_tutorial.ipynb,open-source,researcher,ds,td
+164,cmaumet/nipype_tutorial,notebooks/introduction_python.ipynb,academia,academic,ls,cd
+165,epfml/ML_course,labs/ex03/template/ex03.ipynb,academia,academic,ds,cd
+168,smeingast/PNICER,notebooks/pnicer.ipynb,academia,academic,ps,td
+170,Dev-Jahn/sofcon,recomm/vectorize_tag.ipynb,academia,student,?,ex
+174,vangj/py-bbn,jupyter/generate-bbn.ipynb,industry,data-scientist,ds,td
+175,juditacs/morph-segmentation,notebooks/sandbox/seq2seq_attention.ipynb,academia,academic,ss,ad
+176,avlbanuba/tensorflow_pack,tensorflow/examples/udacity/5_word2vec.ipynb,open-source,researcher,ds,cd
+177,jutanke/pak,samples/MARCOnI.ipynb,academia,academic,ds,td
+178,annalisasheehan/masters,RasterstatsFromXArray.ipynb,academia,student,es,ex
+179,jakevdp/PythonDataScienceHandbook,notebooks/00.00-Preface.ipynb,academia,academic,ps,cd
+181,TanUkkii007/PRML,ch05/problems_21-41.ipynb,academia,academic,ds,pa
+182,florisdf/hoe-zit-het,content/lessen/wiskunde/functies/grafiek/grafieken.ipynb,academia,academic,ds,cd
+183,gopala-kr/qiskit-tutorial,1_introduction/running_on_IBM_DSX.ipynb,industry,software-engineer,cs,td
+184,tjwei/NDHU_AM1130,2018_Week07_Paint.ipynb,academia,academic,ds,cd
+185,phys201/nsdmd,model.ipynb,academia,academic,ps,td
+186,gkbharathy/Py_ML_Book_Raschka,code/ch08/ch08.ipynb,academia,academic,ds,cd
+188,mgribov/coursera-uw-ml,course-4/2_kmeans-with-text-data_blank.ipynb,open-source,software-engineer,ds,pa
+189,zach401/acnportal,tutorials/lesson1_running_an_experiment.ipynb,academia,academic,en,cd
+190,nthiery/harmonic-modules,compute_character.ipynb,academia,academic,ms,ex
+191,sandiegodata-projects/holagonzalo,SDCrime.ipynb,unknown,unknown,ss,ex
+192,doppelgenkan/activity,up-down_stairs/up-down_stairs.ipynb,medical,academic,md,ex
+193,jpbacher/foreclosures,06_FinalScript.ipynb,industry,finance,fn,ex
+194,manantomar/test,doc/ipython-notebooks/classification/MKL.ipynb,industry,data-scientist,ds,td
+196,tonydisera/w207_6_sum19_g5_final_project,merge_pancancer_somatic_mutations/Logistic_regression.ipynb,medical,software-engineer,cs,ex
+200,DrSoap/SSY226_Energy_Consumption,Setup.ipynb,academia,student,en,ex
+201,leemengtaiwan/leemengtaiwan.github.io,notebooks/neural-machine-translation-with-transformer-and-tensorflow2.ipynb,industry,data-scientist,ds,ad
+203,alchy/Tensorflow-101,expl_01_introduction.py.ipynb,unknown,unknown,?,cd
+204,ChasNelson1990/python-1day-course,notebooks/06_python-loops.ipynb,academia,academic,ls,cd
+207,forrestsheldon/memNets,Histograms.ipynb,academia,academic,ps,ex
+208,sergegoussev/training_and_experiments,walkthroughs/Visualizing_netwroks_in_igraph.ipynb,academia,academic,ss,td
+210,paul-shannon/cyjs-jupyter,self-contained-notebooks/simple/waitOnBrowserResponse.ipynb,academia,academic,ls,ex
+211,mojia/rocket,RocketRegression.ipynb,unknown,unknown,?,ex
+212,gshind/NYCTraffic,RegionsBarCode.ipynb,academia,student,ms,ex
+213,Guoleming/Caffewindows,examples/detection.ipynb,academia,academic,ds,td
+214,jessehahm/SlopeAreaAnalysis,SlopeAreaAnalysis.ipynb,academia,academic,es,ex
+215,willijm92/willijm92-repo,Continuum_blog_post/Jupyter_notebook_files/blog_post_notebook.ipynb,initiative/institute,?,en,ad
+217,ZaraYar/Analyzing-NYC-High-School-Data,Basics.ipynb,industry,data-scientist,ds,ex
+218,WillieMaddox/MixSig,mixsig.ipynb,industry,data-scientist,ds,ex
+219,Vaibhav488/DataScience-iPython-notebooks,kaggle/titanic.ipynb,industry,software-engineer,cs,cd
+221,Rishivikram1/mxnet,chapter02_supervised-learning/softmax-regression-scratch.ipynb,academia,academic,ds,cd
+222,axsh/nii-project-2016,notebooks/103_jenkins_job_execution_script.ipynb,industry,it,cs,cd
+223,IvanBrasilico/ajna_docs,notebooks/ContainerDetectionTraining1.ipynb,government-agency,customs,cs,ex
+224,jpcolino/IPython_notebooks,Multiprocessing\ MonteCarlo\ Simulation.ipynb,industry,finance,fn,ex
+225,odebeir/info-h-500-501,05-Morphomathematics/01-Operators.ipynb,academia,academic,cs,cd
+226,ekostat/ekostat_calculator,notebooks/lv_notebook_Indicator-Copy1.ipynb,initiative/institute,academic,es,ex
+227,188xuhe/handson-ml,13_convolutional_neural_networks.ipynb,industry,educator,ds,cd
+229,youfengx/deep-learning,gan_mnist/Intro_to_GANs_Exercises.ipynb,industry,educator,ds,pa
+230,qwretz/fpraktikum,Dynamic\ Light\ Scattering/Struktur.ipynb,academia,academic,ps,ex
+231,AlexlwAstro/phd_work,franec_stampe_plots.ipynb,academia,academic,ps,ex
+232,tralpha/spotify-project,DataLoader.ipynb,academia,student,cs,pa
+233,SlaybaughLab/88_Data,Experiments/PHS/33MeVTa_29-31Mar17/33MeVTa_BeamOnly.ipynb,academia,academic,ps,ex
+234,invibe/ANEMO,dev/2018-06-08_Fit_position.ipynb,academia,academic,ls,ex
+236,compercept/acm2017_abc,notebooks/Tuberculosis.ipynb,academia,academic,ls,td
+238,schen57/AI-ML-DL-Playground,Local\ Python/AI-ML-DL\ Algorithms/LSTM\ Neural\ Networks/Time\ Series\ Forecasting\ with\ the\ Long\ Short-Term\ Memory\ Network\ in\ Python.ipynb,industry,it,ds,ex
+240,rambandaru/MAE6286,Assignments/Assign_2.ipynb,academia,student,en,pa
+241,dpploy/engy-4350,notebooks/02b-cumulative-fission-product-yields.ipynb,academia,academic,en,cd
+242,pythonsd/intro-to-python,part-1.ipynb,industry,software-engineer,cs,cd
+243,tessadgreen/cellfate,model.ipynb,academia,academic,ls,ex
+244,hfoffani/tensorflow-dl,4_convolutions.ipynb,industry,software-engineer,cs,pa
+246,yoshihikosuzuki/BITS,docs/usage.ipynb,academia,academic,ls,td
+247,jinjagit/JupyterNotebooks,test.ipynb,industry,software-engineer,cs,ex
+248,rfeinman/hw-mathtools,Feinman_Reuben_HW6/hw6.ipynb,academia,academic,ls,pa
+249,kaiszybiak/RoboND-Rover-Project,code/Rover_Project_Test_Notebook.ipynb,industry,software-engineer,cs,pa
+250,joanna-lewis/ct_surveillance,three_compartment_model/three_compartment_model.ipynb,academia,academic,ls,ex
+251,fanxiao001/ift6135-assignment,assignment4/ift6135_hwk4.ipynb,academia,student,ds,pa
+252,jangeloni/challenge_amadeus,second_exercise.ipynb,industry,data-scientist,ds,pa
+254,CyrilWendl/SIE-Project,Code/decision_tree.ipynb,academia,student,es,pa
+255,AUP-CS2091/class,week1/lab01/lab01.ipynb,academia,academic,cs,cd
+257,dsqx71/Social_Media_Cascade_Prediction,main.ipynb,academia,student,ds,ex
+258,kent-huynh/ucb_project_1,Python\ Analytics\ -\ Best\ Region\ for\ Undergrad\ Degrees.ipynb,academia,student,fn,pa
+259,cbelyea/LRMF-Biodiversity-BAP,Large_River_Monitoring_Forum_Biodiversity_Indices_Analysis.ipynb,academia,academic,ls,ex
+260,wakemeup-xyz/TianChi_IJCAI-17_sales_prediction_code,Prediction.ipynb,unknown,unknown,?,ex
+261,GuilhermeFreire/Keystrokes,Keystroke\ Analysis.ipynb,unknown,unknown,?,ex
+262,AgremE/Hand_Signs_Recognizer,asl_recognizer.ipynb,for-profit-education,educator,cs,cd
+263,guneykan/montecarlo,PS3/PS3.ipynb,academia,student,en,pa
+264,ColiLea/prosodyAOA,egemap_prosody_feature_analysis.ipynb,academia,academic,ds,ex
+265,davidbrochart/pangeo-streamflow,notebooks/amazonas_fit.ipynb,industry,software-engineer,es,ex
+266,developer-smartwebzone/data-visualization,location-history/visualize-location-history.ipynb,academia,academic,ss,ex
+267,pradau/python_for_psychologists,Python_for_Psychologists.ipynb,academia,academic,md,cd
+268,KDD-OpenSource/wRaR,examples/test_run.ipynb,academia,academic,ds,td
+269,babinyurii/cheet_sheets,matplotlib_cheet_sheet.ipynb,academia,academic,ls,td
+270,barrasa8/GA_DS_FinalProject,code/GA_FinalProject_TimeSeries_ActiveUsers.ipynb,academia,student,cs,pa
+271,roshcagra/Shakespearebot,hmm-rhyme-and-meter.ipynb,academia,student,cs,pa
+272,djaballah/Stack-Overflow-2018-Developer-Survey-Analysis,Simple Eda.ipynb,industry,software-engineer,cs,ex

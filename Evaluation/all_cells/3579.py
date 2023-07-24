@@ -1,0 +1,1 @@
+dw_obj.classification_results[wb]['mean_EQR_by_year']#.dropna(subset = ['mean_ek_value'])

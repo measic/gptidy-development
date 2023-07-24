@@ -1,0 +1,1 @@
+character(IsotypicComponent(W1, 3))

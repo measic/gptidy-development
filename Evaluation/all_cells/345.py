@@ -1,0 +1,1 @@
+sigma_AB_Pa.subs(s_d).subs(x, x_B_m) * 1e-6

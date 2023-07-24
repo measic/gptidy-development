@@ -1,0 +1,1 @@
+doripa.corr()['scores'].sort_values()

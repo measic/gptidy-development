@@ -1,0 +1,1 @@
+U, Sigma, Vt = np.linalg.svd(norm_keystrokes)

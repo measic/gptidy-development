@@ -1,0 +1,1 @@
+stats.ttest_rel(posttest.Q2_SceneColorScheme, posttest.Q2_SceneTreeFrequency)

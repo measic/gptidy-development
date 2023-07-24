@@ -1,0 +1,1 @@
+map1.on_click(create_feature)

@@ -1,0 +1,1 @@
+tsne_embedded = TSNE(n_components=2).fit_transform(lstm_embedding[idx_most_freq])

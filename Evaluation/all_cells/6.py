@@ -1,0 +1,1 @@
+print('Number of features in the dataset: ', wine_data.data.shape[1])

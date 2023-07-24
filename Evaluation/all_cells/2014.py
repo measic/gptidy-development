@@ -1,0 +1,2 @@
+#Close Reader
+myLogReader.closeReader()

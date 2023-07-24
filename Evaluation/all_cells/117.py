@@ -1,0 +1,5 @@
+plt.figure(figsize=(6, 8))
+plt.imshow(example_image)
+plt.title("{}x{}".format(example_image.shape[1], example_image.shape[0]))
+plt.axis("off")
+plt.show()

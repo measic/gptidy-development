@@ -1,0 +1,1 @@
+test_images_np_gray = normalize_and_grayscale(test_images_np)

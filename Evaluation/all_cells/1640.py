@@ -1,0 +1,1 @@
+plot_stacked_scores(sunshine_sessions)

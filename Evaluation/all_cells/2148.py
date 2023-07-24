@@ -1,0 +1,1 @@
+all_df['Created At DOW'] = all_df['Created At'].dt.dayofweek

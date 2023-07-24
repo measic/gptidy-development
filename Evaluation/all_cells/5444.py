@@ -1,0 +1,1 @@
+collection.add_objects(json.loads(Bundle(ta).serialize()))

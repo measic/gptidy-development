@@ -1,0 +1,1 @@
+result.Difference.value_counts()

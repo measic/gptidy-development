@@ -1,0 +1,1 @@
+black_array = np.array(black, dtype=np.uint8)

@@ -1,0 +1,1 @@
+dw_obj = w.get_step_object(step=3, subset=subset_uuid).indicator_objects[indicator]

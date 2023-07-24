@@ -1,0 +1,1 @@
+blue, *_ = sns.color_palette()

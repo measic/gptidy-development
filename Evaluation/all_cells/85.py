@@ -1,0 +1,7 @@
+print("VALID:")
+print(np.array([1,2,3,4,5,6]).T.dot(filter_primes))
+print(np.array([6,7,8,9,10,11]).T.dot(filter_primes))
+print("SAME:")
+print(np.array([0,1,2,3,4,5]).T.dot(filter_primes))
+print(np.array([5,6,7,8,9,10]).T.dot(filter_primes))
+print(np.array([10,11,12,13,0,0]).T.dot(filter_primes))

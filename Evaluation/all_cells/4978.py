@@ -1,0 +1,1 @@
+derivative_of(four_x_plus_fifteen, 3, 2) # 4.0

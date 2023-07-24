@@ -1,0 +1,1 @@
+save_fasta(seqs, "sample.out.fasta")

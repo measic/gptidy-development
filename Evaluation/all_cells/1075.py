@@ -1,0 +1,1 @@
+util.draw_predictive_probabilities(f_bar, x_new, x, y)

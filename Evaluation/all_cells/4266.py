@@ -1,0 +1,1 @@
+samples.plot(kind='bar', figsize=(10, 6))

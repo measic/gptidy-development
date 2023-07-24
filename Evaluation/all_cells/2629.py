@@ -1,0 +1,1 @@
+log_pdi_mcmc = np.log(pdi_mcmc)

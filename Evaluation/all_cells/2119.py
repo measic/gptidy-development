@@ -1,0 +1,1 @@
+gs_lr_tfidf.fit(X_train, y_train)

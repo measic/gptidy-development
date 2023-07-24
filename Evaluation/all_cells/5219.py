@@ -1,0 +1,10 @@
+plt.plot(z, selu(z), "b-", linewidth=2)
+plt.plot([-5, 5], [0, 0], 'k-')
+plt.plot([-5, 5], [-1.758, -1.758], 'k--')
+plt.plot([0, 0], [-2.2, 3.2], 'k-')
+plt.grid(True)
+plt.title(r"SELU 활성화 함수", fontsize=14)
+plt.axis([-5, 5, -2.2, 3.2])
+
+save_fig("selu_plot")
+plt.show()

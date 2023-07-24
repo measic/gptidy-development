@@ -1,0 +1,1 @@
+shop_info['wave_model1_1']

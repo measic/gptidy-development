@@ -1,0 +1,11 @@
+tar_padding_mask = create_padding_mask(tar)
+look_ahead_mask = create_look_ahead_mask(tar.shape[-1])
+combined_mask = tf.maximum(tar_padding_mask, look_ahead_mask)
+
+print("tar:", tar)
+print("-" * 20)
+print("tar_padding_mask:", tar_padding_mask)
+print("-" * 20)
+print("look_ahead_mask:", look_ahead_mask)
+print("-" * 20)
+print("combined_mask:", combined_mask)

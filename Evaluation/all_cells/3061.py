@@ -1,0 +1,1 @@
+print('RMSE = {}'.format(np.sqrt(74)))

@@ -1,0 +1,1 @@
+clf = clf.partial_fit(X_test, y_test)

@@ -1,0 +1,1 @@
+log_and_placements_aggregated_per_week_df.isna().sum()

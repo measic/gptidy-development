@@ -1,0 +1,1 @@
+four_x_plus_fifteen = [(4, 1), (15, 0)]

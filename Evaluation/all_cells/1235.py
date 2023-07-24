@@ -1,0 +1,1 @@
+shop_info.loc[:,'predict_day_1':'predict_day_14'].to_csv('Prediction (Main model 2).csv',sep=',',index=True,columns=None)

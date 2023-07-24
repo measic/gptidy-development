@@ -1,0 +1,1 @@
+treino.groupby(['Sobreviventes','Idade','SexoNum'], as_index=False).size())

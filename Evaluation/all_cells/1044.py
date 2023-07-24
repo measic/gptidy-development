@@ -1,0 +1,1 @@
+Stest1_z.dot(beta4)

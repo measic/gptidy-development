@@ -1,0 +1,1 @@
+After2009 = subset.sel(time=slice('2009', '2016'))

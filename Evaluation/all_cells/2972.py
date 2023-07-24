@@ -1,0 +1,1 @@
+runClassifier('best_fit_15000_allgenes', logit_c_param=.12, svm_c_param=.01)

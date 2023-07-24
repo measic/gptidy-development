@@ -1,0 +1,1 @@
+plot_history(histories['focus'], label="focus")

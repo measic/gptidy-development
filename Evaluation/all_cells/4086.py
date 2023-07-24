@@ -1,0 +1,1 @@
+degree_dict = nx.algorithms.centrality.degree_centrality(gig_comp_graph)

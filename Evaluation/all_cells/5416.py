@@ -1,0 +1,6 @@
+# Colored: (None, 32, 32, 3)
+# Gray: (None, 32, 32, 1)
+x = tf.placeholder(tf.float32, (None, 32, 32, 1))
+y = tf.placeholder(tf.int32, (None))
+keep_prob = tf.placeholder(tf.float32)
+one_hot_y = tf.one_hot(y, n_classes)

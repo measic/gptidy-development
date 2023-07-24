@@ -1,0 +1,1 @@
+plot_categorical_count(df, 'Student', title='Number Of Student', limit=3)

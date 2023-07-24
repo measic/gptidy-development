@@ -1,0 +1,1 @@
+w.get_step_object(step = 2, subset = subset_uuid)._indicator_setting_files['oxygen']

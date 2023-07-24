@@ -1,0 +1,1 @@
+train.groupby('Sobreviventes').size()

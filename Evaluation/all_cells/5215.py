@@ -1,0 +1,10 @@
+plt.plot(z, elu(z), "b-", linewidth=2)
+plt.plot([-5, 5], [0, 0], 'k-')
+plt.plot([-5, 5], [-1, -1], 'k--')
+plt.plot([0, 0], [-2.2, 3.2], 'k-')
+plt.grid(True)
+plt.title(r"ELU 활성화 함수 ($\alpha=1$)", fontsize=14)
+plt.axis([-5, 5, -2.2, 3.2])
+
+save_fig("elu_plot")
+plt.show()

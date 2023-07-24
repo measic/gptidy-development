@@ -1,0 +1,1 @@
+asl.df.ix[98,1]  # look at the data available for an individual frame

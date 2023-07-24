@@ -1,0 +1,1 @@
+%timeit -r1 -n1 np.linalg.solve(A, b)

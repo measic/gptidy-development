@@ -1,0 +1,1 @@
+lights_labels = make_target_label_array()

@@ -1,0 +1,1 @@
+%timeit correlation.update_redundancies(k=10, runs=10)

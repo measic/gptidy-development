@@ -1,0 +1,1 @@
+raveled = np.ravel(test_black)

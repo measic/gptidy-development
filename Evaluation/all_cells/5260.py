@@ -1,0 +1,1 @@
+tf.get_default_graph().get_tensor_by_name("hidden1/bias:0")

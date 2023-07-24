@@ -1,0 +1,1 @@
+len(valid_inputs) / trials

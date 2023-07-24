@@ -1,0 +1,15 @@
+#---PLOT---
+fig = plt.figure(1, figsize=(16,8))
+fig.clf()
+ax_train = fig.add_subplot(121)
+ax_train.scatter(c1.train[:,0], c1.train[:,1], label="Class +1")
+ax_train.scatter(c2.train[:,0], c2.train[:,1], label="Class -1")
+ax_train.legend()
+ax_train.set_title("Fig 1. Training Data")
+
+ax_test  = fig.add_subplot(122)
+ax_test.scatter(c1.test[:,0], c1.test[:,1], label="Class +1")
+ax_test.scatter(c2.test[:,0], c2.test[:,1], label="Class -1")
+ax_test.legend()
+ax_test.set_title("Fig 2. Testing Data")
+plt.show()

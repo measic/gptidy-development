@@ -1,0 +1,1 @@
+print "Coeficiente de Clustering C para la componente gigante: " + str(nx.average_clustering(gig_comp_graph))

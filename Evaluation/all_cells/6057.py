@@ -1,0 +1,1 @@
+predict(x, P, F, Q)[0] == predict(x, P, F, Q, B, u)[0]

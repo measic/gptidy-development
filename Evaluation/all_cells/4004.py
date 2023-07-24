@@ -1,0 +1,1 @@
+sampleLinearFunction $ (scale $ 3) :: ℝ³+>ℝ³

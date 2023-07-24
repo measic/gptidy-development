@@ -1,0 +1,1 @@
+wiki['tf_idf'] = graphlab.text_analytics.tf_idf(wiki['text'])

@@ -1,0 +1,1 @@
+print("This {verb} a {noun}.".format(noun = "test", verb = "is"))

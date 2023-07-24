@@ -1,0 +1,1 @@
+train_dropna.groupby('Sobreviventes').size()

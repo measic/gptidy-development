@@ -1,0 +1,1 @@
+shop_info.loc[56,'cos_sim_wk_66']

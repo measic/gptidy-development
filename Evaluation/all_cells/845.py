@@ -1,0 +1,1 @@
+number=(data3["star_name"].value_counts()).to_frame()

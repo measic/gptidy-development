@@ -1,0 +1,1 @@
+stats = stats.dropna(how='all')

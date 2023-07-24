@@ -1,0 +1,1 @@
+x_values and y_values and squared_errors(x_values, y_values, 1.7, 10)

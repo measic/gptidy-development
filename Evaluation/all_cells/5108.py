@@ -1,0 +1,1 @@
+print_full(train.groupby(['Sobreviventes','Idade']).size())

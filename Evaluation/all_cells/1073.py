@@ -1,0 +1,1 @@
+test.test_optimize_theta(optimize_theta, kernel)

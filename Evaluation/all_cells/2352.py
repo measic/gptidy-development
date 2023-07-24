@@ -1,0 +1,2 @@
+init_notebook_mode()
+plot_interactive(collection)

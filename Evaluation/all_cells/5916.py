@@ -1,0 +1,1 @@
+print('Notebook ran in {:2.3} minutes.'.format((time.time()-start)/60))

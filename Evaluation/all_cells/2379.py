@@ -1,0 +1,1 @@
+old_faithful_df = get_rdataset('faithful', cache=True).data[['waiting']]

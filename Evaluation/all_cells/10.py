@@ -1,0 +1,5 @@
+plt.scatter(X_pca[:,0], X_pca[:,1], c=wine_data.target, cmap=plt.cm.spring)
+plt.xlabel('First PCA component', fontsize=15)
+plt.ylabel('Second PCA component', fontsize=15)
+plt.title('Multi-classification problem', fontsize=15)
+plt.show()

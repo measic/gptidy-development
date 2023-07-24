@@ -1,0 +1,1 @@
+display(samples - data.median().round())

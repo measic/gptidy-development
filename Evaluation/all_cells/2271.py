@@ -1,0 +1,1 @@
+np.bincount(cluster_assignment )

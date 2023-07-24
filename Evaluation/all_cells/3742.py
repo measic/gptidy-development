@@ -1,0 +1,1 @@
+pnicer_emap.save_fits(path="/tmp/temp.fits")

@@ -1,0 +1,1 @@
+df_locatie_zwolle.info()

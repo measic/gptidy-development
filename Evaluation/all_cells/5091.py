@@ -1,0 +1,1 @@
+join.dropna().info()

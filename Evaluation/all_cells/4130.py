@@ -1,0 +1,8 @@
+plt.figure(figsize=(5,5))
+plt.plot(theta[xi:xm], omega[xi:xm], c='black')
+plt.plot(theta[xm:xf], omega[xm:xf], c='gray')
+plt.legend(['8002-8581ms', '8581-9160ms'])
+plt.title('knee flexion (up single stair)')
+plt.xlabel('angle [deg]')
+plt.ylabel('angular velocity [deg/sec]')
+plt.grid()

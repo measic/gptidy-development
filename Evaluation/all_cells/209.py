@@ -1,0 +1,1 @@
+!wget https://cdn.vox-cdn.com/thumbor/Rv6puhh0PoNohMGpSHUlADnhTPI=/0x0:3508x2481/920x613/filters:focal(1474x961:2034x1521):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/59319583/A182669_medium.0.jpg

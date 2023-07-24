@@ -1,0 +1,8 @@
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state= 5)
+X_train = X_train.copy()
+X_test = X_test.copy()
+print(X_train.shape)
+print(y_train.shape)
+print(X_test.shape)
+print(y_test.shape)
+X_train.head()

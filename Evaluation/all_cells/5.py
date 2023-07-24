@@ -1,0 +1,1 @@
+print('Distribution of our targets: ', np.unique(wine_data.target, return_counts=True)[1])

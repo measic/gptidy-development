@@ -1,0 +1,1 @@
+obj = load_pickle("sample.pkl")

@@ -1,0 +1,1 @@
+uniao_dropna.corr(method='spearman')

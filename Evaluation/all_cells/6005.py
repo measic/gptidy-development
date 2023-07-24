@@ -1,0 +1,1 @@
+qgrid.show_grid(df.doc_sent, export_mode=True)

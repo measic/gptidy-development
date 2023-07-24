@@ -1,0 +1,2 @@
+print('Highest monthly Revenue of $%.2f recorded on %s/%s.' %(dfm.Revenue.max(),dfm.Revenue.idxmax()[0], dfm.Revenue.idxmax()[1] ))
+print('Biggest monthly Loss of $%.2f recorded on %s/%s.' %(dfm.Revenue.min(),dfm.Revenue.idxmin()[0], dfm.Revenue.idxmin()[1] ))

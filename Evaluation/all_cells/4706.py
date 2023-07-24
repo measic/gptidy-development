@@ -1,0 +1,6 @@
+figure()
+plot(x, y, 'r')
+xlabel('x')
+ylabel('y')
+title('title')
+show()

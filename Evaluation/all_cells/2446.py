@@ -1,0 +1,1 @@
+d = DotPlot(gepard_command, out_dir)

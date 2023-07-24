@@ -1,0 +1,1 @@
+stats.ttest_1samp(posttest.Q3_SCT_ForcedChoicePerformance,2)

@@ -1,0 +1,1 @@
+plot_categorical_count(df, 'Hobby', title='Number of respondent who code as a hobby vs who don\'t')

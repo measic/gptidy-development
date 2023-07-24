@@ -1,0 +1,1 @@
+BOOKINGS_DF_STRUCT.info()

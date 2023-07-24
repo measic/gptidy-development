@@ -1,0 +1,1 @@
+Freq_plot(CR = CR, num_tests=3, Bayes = TRUE)

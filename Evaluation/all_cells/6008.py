@@ -1,0 +1,1 @@
+qgrid.show_grid(df.valence_arousal, export_mode=True)

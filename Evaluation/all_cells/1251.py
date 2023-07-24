@@ -1,0 +1,11 @@
+f5 = plt.figure(5,figsize=(8,8))
+f5.clf()
+ax5 = f5.add_subplot(111)
+ax5.plot(a1, a2, marker=".", label='Decision boundry', c="black")
+ax5.scatter(c1.test[:,0], c1.test[:,1], label="Class +1")
+ax5.scatter(c2.test[:,0], c2.test[:,1], label="Class -1")
+ax5.scatter(qda_miss[:,0],qda_miss[:,1], label="Misclassificated", c="yellow")
+
+ax5.legend()
+ax5.set_title("Fig 5. QDA Classification. ")
+plt.show()

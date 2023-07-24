@@ -1,0 +1,1 @@
+bow_images_gt_50m = bow_lights_gt_50m()

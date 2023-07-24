@@ -1,0 +1,1 @@
+print('Type of data in the wine_data dictionary: ', list(wine_data.keys()))

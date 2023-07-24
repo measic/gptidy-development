@@ -1,0 +1,1 @@
+data_full.loc[:,floats] = numeric_features_st

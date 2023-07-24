@@ -1,0 +1,1 @@
+Grafica("Bx.dat","By.dat","x.dat","z.dat",32)

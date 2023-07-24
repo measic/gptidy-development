@@ -1,0 +1,1 @@
+### TODO: Obtain bottleneck features from another pre-trained CNN.

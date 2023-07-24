@@ -1,0 +1,1 @@
+util.temperature_example(regression_GP, regression_optimize_theta, periodic_kernel, [1, 1, 1, 0.01])

@@ -1,0 +1,5 @@
+plt.pcolormesh(x_m_grid, y_m_grid, sigma_Pa_grid, cmap='jet', shading='flat')
+plt.xlabel('x(m)')
+plt.ylabel('y(m)')
+plt.colorbar()
+plt.show()

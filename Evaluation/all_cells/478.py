@@ -1,0 +1,1 @@
+y_pred = y_prob.idxmax(axis=1)

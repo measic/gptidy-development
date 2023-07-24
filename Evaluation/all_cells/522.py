@@ -1,0 +1,6 @@
+# model = torch.load('models/simple.model').cuda()
+# print('Perplexity:', 2**np.mean([test_model(model, 'data/tiny-shakespeare/test.txt') for _ in range(1)]))
+model_lstm = torch.load('models/shake_2x128_lstm_3000').cuda()
+print('Perplexity:', 2**np.mean([test_model(model_lstm, 'data/tiny-shakespeare/test.txt') for _ in range(1)]))
+model_gru = torch.load('models/shake_2x128_gru_3000').cuda()
+print('Perplexity:', 2**np.mean([test_model(model_gru, 'data/tiny-shakespeare/test.txt') for _ in range(1)]))

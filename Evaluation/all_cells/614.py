@@ -1,0 +1,6 @@
+plt.figure(figsize = (15,5))
+plt.plot(earthquakeTimes, earthquakeMagnitudes, "b-o")
+plt.title("Earthquake Magnitudes")
+plt.xlabel("Time of earthquake")
+plt.ylabel("Earthquake Magnitude")
+plt.show()

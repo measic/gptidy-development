@@ -1,0 +1,1 @@
+data_full[data_full['RoofMatl'] == 'ClyTile']['SalePrice']

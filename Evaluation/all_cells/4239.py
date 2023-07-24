@@ -1,0 +1,1 @@
+check('tests/q232.py')

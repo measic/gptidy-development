@@ -1,0 +1,1 @@
+model.load_weights('saved_models/weights.best.from_scratch.hdf5')

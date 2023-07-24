@@ -1,0 +1,1 @@
+summary(lin_mod)$coefficients

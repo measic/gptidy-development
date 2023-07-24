@@ -1,0 +1,1 @@
+[v.name for v in tf.trainable_variables()]

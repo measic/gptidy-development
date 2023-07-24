@@ -1,0 +1,1 @@
+data.symbol.unique()[:50]

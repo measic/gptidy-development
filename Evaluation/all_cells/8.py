@@ -1,0 +1,1 @@
+print('Standard deviation of each feature after standardization: ', np.std(wine_data.data, axis=0))

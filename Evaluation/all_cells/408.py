@@ -1,0 +1,11 @@
+plt.plot(x,Bx[16,:],"b", label = "Simulacion")
+#axarr[1].plot(X,uesc*uy(X,nul,gl,Pl),"r+", label = "Teorica")
+#axarr[1].set_ylim(-0.1*uesc,0)
+#axarr[1].legend()
+#axarr[1].grid(True)
+#axarr[1].set_title('Perfil de Velocidad',fontsize = 20,y=1.0)
+#axarr[1].set_xlabel("$x[m]$",fontsize = 20)
+#axarr[1].set_ylabel("$v[m/s]$",fontsize =20)
+#axarr[1].tick_params(axis="x", labelsize=20)
+#axarr[1].tick_params(axis="y", labelsize=20)
+Bz[32,:]

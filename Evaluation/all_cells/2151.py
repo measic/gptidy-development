@@ -1,0 +1,1 @@
+all_df['Duration'] = (all_df['Completed At'] - all_df['Created At'])

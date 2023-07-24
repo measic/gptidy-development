@@ -1,0 +1,2 @@
+### Join
+join.isnull().sum()

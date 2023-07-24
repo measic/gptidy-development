@@ -1,0 +1,1 @@
+dw_obj.get_filtered_data(subset = subset_uuid, step = 'step_2', type_area = 22, indicator = 'din_winter')[['DIN']].dropna()

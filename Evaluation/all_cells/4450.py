@@ -1,0 +1,1 @@
+gbrt.predict([[0.2]])

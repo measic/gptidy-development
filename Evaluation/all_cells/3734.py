@@ -1,0 +1,1 @@
+science.mag2color().plot_combinations_kde()

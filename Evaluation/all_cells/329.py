@@ -1,0 +1,1 @@
+R_D_N = sy.Symbol('R_{D}[N]')

@@ -1,0 +1,1 @@
+print(whatever[:-12:4])

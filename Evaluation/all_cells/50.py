@@ -1,0 +1,1 @@
+!aws s3 sync {hpo_data_folder} {s3_hpo_uri}

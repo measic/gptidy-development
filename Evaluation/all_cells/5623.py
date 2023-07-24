@@ -1,0 +1,1 @@
+sn.plot_spec()

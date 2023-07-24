@@ -1,0 +1,1 @@
+qp = QuantumProgram(specs=Q_SPECS)

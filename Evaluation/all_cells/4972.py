@@ -1,0 +1,1 @@
+delta_f(four_x_plus_fifteen, 2, 1) # 4

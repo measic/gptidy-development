@@ -1,0 +1,1 @@
+np.unique(np.array(hisdb[0][1])[:,:,:])

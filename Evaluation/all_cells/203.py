@@ -1,0 +1,1 @@
+plt.imshow(img[200:400, 300:500], interpolation='bilinear')

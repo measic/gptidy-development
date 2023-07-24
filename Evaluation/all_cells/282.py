@@ -1,0 +1,1 @@
+combined.plot.scatter("hispanic_per", "sat_score")

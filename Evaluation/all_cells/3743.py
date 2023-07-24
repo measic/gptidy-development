@@ -1,0 +1,1 @@
+pnicer_emap.plot_map(figsize=10)

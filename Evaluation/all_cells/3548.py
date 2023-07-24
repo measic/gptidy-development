@@ -1,0 +1,1 @@
+#ekos.get_workspace(unique_id = workspace_uuid, alias = workspace_alias).delete_alldata_export()

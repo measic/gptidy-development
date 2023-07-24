@@ -1,0 +1,1 @@
+tourney_comp_ratings.head()

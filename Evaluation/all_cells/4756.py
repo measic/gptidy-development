@@ -1,0 +1,1 @@
+print(ps_svm.best_params)

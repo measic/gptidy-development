@@ -1,0 +1,1 @@
+stern_images = stern_light()

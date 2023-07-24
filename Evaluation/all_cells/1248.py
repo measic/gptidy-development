@@ -1,0 +1,1 @@
+qda_acc, qda_miss = qda_accracy()

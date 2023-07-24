@@ -1,0 +1,1 @@
+show_plot([make_scatter(data_x, data_y, text)], make_layout(500, 500, shapes=[shape]))

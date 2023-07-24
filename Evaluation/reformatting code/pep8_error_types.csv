@@ -1,0 +1,12 @@
+E1,Indentation
+E2,Whitespace
+E3,Blank line
+E4,Import
+E5,Line length
+E7,Statement
+E9,Runtime
+W1,Indentation warning
+W2,Whitespace warning
+W3,Blank line warning
+W5,Line break warning
+W6,Deprecation warning

@@ -1,0 +1,1 @@
+log_aggregated_per_week_df.head()

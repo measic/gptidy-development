@@ -1,0 +1,1 @@
+print("str1" + "str2" + "str3")  # strings added with + are concatenated without space

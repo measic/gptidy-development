@@ -1,0 +1,1 @@
+plot_decision_boundary(ada_clf, X, y)

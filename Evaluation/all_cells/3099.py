@@ -1,0 +1,1 @@
+black_array.shape

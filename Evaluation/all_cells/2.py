@@ -1,0 +1,1 @@
+wine_data = load_wine()

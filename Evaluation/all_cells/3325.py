@@ -1,0 +1,1 @@
+!cd bc-1.07.1; ./configure

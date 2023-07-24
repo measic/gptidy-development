@@ -1,0 +1,5 @@
+meanSmoke = dfBabies.loc[dfBabies["smoke"]==1]["weight"].mean()
+medianSmoke = dfBabies.loc[dfBabies["smoke"]==1]["weight"].median()
+meanNSmoke = dfBabies.loc[dfBabies["smoke"]==0]["weight"].mean()
+medianNSmoke = dfBabies.loc[dfBabies["smoke"]==0]["weight"].median()
+print("Mean Smoker: {0:2.2f} \t Median Smoker: {1:2.2f}\nMean Non-Smoker: {2:2.2f}  Median Non-Smoker: {3:2.2f}".format(meanSmoke, medianSmoke, meanNSmoke, medianNSmoke))

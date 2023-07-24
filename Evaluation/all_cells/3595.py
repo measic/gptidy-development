@@ -1,0 +1,1 @@
+B2_NTOT_WINTER_SETTINGS.settings.mapping_water_body['N m Bottenvikens kustvatten']

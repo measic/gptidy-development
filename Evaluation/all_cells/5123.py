@@ -1,0 +1,2 @@
+print(colunasNumericas)
+print(modeloRandomForestClassifier.feature_importances_)

@@ -1,0 +1,1 @@
+cootable = load_coords()

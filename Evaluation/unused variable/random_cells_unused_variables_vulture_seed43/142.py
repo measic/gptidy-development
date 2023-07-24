@@ -1,0 +1,1 @@
+nlist=number.index[number.star_name>2]

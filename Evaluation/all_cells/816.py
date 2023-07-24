@@ -1,0 +1,1 @@
+%timeit -r1 -n1 np.linalg.inv(A) @ b

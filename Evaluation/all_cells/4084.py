@@ -1,0 +1,1 @@
+print "Camino minimo medio L para el grafo random con misma distribucion: " + str(random_average_min_path_length)

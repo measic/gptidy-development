@@ -1,0 +1,5 @@
+plt.scatter(tmap_anno_strict.obs['g0'],tmap_anno_strict.obs['g1'])
+plt.xlabel("g0")
+plt.ylabel("g1")
+plt.title("Input vs Output Growth Rates")
+plt.show()

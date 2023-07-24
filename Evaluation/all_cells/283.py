@@ -1,0 +1,1 @@
+print(combined[combined["hispanic_per"] > 95]["SCHOOL NAME"])

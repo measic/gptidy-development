@@ -1,0 +1,1 @@
+doripa['scores'].corr(doripa['total6'])

@@ -1,0 +1,1 @@
+np.mean(r_precisions)

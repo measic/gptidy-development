@@ -1,0 +1,1 @@
+print('Number of classes: ', len(np.unique(wine_data.target)))

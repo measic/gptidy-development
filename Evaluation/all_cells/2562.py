@@ -1,0 +1,1 @@
+stats.ttest_1samp(posttest.Q2_SceneSkyPresence,50)

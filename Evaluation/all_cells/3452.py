@@ -1,0 +1,1 @@
+print("Name: {}\nNumber: {}\nString: {}".format("Nipype", 3, 3 * "-"))

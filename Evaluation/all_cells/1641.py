@@ -1,0 +1,1 @@
+plot_scores(sunshine_sessions)

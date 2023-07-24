@@ -1,0 +1,1 @@
+print('ROC-AUC score of the model: ', auc_score.numpy())

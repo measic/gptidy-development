@@ -1,0 +1,5 @@
+plt.scatter(X[:,0], X[:,1], c=y, cmap=plt.cm.winter)
+plt.xlabel('First feature', fontsize=15)
+plt.ylabel('Second feature', fontsize=15)
+plt.title('Imbalanced classification example', fontsize=15)
+plt.show()

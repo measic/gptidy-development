@@ -1,0 +1,1 @@
+print "Camino minimo medio L para la componente gigante: " + str(nx.average_shortest_path_length(gig_comp_graph))

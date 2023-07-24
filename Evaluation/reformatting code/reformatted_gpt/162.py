@@ -1,0 +1,1 @@
+plot_categorical_count(df, column='Country', title='Number of respondent per country', limit=10)

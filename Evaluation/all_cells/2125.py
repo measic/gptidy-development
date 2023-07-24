@@ -1,0 +1,1 @@
+cross_val_score(LogisticRegression(), X, y, cv=cv5_idx).mean()
