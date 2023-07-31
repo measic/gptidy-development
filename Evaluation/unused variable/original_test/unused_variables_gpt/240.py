@@ -1,1 +1,0 @@
-### Resposta: Não. Mas futuramente pode ser possível.

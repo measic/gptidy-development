@@ -1,1 +1,0 @@
-rnd_clf.oob_score_

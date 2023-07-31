@@ -1,1 +1,0 @@
-print( np.linalg.norm(np.eye(len(b)) - np.linalg.inv(np.triu(A)) @ A) )

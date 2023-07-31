@@ -1,1 +1,0 @@
-fuzzer(char_start=32, char_range=96)

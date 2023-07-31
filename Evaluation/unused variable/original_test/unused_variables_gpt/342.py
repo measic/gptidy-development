@@ -1,1 +1,0 @@
-gROOT.ProcessLine('sim0->writeStateToDisk("CalibParams_0.txt")')

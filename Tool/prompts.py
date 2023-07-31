@@ -87,37 +87,3 @@ def rename_function(notebook, cell_id, function_name, context):
         {"role" : "assistant", "content" : "Updated code:\n```"}
     ]
     return messages
-
-def remove_unused_variables(notebook, cell_id):
-    cell_src = notebook.get_single_cell(cell_id, include_outputs=False)['src']
-    messages = [
-        {"role": "system", "content": "You are an expert at identifying and removing unused variable definitions in Python code. You are very careful to remove all unused variables without removing any used variables."},
-        {"role": "user", "content": "Remove unused variable definitions in the code delimited by triple backticks. Do not add, remove, or change anything else. Structure your response under the following headings: `Updated code` (the code with the unused variables removed) and `Unused variables` (a list of variable names)."},
-        {"role": "user", "content": f"```{cell_src}```"},
-        {"role": "assistant", "content": "Updated code:\n```"},
-    ]
-    return messages
-
-def remove_unused_functions(notebook, cell_id):
-    cell_src = notebook.get_single_cell(cell_id, include_outputs=False)['src']
-    messages = [
-        {"role": "user", "content": "Remove unused function/method definitions in the code delimited by triple backticks. Do not add, remove, or change anything else."},
-        {"role": "user", "content": "```a = 5\nb=5\n\ndef test():\n    return a + b\nprint(test())```"},
-        {"role": "assistant", "content": "```a = 5\nb=5\n\ndef test():\n    return a + b\nprint(test())```"},
-        {"role": "user", "content": "```c = 5\n\ndef test():\n    a = 5\n    b = 4\n    return a + b```"},
-        {"role": "assistant", "content": f"```c = 5```"},
-        {"role": "user", "content": "```def test():\n    a = 5\n    b = 4\n    return a + b```"},
-        {"role": "assistant", "content": "``````"},
-        {"role": "user", "content": f"```{cell_src}```"},
-    ]
-    return messages
-
-def format_code(notebook, cell_id):
-    cell_src = notebook.get_single_cell(cell_id, include_outputs=False)['src']
-    messages = [
-        {"role": "system", "content": "You are an expert in formatting Python code according to PEP 8 conventions."},
-        {"role": "user", "content": "Format the code delimited by triple backticks according to PEP 8 conventions. Do not add, remove, or change anything else. Structure your response under the following headings: `Formatted code` (the formatted code) and `Changes` (a list of formatting changes)."},
-        {"role": "user", "content": f"```{cell_src}```"},
-        {"role": "assistant", "content": "Formatted code:\n```"},
-    ]
-    return messages

@@ -1,1 +1,0 @@
-img_predictions.info()

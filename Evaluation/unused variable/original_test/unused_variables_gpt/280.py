@@ -1,1 +1,0 @@
-koppeltabel = pd.read_sql_query("SELECT * FROM koppeltabel", engine)

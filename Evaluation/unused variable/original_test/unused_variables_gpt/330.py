@@ -1,1 +1,0 @@
-stats.ttest_rel(posttest.Q2_ImageType, posttest.Q2_LightType)

@@ -1,1 +1,0 @@
-gROOT.ProcessLine('sim0->findGammaCalibrationConstants()')

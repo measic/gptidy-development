@@ -1,1 +1,0 @@
-utf8_string.decode('cp949')

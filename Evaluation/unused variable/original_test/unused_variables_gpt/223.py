@@ -1,1 +1,0 @@
-by_period['mean'].get_value('mean_ek_value')

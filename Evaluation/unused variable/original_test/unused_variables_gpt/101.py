@@ -1,1 +1,0 @@
-m = sfdmap.SFDMap()
