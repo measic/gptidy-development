@@ -1,4 +1,3 @@
-import github_api
 import json
 
 
@@ -75,22 +74,3 @@ class Notebook:
     def export_notebook_file(self):
         with open("file.ipynb", 'w') as f:
             json.dump(self.notebook, f)
-
-
-def fetch_github_project_info(url):
-    user_info_full = github_api.fetch_user_info(url)
-    readme_full = github_api.fetch_readme(url)
-    project_info = {}
-
-    if user_info_full is not None and (user_info_full['company'] or user_info_full['bio']):
-        user_info = {}
-        if user_info_full['company']:
-            user_info['company'] = user_info_full['company']
-        if user_info_full['bio']:
-            user_info['bio'] = user_info_full['bio']
-        project_info['user_info'] = user_info
-    if readme_full is not None:
-        project_info['readme'] = readme_full
-
-    # if project_info contains any info, return it
-    return project_info or None

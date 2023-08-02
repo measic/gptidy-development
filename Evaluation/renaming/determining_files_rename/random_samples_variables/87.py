@@ -1,0 +1,11 @@
+sign_frequencies = get_frequencies(y_train_augmented, sign_dict)
+fig, variable_def = plt.subplots(figsize=(15, 10))
+classes = list(sign_dict.values())
+ind = np.arange(len(classes))
+width = 0.8
+rects = variable_def.bar(ind, sign_frequencies.values(), width, align='edge', alpha=0.5)
+variable_def.set_ylabel('Frequency')
+variable_def.set_title('Traffic Sign Classes')
+variable_def.set_xticks(ind + width / 2)
+variable_def.set_xticklabels(sign_frequencies.keys(), rotation=90)
+plt.show()

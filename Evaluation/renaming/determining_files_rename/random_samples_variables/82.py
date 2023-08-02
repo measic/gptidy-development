@@ -1,0 +1,1 @@
+variable_def, _, _ = solver.forward(vp=model0.vp)

@@ -1,0 +1,16 @@
+variable_def = np.zeros((800, 800, 3))
+y, x = np.indices(variable_def.shape[:2])
+cx, cy = (300, 300)
+circle1 = (x - cx) ** 2 + (y - cy) ** 2 < 200 ** 2
+cx, cy = (500, 500)
+circle2 = (x - cx) ** 2 + (y - cy) ** 2 < 200 ** 2
+cx, cy = (300, 500)
+circle3 = (x - cx) ** 2 + (y - cy) ** 2 < 200 ** 2
+cx, cy = (500, 300)
+circle4 = (x - cx) ** 2 + (y - cy) ** 2 < 200 ** 2
+variable_def[circle1] += (0.2, 0, 0)
+variable_def[circle2] += (0.2, 0, 0)
+variable_def[circle3] += (0.2, 0, 0)
+variable_def[circle4] += (0.2, 0, 0)
+variable_def[circle1 & circle2 & circle3 & circle4] = (0, 0, 1)
+plt.imshow(variable_def, interpolation='bilinear')

@@ -1,0 +1,1 @@
+variable_def = get_segment_img(clusters_2, img, posterior_mu_2, mcmc=True)

@@ -1,0 +1,1 @@
+variable_def = pd.melt(stats.reset_index(), id_vars='time', var_name='LSOA').dropna()
