@@ -1,1 +1,0 @@
-googl = data[data.symbol == "GOOGL"]

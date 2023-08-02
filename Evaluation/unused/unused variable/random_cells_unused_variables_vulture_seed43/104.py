@@ -1,1 +1,0 @@
-p, r, f, s = metrics.precision_recall_fscore_support(y_test_flattened[filter_items], y_pred_flattened[filter_items])

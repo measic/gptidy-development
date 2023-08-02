@@ -1,1 +1,0 @@
-data = pd.DataFrame({'labels':labels, 'count':count})

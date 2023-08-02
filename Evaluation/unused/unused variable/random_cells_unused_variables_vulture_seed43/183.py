@@ -1,2 +1,0 @@
-lights_data = np.concatenate((stern_images, stbd_broad_images_gt_50m, port_broad_images_gt_50m, bow_images_gt_50m,
-                              stbd_broad_lt_50m_images, port_broad_lt_50m_images, bow_lights_lt_50_images))

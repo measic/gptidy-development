@@ -34,3 +34,34 @@ def print_check_gpt_results(gpt_results):
     # print the numbers
     print(finish_reason_length)
     
+def stats_results_unused(gpt_unused_names, before):
+    # Identification results of Vulture vs GPT
+    gpt_before_count = sum([len(lst) for lst in gpt_unused_names])
+    vulture_before_count = sum([len(lst) for lst in before])
+    print(f'GPT before count: {gpt_before_count}')
+    print(f'Vulture before count: {vulture_before_count}')
+
+    print("------------")
+
+    # determine number of false and true positive identifications using gpt_unused_function_names and before
+    true_positives = 0
+    false_positives = 0
+    false_negatives = 0
+    for i, gpt_names in enumerate(gpt_unused_names):
+        before_names = before[i]
+        for name in gpt_names:
+            if name in before_names:
+                true_positives += 1
+            else:
+                false_positives += 1
+
+    for i, before_names in enumerate(before):
+        gpt_names = gpt_unused_names[i]
+        for name in before_names:
+            if name not in gpt_names:
+                false_negatives += 1
+
+    # print the results
+    print(f'True positives: {true_positives}')
+    print(f'False positives: {false_positives}')
+    print(f'False negatives: {false_negatives}')

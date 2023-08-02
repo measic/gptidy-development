@@ -1,1 +1,0 @@
-best_model = load_model("GRUmodel_128_128")

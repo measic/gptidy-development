@@ -1,1 +1,0 @@
-s = fit.summary()
