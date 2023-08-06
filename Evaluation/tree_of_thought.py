@@ -62,11 +62,11 @@ def solve_toc(input_msgs_cot, identify_trials, code_trials, identify_vote_trials
 
     # If the entire thing fails we have to return
     if identify_completions is None:
-        print("Depth 1: identifying failed")
+        print("ERROR: Depth 1: identifying failed")
         return None, None
 
     # Get identified items
-    identified_names_lst = get_identified_names_func(identify_trials, identify_completions)
+    identified_names_lst = [str(item) for item in get_identified_names_func(identify_trials, identify_completions)]
     
     # Get unique options
     identified_names_set = list(set(identified_names_lst))
@@ -74,7 +74,7 @@ def solve_toc(input_msgs_cot, identify_trials, code_trials, identify_vote_trials
         
     # if the options are the same, we return first trial
     if len(identified_names_set) == 1:
-        print("Depth 1: identified names are the same for all trials so we don't vote")
+        print("INFO: Depth 1: identified names are the same for all trials so we don't vote")
         most_popular_identify = identified_names_set[0]
     else:
         # Depth 1: Vote on the best choice using GPT
@@ -85,7 +85,7 @@ def solve_toc(input_msgs_cot, identify_trials, code_trials, identify_vote_trials
         
         # If voting fails we return here
         if gpt_identify_votes is None:
-            print("Depth 1: Voting failed")
+            print("ERROR: Depth 1: Voting failed")
             return None, None
 
         # Tally the votes
@@ -102,26 +102,35 @@ def solve_toc(input_msgs_cot, identify_trials, code_trials, identify_vote_trials
 
     # If code fails we return here
     if updated_code_completions is None:
-        print("Depth 2: code failed")
+        print("ERROR: Depth 2: code failed")
         return most_popular_identify, None
 
     # Get the updated code
     updated_code_lst = []
     for i in range(code_trials):
         if identify_completions.choices[i].finish_reason == 'stop':
-            code = updated_code_completions.choices[i]['message']['content'].split('```')[1].split('```')[0]
-            if code.startswith('python'):
-                code = code[6:]
-            code = code.strip("\n")
-            updated_code_lst.append(code)
+            try:
+                code = updated_code_completions.choices[i]['message']['content'].split('```')[1].split('```')[0]
+            except:
+                print(f"ERROR: Depth 2: code failed for trial {i}")
+                updated_code_lst.append(None)
+            else:
+                if code.startswith('python'):
+                    code = code[6:]
+                code = code.strip("\n")
+                updated_code_lst.append(code)
         else:
+            print(f"ERROR: Depth 2: code failed for trial {i}")
             updated_code_lst.append(None)
     
     # if the options are the same, we return either trial
     updated_code_set = list(set(updated_code_lst))
 
     if len(updated_code_set) == 1:
-        print("Depth 2: updated code is the same for all trials so we don't vote")
+        if updated_code_set[0] is None:
+            print("ERROR: Depth 2: updated code is None for all trials")
+            return most_popular_identify, None
+        print("INFO: Depth 2: updated code is the same for all trials so we don't vote")
         return most_popular_identify, updated_code_set[0]
 
     # Depth 2: Vote on the best choice using GPT
@@ -133,7 +142,7 @@ def solve_toc(input_msgs_cot, identify_trials, code_trials, identify_vote_trials
     
     # If voting fails we return here
     if gpt_code_votes is None:
-        print("Depth 2: Voting failed")
+        print("ERROR: Depth 2: Voting failed")
         return most_popular_identify, None
 
     # Tally the votes
