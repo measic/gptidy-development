@@ -1,1 +1,0 @@
-y_train_stern = (y_train == 0)

@@ -1,1 +1,0 @@
-stats.ttest_1samp(posttest.Q2_SceneTreeFrequency, 50)

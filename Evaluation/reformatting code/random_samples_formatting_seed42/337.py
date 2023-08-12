@@ -1,1 +1,0 @@
-df[dw_obj.indicator_parameter]/df.REFERENCE_VALUE

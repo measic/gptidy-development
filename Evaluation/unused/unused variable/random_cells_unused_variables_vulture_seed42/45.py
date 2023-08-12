@@ -1,1 +1,0 @@
-stbd_broad_lt_50m_images = broad_less_than_50_meters_starboard()

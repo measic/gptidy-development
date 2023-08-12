@@ -1,1 +1,0 @@
-data = yearly_data

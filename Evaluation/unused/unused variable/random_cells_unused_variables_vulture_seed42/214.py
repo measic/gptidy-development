@@ -1,1 +1,0 @@
-text = 'foo bar\t baz \tqux'

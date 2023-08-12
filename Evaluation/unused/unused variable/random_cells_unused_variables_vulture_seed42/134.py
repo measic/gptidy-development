@@ -1,1 +1,0 @@
-centers = [np.sort(e, axis=0) for e in centers_kmeans_proj]

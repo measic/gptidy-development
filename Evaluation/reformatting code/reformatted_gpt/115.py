@@ -1,1 +1,0 @@
-w.get_step_object(step=2, subset=subset_uuid).get_indicator_data_filter_settings('oxygen')

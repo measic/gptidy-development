@@ -1,0 +1,1 @@
+sample_withplot (model.loglike_NFW, model.prior_transform_NFW, 'DMdataref2.txt',[10,10e10])

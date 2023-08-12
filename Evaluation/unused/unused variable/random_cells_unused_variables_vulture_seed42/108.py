@@ -1,1 +1,0 @@
-img_mcmc = get_segment_img(clusters, img, posterior_mu, mcmc=True)

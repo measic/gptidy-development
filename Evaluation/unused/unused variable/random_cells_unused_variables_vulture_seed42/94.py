@@ -1,1 +1,0 @@
-layout = make_layout(500, 300)

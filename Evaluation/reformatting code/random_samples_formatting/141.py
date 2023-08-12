@@ -1,0 +1,1 @@
+y_values and y_values[0] # 26.0

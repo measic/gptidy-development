@@ -32,7 +32,7 @@ def print_check_gpt_results(gpt_results):
             finish_reason_length.append(i)
 
     # print the numbers
-    print(finish_reason_length)
+    return finish_reason_length
     
 def stats_results_unused(gpt_unused_names, before):
     # Identification results of Vulture vs GPT

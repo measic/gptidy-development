@@ -1,1 +1,0 @@
-sns.boxplot(x='mean radius', data=df);

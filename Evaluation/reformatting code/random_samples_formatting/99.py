@@ -1,0 +1,1 @@
+pm.traceplot(trace, lines={"ℓ": ℓ_true, "η": η_true});

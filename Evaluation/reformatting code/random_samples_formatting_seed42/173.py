@@ -1,1 +1,0 @@
-uniao_dropna.corr(method = 'kendall')
