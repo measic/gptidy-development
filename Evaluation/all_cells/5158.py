@@ -1,8 +1,6 @@
-### União
-uniaoSliceNome = uniao['Nome'].str.split(',', expand=True)
-uniao['Primeiro Nome']=uniaoSliceNome[0]
-uniaoNomeSlice = uniaoSliceNome[1].str.split('.', expand=True,n=1)
-uniaoComplemntoSlice = uniaoNomeSlice[1].str.split('(', expand=True)
-uniao['Saudação'] = uniaoNomeSlice[0]
-uniao['Sobrenome'] = uniaoComplemntoSlice[0]
-uniao['Complemento'] = uniaoComplemntoSlice[1]
+treino['Complemento'] = treino['Complemento'].fillna('NAO_INFORMADO')
+treino_dropna['Complemento'] = treino_dropna['Complemento'].fillna('NAO_INFORMADO')
+teste['Complemento'] = teste['Complemento'].fillna('NAO_INFORMADO')
+uniao['Complemento'] = uniao['Complemento'].fillna('NAO_INFORMADO')
+uniao_dropna['Complemento'] = uniao_dropna['Complemento'].fillna('NAO_INFORMADO')
+uniao.info()

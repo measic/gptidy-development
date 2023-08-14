@@ -1,4 +1,6 @@
-'''Min and Max mass number A'''
+'''Compute half-life times of cumulative FP with >1% yield'''
 
-print('Min A = ',min([fpy.A for fpy in cfpy_az]))
-print('Max A = ',max([fpy.A for fpy in cfpy_az]))
+print('total # of FP nuclides = ', len(fp_1_percent))
+print('')
+
+half_life_times( fp_1_percent, nuclides ) # call the function

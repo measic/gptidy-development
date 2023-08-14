@@ -1,1 +1,1 @@
-plot_categorical_count(df, 'OpenSource', title='Number of Open Source Contributour')
+plot_categorical_count(df, 'Student', title='Number Of Student', limit=3)

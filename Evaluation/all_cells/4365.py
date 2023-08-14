@@ -1,4 +1,7 @@
-### returns "True" if a dog is detected in the image stored at img_path
-def dog_detector(img_path):
-    prediction = ResNet50_predict_labels(img_path)
-    return ((prediction <= 268) & (prediction >= 151)) 
+from PIL import ImageFile                            
+ImageFile.LOAD_TRUNCATED_IMAGES = True                 
+
+# pre-process the data for Keras
+train_tensors = paths_to_tensor(train_files).astype('float32')/255
+valid_tensors = paths_to_tensor(valid_files).astype('float32')/255
+test_tensors = paths_to_tensor(test_files).astype('float32')/255

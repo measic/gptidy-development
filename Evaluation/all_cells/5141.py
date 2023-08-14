@@ -1,1 +1,2 @@
-uniao.loc[(uniao['PortoEmbarque'].isnull())]
+### Não.
+uniao.loc[(uniao['Cabine']=='B28')]

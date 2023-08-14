@@ -2,10 +2,12 @@ import plotly
 from plotly.offline import iplot, init_notebook_mode
 init_notebook_mode(connected=True)
 
-from graph import plot, trace_values
+from graph import plot, trace_values, build_layout
 
-x_values = list(range(-30, 30, 1))
-y_values = list(map(lambda x: output_at(three_x_squared_minus_eleven, x),x_values))
+x_values = list(range(0, 6))
+# layout = build_layout(y_axis = {'range': [0, 35]})
 
-three_x_squared_minus_eleven_trace  = trace_values(x_values, y_values, mode = 'lines')
-plot([three_x_squared_minus_eleven_trace], {'title': '3x^2 - 11'})
+
+four_x_plus_fifteen_values = list(map(lambda x: output_at(four_x_plus_fifteen, x),x_values))
+four_x_plus_fifteen_trace = trace_values(x_values, four_x_plus_fifteen_values, mode = 'lines')
+plot([four_x_plus_fifteen_trace])

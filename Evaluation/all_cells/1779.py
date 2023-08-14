@@ -1,63 +1,63 @@
-# Initializations
-V_init = np.zeros((2,), dtype=np.float)                            # V(s) ... our value function estimate for PI
-PI_init = np.array([np.random.uniform(0, 2), 2], dtype=np.int)     # PI(s) ... our greedy policy
+def policy_iteration(V_init, PI_init, world_size, states, actions, nextState, gamma, epsilon=1e-4, modified=False):
 
-# The 2-states world
-P, R, states, actions, next_states, gamma = create_2statesworld()
-
-print("INITIALIZATION")
-print("Initial value function V is filled with zeros whereas initial policy is random among legal actions for each state")
-print("\nV = ", np.round(V_init))
-print("\nPI = ", PI_init)
-
-
-PolIt_results = policy_iteration(V_init, PI_init, P, R, states, actions, next_states, gamma)
-
-print("\n\nRESULTS FOR POLICY ITERATION -------------")
-print("Policy found in {} iterations, where each policy evaluation lasted for k = {}".format(len(PolIt_results[1]), PolIt_results[1]))
-print("\nV = ", np.round(PolIt_results[0], 2))
-print("\nPI = ", PolIt_results[2])
-
-ValIt_results = value_iteration(V_init, PI_init, P, R, states, actions, next_states, gamma)
-
-print("\n\nRESULTS FOR VALUE ITERATION -------------")
-print("Policy found in {} iterations".format(ValIt_results[1]))
-print("\nV = \n", np.round(ValIt_results[0], 2))
-print("\nPI = ", ValIt_results[2])
-
-
-M_PolIt_results = policy_iteration(V_init, PI_init, P, R, states, actions, next_states, gamma, modified=True)
-
-print("\n\nRESULTS FOR MODIFIED POLICY ITERATION -------------")
-print("Policy found in {} iterations, where each policy evaluation lasted for k = {}".format(len(M_PolIt_results[1]), M_PolIt_results[1]))
-print("\nV = ", np.round(M_PolIt_results[0], 2))
-print("\nPI = ", M_PolIt_results[2])
-
-print("\n\nEFFECT OF GAMMA ON CONVERGENCE SPEED")
-
-logg = {"policy_iteration": [], "value_iteration": [], "M_policy_iteration": []}
-# For different values of gamma
-gammas = [0.50, 0.75, 0.90, 0.95]
-for g in gammas:
+    # The reward is always -1
+    R = -1
     
-    # Run Policy Iteration
-    _, PolIt_k, _ = policy_iteration(V_init, PI_init, P, R, states, actions, next_states, g)
-    logg['policy_iteration'].append(sum(PolIt_k))
+    #1. INITIALIZATION
+    V_k = copy.deepcopy(V_init)
+    PI = copy.deepcopy(PI_init)
+    policy_stable = False
+    all_k = []
+    idx_to_a = {0:'L', 1:'U', 2:'R', 3:'D'}
+
+    while not policy_stable:
+        
+        # 2. POLICY EVALUATION (iterates until V_k converges)
+        k = 0
+        V_kplus1 = copy.deepcopy(V_k)
+        delta = epsilon + 1
+        
+        while delta > epsilon and (k < 5 or not modified):
+
+            delta = 0
+            for i, j in states:
+                
+                # Here the next state is fully defined by the policy (there is no uncertainty on the transition)
+                a = idx_to_a[PI[i,j]]
+                newPosition = nextState[i][j][a]
+                P = 1.
+
+                # Bellman's update rule
+                V_kplus1[i, j] = P * (R + gamma * V_k[newPosition[0], newPosition[1]])
+
+                # Keeps biggest difference seen so far
+                delta = np.max([delta, np.abs(V_kplus1[i,j] - V_k[i,j])])
+
+            # Updates our current estimate
+            V_k = copy.deepcopy(V_kplus1)
+            k += 1
+        all_k.append(k)
+
+        # 3. POLICY IMPROVEMENT (greedy action selection with respect to V_k)
+        Q = np.zeros((world_size, world_size, 4), dtype=np.float)
+        
+        policy_stable = True
+        old_PI = copy.deepcopy(PI)
+        
+        for i, j in states:
+            for a_idx in range(4): # actions
+                    
+                # Again the next state is fully defined by the chosen action (there is no uncertainty on the transition)
+                a = idx_to_a[a_idx]
+                newPosition = nextState[i][j][a]
+                P = 1.
+
+                # Policy Improvement rule
+                Q[i,j,a_idx] = P * (R + gamma * V_k[newPosition[0], newPosition[1]])
+                    
+            PI[i,j] = np.argmax(Q[i,j,:])
+                    
+            if old_PI[i,j] != PI[i,j]:
+                policy_stable = False
     
-    # Run Value Iteration
-    _, ValIt_k, _ = value_iteration(V_init, PI_init, P, R, states, actions, next_states, g)
-    logg['value_iteration'].append(ValIt_k)
-    
-    # Run Modified Policy Iteration
-    _, M_PolIt_k, _ = policy_iteration(V_init, PI_init, P, R, states, actions, next_states, g, modified=True)
-    logg['M_policy_iteration'].append(sum(M_PolIt_k))
-    
-plt.figure(figsize=(10,4))
-plt.plot(gammas, logg['policy_iteration'], label="Policy Iteration")
-plt.plot(gammas, logg['value_iteration'], label="Value Iteration")
-plt.plot(gammas, logg['M_policy_iteration'], label="Modified Policy Iteration")
-plt.title('Effect of gamma on convergence speed', fontweight='bold')
-plt.xlabel('Gamma')
-plt.ylabel('Number of full prediction sweeps')
-plt.legend(loc='best')
-plt.show()
+    return V_k, all_k, PI 

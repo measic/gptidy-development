@@ -1,2 +1,2 @@
-#sum the rows of K.
-print(np.sum(K,axis=1))
+#transpose of K
+print(K.T)

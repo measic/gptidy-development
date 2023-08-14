@@ -1,5 +1,9 @@
-# X_numeric has duplicate columns. The code below removes the duplicate columns
-_, i = np.unique(X_numeric.columns, return_index=True)
-X_Num_Cov=X_numeric.iloc[:, i]
-X_Num_Cov.to_csv('Numerical_FS.csv')
-X_Num_Cov.shape
+# Selecting certian numerical features
+X_select = X_Num_Cov[space]
+# Dropping the missing values from the feature space
+X_select = X_select.dropna()
+# Creating the output space
+Y = X_select['reviews_per_month']
+X_select = X_select.drop(['reviews_per_month'], axis = 1)
+print(X_select.info())
+X_select.head()

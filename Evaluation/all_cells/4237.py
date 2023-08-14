@@ -1,1 +1,1 @@
-check('tests/q231.py')
+check('tests/q232.py')

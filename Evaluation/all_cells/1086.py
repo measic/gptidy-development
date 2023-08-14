@@ -1,4 +1,16 @@
-import p5_util
-p5_util.object_dump(VGG16Seq,'./data/VGG16Seq_sgd.dump')
+from IPython.display import display, clear_output
 
-VGG16Seq.summary()
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+import P7_DataBreed
+import p5_util
+
+%load_ext autoreload
+%autoreload 2
+%reload_ext autoreload
+
+from  sklearn import model_selection
+import numpy as np

@@ -1,2 +1,2 @@
-### Sim 9. 
-test.groupby(['ParentesFilhos']).size()
+### Não.
+test.groupby(['ParentesIrmao']).size()

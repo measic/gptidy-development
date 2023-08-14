@@ -1,3 +1,5 @@
-#set the 3rd row,3rd column of A to 100.
-A[2,2]=100
-print(A)
+#vector addition
+A=np.array([1,2])
+B=np.array([5,6])
+C = A + B
+print(C)

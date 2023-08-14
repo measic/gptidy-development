@@ -1,2 +1,1 @@
-# path = 'E:\EpochedEEG'
-# epoch_files = os.listdir(path)
+# epoch = mne.read_epochs(file, preload = True)

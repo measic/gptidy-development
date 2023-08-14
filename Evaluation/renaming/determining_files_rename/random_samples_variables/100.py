@@ -67,12 +67,12 @@ def augment_by_class(training_data_tuple):
 
 def merge_and_shuffle(augmented_data_by_classes):
     augmented_X_train = []
-    variable_def = []
+    augmented_y_train = []
     for augmented_tup in augmented_data_by_classes:
         for X_train_i in augmented_tup[0]:
             augmented_X_train.append(X_train_i)
-            variable_def.append(augmented_tup[1])
-    X_train, y_train = shuffle(augmented_X_train, variable_def)
+            augmented_y_train.append(augmented_tup[1])
+    X_train, y_train = shuffle(augmented_X_train, augmented_y_train)
     return (X_train, y_train)
 
 def augment_data(X_train, y_train):
@@ -104,4 +104,4 @@ transformed_img = random_zoom(rand_img)
 (plt.subplot(122), plt.imshow(transformed_img), plt.title('Output'))
 plt.suptitle('Zoom')
 plt.show()
-X_train_augmented, y_train_augmented = augment_data(X_train, y_train)
+variable_def, y_train_augmented = augment_data(X_train, y_train)

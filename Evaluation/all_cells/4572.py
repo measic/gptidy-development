@@ -1,5 +1,8 @@
-set1 = set("It is a wonderful day outside!")
-set2 = set("What terrible weather we are having!")
+# http://anh.cs.luc.edu/python/hands-on/3.1/handsonHtml/ifstatements.html
 
-print(set1)
-print(set2)
+temperature = float(input('What is the temperature in F? '))
+
+if temperature > 70:
+    print('Wear shorts.')
+
+print("...end of program")

@@ -1,15 +1,6 @@
-def build_model():
-    model = keras.Sequential([
-        layers.Dense(64, activation=tf.nn.relu, input_shape=[len(train_dataset.keys())]),
-        layers.Dense(64, activation=tf.nn.relu),
-        layers.Dense(1)
-    ])
+# # Univariate Density Plots
 
-    optimizer = tf.keras.optimizers.RMSprop(0.001)
-
-    model.compile(
-        loss='mean_squared_error',
-        optimizer=optimizer,
-        metrics=['mean_absolute_error', 'mean_squared_error']
-    )
-    return model
+# # names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+# # data = pandas.read_csv(url, names=names)
+# boston_clean.plot(kind='density', subplots=True, layout=(6,3), sharex=False)
+# plt.show()

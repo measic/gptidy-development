@@ -1,3 +1,5 @@
-l = [1, 'a', 1.0]
+start = 10
+stop = 30
+step = 2
 
-print(l)
+list(range(start, stop, step))

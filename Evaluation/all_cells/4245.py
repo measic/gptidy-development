@@ -1,1 +1,1 @@
-abs(1.21 - 1.688)
+check('tests/q41.py')

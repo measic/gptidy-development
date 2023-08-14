@@ -1,3 +1,7 @@
-#Now the extracted data of cat type 2 will have NaN in it
-data2 = newdat[cat2]
-print(data2)
+import os
+import sys
+from ROOT import gROOT
+
+path='/home/pyne-user/Dropbox/UCB/Research/ETAs/88Inch/Data/Experiments/PHS/16MeVTa/Unfold/NSD/'
+os.chdir(path)
+print 'Currently working in: \n {}'.format(os.getcwd())

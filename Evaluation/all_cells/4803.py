@@ -1,2 +1,2 @@
-# Pretrain the discriminator network
-srgan_network.pre_train_discriminator(coco_path, num_images=40000, epochs=1, batch_size=16)
+# Fully train the SRGAN with VGG loss and Discriminator loss
+srgan_network.train_full_model(coco_path, num_images=80000, epochs=5, batch_size=16)

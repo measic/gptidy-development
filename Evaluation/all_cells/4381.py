@@ -1,1 +1,1 @@
-### TODO: Define your architecture.
+### TODO: Train the model.

@@ -1,3 +1,3 @@
 # BK
-print(df_landelijk.shape)
-df_landelijk.describe()
+print(df_flevoland.shape)
+df_flevoland.describe()

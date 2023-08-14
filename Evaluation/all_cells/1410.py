@@ -1,2 +1,3 @@
-#sum the columns of K. axis=0 means the vertical direction, axis=1 means horizontal direction
-print(np.sum(K,axis=0))
+#find the mean of J (for each column) and store in mj
+mj = np.mean(J, axis=0)
+print(mj)

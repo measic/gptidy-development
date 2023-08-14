@@ -1,4 +1,4 @@
-#Valor total - bruto: 891
-#Valor total - Sem Nulos: 712
-train_dropna=train.dropna(subset=colunasSemCabine)
-train_dropna.describe()
+#Valor total - bruto: 1309
+#Valor total - Sem Nulos: 1043
+join_dropna=join.dropna(subset=colunasSemCabine)
+join_dropna.describe()

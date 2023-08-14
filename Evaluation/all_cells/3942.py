@@ -1,26 +1,54 @@
-print("-" * 37)
-print("    Histogram Analysis of Tickers")
-print("-" * 37)
+def portfolio_annualised_performance(weights, mean_returns, cov_matrix):
+    """This function calculates annualised portfolio returns and volatility (risk).
+    
+    Parameters
+    ----------
+      `weights`: randomly generated weights for each stock in a portfolio
+      `mean_returns`: mean of stock daily_returns
+      `cov_matrix`: coeffecient matrix of all the daily_returns
+    
+    Returns
+    -------
+      Both annualised `standard_deviation` and `returns`.
+    """
+    annual_returns = np.sum(mean_returns * weights) * 252
+    std = np.sqrt(np.dot(weights.T, np.dot(cov_matrix,
+                                           weights))) * np.sqrt(252)
+    return std, annual_returns
 
 
-def hisogram_stats(val):
-    print("      Mean of " + val + " : {:.5f}".format(returns[val].mean()))
-    print("      Std of " + val + " : {:.5f}".format(returns[val].std()))
-    print("      Kurtosis of " + val +
-          " : {:.5f}".format(returns[val].kurtosis()))
-    print("-" * 37)
+#########################################################################################
 
 
-for val in returns.columns:
-    hisogram_stats(val=val)
+def random_portfolio(mean_returns,
+                     cov_matrix,
+                     num_portfolios=10000,
+                     risk_free_rate=0.00):
+    """This function generates portfolios with random weights for each stock.
+    
+    Parameters
+    ----------
+      `mean_returns`: mean of stock daily_returns
+      `cov_matrix`: coeffecient matrix of all daily_returns
+      `num_portfolios`: default is `10000` but can be tuned
+      `risk_free_rate`: default is `0.00` can vary from 0 through 1
+    
+    Returns
+    -------
+      `results` and `weights_record`.
+    """
 
-    plt.figure(figsize=(10, 5))
-    returns[val].plot.hist(label=val, bins=35, color="g")
+    results = np.zeros((3, num_portfolios))
+    weights_record = []
+    for i in range(num_portfolios):
+        weights = np.random.rand(4)
+        weights /= np.sum(weights)
+        weights_record.append(weights)
 
-    plt.axvline(returns[val].mean(), color="w", linewidth=2, linestyle="--")
-    plt.axvline(returns[val].std(), color="b", linewidth=2, linestyle="--")
-    plt.axvline(-returns[val].std(), color="b", linewidth=2, linestyle="--")
+        portfolio_std_dev, portfolio_return = portfolio_annualised_performance(
+            weights=weights, mean_returns=mean_returns, cov_matrix=cov_matrix)
 
-    plt.title(val + " Histogram")
-    plt.legend()
-plt.show()
+        results[0, i] = portfolio_std_dev
+        results[1, i] = portfolio_return
+        results[2, i] = (portfolio_return - risk_free_rate) / portfolio_std_dev
+    return results, weights_record

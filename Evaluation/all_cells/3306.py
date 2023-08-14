@@ -1,2 +1,14 @@
-http_runner = FunctionRunner(http_program)
-http_runner.run("https://foo.bar/")
+class FunctionCoverageRunner(FunctionRunner):
+    def run_function(self, inp):
+        with Coverage() as cov:
+            try:
+                result = super().run_function(inp)
+            except Exception as exc:
+                self._coverage = cov.coverage()
+                raise exc
+
+        self._coverage = cov.coverage()
+        return result
+
+    def coverage(self):
+        return self._coverage

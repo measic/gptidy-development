@@ -1,9 +1,5 @@
-prob = None
-k=10
-for i in range(0,k): 
-    gbm = h2o.get_model(sorted_final_grid.sorted_metric_table()['model_ids'][i])
-    if (prob is None):
-        prob = gbm.predict(test)["p1"]
-    else:
-        prob = prob + gbm.predict(test)["p1"]
-prob = prob/k
+# get balanced data subset to show in figure
+tsne_pts_per_class = 200
+dataset_subset_indices = get_balanced_subset_indices(data_test.gt_patches.flatten(), 
+                                                     np.arange(1, 9), pts_per_class=tsne_pts_per_class)
+dataset_subset_indices = np.concatenate(dataset_subset_indices)

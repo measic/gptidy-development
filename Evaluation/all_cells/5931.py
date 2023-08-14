@@ -1,27 +1,30 @@
-# EJERCICIO 1. 
-from sklearn.model_selection import train_test_split
-X_dev, X_eval, y_dev, y_eval = train_test_split(X, y,
-                                                    stratify=y, 
-                                                    test_size=0.10)
+resultados_training   = []
+resultados_validation = []
 
-display("#### Data Split ####")
-display(y_dev['output'].value_counts())
-display(y_eval['output'].value_counts())
+########################################################
+np.random.seed(SEED)
+for criterio in ["gini", "entropy"]:
+     for altura in [3, 5, None]:
+        
+        arbol = DecisionTreeClassifier(max_depth=altura, criterion=criterio)
+        arbol.fit(X_dev_np, y_dev_np)
+        
+        #Entrenamiento
+        y_pred = arbol.predict_proba(X_dev_np)
+        resultados_training.append( sklearn.metrics.roc_auc_score(y_dev_np, get_positive_class_probabilities(y_pred)))
+        
+        #Validacion
+        y_pred = arbol.predict_proba(X_eval_np)
+        resultados_validation.append( sklearn.metrics.roc_auc_score(y_eval_np, get_positive_class_probabilities(y_pred)))
+#########################################################
 
-display("#### 0/1 frequency ratio ####")
+df = pd.DataFrame(index=range(0,6))
 
-display("## dev ##")
-display(y_dev['output'].value_counts()[0] / y_dev['output'].value_counts()[1])
+df["Altura máxima"] = [3, 5, "Inifinito"] * 2
+df["Criterio de evaluación de corte"] = ["Gini"] * 3 + ["Ganancia de Información"] * 3
+df["AUC ROC promedio (training)"]   = resultados_training# reemplazar por resultados_training
+df["AUC ROC promedio (validación)"] = resultados_validation # reemplazar por resultados_validation
 
-display("## eval ##")
-display(y_eval['output'].value_counts()[0] / y_eval['output'].value_counts()[1])
-
-#Distribucion de los X de evaluacion
-plt.figure(figsize=(5, 3))
-plt.hist(np.array(X_eval))
-plt.show()
-
-#Distribucion de los X de entrenamiento
-plt.figure(figsize=(5, 3))
-plt.hist(np.array(X_dev))
-plt.show()
+   
+display(HTML("<h3> TABLA 2 </h3>"))
+display(df)

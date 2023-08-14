@@ -1,1 +1,2 @@
-from BITS.seq.io import load_fasta, save_fasta
+seqs = load_fasta("sample.fasta")
+seqs

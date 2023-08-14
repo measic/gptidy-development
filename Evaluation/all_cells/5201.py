@@ -1,3 +1,6 @@
 reset_graph()
 
-X = tf.placeholder(tf.float32, shape=(None, n_inputs), name="X")
+n_inputs = 28 * 28  # MNIST
+n_hidden1 = 300
+n_hidden2 = 100
+n_outputs = 10

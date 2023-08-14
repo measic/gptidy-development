@@ -1,5 +1,3 @@
-import pymc3 as pm
-
-# The parameters are the bounds of the Uniform.
-with pm.Model() as model:
-    p = pm.Uniform('p', lower=0, upper=1)
+# Occurrences.mean is equal to n/N.
+print("What is the observed frequency in Group A? %.4f" % np.mean(occurrences))
+print("Does this equal the true frequency? %s" % (np.mean(occurrences) == p_true))

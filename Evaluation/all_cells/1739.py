@@ -1,5 +1,10 @@
-# Test to see if DW comp. is working
-corr_mat = corr_tensor[30, :, :].copy()
-        
-corr_mat[(corr_mat > -1*0.7) & (corr_mat < 0.7)] = 0
-G, density = make_graph(corr_mat, nodes, 'signed')
+edge_cols = []
+for edge in G.edges(data=True):
+    if edge[2]["sign"] == -1:
+        edge_cols.append("red")
+    else:
+        edge_cols.append("green")
+
+fig,ax = plt.subplots(figsize=(15,10))
+nx.draw_shell(G, ax=ax, with_labels=True, node_size=1000, node_color="white", 
+              edge_color=edge_cols)

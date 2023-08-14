@@ -1,2 +1,2 @@
-#Sort the data along the time dimension
-PM25 = PM25.isel(time=np.argsort(PM25.time))
+#Create a monthly mean PM2.5 for the dataset
+monthly_data = After2009.resample('M', dim='time', how='mean', keep_attrs=True)

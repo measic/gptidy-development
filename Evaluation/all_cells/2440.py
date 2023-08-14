@@ -1,1 +1,1 @@
-!(cat sample.fasta)
+save_fasta(seqs, "sample.out.fasta")

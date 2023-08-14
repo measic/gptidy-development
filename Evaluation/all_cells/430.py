@@ -1,3 +1,3 @@
-playlist_df = pd.DataFrame(playlists)
-playlist_df.head()
-# print(playlist_df.describe())
+tracks_df = pd.DataFrame.from_dict(tracks, orient='index')
+tracks_df.head()
+# print(tracks_df.describe())

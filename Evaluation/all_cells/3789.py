@@ -1,7 +1,1 @@
-%load_ext autoreload
-%autoreload 2
-%matplotlib inline
-%debug
-
-import warnings
-warnings.filterwarnings('ignore')
+data = pd.read_csv("../data/prices.csv")

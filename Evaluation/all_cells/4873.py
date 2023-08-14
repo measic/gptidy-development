@@ -1,3 +1,2 @@
-# Display a description of the dataset
-df_stats = data.describe()
-df_stats
+import eda; reload(eda);
+eda.features_boxplot(data, samples, indices);

@@ -1,6 +1,8 @@
-root_directory = 'D:/github/ekostat_calculator'#"../" #os.getcwd()
-workspace_directory = root_directory + '/workspaces' 
-resource_directory = root_directory + '/resources'
-#alias = 'lena'
-user_id = 'test_user' #kanske ska vara off_line user?
-workspace_alias = 'lena_indicator'
+t0 = time.time()
+ekos = EventHandler(**paths)
+#request = ekos.test_requests['request_workspace_list']
+#response = ekos.request_workspace_list(request) 
+#ekos.write_test_response('request_workspace_list', response)
+print('-'*50)
+print('Time for request: {}'.format(time.time()-t0))
+# OLD: ekos = EventHandler(root_directory)

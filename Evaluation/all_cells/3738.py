@@ -1,2 +1,1 @@
-ext_pnicer_discrete = ext_pnicer.discretize()
-ext_pnicer_discrete.extinction
+ext_pnicer_discrete.save_fits(path="/tmp/temp.fits")

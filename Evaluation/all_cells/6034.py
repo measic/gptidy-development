@@ -1,1 +1,1 @@
-learn.recorder.plot_lr()
+%matplotlib inline

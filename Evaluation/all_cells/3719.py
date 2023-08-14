@@ -1,38 +1,47 @@
-# 定義我們要看幾遍數據集
-EPOCHS = 30
-print(f"此超參數組合的 Transformer 已經訓練 {last_epoch} epochs。")
-print(f"剩餘 epochs：{min(0, last_epoch - EPOCHS)}")
-
-
-# 用來寫資訊到 TensorBoard，非必要但十分推薦
-summary_writer = tf.summary.create_file_writer(log_dir)
-
-# 比對設定的 `EPOCHS` 以及已訓練的 `last_epoch` 來決定還要訓練多少 epochs
-for epoch in range(last_epoch, EPOCHS):
-  start = time.time()
+# 給定一個英文句子，輸出預測的中文索引數字序列以及注意權重 dict
+def evaluate(inp_sentence):
   
-  # 重置紀錄 TensorBoard 的 metrics
-  train_loss.reset_states()
-  train_accuracy.reset_states()
+  # 準備英文句子前後會加上的 <start>, <end>
+  start_token = [subword_encoder_en.vocab_size]
+  end_token = [subword_encoder_en.vocab_size + 1]
   
-  # 一個 epoch 就是把我們定義的訓練資料集一個一個 batch 拿出來處理，直到看完整個數據集 
-  for (step_idx, (inp, tar)) in enumerate(train_dataset):
+  # inp_sentence 是字串，我們用 Subword Tokenizer 將其變成子詞的索引序列
+  # 並在前後加上 BOS / EOS
+  inp_sentence = start_token + subword_encoder_en.encode(inp_sentence) + end_token
+  encoder_input = tf.expand_dims(inp_sentence, 0)
+  
+  # 跟我們在影片裡看到的一樣，Decoder 在第一個時間點吃進去的輸入
+  # 是一個只包含一個中文 <start> token 的序列
+  decoder_input = [subword_encoder_zh.vocab_size]
+  output = tf.expand_dims(decoder_input, 0)  # 增加 batch 維度
+  
+  # auto-regressive，一次生成一個中文字並將預測加到輸入再度餵進 Transformer
+  for i in range(MAX_LENGTH):
+    # 每多一個生成的字就得產生新的遮罩
+    enc_padding_mask, combined_mask, dec_padding_mask = create_masks(
+        encoder_input, output)
+  
+    # predictions.shape == (batch_size, seq_len, vocab_size)
+    predictions, attention_weights = transformer(encoder_input, 
+                                                 output,
+                                                 False,
+                                                 enc_padding_mask,
+                                                 combined_mask,
+                                                 dec_padding_mask)
     
-    # 每次 step 就是將數據丟入 Transformer，讓它生預測結果並計算梯度最小化 loss
-    train_step(inp, tar)  
 
-  # 每個 epoch 完成就存一次檔    
-  if (epoch + 1) % 1 == 0:
-    ckpt_save_path = ckpt_manager.save()
-    print ('Saving checkpoint for epoch {} at {}'.format(epoch+1,
-                                                         ckpt_save_path))
+    # 將序列中最後一個 distribution 取出，並將裡頭值最大的當作模型最新的預測字
+    predictions = predictions[: , -1:, :]  # (batch_size, 1, vocab_size)
+
+    predicted_id = tf.cast(tf.argmax(predictions, axis=-1), tf.int32)
     
-  # 將 loss 以及 accuracy 寫到 TensorBoard 上
-  with summary_writer.as_default():
-    tf.summary.scalar("train_loss", train_loss.result(), step=epoch + 1)
-    tf.summary.scalar("train_acc", train_accuracy.result(), step=epoch + 1)
-  
-  print('Epoch {} Loss {:.4f} Accuracy {:.4f}'.format(epoch + 1, 
-                                                train_loss.result(), 
-                                                train_accuracy.result()))
-  print('Time taken for 1 epoch: {} secs\n'.format(time.time() - start))
+    # 遇到 <end> token 就停止回傳，代表模型已經產生完結果
+    if tf.equal(predicted_id, subword_encoder_zh.vocab_size + 1):
+      return tf.squeeze(output, axis=0), attention_weights
+    
+    #將 Transformer 新預測的中文索引加到輸出序列中，讓 Decoder 可以在產生
+    # 下個中文字的時候關注到最新的 `predicted_id`
+    output = tf.concat([output, predicted_id], axis=-1)
+
+  # 將 batch 的維度去掉後回傳預測的中文索引序列
+  return tf.squeeze(output, axis=0), attention_weights

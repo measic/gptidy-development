@@ -1,19 +1,11 @@
-class getMovieByGendre(object):
-    def __init__(self):
-        self.site = 'http://www.imdb.com/search/title?' 
+class ReviewsJason(object):
+    def __init__(self,type_movie,hate_love):
+        self.type_movie = type_movie
+        self.hate_love = hate_love
+    
+    def export(self):
+        reviews = [getReviewPerMovie(i).category(self.hate_love) for i in getMovieByGendre().gendre(self.type_movie)]
+        json_name = self.type_movie + '_'+self.hate_love + '_reviews_100'+ '.json'
         
-    def gendre(self,type_movie):
-
-        #type_movie could be  Action,Adventure,Animation,Biography,Comedy,Crime,Documentary,
-        #Drama,Family,Fantasy,Film-Noir,History,Horror,Music,Musical,Mystery,Romance,Sci-Fi,
-        #Short,Sport,Thriller,War,Western
-        
-        reference_list = []
-        for i in range(0,2):
-            link = self.site + 'genres=' + type_movie + '&page='+ str(i)
-            html = requests.get(link)
-            soup = BeautifulSoup(html.text,"html.parser")   
-            for reference in soup.find_all("div", {"class": "lister-item-image float-left"}):
-                reference_list.append(reference.find('img',alt = True).get('data-tconst'))
-            return reference_list 
-        
+        with open(json_name, 'w') as fp:
+            json.dump(reviews, fp)

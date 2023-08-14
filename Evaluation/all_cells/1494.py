@@ -1,1 +1,6 @@
-odd_nums = np.array([1,3,5,7,9,11,13])
+### TODO: implement the function window_transform_series in the file my_answers.py
+from my_answers import window_transform_series
+
+X_test, y_test = window_transform_series(series=odd_nums, window_size = 2)
+print(X_test)
+print(y_test)

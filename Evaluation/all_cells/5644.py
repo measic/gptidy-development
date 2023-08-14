@@ -1,11 +1,9 @@
-print("There are a total of {} samples of {} unique words in the corpus."
-      .format(data.N, len(data.vocab)))
-print("There are {} samples of {} unique words in the training set."
-      .format(data.training_set.N, len(data.training_set.vocab)))
-print("There are {} samples of {} unique words in the testing set."
-      .format(data.testing_set.N, len(data.testing_set.vocab)))
-print("There are {} words in the test set that are missing in the training set."
-      .format(len(data.testing_set.vocab - data.training_set.vocab)))
+# use Dataset.stream() (word, tag) samples for the entire corpus
+d1 = defaultdict(list)
+print("\nStream (word, tag) pairs:\n")
+for i, pair in enumerate(data.stream()):
+    print("\t", i, pair[0], pair[1])
+    d1[pair[1]].append(pair[0])
+    if i > 20: break
 
-assert data.N == data.training_set.N + data.testing_set.N, \
-       "The number of training + test samples should sum to the total number of samples"
+print(d1)

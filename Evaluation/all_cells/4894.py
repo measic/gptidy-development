@@ -1,3 +1,3 @@
-# Display the predictions
-for i, pred in zip(log_samples.index, sample_preds):
-    print "Sample point", i, "predicted to be in Cluster", pred
+#loading style sheet
+from IPython.core.display import HTML
+HTML( open('ipython_style.css').read())

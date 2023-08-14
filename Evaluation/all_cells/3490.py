@@ -1,8 +1,16 @@
-i = 0
+def print_max(a, b):
+    if a > b:
+        print( a, 'is maximum')
+    elif a == b:
+        print(a, 'is equal to', b)
+    else:
+        print(b, 'is maximum')
 
-while i < 5:
-    print(i)
-    
-    i = i + 1
-    
-print("done")
+# directly pass literal values
+print_max(3, 4)
+
+x = 7
+y = 7
+
+# pass variables as arguments
+print_max(x, y)

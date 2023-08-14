@@ -1,3 +1,3 @@
-#Outcome types
-outcome_type = data['OutcomeType'].value_counts() 
-outcome_type.plot(kind='bar',color='#34ABD8',rot=0)
+p = Bar(data, label='OutcomeType', values = 'Female', agg='count', stack='Female',
+        title="Outcomes by Female", legend='top_right')
+show(p)

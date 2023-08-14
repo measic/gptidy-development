@@ -1,3 +1,9 @@
-# uncomment if you want to export the best model
-# h2o.save_model(best_model, "/tmp/bestModel.csv", force=True)
-# h2o.export_file(preds, "/tmp/bestPreds.csv", force=True)
+prob = None
+k=10
+for i in range(0,k): 
+    gbm = h2o.get_model(sorted_final_grid.sorted_metric_table()['model_ids'][i])
+    if (prob is None):
+        prob = gbm.predict(test)["p1"]
+    else:
+        prob = prob + gbm.predict(test)["p1"]
+prob = prob/k

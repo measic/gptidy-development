@@ -1,2 +1,2 @@
-### Teste
-test.shape
+### Treino
+train.dtypes

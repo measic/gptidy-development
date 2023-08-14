@@ -7,11 +7,11 @@ def grayscale(img):
     you should call plt.imshow(gray, cmap='gray')"""
     return cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-def canny(img, low_threshold, high_threshold):
+def function_def(img, low_threshold, high_threshold):
     """Applies the Canny transform"""
     return cv2.Canny(img, low_threshold, high_threshold)
 
-def function_def(img, kernel_size):
+def gaussian_blur(img, kernel_size):
     """Applies a Gaussian Noise kernel"""
     return cv2.GaussianBlur(img, (kernel_size, kernel_size), 0)
 

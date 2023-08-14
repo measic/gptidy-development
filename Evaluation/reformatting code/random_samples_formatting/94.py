@@ -1,12 +1,4 @@
-gROOT.ProcessLine('DPPBinaryParser parser;')
-gROOT.ProcessLine('vector<string> names;')
-
-for filename in os.listdir(path):
-    if filename.endswith(".dat"): 
-        name = os.path.splitext(filename)[0]
-        print "Processing: ", name
-        gROOT.ProcessLine('parser.readDatFile("{0}.dat", "{0}.root");'.format(name))
-        gROOT.ProcessLine('names.push_back("{0}.root");'.format(name))
-        
-gROOT.ProcessLine('DDaqPostProcessing obj;')
-gROOT.ProcessLine('obj.makePhCalibs(names,"Calibrations_All.root");')
+# load the geocoded previous travel history (places visited prior to smartphone/gps)
+df_pre = pd.read_csv('data/previous-travels-geocoded.csv', encoding='utf-8')
+print('There are {:,} rows in the previous travels data set'.format(len(df_pre)))
+df_pre.head()

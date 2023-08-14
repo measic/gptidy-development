@@ -1,4 +1,6 @@
-del l[7]
-del l[6]
-
-print(l)
+try:
+    point[0] = 20
+except(TypeError) as er:
+    print("TypeError:", er)
+else:
+    raise

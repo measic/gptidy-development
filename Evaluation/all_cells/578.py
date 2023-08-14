@@ -1,14 +1,19 @@
-detNames = {0: 'Det0'}  ###REMOVE WHEN YOU GET ACTUAL PSD CUTS ON THEM ALL!
+import os
+import sys
+from ROOT import gROOT
+import numpy as np
 
-gROOT.ProcessLine('HistogramOperations ops')
-gROOT.ProcessLine('lightTables.setBirksParams(1.0,6.90)')
+sys.path.insert(0,os.path.abspath('/home/pyne-user/Dropbox/UCB/Computational_Tools/Scripts/Python/Support'))
+sys.path.insert(0,os.path.abspath('/home/pyne-user/Dropbox/UCB/Computational_Tools/Scripts/Python/Unfolding'))
+from Utilities import pause
+from Root import CalibParams
 
-for detNum, detName in detNames.iteritems():
-    params = CalibParams(calPath+calNames[detNum])
-    gROOT.ProcessLine('vector<TH1*> phs{1} = ops.loadHistograms("33MeVTa_{0}_ls_{1}_fittedPSDCut.root")'.format(runNum,detNum))
-    gROOT.ProcessLine('ops.applyCalibration(phs{0}[1],{1},{2})'.format(detNum, params.a, params.b))
-    gROOT.ProcessLine('TFile *tgt{0} = new TFile("33MeVTa_{0}_ls_{1}_calibFittedPSDCut.root","recreate")'.format(runNum,detNum))
-    gROOT.ProcessLine('phs{0}[1]->Rebin(3)'.format(detNum))
-    gROOT.ProcessLine('phs{0}[1]->Draw()'.format(detNum))    
-    gROOT.ProcessLine('phs{0}[1]->Write()'.format(str(detNum)))
-    pause()
+outPath = "/home/pyne-user/Dropbox/UCB/Research/ETAs/88Inch/Data/Experiments/PHS/33MeVTa_29-31Mar17/Unfold/BeamOnly/HEPROW/Inputs/"
+rspPath= '/home/pyne-user/Dropbox/UCB/Research/ETAs/88Inch/Data/Simulated/PHS/ResponseMatrices/simSideResponse20Mil.root'
+calPath = '/home/pyne-user/Dropbox/UCB/Research/ETAs/88Inch/Data/Experiments/PHS/33MeVTa_29-31Mar17/CalibData/'
+
+os.chdir(outPath)
+print 'Currently working in: \n {}'.format(os.getcwd())
+
+detNames = {0: 'Det0'}#, 2: 'Det45', 4: 'Det90'}
+calNames = {0: 'CalibParams_0.txt'}#, 2: 'CalibParams_2.txt', 4: 'CalibParams_4.txt'}

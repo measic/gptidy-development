@@ -1,1 +1,1 @@
-Image(filename = pathname + DATA_pt_fraction)
+Image(filename = pathname + averagePileUp_multCollisionFrac)

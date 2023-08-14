@@ -1,1 +1,1 @@
-# Trying find airport with geobases
+!easy_install -U setuptools

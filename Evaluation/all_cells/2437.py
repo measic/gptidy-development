@@ -1,1 +1,1 @@
-r = ConsedRunner()
+from BITS.seq.io import load_fasta, save_fasta

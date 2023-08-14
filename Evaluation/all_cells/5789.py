@@ -1,6 +1,6 @@
-# count the number of unique characters in the text
-chars = sorted(list(set(text)))
-
-# print some of the text, as well as statistics
-print ("this corpus has " +  str(len(text)) + " total number of characters")
-print ("this corpus has " +  str(len(chars)) + " unique characters")
+# print out a few of the input/output pairs to verify that we've made the right kind of stuff to learn from
+print('input = ' + inputs[2])
+print('output = ' + outputs[2])
+print('--------------')
+print('input = ' + inputs[100])
+print('output = ' + outputs[100])

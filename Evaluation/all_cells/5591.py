@@ -1,4 +1,4 @@
-# compare_phot_specphot(sn, "BessellB")
-# compare_phot_specphot(sn, "BessellV")
-# compare_phot_specphot(sn, "SDSS_r")
-# compare_phot_specphot(sn, "SDSS_i")
+# plt.plot(sn.phot.data["BessellV"]["MJD"], sn.lcfit.spline["BessellV"](sn.phot.data["BessellV"]["MJD"]), label = r"$\textnormal{Spline}$")
+# plt.scatter(sn.phot.data["BessellV"]["MJD"], sn.phot.data["BessellV"]["flux"], label = r"$\textnormal{Photometry}$")
+# plt.plot(sn.lcfit.data["BessellV"]["MJD"], sn.lcfit.data["BessellV"]["flux"], label = r"$\textnormal{Fit}$")
+# plt.legend()

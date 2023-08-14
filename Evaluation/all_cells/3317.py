@@ -1,1 +1,1 @@
-cgi_runner.coverage()
+from Fuzzer import ProgramRunner

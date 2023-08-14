@@ -1,1 +1,1 @@
-dw_obj = w.get_step_object(step = 3, subset = subset_uuid).indicator_objects[indicator]
+dw_obj.get_water_body_indicator_df(wb)

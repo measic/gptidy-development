@@ -1,5 +1,3 @@
-def powers(x):
-    """
-    Return a few powers of x.
-    """
-    return x ** 2, x ** 3, x ** 4
+x2, x3, x4 = powers(3)
+
+print(x3)

@@ -1,3 +1,1 @@
-%load_ext autoreload
-%autoreload 2
-%matplotlib widget
+f9.head()

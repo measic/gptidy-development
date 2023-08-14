@@ -1,2 +1,2 @@
-fig = cos_sim_plot(df.cos_sim)
-py.iplot(fig, filename='cos_sim')
+fig = phrase_sent_scatter(df.phrase_sent)
+py.iplot(fig, filename="phrase_sent")

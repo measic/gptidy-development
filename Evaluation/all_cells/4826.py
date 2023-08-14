@@ -1,14 +1,6 @@
-#Translate sentences to list of integers
-translate_conv = copy.deepcopy(norare_conv)
-
-for i,c in enumerate(norare_conv):
-    for j,s in enumerate(c):
-        
-        words = s.split(" ")
-        new_s = translate(words,tokens,to_token=True)
-            
-        # Add to every sentences START and STOP tokens
-        new_s = [tokens["START"]] + new_s
-        new_s.append(tokens["STOP"])
-        
-        translate_conv[i][j] = new_s
+# As, we can see on the violinPlot above, most of the sentences have less than 25 words.
+maxlen = 25
+padded_conv = copy.deepcopy(translate_conv)
+for i,c in enumerate(translate_conv):
+    padded = pad_sequences(c, maxlen = maxlen, dtype = "uint32", padding = "post", truncating = "post", value = 0)
+    padded_conv[i] = padded

@@ -1,1 +1,1 @@
-character(V_pol)
+E_mu(Partition([4,1]))

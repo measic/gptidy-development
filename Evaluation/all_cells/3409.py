@@ -1,1 +1,1 @@
-math.log(10, 2)
+type(x)

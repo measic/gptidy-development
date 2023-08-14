@@ -1,11 +1,16 @@
-#organize seperate dataframes by cost tier for plotting + drop region 0 & 9 due to irrelevancy 
-df0_10k = clean_info.loc[clean_info["tuition_cost_tier"] == 'less_10k']
-df0_10k_edit0 = df0_10k[df0_10k.region != 0]
-df0_10k_edit9 = df0_10k_edit0[df0_10k_edit0.region != 9]
+#set up lists containing calculated rations for plotting 
+earningscost10k = [earningscost for earningscost in df0_10k_grouped['earnings_cost_ratio']]
+earningsgrowth10k = [earnings for earnings in df0_10k_grouped['earnings_growth_y6_y10']]
+weighted_growth10k = [worthit for worthit in df0_10k_grouped['weighted_growth_to_tuition']]
 
-df10_18k = clean_info.loc[clean_info["tuition_cost_tier"] == '10k_18k']
-df10_18k_edit = df10_18k[df10_18k.region != 9]
+earningscost10k_18k = [earningscost for earningscost in df10_18k_grouped['earnings_cost_ratio']]
+earningsgrowth10k_18k = [earnings for earnings in df10_18k_grouped['earnings_growth_y6_y10']]
+weighted_growth10k_18k = [worthit for worthit in df10_18k_grouped['weighted_growth_to_tuition']]
 
-df18_32 = clean_info.loc[clean_info["tuition_cost_tier"] == '18k_32k']
+earningscost18k_32k = [earningscost for earningscost in df18_32_grouped['earnings_cost_ratio']]
+earningsgrowth18k_32k = [earnings for earnings in df18_32_grouped['earnings_growth_y6_y10']]
+weighted_growth18k_32k = [worthit for worthit in df18_32_grouped['weighted_growth_to_tuition']]
 
-df32 = clean_info.loc[clean_info["tuition_cost_tier"] == 'greater_32k']
+earningscost32k = [earningscost for earningscost in df32_grouped['earnings_cost_ratio']]
+earningsgrowth32kk = [earnings for earnings in df32_grouped['earnings_growth_y6_y10']]
+weighted_growth32k = [worthit for worthit in df32_grouped['weighted_growth_to_tuition']]

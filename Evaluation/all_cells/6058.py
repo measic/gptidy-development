@@ -1,1 +1,4 @@
-predict(x, P, F, Q)[1] == predict(x, P, F, Q, B, u)[1]
+from filterpy.kalman import update
+z = 1.
+x, P = update(x, P, z, R, H)
+print('x =', x)

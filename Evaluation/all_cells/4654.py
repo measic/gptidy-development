@@ -1,37 +1,41 @@
-### Define our Scratch Model 
-from keras.layers import Conv2D, MaxPooling2D, GlobalAveragePooling2D
-from keras.layers import Dropout, Flatten, Dense
-from keras.models import Sequential
+from keras.callbacks import ModelCheckpoint 
+from keras.callbacks import ReduceLROnPlateau
 
-from keras import backend as K
+### TODO: specify the number of epochs that you would like to use to train the model.
 
-from keras.callbacks import ModelCheckpoint
+BATCH_SIZE = 32
+epochs = 8
 
-NUM_CLASSES = 133  ## Total number of Dog Breeds to classify
+### Do NOT modify the code below this line.
 
-K.clear_session()
-scratch_model = Sequential()
+checkpointer = ModelCheckpoint(filepath='saved_models/weights.best.from_scratch.hdf5', 
+                               verbose=1, save_best_only=True)
 
-### TODO: Define your architecture.
+# reduce LR
+reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2,
+                              patience=3, min_lr=0.0005, verbose=1)
 
-INPUT_SHAPE = (224, 224, 3)   # H x W x C for ResNet
+augment_data = False   # change to True as needed
 
-scratch_model.add(Conv2D(filters=16, kernel_size=2, padding='valid', activation='relu', 
-                        input_shape=INPUT_SHAPE))
-scratch_model.add(MaxPooling2D(pool_size=2))
-scratch_model.add(Conv2D(filters=32, kernel_size=2, padding='valid', activation='relu'))
-scratch_model.add(MaxPooling2D(pool_size=2))
-scratch_model.add(Conv2D(filters=64, kernel_size=2, padding='valid', activation='relu'))
-scratch_model.add(MaxPooling2D(pool_size=2))
+if not augment_data:
 
-#scratch_model.add(Conv2D(filters=64, kernel_size=2, padding='same', activation='relu'))
-#scratch_model.add(MaxPooling2D(pool_size=2))
+    print('Training... without data augmentation')
+    history = scratch_model.fit(train_tensors, train_targets, 
+          validation_data=(valid_tensors, valid_targets),
+          epochs=epochs, 
+          batch_size=BATCH_SIZE, 
+          callbacks=[checkpointer], 
+          verbose=1)
 
-scratch_model.add(Dropout(0.5))
-scratch_model.add(Flatten())
-scratch_model.add(Dense(256, activation='relu'))
-scratch_model.add(Dropout(0.4))
-scratch_model.add(Dense(NUM_CLASSES, activation='softmax'))
+else:
+    print('Training... WITH data augmentation')
+    history = scratch_model.fit_generator(datagen_train.flow(train_tensors, train_targets, batch_size=BATCH_SIZE),
+                    steps_per_epoch=train_tensors.shape[0] // BATCH_SIZE,
+                    epochs=epochs, 
+                    verbose=2, 
+                    callbacks=[checkpointer],
+                    validation_data=datagen_valid.flow(valid_tensors, valid_targets, batch_size=BATCH_SIZE),
+                    validation_steps=valid_tensors.shape[0] // BATCH_SIZE)
 
-
-scratch_model.summary()
+print('Done training')
+show_history_graph(history)

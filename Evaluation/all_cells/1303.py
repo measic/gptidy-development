@@ -1,1 +1,1 @@
-unicode_string = '가'
+unicode_string.encode('cp949')

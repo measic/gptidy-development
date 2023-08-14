@@ -1,4 +1,4 @@
-my_testword = 'CHOCOLATE'
-variable_def, logL = train_a_word(my_testword, 3, features_ground)
-show_model_stats(my_testword, variable_def)
+variable_def = 'CHOCOLATE'
+model, logL = train_a_word(variable_def, 3, features_ground)
+show_model_stats(variable_def, model)
 print('logL = {}'.format(logL))

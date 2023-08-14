@@ -1,1 +1,1 @@
-model.sample (model.loglike_ISO, model.prior_transform_ISO, 'DMdataref2.txt',[10,10e10])
+model.sample (model.loglike_GeneralizedHalo, model.prior_transform_GeneralizedHalo, 'DMdataref2.txt',[5.,10.,4.,1.5,5E8])

@@ -1,20 +1,29 @@
-# Counting the ones as this is the naive case. Note that 'income' is the 'income_raw' data 
-# encoded to numerical values done in the data preprocessing step.
-TP = np.sum(income)
+# TODO: Import the three supervised learning models from sklearn
+from sklearn.naive_bayes import GaussianNB
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
 
-# Specific to the naive case
-FP = income.count() - TP
+# TODO: Initialize the three models
+clf_A = GaussianNB()
+clf_B = LogisticRegression(random_state=42)
+clf_C = RandomForestClassifier(random_state=42)
 
-TN = 0 # No predicted negatives in the naive case
-FN = 0 # No predicted negatives in the naive case
+# TODO: Calculate the number of samples for 1%, 10%, and 100% of the training data
+# HINT: samples_100 is the entire training set i.e. len(y_train)
+# HINT: samples_10 is 10% of samples_100 (ensure to set the count of the values to be `int` and not `float`)
+# HINT: samples_1 is 1% of samples_100 (ensure to set the count of the values to be `int` and not `float`)
+samples_100 = len(y_train)
+samples_10 = samples_100 // 10
+samples_1 = samples_10 // 10
 
-# Calculate accuracy, precision and recall
-accuracy = 1.0 * (TP+TN) / (TP+TN+FP+FN)
-recall = 1.0 * TP / (TP+FN)
-precision = 1.0 * TP / (TP+FP)
+# Collect results on the learners
+results = {}
+for clf in [clf_A, clf_B, clf_C]:
+    clf_name = clf.__class__.__name__
+    results[clf_name] = {}
+    for i, samples in enumerate([samples_1, samples_10, samples_100]):
+        results[clf_name][i] = \
+        train_predict(clf, samples, X_train, y_train, X_test, y_test)
 
-# Calculate F-score using the formula above for beta = 0.5 and correct values for precision and recall.
-fscore = ((1.0 + 0.5 * 0.5) * (precision * recall)) / ((0.5 * 0.5 * precision) + recall)
-
-# Print the results 
-print("Naive Predictor: [Accuracy score: {}, F-score: {}]".format(accuracy, fscore))
+# Run metrics visualization for the three supervised learning models chosen
+vs.evaluate(results, accuracy, fscore)

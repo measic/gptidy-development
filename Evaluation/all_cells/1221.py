@@ -1,5 +1,7 @@
+list_result = dateRange('2016-06-06','2016-10-31')
 for i in range(1,15):
-    if i <= 7:
-        shop_info.loc[:,'predict_day_'+str(i)] = shop_info.loc[:,'wave_model_total_'+str(i)]
-    else:
-        shop_info.loc[:,'predict_day_'+str(i)] = shop_info.loc[:,'wave_model_total_'+str(i-7)]
+    list_result.append('predict_day_'+str(i))
+xmajorLocator = MultipleLocator(7) #将x轴次刻度标签设置为7的倍数
+ax = plt.subplot(111) 
+ax.xaxis.set_major_locator(xmajorLocator)
+shop_info.loc[np.random.choice(ids_cos_sim_high_3_wk,5) ,list_result].T.plot(figsize=(16,9),ax=ax)

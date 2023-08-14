@@ -1,64 +1,101 @@
-# Spase PCA
-import pywt
+# robust pca
+from __future__ import division, print_function
 
-class SPC(object):
-    
-    def __init__(self, number_of_components,max_iter=10, threshold_val=1.5 ):
-        
-        
-        """Initialize the SPC object
-        
-        Positional arguments:
-        number_of_components -- the number of sparse principal components 
-        to compute, must be between 1 and p (total number of features)
-        
-        Keyword argument:
-        max_iter -- the number of iterations to perform (default=10)
-        threshold_val -- value of the lambda regularisation 
-        parameter (default=10)
-        """
-        self.number_of_components=number_of_components
-        self.max_iter=max_iter
-        self.threshold_val=threshold_val
-    
-    def fit(self, X_):
-        """learn the sparse pc of a data matrix, return sparse estimates
-        of the left and right singular vectors (U and V respectively) 
-        as well as the standard principal components loading matrix W
-    
-        Positional arguments:
-        X_ -- training data matrix, as numpy ndarray
-        
-        """ 
-        print("computing sparse principal components...")
-        print("computing SVD of data matrix...")
-        U, s, V = np.linalg.svd(X_, full_matrices=True)  
-        cnt = 0
-        self.U = U
-        self.W = V.T
-        def normalize(vector):
-            norm=np.linalg.norm(vector)
-            if norm>0:
-                return vector/norm
-            else:
-                return vector
-        print("starting iterations...")
-        while True:
-           
-            self.V = pywt.threshold(np.dot(U[:self.number_of_components],X_), self.threshold_val)
-            self.U = np.dot(self.V,X_.T)
-            self.U = np.array([normalize(u_i) for u_i in self.U])
-            if cnt%2==0:
-                print("{} out of {} iterations".format(cnt,self.max_iter))
-            cnt += 1
-            if cnt == self.max_iter:
-                self.V = np.array([normalize(v_i) for v_i in self.V])
-                break
-        print("...finish")
-        return self.U, self.V, self.W
-    
-    def transform(self, X_, k=2):
-        X_reduced_spca     = np.dot(X_, np.dot(self.V[:k].T, self.V[:k]))
-        return X_reduced_spca
-my_spca  = SPC(2,3000,0.1)
-my_spca.fit(X)
+import numpy as np
+
+try:
+    from pylab import plt
+except ImportError:
+    print('Unable to import pylab. R_pca.plot_fit() will not work.')
+
+try:
+    # Python 2: 'xrange' is the iterative version
+    range = xrange
+except NameError:
+    # Python 3: 'range' is iterative - no need for 'xrange'
+    pass
+
+
+class R_pca:
+
+    def __init__(self, D, mu=None, lmbda=None):
+        self.D = D
+        self.S = np.zeros(self.D.shape)
+        self.Y = np.zeros(self.D.shape)
+
+        if mu:
+            self.mu = mu
+        else:
+            self.mu = np.prod(self.D.shape) / (4 * self.norm_p(self.D, 2))
+
+        self.mu_inv = 1 / self.mu
+
+        if lmbda:
+            self.lmbda = lmbda
+        else:
+            self.lmbda = 1 / np.sqrt(np.max(self.D.shape))
+
+    @staticmethod
+    def norm_p(M, p):
+        return np.sum(np.power(M, p))
+
+    @staticmethod
+    def shrink(M, tau):
+        return np.sign(M) * np.maximum((np.abs(M) - tau), np.zeros(M.shape))
+
+    def svd_threshold(self, M, tau):
+        U, S, V = np.linalg.svd(M, full_matrices=False)
+        return np.dot(U, np.dot(np.diag(self.shrink(S, tau)), V))
+
+    def fit(self, tol=None, max_iter=1000, iter_print=100):
+        iter = 0
+        err = np.Inf
+        Sk = self.S
+        Yk = self.Y
+        Lk = np.zeros(self.D.shape)
+
+        if tol:
+            _tol = tol
+        else:
+            _tol = 1E-7 * self.norm_p(np.abs(self.D), 2)
+
+        while (err > _tol) and iter < max_iter:
+            Lk = self.svd_threshold(
+                self.D - Sk + self.mu_inv * Yk, self.mu_inv)
+            Sk = self.shrink(
+                self.D - Lk + (self.mu_inv * Yk), self.mu_inv * self.lmbda)
+            Yk = Yk + self.mu * (self.D - Lk - Sk)
+            err = self.norm_p(np.abs(self.D - Lk - Sk), 2)
+            iter += 1
+            if (iter % iter_print) == 0 or iter == 1 or iter > max_iter or err <= _tol:
+                print('iteration: {0}, error: {1}'.format(iter, err))
+
+        self.L = Lk
+        self.S = Sk
+        return Lk, Sk
+
+    def plot_fit(self, size=None, tol=0.1, axis_on=True):
+
+        n, d = self.D.shape
+
+        if size:
+            nrows, ncols = size
+        else:
+            sq = np.ceil(np.sqrt(n))
+            nrows = int(sq)
+            ncols = int(sq)
+
+        ymin = np.nanmin(self.D)
+        ymax = np.nanmax(self.D)
+        print('ymin: {0}, ymax: {1}'.format(ymin, ymax))
+
+        numplots = np.min([n, nrows * ncols])
+        plt.figure()
+
+        for n in range(numplots):
+            plt.subplot(nrows, ncols, n + 1)
+            plt.ylim((ymin - tol, ymax + tol))
+            plt.plot(self.L[n, :] + self.S[n, :], 'r')
+            plt.plot(self.L[n, :], 'b')
+            if not axis_on:
+                plt.axis('off')

@@ -1,1 +1,1 @@
-science.mag2color().plot_combinations_kde()
+ext_pnicer = science_color.pnicer(control=control_color)

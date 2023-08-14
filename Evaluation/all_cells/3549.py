@@ -1,2 +1,1 @@
-#%%timeit
-ekos.load_data(unique_id = workspace_uuid)
+w.apply_data_filter(step = 0) # This sets the first level of data filter in the IndexHandler 

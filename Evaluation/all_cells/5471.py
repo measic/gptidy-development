@@ -1,8 +1,4 @@
-def true_mean_function(x):
-    return np.sin(2*pi*(x+1))
-
-def add_noise(y, sigma):
-    return y + sigma*np.random.randn(len(y))
-
-def generate_t(x, sigma):
-    return add_noise(true_mean_function(x), sigma)
+def k_n_m(xn, xm, thetas):
+    k = thetas[0] * np.exp(-thetas[1]/2 * np.linalg.norm(xn-xm)**2) + thetas[2] + thetas[3]*xn * xm
+    
+    return k

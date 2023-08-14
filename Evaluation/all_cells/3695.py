@@ -1,18 +1,11 @@
-# 之後可以調的超參數。這邊為了 demo 設小一點
-d_model = 4
-num_heads = 2
-dff = 8
+tar_padding_mask = create_padding_mask(tar)
+look_ahead_mask = create_look_ahead_mask(tar.shape[-1])
+combined_mask = tf.maximum(tar_padding_mask, look_ahead_mask)
 
-# 新建一個使用上述參數的 Encoder Layer
-enc_layer = EncoderLayer(d_model, num_heads, dff)
-padding_mask = create_padding_mask(inp)  # 建立一個當前輸入 batch 使用的 padding mask
-enc_out = enc_layer(emb_inp, training=False, mask=padding_mask)  # (batch_size, seq_len, d_model)
-
-print("inp:", inp)
+print("tar:", tar)
 print("-" * 20)
-print("padding_mask:", padding_mask)
+print("tar_padding_mask:", tar_padding_mask)
 print("-" * 20)
-print("emb_inp:", emb_inp)
+print("look_ahead_mask:", look_ahead_mask)
 print("-" * 20)
-print("enc_out:", enc_out)
-assert emb_inp.shape == enc_out.shape
+print("combined_mask:", combined_mask)

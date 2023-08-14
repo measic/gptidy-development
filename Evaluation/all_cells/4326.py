@@ -1,5 +1,1 @@
-job_config = bigquery.LoadJobConfig()
-job_config.schema = [
-    bigquery.SchemaField('name', 'STRING'),
-    bigquery.SchemaField('post_abbr', 'STRING')
-]
+print('Hello? Is it me you are looking for?')

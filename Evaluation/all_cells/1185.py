@@ -1,3 +1,9 @@
-
-ids_zero_morethan1_count_in_last_three_week = [2, 1707, 1925, 1418, 659, 1053, 1797, 1824, 547, 810, 432, 1459, 1462, 1464, 1465, 700, 191, 1858, 1993, 1109, 470,1243, 1380, 444, 1269, 632]
-
+ids_highest_point_error_compared_to_last_three_days = []
+def cal_highest_point_error_compared_to_last_three_days(x):
+    sales_list = sorted(x['2016-10-11':'2016-10-31'].tolist(),reverse=True)
+    if sales_list[1] > 0:
+        if 1.0 * sales_list[0] / sales_list[1] > 1.2:
+            ids_highest_point_error_compared_to_last_three_days.append(x['shop_id'])
+shop_info.apply(lambda x: cal_highest_point_error_compared_to_last_three_days(x) ,axis=1)
+print len(ids_highest_point_error_compared_to_last_three_days)
+#draw_ids(ids_highest_point_error_compared_to_last_three_days,start_date='2016-10-11',end_date='2016-10-31',by_week=True)

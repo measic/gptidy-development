@@ -1,5 +1,1 @@
-# tu código aquí #
-x_ent = 
-y_ent = 
-x_val =
-y_val =
+# escribe tu código aquí para obtener el desempeño de tu red neuronal con los datos prueba

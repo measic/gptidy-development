@@ -24,8 +24,8 @@ for label, x, y in zip(labels, pc1, pc2):
         plt.annotate(label, fontsize=2, xy=(x, y), xytext=(0, 1), textcoords='offset points', ha='right', va='bottom')
 if pos_filter == None:
     axins = zoomed_inset_axes(ax, 2.5, loc=2)
-    x1, x2, y1, y2 = (-3.1, 2.5, 6.3, 9.8)
-    axins.set_xlim(x1, x2)
+    x1, variable_def, y1, y2 = (-3.1, 2.5, 6.3, 9.8)
+    axins.set_xlim(x1, variable_def)
     axins.set_ylim(y1, y2)
     axins.scatter(pc1, pc2, c=posIDs, cmap=colormap)
     plt.yticks(visible=False)
@@ -34,14 +34,14 @@ if pos_filter == None:
     for label, x, y in zip(labels, pc1, pc2):
         if y == np.amax(y) or x == np.amax(x):
             plt.annotate(label, fontsize=8, xy=(x, y), xytext=(0, 1), textcoords='offset points', ha='right', va='bottom')
-    variable_def = zoomed_inset_axes(ax, 2.5, loc=4)
-    x1, x2, y1, y2 = (-4, 0.5, -8.5, -6.5)
-    variable_def.set_xlim(x1, x2)
-    variable_def.set_ylim(y1, y2)
-    variable_def.scatter(pc1, pc2, c=posIDs, cmap=colormap)
+    axins2 = zoomed_inset_axes(ax, 2.5, loc=4)
+    x1, variable_def, y1, y2 = (-4, 0.5, -8.5, -6.5)
+    axins2.set_xlim(x1, variable_def)
+    axins2.set_ylim(y1, y2)
+    axins2.scatter(pc1, pc2, c=posIDs, cmap=colormap)
     plt.yticks(visible=False)
     plt.xticks(visible=False)
-    mark_inset(ax, variable_def, loc1=2, loc2=4, fc='none', ec='0.5')
+    mark_inset(ax, axins2, loc1=2, loc2=4, fc='none', ec='0.5')
     for label, x, y in zip(labels, pc1, pc2):
         if y == np.amax(y) or x == np.amax(x):
             plt.annotate(label, fontsize=8, xy=(x, y), xytext=(0, 1), textcoords='offset points', ha='right', va='bottom')

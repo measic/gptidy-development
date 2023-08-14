@@ -1,4 +1,3 @@
-def print_full(x):
-    pd.set_option('display.max_rows', len(x))
-    print(x)
-    pd.reset_option('display.max_rows')
+### Coletando as fontes de dados
+train_csv = pd.read_csv('train.csv', sep = ',', encoding = 'UTF-8')
+test_csv = pd.read_csv('test.csv', sep = ',', encoding = 'UTF-8')

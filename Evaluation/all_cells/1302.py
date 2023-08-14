@@ -1,1 +1,1 @@
-datetime.now()
+unicode_string.encode('utf8')

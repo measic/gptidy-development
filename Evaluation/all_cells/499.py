@@ -1,2 +1,1 @@
-full_name = full_name.upper()
-print(full_name)
+"Johann Gambolputty".upper()

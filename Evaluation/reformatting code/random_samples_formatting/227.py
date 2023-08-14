@@ -1,3 +1,4 @@
-
-gbrt_slow = GradientBoostingRegressor(max_depth=2, n_estimators=200, learning_rate=0.1, random_state=42)
-gbrt_slow.fit(X, y)
+output_filename = 'leaflet/location-dataset.js'
+with open(output_filename, 'w') as output_file:
+    output_file.write('var dataset = {};'.format(json.dumps(geojson, separators=(',',':'))))
+print('{:,} geotagged features saved to file'.format(len(geojson['features'])))

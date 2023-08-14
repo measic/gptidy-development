@@ -1,2 +1,1 @@
-shape = make_line(0, 0, 1, 1)
-shape
+from BITS.seq.align import EdlibRunner

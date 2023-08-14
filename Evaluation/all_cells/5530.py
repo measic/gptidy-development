@@ -1,1 +1,1 @@
-img_predictions.tail()
+img_predictions.describe()

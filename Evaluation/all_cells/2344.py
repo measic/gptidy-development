@@ -1,2 +1,1 @@
-BASE = path.join(path.dirname(attitude.__file__),'..','js-frontend')
-DATA = path.join(BASE,"ui-test/data")
+Image(filename=path.join(DATA,'DJI_0455.PNG'), width=500)

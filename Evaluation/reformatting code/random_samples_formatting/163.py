@@ -1,5 +1,3 @@
-def add(x:int,y:int)->int:
-    return x+y
-
-print(add.__annotations__['x'])
-print(add.__annotations__)
+# a small subset of our input/output pairs
+Xsmall = X[:10000,:,:]
+ysmall = y[:10000,:]

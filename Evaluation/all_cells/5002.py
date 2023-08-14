@@ -1,20 +1,13 @@
-# ANSWER 1.5
-def receive_msg(self, other, msg):
-    
-    
-    if other not in self.in_msgs or not np.allclose(self.in_msgs[other], msg):
-        self.in_msgs[other] = msg
+def sum_product(node_list):
+
+    for n in node_list:
+#         print(n, ':', *list(n.pending))
+        while len(n.pending) > 0:            
+            f = next(iter(n.pending))
+            n.send_sp_msg(f)
+            
+    for n in reversed(node_list):
         
-        pending = []
-        for n in self.neighbours:
-            if can_send_message(self, n):
-                pending.append(n)
-        
-        self.pending.update(pending)
-    
-    else:
-        self.in_msgs[other] = msg
-    
-    
-    
-Node.receive_msg = receive_msg
+        while len(n.pending) > 0:
+            f = next(iter(n.pending))
+            n.send_sp_msg(f)

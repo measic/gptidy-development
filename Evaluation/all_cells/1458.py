@@ -1,2 +1,3 @@
-#to see the environment variable PATH where terminal will look for files. 
-print(os.getenv("PATH"))
+#to read this data back into a new dataframe
+dfnew = pd.read_csv('some_stuff.csv')
+print(dfnew)

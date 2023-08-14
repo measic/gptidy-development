@@ -1,3 +1,3 @@
-# Lendo dados do arquivo
-with open("DSL-StrongPasswordData.csv") as f:
-    data = np.array([line.split(",") for line in f.read().strip().split("\n")[1:]])
+password = ".tie5Roanl\n" # Lembrando que o enter é pressionado ao final da senha
+print("Número de teclas na digitação da senha: {}".format(len(password)))
+print("Número de colunas na matriz do dataset: {}".format(keystrokes.shape[1]))

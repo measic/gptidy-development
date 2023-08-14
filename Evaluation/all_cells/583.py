@@ -1,19 +1,32 @@
-import os
-import sys
-from ROOT import gROOT
-import numpy as np
+# Initialize objects
+gROOT.ProcessLine('SimulationManipulation sm("{}",0)'.format(rspPath))
+gROOT.ProcessLine('HistogramOperations ops')
+gROOT.ProcessLine('HistogramWriter writer;')
+gROOT.ProcessLine('lightTables.setBirksParams(1.0,6.90)')
 
-sys.path.insert(0,os.path.abspath('/home/pyne-user/Dropbox/UCB/Computational_Tools/Scripts/Python/Support'))
-sys.path.insert(0,os.path.abspath('/home/pyne-user/Dropbox/UCB/Computational_Tools/Scripts/Python/Unfolding'))
-from Utilities import pause
-from Root import CalibParams
+# Create the bin structures
+rspEbins=np.arange(rspEmin,rspEmax,rspEwidth)
+rspEbins=np.append(rspEbins,rspEmax)
+#print rspEbins
+rspLbins=np.arange(rspLmin,rspLmax,rspLwidth)
+rspLbins=np.append(rspLbins,rspLmax)
+#print rspLbins
+gROOT.ProcessLine('const Int_t EBINS = {}; const Int_t LBINS = {};'.format(len(rspEbins)-1,len(rspLbins)-1))
+gROOT.ProcessLine('Double_t eEdges[EBINS + 1] = {}{}{};'.format("{",", ".join(str(e) for e in rspEbins),"}"))
+gROOT.ProcessLine('Double_t lEdges[LBINS + 1] = {}{}{};'.format("{",", ".join(str(e) for e in rspLbins),"}"))
+gROOT.ProcessLine('axis1 = TAxis(EBINS,eEdges);')
+gROOT.ProcessLine('axis2 = TAxis(LBINS,lEdges);')
 
-outPath = "/home/pyne-user/Dropbox/UCB/Research/ETAs/88Inch/Data/Experiments/PHS/33MeVTa_29-31Mar17/Unfold/BeamOnly/HEPROW/Inputs/"
-rspPath= '/home/pyne-user/Dropbox/UCB/Research/ETAs/88Inch/Data/Simulated/PHS/ResponseMatrices/simSideResponse20Mil.root'
-calPath = '/home/pyne-user/Dropbox/UCB/Research/ETAs/88Inch/Data/Experiments/PHS/33MeVTa_29-31Mar17/CalibData/'
+# Create the Histogram and output file
+gROOT.ProcessLine('TH2* matrix1=sm.getNormalizedResponseMatrix(axis1,axis2)')
+gROOT.ProcessLine('writer.ResponseToHEPROW(matrix1,"EJ309_resp_03_50")')
 
-os.chdir(outPath)
-print 'Currently working in: \n {}'.format(os.getcwd())
+# Smear the Response Matrix and Create the .rsp File
+for detNum, detName in detNames.iteritems():   
+    params = CalibParams(calPath+calNames[detNum])
 
-detNames = {0: 'Det0'}#, 2: 'Det45', 4: 'Det90'}
-calNames = {0: 'CalibParams_0.txt'}#, 2: 'CalibParams_2.txt', 4: 'CalibParams_4.txt'}
+    gROOT.ProcessLine('TH2* smearMatrix{0} = ops.skewedGausSmearMatrix(matrix1, {1}, {2}, {3})'.format(detNum, params.alpha, params.beta, params.gamma))
+    gROOT.ProcessLine('smearMatrix{0}->Draw("colz")'.format(detNum))
+    gROOT.ProcessLine('writer.ResponseToHEPROW(smearMatrix{0},"{0}_smearedResp_03_50")'.format(detNum))
+
+    pause()

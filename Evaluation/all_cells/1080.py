@@ -1,4 +1,3 @@
-# Ajout de la deuxième couche de convolution, suivie  d'une couche ReLU
-VGG16Seq.add(Conv2D(64, (3, 3), padding='same', activation='relu'))
-VGG16Seq.add(Conv2D(64, (3, 3), activation='relu'))
-VGG16Seq.add(MaxPooling2D(pool_size=(2,2), strides=(2,2)))
+nb_labels = y_train.shape[0]
+print("Number of labels for training process : "+str(nb_labels))
+VGG16Seq.add(Flatten())  # Conversion des matrices 3D en vecteur 1D

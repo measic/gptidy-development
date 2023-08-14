@@ -1,17 +1,16 @@
-plt.figure(figsize = (20,10))
-ax = plt.gca()
-ax.scatter(tsne_embedded[:,0],tsne_embedded[:,1], s=20)
+#Translate sentences to list of integers
+trans_X = []
+trans_T = []
 
-for i, txt in enumerate(most_freq_words):
-    ax.annotate(txt, (tsne_embedded[i]))
-    
-condi_circle = plt.Circle((10,10),1,alpha=0.25, color="orange")
-do_circle = plt.Circle((6.7,11),1,alpha=0.25, color="blue")
-like_circle = plt.Circle((1,5.5), 1,alpha=0.25, color="red")
-great_circle = plt.Circle((-3.5,-9.5), 1,alpha=0.25, color="green")
+for s_x, s_t in zip(X,T):
+        
+    words_x = s_x.split(" ")
+    words_t = s_t.split(" ")
+    new_s_x = translate(words_x,tokens,to_token=True)
+    new_s_t = translate(words_t,tokens,to_token=True)
 
-ax.add_artist(condi_circle)
-ax.add_artist(do_circle)
-ax.add_artist(like_circle)
-ax.add_artist(great_circle)
-plt.show()
+    # Add to every sentences of answer START and STOP tokens
+    new_t = [tokens["START"]] + new_s_t
+    new_t.append(tokens["STOP"])
+    trans_X.append(new_s_x)
+    trans_T.append(new_t)

@@ -1,34 +1,43 @@
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import re
-import tensorflow 
-import keras
-import itertools
+#Importing this because multiple deprecation warnings cluttering the output
+import warnings
+warnings.filterwarnings('ignore')
 
-from sklearn import metrics
-from sklearn.preprocessing import StandardScaler
-from sklearn.feature_extraction import FeatureHasher, DictVectorizer
-from sklearn.pipeline import Pipeline
-from sklearn.pipeline import FeatureUnion
-from sklearn.grid_search import GridSearchCV
-from sklearn.metrics import confusion_matrix
-from sklearn.metrics import classification_report
-from sklearn.cross_validation import train_test_split
-from sklearn.linear_model import LogisticRegression
-from sklearn.base import BaseEstimator, TransformerMixin
-from bokeh.charts import Bar, output_file, show, output_notebook
-from keras.models import Sequential
-from keras.layers import Dense, Activation
-from sklearn.preprocessing import LabelBinarizer
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.tree import DecisionTreeRegressor
-from IPython.core.display import Image, display
-from sklearn.externals.six import StringIO
-from IPython.display import Image  
-from sklearn import tree
+continuous = ['ConvertedAge', 'BreedRank']
+discrete = [
+    'AnimalType',
+    'Female',
+    'Intact',
+    'MixedBreed',
+    'Named',
+    'TopBreed',
+    'PitBull',
+    'BlackCat'
+]
+target = 'OutcomeType'
 
-output_notebook()
+#For those missing an age, fill with the median age by animal type
+data["ConvertedAge"] = data.groupby("AnimalType").transform(lambda x: x.fillna(x.median()))
+data[continuous].describe().T
+
+#Turn categorical variables into binaries
+data2 = pd.concat([data[target], data[continuous], pd.get_dummies(data[discrete])], axis=1)
+
+discrete = ['AnimalType_Cat', 'AnimalType_Dog', 'Female_Female', 'Female_Male', 'Female_Unknown',
+           'Intact_Intact', 'Intact_Spayed/Neutered', 'Intact_Unknown', 'MixedBreed_Known Breed Combo',
+           'MixedBreed_Mixed Breed', 'MixedBreed_Nonmixed', 'Named_Named', 'Named_Unnamed']
 
 
-%matplotlib inline
+predictors = continuous + discrete
+target = 'OutcomeType'
+
+
+# Train/test split on the full dataset
+X = data2[predictors]
+y = data2[[target]]
+X_train, X_dev, y_train, y_dev = train_test_split(X, y, random_state=2)
+
+#Normalize the continuous variables
+ss = StandardScaler()
+ss.fit(X_train[continuous])   # Compute mean and std of training data
+X_train[continuous] = ss.transform(X_train[continuous])  # Use that mean and std to normalize columns of training data
+X_dev[continuous] = ss.transform(X_dev[continuous]) 

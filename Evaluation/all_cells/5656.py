@@ -1,37 +1,25 @@
-tags = (tag for i, (word, tag) in enumerate(data.training_set.stream()))
-words = (word for i, (word, tag) in enumerate(data.training_set.stream()))
-# Create a lookup table mfc_table where mfc_table[word] contains the tag label most frequently assigned to that word
-from collections import namedtuple
-
-mfc_table = defaultdict(list)
-FakeState = namedtuple("FakeState", "name")
-
-class MFCTagger:
-    # NOTE: You should not need to modify this class or any of its methods
-    missing = FakeState(name="<MISSING>")
+def accuracy(X, Y, model):
+    """Calculate the prediction accuracy by using the model to decode each sequence
+    in the input X and comparing the prediction with the true labels in Y.
     
-    def __init__(self, table):
-        self.table = defaultdict(lambda: MFCTagger.missing)
-        self.table.update({word: FakeState(name=tag) for word, tag in table.items()})
+    The X should be an array whose first dimension is the number of sentences to test,
+    and each element of the array should be an iterable of the words in the sequence.
+    The arrays X and Y should have the exact same shape.
+    
+    X = [("See", "Spot", "run"), ("Run", "Spot", "run", "fast"), ...]
+    Y = [(), (), ...]
+    """
+    correct = total_predictions = 0
+    for observations, actual_tags in zip(X, Y):
         
-    def viterbi(self, seq):
-        """This method simplifies predictions by matching the Pomegranate viterbi() interface"""
-        return 0., list(enumerate(["<start>"] + [self.table[w] for w in seq] + ["<end>"]))
-
-
-# TODO: calculate the frequency of each tag being assigned to each word (hint: similar, but not
-# the same as the emission probabilities) and use it to fill the mfc_table
-
-word_counts = pair_counts(words, tags)
-
-for key, val in word_counts.items():
-    mfc_table[key] = val.most_common(1)[0][0]
-
-
-# DO NOT MODIFY BELOW THIS LINE
-mfc_model = MFCTagger(mfc_table) # Create a Most Frequent Class tagger instance
-
-assert len(mfc_table) == len(data.training_set.vocab), ""
-assert all(k in data.training_set.vocab for k in mfc_table.keys()), ""
-assert sum(int(k not in mfc_table) for k in data.testing_set.vocab) == 5521, ""
-HTML('<div class="alert alert-block alert-success">Your MFC tagger has all the correct words!</div>')
+        # The model.viterbi call in simplify_decoding will return None if the HMM
+        # raises an error (for example, if a test sentence contains a word that
+        # is out of vocabulary for the training set). Any exception counts the
+        # full sentence as an error (which makes this a conservative estimate).
+        try:
+            most_likely_tags = simplify_decoding(observations, model)
+            correct += sum(p == t for p, t in zip(most_likely_tags, actual_tags))
+        except:
+            pass
+        total_predictions += len(observations)
+    return correct / total_predictions

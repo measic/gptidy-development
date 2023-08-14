@@ -1,5 +1,2 @@
-with tf.Session() as sess:
-    saver.restore(sess, tf.train.latest_checkpoint('.'))
-
-    test_accuracy = evaluate(X_test_normal, y_test)
-    print("Test Accuracy = {:.3f}".format(test_accuracy))
+### Calculate the accuracy for these 5 new images. 
+### For example, if the model predicted 1 out of 5 signs correctly, it's 20% accurate on these new images.

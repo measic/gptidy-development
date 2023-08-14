@@ -1,1 +1,1 @@
-df_aantal_flevoland.plot.bar(figsize=(8,5.0),title='Aantal MBO Afgestudeerden Regio Flevoland')
+# BK df_flevoland10.plot.bar(figsize=(18,7.0),title='Top 10 opleiding met meeste MBO 4 diplomas Flevoland in 2017')

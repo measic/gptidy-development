@@ -1,10 +1,12 @@
-bloom_times = []
-cuckoo_times = []
-
-for size in tqdm(capacities):
+def delete_from_cuckoo_filter_and_time(capacity, percent_to_fill=0.9, percent_delete=1.0):
+    c_filter, _, _ = insert_and_time_filter_cuckoo_filter(capacity, percent_fill=percent_to_fill)
     
-    __, c_time, num_inserted = insert_and_time_filter_cuckoo_filter(int(size))
-    cuckoo_times.append(c_time)
+    total_size = c_filter.get_size()
+    number_of_items_to_delete = total_size*percent_delete
     
-    __,b_time =  insert_and_time_filter_bloom_filter(num_inserted)
-    bloom_times.append(b_time)
+    now = time.time()
+    for i in range(int(number_of_items_to_delete)):
+        c_filter.remove(str(i))
+    elapsed_time = time.time() - now
+        
+    return c_filter, elapsed_time

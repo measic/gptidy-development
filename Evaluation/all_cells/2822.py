@@ -1,3 +1,5 @@
-from sklearn.linear_model import Ridge, RidgeCV, ElasticNet, Lasso, LassoCV
-from sklearn.model_selection import cross_val_score
-#from sklearn.metrics import mean_squared_error
+# Tune parameters - the only parameter is alpha - the larger alpha, the larger the penalty for extra predictors
+alphas = [0.1, 0.3, 1, 3, 5, 10, 15, 30, 50, 75]
+# Work out the RMSE for each value of the alphas above: 
+cv_ridge = [rmse_cv(Ridge(alpha = alpha)).mean() for alpha in alphas]
+cv_ridge = pd.Series(cv_ridge, index = alphas)

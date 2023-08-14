@@ -1,4 +1,9 @@
-for number in range(____,____,____):
-    square = ____ * ____
-    cube = ____ * ____
-    print('{0} squared is {1} and cubed is {2}.'.format(____,____,____))
+%pylab inline
+
+#Training Data
+X = np.array([[4, 1],
+              [1, 2],
+              [5, 1],
+              [3, 2],
+              [5, 2],
+              [4, 3]])

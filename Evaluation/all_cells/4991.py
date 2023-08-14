@@ -1,5 +1,6 @@
-def calc_other_neighbour_msg_prod(sender, receiver):
-    vectors = get_neighbour_messages(sender, receiver)
-#     print(vectors)
-    return np.multiply.reduce(np.ix_(*vectors))
+def calc_sum_product_factor_to_variable_msg(factor, variable):
+    neighbour_msg_prod = calc_other_neighbour_msg_prod(factor, variable)
     
+    f_neighb_first = move_dimension_first(factor.f, factor.neighbours.index(variable))
+    
+    return marginalize(calculate_factor(f_neighb_first, neighbour_msg_prod), 0)

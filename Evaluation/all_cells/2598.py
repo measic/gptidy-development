@@ -1,5 +1,3 @@
-import sys
-import os
-codebase = '../'
-sys.path.append(codebase)
-from src.utils import get_segment_img, predict_cluster, plot_seg_vs_truth, cluster_metric, PDI, plot_pdi_wapdi
+X = img.reshape(-1, 3).astype(int)
+N, D = X.shape
+print("flatten pixel matrix shape:", X.shape)

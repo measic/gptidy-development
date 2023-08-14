@@ -1,1 +1,1 @@
-clf.score(X_test, y_test)
+from sklearn import svm

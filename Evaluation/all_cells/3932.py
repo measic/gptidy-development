@@ -1,1 +1,1 @@
-print(cy.status)
+cy.selectedNodes

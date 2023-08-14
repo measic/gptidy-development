@@ -1,7 +1,5 @@
-# Increasing the feature space
-i=0
-for item in X['bed_type'].unique():
-    a=X['bed_type'] == X['bed_type'].unique()[i]
-    X[item] = a.map(lambda x: 1 if x == True else 0)
-    i=i+1
-X.shape
+# X_numeric has duplicate columns. The code below removes the duplicate columns
+_, i = np.unique(X_numeric.columns, return_index=True)
+X_Num_Cov=X_numeric.iloc[:, i]
+X_Num_Cov.to_csv('Numerical_FS.csv')
+X_Num_Cov.shape

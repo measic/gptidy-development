@@ -1,37 +1,27 @@
-# TODO: Set the epochs, batch_size, and learning_rate with the best parameters from problem 3
-epochs = 5
-batch_size = 100
-learning_rate = 0.2
+# EJERCICIO 1. 
+from sklearn.model_selection import train_test_split
+X_dev, X_eval, y_dev, y_eval = train_test_split(X, y,
+                                                    stratify=y, 
+                                                    test_size=0.10)
 
+display("#### Data Split ####")
+display(y_dev['output'].value_counts())
+display(y_eval['output'].value_counts())
 
+display("#### 0/1 frequency ratio ####")
 
-### DON'T MODIFY ANYTHING BELOW ###
-# The accuracy measured against the test set
-test_accuracy = 0.0
+display("## dev ##")
+display(y_dev['output'].value_counts()[0] / y_dev['output'].value_counts()[1])
 
-with tf.Session() as session:
-    
-    session.run(init)
-    batch_count = int(math.ceil(len(train_features)/batch_size))
+display("## eval ##")
+display(y_eval['output'].value_counts()[0] / y_eval['output'].value_counts()[1])
 
-    for epoch_i in range(epochs):
-        
-        # Progress bar
-        batches_pbar = tqdm(range(batch_count), desc='Epoch {:>2}/{}'.format(epoch_i+1, epochs), unit='batches')
-        
-        # The training cycle
-        for batch_i in batches_pbar:
-            # Get a batch of training features and labels
-            batch_start = batch_i*batch_size
-            batch_features = train_features[batch_start:batch_start + batch_size]
-            batch_labels = train_labels[batch_start:batch_start + batch_size]
+#Distribucion de los X de evaluacion
+plt.figure(figsize=(5, 3))
+plt.hist(np.array(X_eval))
+plt.show()
 
-            # Run optimizer
-            _ = session.run(optimizer, feed_dict={features: batch_features, labels: batch_labels})
-
-        # Check accuracy against Test data
-        test_accuracy = session.run(accuracy, feed_dict=test_feed_dict)
-
-
-assert test_accuracy >= 0.80, 'Test accuracy at {}, should be equal to or greater than 0.80'.format(test_accuracy)
-print('Nice Job! Test Accuracy is {}'.format(test_accuracy))
+#Distribucion de los X de entrenamiento
+plt.figure(figsize=(5, 3))
+plt.hist(np.array(X_dev))
+plt.show()

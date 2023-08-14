@@ -1,10 +1,6 @@
-# Edward Model
-with tf.name_scope("model"):
-    pi_ed = Dirichlet(concentration=tf.constant([1.0] * K, name="pi/weights"), name= "pi")
-    mu_ed = Normal(loc= tf.ones(D, name="centroids/loc") * 127, 
-                scale= tf.ones(D, name="centroids/scale") * 80, sample_shape=K, name= "centroids")
-    sigmasq_ed = InverseGamma(concentration=tf.ones(D, name="variability/concentration"), 
-                         rate=tf.ones(D, name="variability/rate"), sample_shape=K, name= "variability")
-    x_ed = ParamMixture(pi_ed, {'loc': mu_ed, 'scale_diag': tf.sqrt(sigmasq_ed)},
-                     MultivariateNormalDiag, sample_shape=N, name= "mixture")
-    z_ed = x_ed.cat
+T = 1000  # number of samples
+with tf.name_scope("posterior"):
+    qpi = Empirical(tf.get_variable("qpi/params", [T, K],initializer=tf.constant_initializer(1.0/K)))
+    qmu = Empirical(tf.get_variable("qmu/params", [T, K, D],initializer=tf.zeros_initializer()))
+    qsigma = Empirical(tf.get_variable("qsigma/params", [T, K, D],initializer=tf.ones_initializer()))
+    qz = Empirical(tf.get_variable("qz/params", [T, N],initializer=tf.zeros_initializer(),dtype=tf.int32))

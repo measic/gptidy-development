@@ -1,38 +1,12 @@
-from datetime import datetime
+# load data and make some subsets for each wfs for inspection later
+dfs = []
+for y in [2018, 2019]:
+    dfs.append(pd.read_csv(f"../raw_data/{y}_wfs.csv"))
+data = pd.concat(dfs)
+data['ut'] = pd.to_datetime(data.ut)
+data['az'][data['az'] < 0.] += 360.
 
-import time
-import os
-import sys
-from pathlib import Path
-
-import numpy as np
-from scipy.stats import lognorm
-import pandas as pd
-
-from astropy import stats
-from astropy.io import fits
-from astropy.time import Time
-import astropy.units as u
-
-import matplotlib
-#matplotlib.use('nbagg')
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-
-import seaborn as sns
-import tensorflow as tf
-from tensorflow import keras
-from tensorflow.keras import layers
-
-config = tf.ConfigProto(
-    intra_op_parallelism_threads=5,
-    inter_op_parallelism_threads=5,
-    allow_soft_placement=True,
-    log_device_placement=True,
-    device_count = {'CPU': 5}
-)
-sess = tf.Session(config=config)
-
-np.random.seed(42)
-
-print(tf.__version__)
+f9 = data[(data['wfs'] == 'newf9') | (data['wfs'] == 'oldf9')]
+f5 = data[data['wfs'] == 'f5']
+mmirs = data[data['wfs'] == 'mmirs']
+bino = data[data['wfs'] == 'binospec']

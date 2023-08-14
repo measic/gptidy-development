@@ -1,1 +1,2 @@
-qgrid.show_grid(df.rel_freq[0], export_mode=True)
+fig = cos_sim_plot(df.cos_sim)
+py.iplot(fig, filename='cos_sim')

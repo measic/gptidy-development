@@ -10,14 +10,14 @@ def scale(train, test):
     test_scaled = scaler.transform(test)
     return (scaler, train_scaled, test_scaled)
 
-def function_def(scaler, X, value):
+def invert_scale(scaler, X, value):
     new_row = [x for x in X] + [value]
     array = numpy.array(new_row)
     array = array.reshape(1, len(array))
     inverted = scaler.inverse_transform(array)
     return inverted[0, -1]
 
-def fit_lstm(train, batch_size, nb_epoch, neurons):
+def function_def(train, batch_size, nb_epoch, neurons):
     X, y = (train[:, 0:-1], train[:, -1])
     X = X.reshape(X.shape[0], 1, X.shape[1])
     model = Sequential()

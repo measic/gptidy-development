@@ -1,4 +1,1 @@
-from sklearn.linear_model import LogisticRegression
-
-trainere = LogisticRegression(multi_class='multinomial',solver='newton-cg')
-trainere.fit(finalX,y_train)
+top_travel_cities = ['Solta', 'Greenville', 'Buenos Aires', 'Los Cabos', 'Walla Walla Valley', 'Marakesh', 'Albuquerque', 'Archipelago Sea', 'Iguazu Falls', 'Salina Island', 'Toronto', 'Pyeongchang']

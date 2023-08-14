@@ -1,8 +1,5 @@
-# Define root-mean-square-error function - use 10-fold cross-validation
-# You have to use neg_mean_squared_error because mean_squared_error will be deprecated in future
-def rmse_cv(model):
-    rmse = np.sqrt(-cross_val_score(model, X_train, y, scoring="neg_mean_squared_error", cv = 5))
-    return rmse
-
-# Invoke Ridge regularisation
-model_ridge = Ridge()
+# Let's plot the RMSE as a function of alpha
+matplotlib.rcParams['figure.figsize'] = (7,3)
+cv_ridge.plot(title = 'RMSE as a function of alpha (Ridge regularisation)')
+plt.xlabel('alpha')
+plt.ylabel('RMSE')

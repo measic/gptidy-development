@@ -1,1 +1,1 @@
-m $ m \$ V3 1 0 1
+sampleLinearFunction $ (scale $ 3) :: ℝ³+>ℝ³

@@ -1,5 +1,30 @@
-HTML("""
-<video width="960" height="540" controls>
-  <source src="{0}">
-</video>
-""".format(yellow_output))
+def process_image(image, 
+                  k_size = k_size,
+                  low_thresh = low_thresh,
+                  high_thresh = high_thresh,
+                  L2gradient = L2gradient,
+                  rho = rho,
+                  theta = theta,
+                  min_votes = min_votes,
+                  min_line_len = min_line_len,
+                  max_line_gap = max_line_gap,
+                  angle = angle,
+                  angle_thresh = angle_threshold,
+                  debug = False):
+    # NOTE: The output you return should be a color image (3 channel) for processing video below
+    # TODO: put your pipeline here,
+    # you should return the final output (image with lines are drawn on lanes)
+    result = lane_detection_ppline(image, 
+                                   k_size = k_size,
+                                   low_thresh = low_thresh,
+                                   high_thresh = high_thresh,
+                                   L2gradient = L2gradient,
+                                   rho = rho,
+                                   theta = theta,
+                                   min_votes = min_votes,
+                                   min_line_len = min_line_len,
+                                   max_line_gap = max_line_gap,
+                                   angle = angle,
+                                   angle_thresh = angle_threshold,
+                                   debug = debug)
+    return result

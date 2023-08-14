@@ -1,1 +1,1 @@
-neuron(X[i, :], w)
+w

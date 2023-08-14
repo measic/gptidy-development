@@ -1,3 +1,4 @@
-#dw_obj.tolerance_settings.get_value(variable = 'MIN_NR_YEARS', type_area = '22')
-#dw_obj.tolerance_settings.get_min_nr_years(type_area = '22')
-#dw_obj.mapping_objects['water_body'].keys()
+num_points = 400
+
+tsne = TSNE(perplexity=30, n_components=2, init='pca', n_iter=5000)
+two_d_embeddings = tsne.fit_transform(final_embeddings[1:num_points+1, :])

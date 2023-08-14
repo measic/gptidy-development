@@ -1,1 +1,1 @@
-learn = Learner(data, simple_cnn((3, 16, 16, 2)), metrics=[accuracy]).mixup()
+learn.csv_logger.read_logged_file()

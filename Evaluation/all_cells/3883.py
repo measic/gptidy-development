@@ -1,7 +1,7 @@
-X, Annotations = marconi['Volleyball']
+X, Annotations = marconi['Walk2']
 
-camera = 0
-frame = 220
+camera = 3
+frame = 5
 
 fig = plt.figure(figsize=(16,8))
 ax = fig.add_subplot(111)

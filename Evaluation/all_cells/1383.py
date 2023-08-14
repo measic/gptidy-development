@@ -1,2 +1,3 @@
-#this produces an indexing error
-#print(E[3][4])
+#add a row. 
+E = np.concatenate((E, [[7,8,9]]), axis=0) 
+print(E)

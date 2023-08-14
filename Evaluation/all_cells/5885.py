@@ -1,6 +1,2 @@
-# Visualize how growth rates change with growth iterations
-plt.scatter(tmap_annotated.obs['g0'],tmap_annotated.obs['g1'])
-plt.xlabel("g0")
-plt.ylabel("g1")
-plt.title("Input vs Output Growth Rates")
-plt.show()
+ot_model_gr2 = wot.ot.OTModel(adata,epsilon = 0.05, lambda1 = 1,lambda2 = 50,growth_iters=2) 
+tmap_anno_gr2 = ot_model_gr2.compute_transport_map(7,7.5)

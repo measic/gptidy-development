@@ -1,5 +1,7 @@
-# Compute synthetic data with forward operator 
-from examples.seismic.acoustic import AcousticWaveSolver
+#NBVAL_IGNORE_OUTPUT
+# Plot shot record for true and smooth velocity model and the difference
+from examples.seismic import plot_shotrecord
 
-solver = AcousticWaveSolver(model, geometry, space_order=4)
-true_d , _, _ = solver.forward(vp=model.vp)
+plot_shotrecord(true_d.data, model, t0, tn)
+plot_shotrecord(smooth_d.data, model, t0, tn)
+plot_shotrecord(smooth_d.data - true_d.data, model, t0, tn)

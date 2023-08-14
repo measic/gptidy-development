@@ -1,15 +1,33 @@
-# Used X_test, y_test, and model.predict(X_test) to calculate MSE and R2
+# Re-run the model with the Bib numbers as a feature and for the 5K, 10K 15K 20K and Half split times to predict 25K time
 
-from sklearn.metrics import mean_squared_error
+### set up data for modeling
+X_25K = boston_clean[['Bib', 'Age','Official Time Duration', 'F', 'M', 'Temp (F)', '5K Duration', '10K Duration', '15K Duration', '20K Duration', 'Half Duration']]
+y_25K = boston_clean['25K Duration'].values.reshape(-1, 1)
+print(X_25K.shape, y_25K.shape)
 
-MSE = mean_squared_error(y_test_Half, predictions_Half)
-r2 = model_Half.score(X_test_Half, y_test_Half)
+# split the data into test and train subsets
 
+from sklearn.model_selection import train_test_split
 
-print(f"MSE: {MSE}, R2: {r2}")
+X_train_25K, X_test_25K, y_train_25K, y_test_25K = train_test_split(X_25K, y_25K, random_state=29)
+# X_train_25K.head()
 
-# create lists of MSE and r2 values for each model
+# Create a linear regression model and fit it to the training data
 
-boston_models.append('Half')
-boston_mse.append(MSE)
-boston_r2.append(r2)
+from sklearn.linear_model import LinearRegression
+model_25K = LinearRegression()
+model_25K.fit(X_train_25K, y_train_25K)
+
+# Make predictions
+
+predictions_25K = model_25K.predict(X_test_25K)
+
+# Plot the residuals
+
+plt.scatter(model_25K.predict(X_train_25K), model_25K.predict(X_train_25K) - y_train_25K, c="blue", label="Training Data")
+plt.scatter(model_25K.predict(X_test_25K), model_25K.predict(X_test_25K) - y_test_25K, c="orange", label="Testing Data")
+plt.legend()
+plt.hlines(y=0, xmin=y_test_25K.min(), xmax=y_test_25K.max())
+plt.title("Residual Plot 25K")
+plt.savefig('model_25k.png')
+plt.show()

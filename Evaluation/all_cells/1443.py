@@ -1,16 +1,7 @@
-#row 1 subplot
-plt.subplot(nrows, ncols, idx)
-plt.plot(data,'b*')
-plt.title('Raw data')
-plt.xlim((-1,10))
-
-#row 2 subplot
-plt.subplot(nrows, ncols, idx+1)
-err = np.std(data, axis=1)
-plt.bar(x, fit_fn(x), color='r', yerr=err)
-plt.title('Mean data')
-plt.tight_layout() #use this to adjust the spacing around subplots.
-plt.xlim((-1,10))  #must set limits for each subplot or else it uses defaults.
-plt.savefig('Figure2-Lesson8.png')
-plt.show()
-plt.close()
+#Python doesn't require an 'end' for the end of a block (e.g. if). This is accomplished by indentation.
+A = 10
+if A > 5:
+    B = 1
+else:
+    B = 0
+print(B)

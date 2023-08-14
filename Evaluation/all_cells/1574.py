@@ -1,1 +1,2 @@
-E01 = Area.loc[Area['LSOA'] == 'E01017182']
+# merge the datasets
+result = pd.merge(Pixel, E01, left_index=True, right_index=True)

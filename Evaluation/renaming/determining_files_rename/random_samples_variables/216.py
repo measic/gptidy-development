@@ -58,9 +58,9 @@ def lane_detection_ppline_3_channels(image, k_size=3, vertex_ratio_h=0.45, verte
     for chan in range(0, 3):
         lines = np.concatenate((lines, lines_list[chan][1]), axis=0)
     if debug:
-        variable_def = merge_channels([lines_list[0][0], lines_list[1][0], lines_list[2][0]])
+        hls_lines_image = merge_channels([lines_list[0][0], lines_list[1][0], lines_list[2][0]])
         plt.subplot(5, 3, 13)
-        plt.imshow(variable_def)
+        plt.imshow(hls_lines_image)
     try:
         combined = extend_lines(image, lines, angle=angle, angle_thresh=angle_thresh)
         if debug:
@@ -71,5 +71,5 @@ def lane_detection_ppline_3_channels(image, k_size=3, vertex_ratio_h=0.45, verte
     return combined
 
 def process_image_3_channels(image, k_size=3, vertex_ratio_h=0.45, vertex_ratio_v=0.6, low_thresh=50, high_thresh=200, L2gradient=False, rho=2, theta=1 * np.pi / 180.0, min_votes=15, min_line_len=40, max_line_gap=20, angle=3 * np.pi / 16, angle_thresh=np.pi / 16, debug=False):
-    result = lane_detection_ppline_3_channels(image, k_size=k_size, low_thresh=low_thresh, high_thresh=high_thresh, L2gradient=L2gradient, rho=rho, theta=theta, min_votes=min_votes, min_line_len=min_line_len, max_line_gap=max_line_gap, angle=angle, angle_thresh=angle_threshold, debug=debug)
-    return result
+    variable_def = lane_detection_ppline_3_channels(image, k_size=k_size, low_thresh=low_thresh, high_thresh=high_thresh, L2gradient=L2gradient, rho=rho, theta=theta, min_votes=min_votes, min_line_len=min_line_len, max_line_gap=max_line_gap, angle=angle, angle_thresh=angle_threshold, debug=debug)
+    return variable_def

@@ -1,10 +1,16 @@
-import pymc3 as pm
+alpha_samples = burned_trace["alpha"][:, None]  # best to make them 1d
+beta_samples = burned_trace["beta"][:, None]
 
-temperature = challenger_data[:, 0]
-D = challenger_data[:, 1]  # defect or not?
+figsize(12.5, 6)
 
-#notice the`value` here. We explain why below.
-with pm.Model() as model:
-    beta = pm.Normal("beta", mu=0, tau=0.001, testval=0)
-    alpha = pm.Normal("alpha", mu=0, tau=0.001, testval=0)
-    p = pm.Deterministic("p", 1.0/(1. + tt.exp(beta*temperature + alpha)))
+#histogram of the samples:
+plt.subplot(211)
+plt.title(r"Posterior distributions of the variables $\alpha, \beta$")
+plt.hist(beta_samples, histtype='stepfilled', bins=35, alpha=0.85,
+         label=r"posterior of $\beta$", color="#7A68A6", normed=True)
+plt.legend()
+
+plt.subplot(212)
+plt.hist(alpha_samples, histtype='stepfilled', bins=35, alpha=0.85,
+         label=r"posterior of $\alpha$", color="#A60628", normed=True)
+plt.legend();

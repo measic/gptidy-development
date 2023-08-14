@@ -1,1 +1,1 @@
-twitter_archive.describe()
+twitter_archive.rating_denominator.value_counts()

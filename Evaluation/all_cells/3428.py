@@ -1,2 +1,6 @@
-# equal to
-[1,2] == [1,2]
+x = True
+y = False
+
+print(not x)
+print(x and y)
+print(x or y)

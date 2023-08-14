@@ -1,2 +1,2 @@
-### Resposta: Não
-train.groupby(['Sobreviventes','PortoEmbarque']).size()
+### Sim 9. 
+test.groupby(['ParentesFilhos']).size()

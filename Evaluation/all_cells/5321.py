@@ -1,16 +1,18 @@
-# generamos una variable con las dos características que nos interesan
-x = [caracteristicas[:,1] caracteristicas[:,2]]
+# escogemos aleatoriamente una ilera en los datos
+ilera_al = rand(1:150,1)
 
-# obtenemos las características globales promedio
-x_prom = mean(x,1)
+# extraemos los datos de esta ilera en una variable nueva
+x_muestra = x[ilera_al,:]
 
-# extraemos las caracteristicas globales promedio de nuestros datos
-x = x - x_prom.*ones(150,2)
+# calculamos el producto interno de esta muestra con cada uno de los vectores promedio
+prod_1 = x_muestra*prom_1'
+prod_2 = x_muestra*prom_2'
+prod_3 = x_muestra*prom_3'
 
-# graficamos nuevamente
-scatter(x[1:50,1],x[1:50,2], color="b")
-scatter(x[51:100,1],x[51:100,2], color="r")
-scatter(x[101:150,1],x[101:150,2], color="g")
-xlabel("Longitud del Pétalo (cm)")
-ylabel("Anchura del Pétalo (cm)")
-grid("on")
+# imprimimos los resultados
+print("el producto interno del vector muestra con de los vectores promedio correspondientes a las especies de plantas son: \n")
+print("\n setosa ", prod_1)
+print("\n versicolor ", prod_2)
+print("\n virginica ", prod_3)
+print("\n\ny la especie correcta del vector muestra es: \n")
+print("\n ", especies[ilera_al])

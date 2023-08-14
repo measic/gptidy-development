@@ -1,3 +1,1 @@
-### Resposta: Binomial
-train['Sobreviventes'].hist()
-plt.show()
+uniao.loc[(uniao['PortoEmbarque'].isnull())]

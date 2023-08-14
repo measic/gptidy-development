@@ -1,13 +1,11 @@
-#add Tuition Cost Tier column to dataframe
-region_stats["tuition_cost_tier"] = pd.cut(region_stats["tuition_in_state"], bins, labels=bin_names)
+#organize seperate dataframes by cost tier for plotting + drop region 0 & 9 due to irrelevancy 
+df0_10k = clean_info.loc[clean_info["tuition_cost_tier"] == 'less_10k']
+df0_10k_edit0 = df0_10k[df0_10k.region != 0]
+df0_10k_edit9 = df0_10k_edit0[df0_10k_edit0.region != 9]
 
-#store variables for ratio calculations
-cost = region_stats['tuition_in_state']
-earnings6 = region_stats['earnings6years']
-earnings10 = region_stats['earnings10years']
+df10_18k = clean_info.loc[clean_info["tuition_cost_tier"] == '10k_18k']
+df10_18k_edit = df10_18k[df10_18k.region != 9]
 
-#add columns for earnings/cost ratio, 6 - 10 year earnings growth ratio
-region_stats['earnings_cost_ratio'] = earnings6/cost
-region_stats['earnings_growth_y6_y10'] = earnings10/earnings6
-region_stats['weighted_growth_to_tuition'] = region_stats['earnings_cost_ratio'] * region_stats['earnings_growth_y6_y10']
+df18_32 = clean_info.loc[clean_info["tuition_cost_tier"] == '18k_32k']
 
+df32 = clean_info.loc[clean_info["tuition_cost_tier"] == 'greater_32k']

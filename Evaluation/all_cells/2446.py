@@ -1,1 +1,1 @@
-d = DotPlot(gepard_command, out_dir)
+from BITS.seq.utils import revcomp

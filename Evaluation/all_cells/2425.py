@@ -1,2 +1,1 @@
-alignment = r.align("ACGTTTAGAT", "AGGTTCGAGAT")
-alignment
+alignment.diff

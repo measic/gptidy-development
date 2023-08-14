@@ -1,3 +1,12 @@
-# Store all multiples of three from 1 to 100
-result = [i for i in range(1, 101) if i % 3 == 0]
-print(result)
+state2abbr = {
+    'Michigan': 'MI',
+    'Oregon' : 'OR',
+    'Califonia' : 'CA',
+    'Nevada' : 'NV' }
+
+cities = {
+    'Ann Arbor' : 'MI',
+    'Chicago' : 'IL',
+    'Portland' : 'OR',
+    'Berkeley' : 'CA',
+    'San Francisco' : 'CA' }

@@ -1,4 +1,12 @@
-f = open('demographics_new.csv','w') # open a file with writing rights = 'w'
-fw = csv.writer(f)                   # create csv writer
-fw.writerows(data_new)               # write content to file
-f.close()                            # close file 
+f = open('demographics.txt','r') # open file with reading rights = 'r'
+
+# go through file and trim the new line '\n' at the end
+datatxt = [i.splitlines() for i in f.readlines()]
+
+# go through data and split elements in line by tabulators '\t'
+datatxt = [i[0].split('\t') for i in datatxt]
+
+f.close() # close file again
+
+for line in datatxt:
+    print(line)

@@ -1,35 +1,51 @@
-# Encoder 裡頭會有 N 個 EncoderLayers，而每個 EncoderLayer 裡又有兩個 sub-layers: MHA & FFN
-class EncoderLayer(tf.keras.layers.Layer):
-  # Transformer 論文內預設 dropout rate 為 0.1
+# Decoder 裡頭會有 N 個 DecoderLayer，
+# 而 DecoderLayer 又有三個 sub-layers: 自注意的 MHA, 關注 Encoder 輸出的 MHA & FFN
+class DecoderLayer(tf.keras.layers.Layer):
   def __init__(self, d_model, num_heads, dff, rate=0.1):
-    super(EncoderLayer, self).__init__()
+    super(DecoderLayer, self).__init__()
 
-    self.mha = MultiHeadAttention(d_model, num_heads)
+    # 3 個 sub-layers 的主角們
+    self.mha1 = MultiHeadAttention(d_model, num_heads)
+    self.mha2 = MultiHeadAttention(d_model, num_heads)
     self.ffn = point_wise_feed_forward_network(d_model, dff)
-
-    # layer norm 很常在 RNN-based 的模型被使用。一個 sub-layer 一個 layer norm
+ 
+    # 定義每個 sub-layer 用的 LayerNorm
     self.layernorm1 = tf.keras.layers.LayerNormalization(epsilon=1e-6)
     self.layernorm2 = tf.keras.layers.LayerNormalization(epsilon=1e-6)
+    self.layernorm3 = tf.keras.layers.LayerNormalization(epsilon=1e-6)
     
-    # 一樣，一個 sub-layer 一個 dropout layer
+    # 定義每個 sub-layer 用的 Dropout
     self.dropout1 = tf.keras.layers.Dropout(rate)
     self.dropout2 = tf.keras.layers.Dropout(rate)
+    self.dropout3 = tf.keras.layers.Dropout(rate)
     
-  # 需要丟入 `training` 參數是因為 dropout 在訓練以及測試的行為有所不同
-  def call(self, x, training, mask):
-    # 除了 `attn`，其他張量的 shape 皆為 (batch_size, input_seq_len, d_model)
-    # attn.shape == (batch_size, num_heads, input_seq_len, input_seq_len)
     
-    # sub-layer 1: MHA
-    # Encoder 利用注意機制關注自己當前的序列，因此 v, k, q 全部都是自己
-    # 另外別忘了我們還需要 padding mask 來遮住輸入序列中的 <pad> token
-    attn_output, attn = self.mha(x, x, x, mask)  
-    attn_output = self.dropout1(attn_output, training=training) 
-    out1 = self.layernorm1(x + attn_output)  
+  def call(self, x, enc_output, training, 
+           combined_mask, inp_padding_mask):
+    # 所有 sub-layers 的主要輸出皆為 (batch_size, target_seq_len, d_model)
+    # enc_output 為 Encoder 輸出序列，shape 為 (batch_size, input_seq_len, d_model)
+    # attn_weights_block_1 則為 (batch_size, num_heads, target_seq_len, target_seq_len)
+    # attn_weights_block_2 則為 (batch_size, num_heads, target_seq_len, input_seq_len)
+
+    # sub-layer 1: Decoder layer 自己對輸出序列做注意力。
+    # 我們同時需要 look ahead mask 以及輸出序列的 padding mask 
+    # 來避免前面已生成的子詞關注到未來的子詞以及 <pad>
+    attn1, attn_weights_block1 = self.mha1(x, x, x, combined_mask)
+    attn1 = self.dropout1(attn1, training=training)
+    out1 = self.layernorm1(attn1 + x)
     
-    # sub-layer 2: FFN
-    ffn_output = self.ffn(out1) 
-    ffn_output = self.dropout2(ffn_output, training=training)  # 記得 training
-    out2 = self.layernorm2(out1 + ffn_output)
+    # sub-layer 2: Decoder layer 關注 Encoder 的最後輸出
+    # 記得我們一樣需要對 Encoder 的輸出套用 padding mask 避免關注到 <pad>
+    attn2, attn_weights_block2 = self.mha2(
+        enc_output, enc_output, out1, inp_padding_mask)  # (batch_size, target_seq_len, d_model)
+    attn2 = self.dropout2(attn2, training=training)
+    out2 = self.layernorm2(attn2 + out1)  # (batch_size, target_seq_len, d_model)
     
-    return out2
+    # sub-layer 3: FFN 部分跟 Encoder layer 完全一樣
+    ffn_output = self.ffn(out2)  # (batch_size, target_seq_len, d_model)
+
+    ffn_output = self.dropout3(ffn_output, training=training)
+    out3 = self.layernorm3(ffn_output + out2)  # (batch_size, target_seq_len, d_model)
+    
+    # 除了主要輸出 `out3` 以外，輸出 multi-head 注意權重方便之後理解模型內部狀況
+    return out3, attn_weights_block1, attn_weights_block2

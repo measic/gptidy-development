@@ -1,3 +1,5 @@
-l1 = [x**2 for x in range(0,5)]
+def say_hello():
+    # block belonging to the function
+    print('hello world')
 
-print(l1)
+say_hello() # call the function

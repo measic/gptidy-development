@@ -1,6 +1,5 @@
-%matplotlib inline
-
-import pickle as pkl
-import numpy as np
-import tensorflow as tf
-import matplotlib.pyplot as plt
+def model_inputs(real_dim, z_dim):
+    inputs_real = 
+    inputs_z = 
+    
+    return inputs_real, inputs_z

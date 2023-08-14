@@ -1,2 +1,1 @@
-#Drop NAN values
-result.dropna()
+from dateutil.parser import parse

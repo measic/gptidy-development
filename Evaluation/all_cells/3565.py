@@ -1,2 +1,1 @@
-w.mapping_objects['quality_element'].cfg['indicators']
-[item.strip() for item in w.mapping_objects['quality_element'].cfg['indicators'].loc[indicator][0].split(', ')]
+w.get_step_object(step = 3, subset = subset_uuid).indicator_objects[indicator].get_ref_value_type(water_body = wb)

@@ -28,7 +28,7 @@ class MonteCarlo(EuropeanOption):
         price_terminal = self.S0 * np.exp((self.r - self.div - 0.5 * self.sigma ** 2) * self.T + self.sigma * np.sqrt(self.T) * brownian)
         return price_terminal
 
-    def generate_payoffs(self):
+    def function_def(self):
         price_terminal = self.simulation_terminal()
         if self.option_type == 'call':
             payoff = np.maximum(price_terminal - self.strike, 0)
@@ -37,7 +37,7 @@ class MonteCarlo(EuropeanOption):
         return payoff
 
     @property
-    def function_def(self):
+    def value(self):
         payoff = self.generate_payoffs()
         return self.discount * np.sum(payoff) / float(len(payoff))
 

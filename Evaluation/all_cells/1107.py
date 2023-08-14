@@ -1,5 +1,1 @@
-# gamma_data = gamma_epoch.get_data()
-# beta_data = beta_epoch.get_data()
-# alpha_data = alpha_epoch.get_data()
-# theta_data = theta_epoch.get_data()
-# delta_epoch = delta_epoch.get_data()
+# gamma_pca_data.shape

@@ -1,7 +1,23 @@
-save_file= './train_model_best.ckpt'
-saver = tf.train.Saver()
+print('Selecting only the top 5 predictions and rerunning softmax')
+num_own_examples = len(X2_norm)
+for i in range(num_own_examples):
+    
+    probas = proba[i]
+    names = np.asarray([signnames[str(p)] for p in predicts[1][i]])
+    
+    plt.figure(1)
 
-with tf.Session() as session:
-    saver.restore(session, save_file)
-    feed_dict = {tf_train_dataset : X2_norm, tf_keep_prob : 1}
-    proba = session.run(train_prediction, feed_dict)
+    plt.subplot(221)
+    plt.imshow(X2[i])
+    plt.axis('off')
+    
+    plt.subplot(222)
+    y_pos = np.arange(len(names))[::-1]
+    plt.barh(y_pos,probas, align='center')
+    plt.yticks(y_pos, names, fontsize=7)
+    plt.xlabel('Probability')
+    plt.title('Top 5 predictions')
+    
+    
+    plt.tight_layout()
+    plt.show()

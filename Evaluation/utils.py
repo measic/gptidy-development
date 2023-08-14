@@ -24,20 +24,20 @@ def print_check_gpt_results(gpt_results):
     for reason, count in finish_reasons.items():
         print(f'{reason}: {count}')
 
-    # determine which numbers did not finish due to length
-    finish_reason_length = []
+    # determine which numbers did not finish
+    finish_reason_failed = []
     for i, result in enumerate(gpt_results):
         reason = result['reason']
-        if reason == 'length':
-            finish_reason_length.append(i)
+        if reason != 'stop':
+            finish_reason_failed.append(i)
 
     # print the numbers
-    return finish_reason_length
+    return finish_reason_failed
     
-def stats_results_unused(gpt_unused_names, before):
+def stats_results_unused(gpt_unused_names, before, failed_ids):
     # Identification results of Vulture vs GPT
-    gpt_before_count = sum([len(lst) for lst in gpt_unused_names])
-    vulture_before_count = sum([len(lst) for lst in before])
+    gpt_before_count = sum([len(lst) if lst is not None else 0 for lst in gpt_unused_names])
+    vulture_before_count = sum([len(lst) if lst is not None else 0 for lst in before])
     print(f'GPT before count: {gpt_before_count}')
     print(f'Vulture before count: {vulture_before_count}')
 
@@ -48,6 +48,8 @@ def stats_results_unused(gpt_unused_names, before):
     false_positives = 0
     false_negatives = 0
     for i, gpt_names in enumerate(gpt_unused_names):
+        if i in failed_ids:
+            continue
         before_names = before[i]
         for name in gpt_names:
             if name in before_names:
@@ -56,6 +58,8 @@ def stats_results_unused(gpt_unused_names, before):
                 false_positives += 1
 
     for i, before_names in enumerate(before):
+        if i in failed_ids:
+            continue
         gpt_names = gpt_unused_names[i]
         for name in before_names:
             if name not in gpt_names:

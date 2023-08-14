@@ -1,12 +1,12 @@
-# Import sklearn.preprocessing.StandardScaler
-from sklearn.preprocessing import MinMaxScaler
+# Import train_test_split
+from sklearn.model_selection import train_test_split
 
-# Initialize a scaler, then apply it to the features
-scaler = MinMaxScaler() # default=(0, 1)
-numerical = ['age', 'education-num', 'capital-gain', 'capital-loss', 'hours-per-week']
+# Split the 'features' and 'income' data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(features_final, 
+                                                    income, 
+                                                    test_size = 0.2, 
+                                                    random_state = 0)
 
-features_log_minmax_transform = pd.DataFrame(data = features_log_transformed)
-features_log_minmax_transform[numerical] = scaler.fit_transform(features_log_transformed[numerical])
-
-# Show an example of a record with scaling applied
-display(features_log_minmax_transform.head(n = 5))
+# Show the results of the split
+print("Training set has {} samples.".format(X_train.shape[0]))
+print("Testing set has {} samples.".format(X_test.shape[0]))

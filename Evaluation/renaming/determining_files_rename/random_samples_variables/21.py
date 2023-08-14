@@ -2,7 +2,7 @@ class Dataset(object):
     PAD = 0
     SOS = 1
     EOS = 2
-    UNK = 3
+    variable_def = 3
     constants = ['PAD', 'SOS', 'EOS', 'UNK']
     hu_alphabet = list('aábcdeéfghiíjklmnoóöőpqrstuúüűvwxyz-+._')
 
@@ -44,8 +44,8 @@ class Dataset(object):
         dataset = tf.contrib.data.Dataset.zip((src, tgt))
         dataset = dataset.map(lambda src, tgt: (src, tf.concat(([Dataset.SOS], tgt), 0), tf.concat((tgt, [Dataset.EOS]), 0)))
         dataset = dataset.map(lambda src, tgt_in, tgt_out: (src, tgt_in, tgt_out, tf.size(src), tf.size(tgt_in)))
-        variable_def = dataset.padded_batch(self.config.batch_size, padded_shapes=(tf.TensorShape([self.config.src_maxlen]), tf.TensorShape([self.config.tgt_maxlen + 2]), tf.TensorShape([None]), tf.TensorShape([]), tf.TensorShape([])))
-        self.batched_iter = variable_def.make_initializable_iterator()
+        batched = dataset.padded_batch(self.config.batch_size, padded_shapes=(tf.TensorShape([self.config.src_maxlen]), tf.TensorShape([self.config.tgt_maxlen + 2]), tf.TensorShape([None]), tf.TensorShape([]), tf.TensorShape([])))
+        self.batched_iter = batched.make_initializable_iterator()
         s = self.batched_iter.get_next()
         self.src_ids = s[0]
         self.tgt_in_ids = s[1]

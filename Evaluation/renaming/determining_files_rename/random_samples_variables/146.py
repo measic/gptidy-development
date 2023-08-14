@@ -8,13 +8,13 @@ target = 'aclImdb_v1.tar.gz'
 def reporthook(count, block_size, total_size):
     global start_time
     if count == 0:
-        start_time = time.time()
+        variable_def = time.time()
         return
-    duration = time.time() - start_time
+    duration = time.time() - variable_def
     progress_size = int(count * block_size)
-    variable_def = progress_size / (1024.0 ** 2 * duration)
+    speed = progress_size / (1024.0 ** 2 * duration)
     percent = count * block_size * 100.0 / total_size
-    sys.stdout.write('\r%d%% | %d MB | %.2f MB/s | %d sec elapsed' % (percent, progress_size / 1024.0 ** 2, variable_def, duration))
+    sys.stdout.write('\r%d%% | %d MB | %.2f MB/s | %d sec elapsed' % (percent, progress_size / 1024.0 ** 2, speed, duration))
     sys.stdout.flush()
 if not os.path.isdir('aclImdb') and (not os.path.isfile('aclImdb_v1.tar.gz')):
     if sys.version_info < (3, 0):

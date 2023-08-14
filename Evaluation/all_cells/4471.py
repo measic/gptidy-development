@@ -1,9 +1,11 @@
-from sklearn.metrics import accuracy_score
-y_predict = xgbc.predict(X_test)
-rf_y_predict = rf.predict(X_test)
-sgd_y_predict = sgd.predict(X_test)
 
-print(" -- accuracy_score ---")
-print(accuracy_score(y_test, y_predict))
-print(accuracy_score(y_test, rf_y_predict))
-print(accuracy_score(y_test, sgd_y_predict))
+import xgboost as xgb
+# read in data
+dtrain = xgb.DMatrix('/cxldata/xgboost/agaricus.txt.train')
+dtest = xgb.DMatrix('/cxldata/xgboost/agaricus.txt.test')
+# specify parameters via map
+param = {'max_depth':2, 'eta':1, 'silent':1, 'objective':'binary:logistic' }
+num_round = 2
+bst = xgb.train(param, dtrain, num_round)
+# make prediction
+preds = bst.predict(dtest)

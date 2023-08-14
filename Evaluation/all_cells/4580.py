@@ -1,2 +1,9 @@
-# hint: range() function!
-sum(list(range(100))[1::2])
+# A while loop
+counter = 0
+
+while counter < 5:
+    print("the counter =", counter)
+    counter += 1
+    
+
+print("the loop finished!")

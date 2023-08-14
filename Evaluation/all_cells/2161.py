@@ -1,31 +1,25 @@
-data = []
-for i, sem in enumerate(semester_codes):
-    data.append(
-        go.Bar(
-            x=get_semester_via_col(exam_counts, 'date', sem)['date'],
-            y=get_semester_via_col(exam_counts, 'date', sem)['num'],
-            name=semester_names[sem],
-            marker={ 'color': semester_colors[sem] },
-            yaxis='y' + str(i+1)
-        )
-    )
+# Create connection
+conn = psycopg2.connect(database="vir_mirna", user="wkg", 
+                        password="apples", host="localhost")
 
-fig = tools.make_subplots(rows=4, cols=2, subplot_titles=list(semester_names.values()))
+# Create cursor
+cursor = conn.cursor()
 
-fig.append_trace(data[0], 1, 1)
-fig.append_trace(data[1], 1, 2)
-fig.append_trace(data[2], 2, 1)
-fig.append_trace(data[3], 2, 2)
-fig.append_trace(data[4], 3, 1)
-fig.append_trace(data[5], 3, 2)
-fig.append_trace(data[6], 4, 1)
-fig.append_trace(data[7], 4, 2)
-                                                                               
-for i, sem in enumerate(semester_codes):
-    fig['layout']['xaxis' + str(i+1)].update(range=get_semester_date_range(sem, unix_time=True))
-    fig['layout']['yaxis' + str(i+1)].update(range=[0, 3])
+# Query
+cursor.execute("SELECT interactor_a_symbol, interactor_a_gene_id "
+               "FROM protein_interaction ;")
 
-fig.layout.update(height=1000)
-fig.layout.update(title='Exams')
+results = cursor.fetchall()
 
-iplot(fig, filename='due date freq')
+# Make dict
+gene_to_symbol = dict(results)
+
+# Query - I want to query both interactors for my conversion dict
+# to ensure that I am not missing anything
+cursor.execute("SELECT interactor_b_symbol, interactor_b_gene_id "
+               "FROM protein_interaction ;")
+
+results = cursor.fetchall()
+
+# Update dict
+gene_to_symbol.update(dict(results))

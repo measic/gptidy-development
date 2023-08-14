@@ -1,4 +1,4 @@
-white_output = 'white.mp4'
-clip1 = VideoFileClip("solidWhiteRight.mp4")
-white_clip = clip1.fl_image(process_image) #NOTE: this function expects color images!!
-%time white_clip.write_videofile(white_output, audio=False)
+yellow_output = 'yellow.mp4'
+clip2 = VideoFileClip('solidYellowLeft.mp4')
+yellow_clip = clip2.fl_image(process_image)
+%time yellow_clip.write_videofile(yellow_output, audio=False)

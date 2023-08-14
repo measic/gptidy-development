@@ -1,1 +1,1 @@
-full_name[4]
+full_name[0:4]

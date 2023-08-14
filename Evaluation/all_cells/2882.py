@@ -1,6 +1,7 @@
-pyplot.figure(figsize=(11, 7), dpi=100)
-pyplot.plot(x,u, marker='o', lw=2, label='Computational')
-pyplot.plot(x, u_analytical, label='Analytical')
-pyplot.xlim([0, 2 * numpy.pi])
-pyplot.ylim([0, 10])
-pyplot.legend();
+from matplotlib.colors import LogNorm
+import matplotlib.pyplot as plt
+import typhon.arts.xml as axml
+import typhon as ty
+from copy import deepcopy
+%matplotlib inline
+ty.plots.styles.use()

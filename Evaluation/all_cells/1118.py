@@ -1,1 +1,1 @@
-# results[:10,2]
+# events = epoch.events[:,-1]

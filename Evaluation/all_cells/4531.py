@@ -1,5 +1,2 @@
-# example above
-a = 3
-b = a
-print(hex(id(a)))
-print(hex(id(b)))
+# print the zeroth element
+print( a_list[3] )

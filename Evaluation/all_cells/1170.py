@@ -1,21 +1,17 @@
-if __name__=='__main__':
-    import numpy as np
-    import matplotlib.pyplot as plt
-    from mpl_toolkits.mplot3d import Axes3D
-    import matplotlib
-    %matplotlib inline
+def dateRange(start, end):
+    days = (datetime.datetime.strptime(end, "%Y-%m-%d") - datetime.datetime.strptime(start, "%Y-%m-%d")).days + 1
+    return [datetime.datetime.strftime(datetime.datetime.strptime(start, "%Y-%m-%d") + datetime.timedelta(i), "%Y-%m-%d") for i in xrange(days)]
+#len(dateRange('2015-07-01','2016-10-31'))
 
-    x = -Q_training['Ras.Stat']
-    y = Q_training['NPM1.3542']
-    z = -Q_training['FIBRINOGEN']
-    area = Q_training['PCA_Sq_38']*25+75 # 0 to 15 point radiuses
-    colors = Q_training['resp.simple']
+def date_to_week(date):
+    if type(date) == str:
+        date = pd.to_datetime(date).date()
+    #type(date) == datetime.date
+    return (date - datetime.date(2015,7,7)).days  / 7
 
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
-    ax.set_xlabel(x.name)
-    ax.set_ylabel(y.name)
-    ax.set_zlabel(z.name)
-    ax.scatter(x, y, z,s=area, c=colors,cmap=matplotlib.cm.coolwarm_r)
-    #Blue is 1 and red is 0
-    plt.show()
+# 2015-07-07 2015-07-13   
+
+def week_to_date(week_number,return_str=True):
+    if week_to_date:
+        return [(datetime.date(2015,7,7)+ datetime.timedelta(week_number*7)).strftime("%Y-%m-%d"),(datetime.date(2015,7,13)+ datetime.timedelta(week_number*7)).strftime("%Y-%m-%d")]
+    return [datetime.date(2015,7,7)+ datetime.timedelta(week_number*7),datetime.date(2015,7,13)+ datetime.timedelta(week_number*7)]

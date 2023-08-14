@@ -1,1 +1,2 @@
-tm2.maximize(12 * desk + 20 * cell)
+import pandas as pd
+from pandas import DataFrame

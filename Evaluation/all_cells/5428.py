@@ -1,2 +1,7 @@
-env = gym.envs.make("MountainCarContinuous-v0")
-env.observation_space.sample()
+def featurize_state(state):
+    """
+    Returns the featurized representation for a state.
+    """
+    scaled = scaler.transform([state])
+    featurized = featurizer.transform(scaled)
+    return featurized[0]

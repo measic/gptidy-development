@@ -1,1 +1,3 @@
-sns.heatmap(train.corr(), annot = True)
+### Resposta: Binomial
+train['Sobreviventes'].hist()
+plt.show()

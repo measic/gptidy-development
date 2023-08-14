@@ -1,10 +1,3 @@
-edge_cols = []
-for edge in G.edges(data=True):
-    if edge[2]["sign"] == -1:
-        edge_cols.append("red")
-    else:
-        edge_cols.append("green")
-
-fig,ax = plt.subplots(figsize=(15,10))
-nx.draw_shell(G, ax=ax, with_labels=True, node_size=1000, node_color="white", 
-              edge_color=edge_cols)
+# Test to see if DW comp. is working
+imbalance, bicoloring = dnx.structural_imbalance(G, sampler)
+frustration_score = len(list(imbalance.keys()))/G.number_of_edges()

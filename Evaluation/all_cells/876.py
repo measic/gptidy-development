@@ -1,3 +1,1 @@
-%config IPCompleter.greedy = True  
-%matplotlib inline
-df_totaalSBB.plot.bar()
+df_aantal_zwolle.info()

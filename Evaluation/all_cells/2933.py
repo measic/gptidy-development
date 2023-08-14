@@ -1,5 +1,6 @@
-# result_dir = '/Users/nishant/ray_results/2018-08-26_22-43-29r4a9tt7u'
-result_dir = '/Users/nishant/ray_results/2018-08-28_22-18-1581dc8109'
-fname = result_dir + '/iter_vars.pkl'
-with open(fname, 'rb') as file:
-    itervars = pickle.load(file)
+# policy.variables.set_flat(np.arange(policy.variables.get_flat_size())) yields:
+# {'fc1/weights':    array([[0.],
+#                           [1.]], dtype=float32), 
+#  'fc1/biases':      array([2.], dtype=float32), 
+#  'fc_out/weights': array([[3.]], dtype=float32), 
+#  'fc_out/biases':   array([4.], dtype=float32)}

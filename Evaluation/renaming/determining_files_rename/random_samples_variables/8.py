@@ -1,5 +1,5 @@
 image_size = 28
-pixel_depth = 255.0
+variable_def = 255.0
 
 def load_letter(folder, min_num_images):
     """Load the data for a single letter label."""
@@ -8,15 +8,15 @@ def load_letter(folder, min_num_images):
     print(folder)
     num_images = 0
     for image in image_files:
-        variable_def = os.path.join(folder, image)
+        image_file = os.path.join(folder, image)
         try:
-            image_data = (ndimage.imread(variable_def).astype(float) - pixel_depth / 2) / pixel_depth
+            image_data = (ndimage.imread(image_file).astype(float) - variable_def / 2) / variable_def
             if image_data.shape != (image_size, image_size):
                 raise Exception('Unexpected image shape: %s' % str(image_data.shape))
             dataset[num_images, :, :] = image_data
             num_images = num_images + 1
         except IOError as e:
-            print('Could not read:', variable_def, ':', e, "- it's ok, skipping.")
+            print('Could not read:', image_file, ':', e, "- it's ok, skipping.")
     dataset = dataset[0:num_images, :, :]
     if num_images < min_num_images:
         raise Exception('Many fewer images than expected: %d < %d' % (num_images, min_num_images))

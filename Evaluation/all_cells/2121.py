@@ -1,2 +1,3 @@
-clf = gs_lr_tfidf.best_estimator_
-print('Test Accuracy: %.3f' % clf.score(X_test, y_test))
+from sklearn.model_selection import GridSearchCV
+
+gs = GridSearchCV(LogisticRegression(), {}, cv=cv5_idx, verbose=3).fit(X, y) 

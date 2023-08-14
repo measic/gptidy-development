@@ -1,6 +1,6 @@
-def args_func(arg1, *args):
-    print("Formal arg:", arg1)
-    for a in args:
-        print("additioanl arg:", a)
+f1 = lambda x: x**2
+    
+# is equivalent to 
 
-args_func(1, "two", 3, [1, 2, 3])
+def f2(x):
+    return x**2

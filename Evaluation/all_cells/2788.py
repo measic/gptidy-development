@@ -1,10 +1,6 @@
-with warnings.catch_warnings():
-    warnings.simplefilter('ignore')
-    
-    plt.figure(figsize=(10, 5))
-    plt.subplot(121) 
-    nx.draw(nx_multi_bbn, with_labels=True, font_weight='bold')
-    plt.title('Multi-connected BBN')
-    plt.subplot(122) 
-    nx.draw(nx_singly_bbn, with_labels=True, font_weight='bold')
-    plt.title('Singly-connected BBN')
+join_tree = InferenceController.apply(s_bbn)
+for node in join_tree.get_bbn_nodes():
+    potential = join_tree.get_bbn_potential(node)
+    print(node)
+    print(potential)
+    print('>')

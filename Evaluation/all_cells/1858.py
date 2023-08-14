@@ -1,5 +1,4 @@
-# TODO add features for normalized by speaker values of left, right, x, y
-# Name these 'norm-rx', 'norm-ry', 'norm-lx', and 'norm-ly'
-# using Z-score scaling (X-Xmean)/Xstd
+# TODO add features for left, right, x, y differences by one time step, i.e. the "delta" values discussed in the lecture
+# Name these 'delta-rx', 'delta-ry', 'delta-lx', and 'delta-ly'
 
-features_norm = ['norm-rx', 'norm-ry', 'norm-lx','norm-ly']
+features_delta = ['delta-rx', 'delta-ry', 'delta-lx', 'delta-ly']

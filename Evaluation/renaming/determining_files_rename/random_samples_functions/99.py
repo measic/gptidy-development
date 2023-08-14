@@ -1,4 +1,4 @@
-def calc_max_sum_variable_to_factor_msg(variable, factor):
+def function_def(variable, factor):
     neighbour_msg_prod = get_neighbour_messages(variable, factor)
     if len(neighbour_msg_prod) > 0:
         message = np.sum(np.array(neighbour_msg_prod), axis=0)
@@ -7,10 +7,10 @@ def calc_max_sum_variable_to_factor_msg(variable, factor):
     message += np.log(variable.observed_state)
     return message
 
-def function_def(self, factor):
+def variable_send_ms_msg(self, factor):
     assert isinstance(factor, Factor), 'Variable can only send messages to factor!'
     assert can_send_message(self, factor), 'Cannot send message!'
-    out_msg = calc_max_sum_variable_to_factor_msg(self, factor)
+    out_msg = function_def(self, factor)
     factor.receive_msg(self, out_msg)
     self.pending.discard(factor)
-Variable.send_ms_msg = function_def
+Variable.send_ms_msg = variable_send_ms_msg

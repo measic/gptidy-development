@@ -1,1 +1,1 @@
-train_dropna.skew()
+test_dropna.skew()

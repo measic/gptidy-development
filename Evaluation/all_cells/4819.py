@@ -1,8 +1,15 @@
-x = np.arange(len(dico))
-heights = [elem[1] for elem in sorted_list]
-plt.loglog(x, heights)
+# if a word occur less than n times, we remove the sentence of the conversations.
 
-plt.title("log-log words frequency")
-plt.ylabel("Frequency")
-plt.xlabel("Index")
-plt.show()
+n = 20
+norare_dico = {k: v for k,v in dico.items() if v > n}
+norare_conv = copy.deepcopy(conv)
+
+for i,c in enumerate(conv):
+    for s in c:
+        words = s.split(" ")
+        for w in words:
+            if s not in norare_conv[i]:
+                break
+            else:
+                if w not in norare_dico.keys():
+                    norare_conv[i].remove(s)

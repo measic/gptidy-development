@@ -1,18 +1,16 @@
-plt.figure(figsize=(11, 4))
+# Train
+log_clf_s = LogisticRegression(random_state=42)
+rnd_clf_s = RandomForestClassifier(random_state=42)
+svm_clf_s = SVC(random_state=42, probability=True)
 
-plt.subplot(121)
-plt.plot(errors, "b.-")
-plt.plot([bst_n_estimators, bst_n_estimators], [0, min_error], "k--")
-plt.plot([0, 120], [min_error, min_error], "k--")
-plt.plot(bst_n_estimators, min_error, "ko")
-plt.text(bst_n_estimators, min_error*1.2, "Minimum", ha="center", fontsize=14)
-plt.axis([0, 120, 0, 0.01])
-plt.xlabel("Number of trees")
-plt.title("Validation error", fontsize=14)
+rnd_clf_2 = RandomForestClassifier(random_state=42)
 
-plt.subplot(122)
-plot_predictions([gbrt_best], X, y, axes=[-0.5, 0.5, -0.1, 0.8])
-plt.title("Best model (%d trees)" % bst_n_estimators, fontsize=14)
+for p in [log_clf_s, rnd_clf_s, svm_clf_s]:
+    p.fit(X_train_1, y_train_1)
 
-save_fig("early_stopping_gbrt_plot")
-plt.show()
+log_clf_p = log_clf_s.predict(X_train_2)
+rnd_clf_p = rnd_clf_s.predict(X_train_2)
+svm_clf_p = svm_clf_s.predict(X_train_2)
+
+held_out = np.column_stack((log_clf_p, rnd_clf_p, svm_clf_p))
+rnd_clf_2.fit(held_out, y_train_2)

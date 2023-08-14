@@ -1,6 +1,6 @@
 import random
 
-def compute_fitness(solution):
+def function_def(solution):
     """
         This function returns the total distance traveled on the current road trip.
         
@@ -54,7 +54,7 @@ def shuffle_mutation(agent_genome):
     agent_genome = agent_genome[:insert_index] + genome_subset + agent_genome[insert_index:]
     return tuple(agent_genome)
 
-def function_def(pop_size):
+def generate_random_population(pop_size):
     """
         Generates a list with `pop_size` number of random road trips.
     """
@@ -71,13 +71,13 @@ def run_genetic_algorithm(generations=5000, population_size=100):
     """
     population_subset_size = int(population_size / 10.0)
     generations_10pct = int(generations / 10.0)
-    population = function_def(population_size)
+    population = generate_random_population(population_size)
     for generation in range(generations):
         population_fitness = {}
         for agent_genome in population:
             if agent_genome in population_fitness:
                 continue
-            population_fitness[agent_genome] = compute_fitness(agent_genome)
+            population_fitness[agent_genome] = function_def(agent_genome)
         new_population = []
         for rank, agent_genome in enumerate(sorted(population_fitness, key=population_fitness.get)[:population_subset_size]):
             if (generation % generations_10pct == 0 or generation == generations - 1) and rank == 0:

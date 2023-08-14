@@ -35,7 +35,7 @@ def random_transform_img(rand_img, transform_type_n=None):
     transform = random.choice(transform_funcs)
     return transform(rand_img)
 
-def split_by_class(X_train, y_train):
+def function_def(X_train, y_train):
     """
     Return data_by_classes, list of tuples, each tuple: (X_train_class_i, y_train_class_i)
     Note: X_train_class_i is a list, y_train_class_i is a number
@@ -75,11 +75,11 @@ def merge_and_shuffle(augmented_data_by_classes):
     X_train, y_train = shuffle(augmented_X_train, augmented_y_train)
     return (X_train, y_train)
 
-def function_def(X_train, y_train):
+def augment_data(X_train, y_train):
     """
     Main function to augment training data
     """
-    data_by_classes = split_by_class(X_train, y_train)
+    data_by_classes = function_def(X_train, y_train)
     augmented_data_by_classes = []
     for tup in data_by_classes:
         augmented_tup = augment_by_class(tup)
@@ -104,4 +104,4 @@ transformed_img = random_zoom(rand_img)
 (plt.subplot(122), plt.imshow(transformed_img), plt.title('Output'))
 plt.suptitle('Zoom')
 plt.show()
-X_train_augmented, y_train_augmented = function_def(X_train, y_train)
+X_train_augmented, y_train_augmented = augment_data(X_train, y_train)

@@ -1,4 +1,3 @@
-%%bash
-if ! gsutil ls | grep -q gs://${BUCKET}/; then
-  gsutil mb -l ${REGION} gs://${BUCKET}
-fi
+import google.datalab.bigquery as bq
+df = bq.Query(query + " LIMIT 100").execute().result().to_dataframe()
+df.head()

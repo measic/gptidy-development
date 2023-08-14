@@ -1,9 +1,12 @@
-with tf.name_scope("train"):       # 책에는 없음
-    initial_learning_rate = 0.1
-    decay_steps = 10000
-    decay_rate = 1/10
-    global_step = tf.Variable(0, trainable=False, name="global_step")
-    learning_rate = tf.train.exponential_decay(initial_learning_rate, global_step,
-                                               decay_steps, decay_rate)
-    optimizer = tf.train.MomentumOptimizer(learning_rate, momentum=0.9)
-    training_op = optimizer.minimize(loss, global_step=global_step)
+n_epochs = 5
+batch_size = 50
+
+with tf.Session() as sess:
+    init.run()
+    for epoch in range(n_epochs):
+        for X_batch, y_batch in shuffle_batch(X_train, y_train, batch_size):
+            sess.run(training_op, feed_dict={X: X_batch, y: y_batch})
+        accuracy_val = accuracy.eval(feed_dict={X: X_valid, y: y_valid})
+        print(epoch, "검증 세트 정확도:", accuracy_val)
+
+    save_path = saver.save(sess, "./my_model_final.ckpt")

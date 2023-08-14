@@ -1,4 +1,9 @@
-import pandas as pd
+import numpy as np
+from sklearn.feature_extraction.text import CountVectorizer
 
-df = pd.read_csv('movie_data.csv', encoding='utf-8')
-df.head(3)
+count = CountVectorizer()
+docs = np.array([
+        'The sun is shining',
+        'The weather is sweet',
+        'The sun is shining, the weather is sweet, and one and one is two'])
+bag = count.fit_transform(docs)

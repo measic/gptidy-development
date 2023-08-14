@@ -1,26 +1,9 @@
-def readData(folder):
-    """
-    Read all frames from a given directory into one matrix.
-    input:  directory to folder containing frames
-    output: array3d (dimension: xpixel x ypixel x # frames)
-            array2D (dimension: 1D flattened img x # frames)
-    """
-    
-    files = os.listdir(folder)
+window = [(550,550), (15,15)]
 
-    array3D, array2D = [], []
-    for ff in files:
-        arr = fits.getdata(folder + ff)
-        array3D.append(arr)
-        array2D.append(arr.flatten())
-    
-    return np.array(array3D)
+bias_3D = readData('data/exp0/')
+bias_2D = combineFrame(bias_3D)
 
-def combineFrame(data_array):
-    """
-    Combine image frames and return 1D array.
-    input:  data array (dimension: # 1D detector counts x # frames)
-    output: 1D combined array of detector counts (ADU)
-    """
-    
-    return np.median(data_array, axis=0)
+#cut data
+bias_2D_cut = Cutout2D(bias_2D, window[0], window[1]).data
+
+plotAll(bias_2D_cut, sigma=3, exp=0, save_dir='writeup/plots/')

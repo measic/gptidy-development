@@ -1,1 +1,2 @@
-df.drop(['Unnamed: 0'], axis=1)
+df=pd.read_csv('twitter_archive_master.csv')
+df.info()

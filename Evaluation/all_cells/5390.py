@@ -1,8 +1,21 @@
-# TODO: Scale the data using the natural logarithm
-log_data = None
+# For each feature find the data points with extreme high or low values
+for feature in log_data.keys():
+    
+    # TODO: Calculate Q1 (25th percentile of the data) for the given feature
+    Q1 = None
+    
+    # TODO: Calculate Q3 (75th percentile of the data) for the given feature
+    Q3 = None
+    
+    # TODO: Use the interquartile range to calculate an outlier step (1.5 times the interquartile range)
+    step = None
+    
+    # Display the outliers
+    print("Data points considered outliers for the feature '{}':".format(feature))
+    display(log_data[~((log_data[feature] >= Q1 - step) & (log_data[feature] <= Q3 + step))])
+    
+# OPTIONAL: Select the indices for data points you wish to remove
+outliers  = []
 
-# TODO: Scale the sample data using the natural logarithm
-log_samples = None
-
-# Produce a scatter matrix for each pair of newly-transformed features
-pd.scatter_matrix(log_data, alpha = 0.3, figsize = (14,8), diagonal = 'kde');
+# Remove the outliers, if any were specified
+good_data = log_data.drop(log_data.index[outliers]).reset_index(drop = True)

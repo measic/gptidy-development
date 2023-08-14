@@ -1,5 +1,5 @@
-from nltk.corpus import stopwords
+# Compute synthetic data with forward operator 
+from examples.seismic.acoustic import AcousticWaveSolver
 
-stop = stopwords.words('english')
-[w for w in tokenizer_porter('a runner likes running and runs a lot')[-10:]
-if w not in stop]
+solver = AcousticWaveSolver(model, geometry, space_order=4)
+true_d , _, _ = solver.forward(vp=model.vp)

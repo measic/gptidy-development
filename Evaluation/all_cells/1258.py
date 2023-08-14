@@ -1,2 +1,2 @@
-#list2.columns.values)
-print(list2.shape)
+X=X[X['property_type'].notnull()]
+X['property_type'].value_counts()

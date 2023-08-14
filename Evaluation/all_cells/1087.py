@@ -1,4 +1,11 @@
 import p5_util
-filename = './data/dict_cls_cnn_built.dump'
-dict_cls_cnn_built = {'CNN Built':0.75}
-p5_util.object_dump(dict_cls_cnn_built,filename)
+if True:
+    VGG16Seq = p5_util.object_load('./data/VGG16Seq_sgd.dump')
+    VGG16Seq.summary()
+
+import p5_util
+import P7_DataBreed
+if False :
+    oP7_DataBreed = p5_util.object_load('./data/oP7_DataBreed.dump')
+    oP7_DataBreed.show()
+    oP7_DataBreed.breed_show()

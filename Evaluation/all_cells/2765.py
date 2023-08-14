@@ -1,1 +1,2 @@
-m.enable_heatmap()
+m2 = USMap()
+m2.display()

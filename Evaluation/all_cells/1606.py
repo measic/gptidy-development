@@ -1,2 +1,4 @@
-regionNodes = nodesPerRegion(urbanRegions, nodes)
-print('extracted nodes for every region')
+nyc1 = initializeMap()
+nyc1 = visualizePoly(urbanRegions,colors,nyc1)
+print('plotted borders')
+nyc1

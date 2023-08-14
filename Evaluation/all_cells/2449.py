@@ -1,1 +1,1 @@
-revcomp("accac")
+compress_homopolymer("aaacacttctcctaccc")

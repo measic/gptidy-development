@@ -1,43 +1,40 @@
-class Encoder(tf.keras.layers.Layer):
-  # Encoder 的初始參數除了本來就要給 EncoderLayer 的參數還多了：
-  # - num_layers: 決定要有幾個 EncoderLayers, 前面影片中的 `N`
-  # - input_vocab_size: 用來把索引轉成詞嵌入向量
-  def __init__(self, num_layers, d_model, num_heads, dff, input_vocab_size, 
+class Decoder(tf.keras.layers.Layer):
+  # 初始參數跟 Encoder 只差在用 `target_vocab_size` 而非 `inp_vocab_size`
+  def __init__(self, num_layers, d_model, num_heads, dff, target_vocab_size, 
                rate=0.1):
-    super(Encoder, self).__init__()
+    super(Decoder, self).__init__()
 
     self.d_model = d_model
     
-    self.embedding = tf.keras.layers.Embedding(input_vocab_size, d_model)
-    self.pos_encoding = positional_encoding(input_vocab_size, self.d_model)
+    # 為中文（目標語言）建立詞嵌入層
+    self.embedding = tf.keras.layers.Embedding(target_vocab_size, d_model)
+    self.pos_encoding = positional_encoding(target_vocab_size, self.d_model)
     
-    # 建立 `num_layers` 個 EncoderLayers
-    self.enc_layers = [EncoderLayer(d_model, num_heads, dff, rate) 
+    self.dec_layers = [DecoderLayer(d_model, num_heads, dff, rate) 
                        for _ in range(num_layers)]
-
     self.dropout = tf.keras.layers.Dropout(rate)
-        
-  def call(self, x, training, mask):
-    # 輸入的 x.shape == (batch_size, input_seq_len)
-    # 以下各 layer 的輸出皆為 (batch_size, input_seq_len, d_model)
-    input_seq_len = tf.shape(x)[1]
+  
+  # 呼叫時的參數跟 DecoderLayer 一模一樣
+  def call(self, x, enc_output, training, 
+           combined_mask, inp_padding_mask):
     
-    # 將 2 維的索引序列轉成 3 維的詞嵌入張量，並依照論文乘上 sqrt(d_model)
-    # 再加上對應長度的位置編碼
-    x = self.embedding(x)
+    tar_seq_len = tf.shape(x)[1]
+    attention_weights = {}  # 用來存放每個 Decoder layer 的注意權重
+    
+    # 這邊跟 Encoder 做的事情完全一樣
+    x = self.embedding(x)  # (batch_size, tar_seq_len, d_model)
     x *= tf.math.sqrt(tf.cast(self.d_model, tf.float32))
-    x += self.pos_encoding[:, :input_seq_len, :]
-
-    # 對 embedding 跟位置編碼的總合做 regularization
-    # 這在 Decoder 也會做
+    x += self.pos_encoding[:, :tar_seq_len, :]
     x = self.dropout(x, training=training)
+
     
-    # 通過 N 個 EncoderLayer 做編碼
-    for i, enc_layer in enumerate(self.enc_layers):
-      x = enc_layer(x, training, mask)
-      # 以下只是用來 demo EncoderLayer outputs
-      #print('-' * 20)
-      #print(f"EncoderLayer {i + 1}'s output:", x)
+    for i, dec_layer in enumerate(self.dec_layers):
+      x, block1, block2 = dec_layer(x, enc_output, training,
+                                    combined_mask, inp_padding_mask)
       
+      # 將從每個 Decoder layer 取得的注意權重全部存下來回傳，方便我們觀察
+      attention_weights['decoder_layer{}_block1'.format(i + 1)] = block1
+      attention_weights['decoder_layer{}_block2'.format(i + 1)] = block2
     
-    return x 
+    # x.shape == (batch_size, tar_seq_len, d_model)
+    return x, attention_weights

@@ -1,24 +1,10 @@
-parametersDecisionTree = {
-    'criterion':['entropy','gini'],
-    'max_depth':range(1,51)
+parametersSVM = {
+    'C':[1e-15, 1e-10, 1e-5, 1e-4, 1e-3, 1e-2, 1.0],
 }
 
-(tiempo_decision_tree, grid_decision_tree) = correr_y_mostrar(
-    DecisionTreeClassifier(),
-    parametersDecisionTree,
-    5,
-    5
-)
-
-parametersDecisionTree2 = {
-    'criterion':['entropy','gini'],
-    'max_depth':range(1,51),
-    'min_samples_split':range(2, 30)
-}
-
-(tiempo_decision_tree_2, grid_decision_tree_2) = correr_y_mostrar(
-    DecisionTreeClassifier(),
-    parametersDecisionTree2,
+(tiempo_SVM, grid_svm) = correr_y_mostrar(
+    LinearSVC(), 
+    parametersSVM, 
     5,
     5
 )

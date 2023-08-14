@@ -1,1 +1,1 @@
-np.unique(r_precisions, return_counts=True)
+np.mean(r_precisions)

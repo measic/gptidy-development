@@ -1,3 +1,5 @@
-with pm.Model() as model:
-    p = pm.Uniform("freq_cheating", 0, 1)
-    p_skewed = pm.Deterministic("p_skewed", 0.5*p + 0.25)
+with model:
+    # To Be Explained in Chapter 3!
+    step = pm.Metropolis()
+    trace = pm.sample(25000, step=step)
+    burned_trace = trace[2500:]

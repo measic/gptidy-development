@@ -1,7 +1,5 @@
-image_names = os.listdir("test_images/")
-for image_name in image_names:
-    print('processing image ' + image_name)
-    image = mpimg.imread('test_images/' + image_name)
-    lane_detected = lane_detection(image)
-    output_path = output_directory + "/" + "lane_detected_" + image_name
-    mpimg.imsave(output_path, lane_detected)
+def process_image(image):
+    # NOTE: The output you return should be a color image (3 channel) for processing video below
+    # TODO: put your pipeline here,
+    # you should return the final output (image where lines are drawn on lanes)
+    return lane_detection(image)

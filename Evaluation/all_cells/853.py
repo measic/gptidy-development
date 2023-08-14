@@ -1,1 +1,1 @@
-plt.hist(draws)
+data4

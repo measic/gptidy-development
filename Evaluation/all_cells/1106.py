@@ -1,5 +1,5 @@
-# gamma_epoch = epoch.filter(l_freq=30, h_freq= 100)
-# beta_epoch =  epoch.filter(l_freq=12, h_freq= 30)
-# alpha_epoch = epoch.filter(l_freq=8, h_freq= 12)
-# theta_epoch = epoch.filter(l_freq=4, h_freq= 7)
-# delta_epoch = epoch.filter(l_freq=0, h_freq= 4)
+# gamma_pca_data = pca.fit_transform(gamma_data)
+# beta_pca_data = pca.fit_transform(beta_data)
+# alpha_pca_data = pca.fit_transform(alpha_data)
+# theta_pca_data = pca.fit_transform(theta_data)
+# delta_pca_data = pca.fit_transform(delta_epoch)# didn't name this correctly

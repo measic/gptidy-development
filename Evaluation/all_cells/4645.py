@@ -1,37 +1,16 @@
-## (Optional) TODO: Report the performance of another  
-## face detection algorithm on the LFW dataset
-### Feel free to use as many code cells as needed.
+from keras.preprocessing import image                  
+from tqdm import tqdm
 
-## Our data files
-human_files_short = human_files[:100]
-dog_files_short   = train_files[:100]
+def path_to_tensor(img_path, height=224, width=224):
+    ''' Loads RGB image as PIL.Image.Image type of given Height x Width dimensions
+    '''
+    # loads RGB image as PIL.Image.Image type
+    img = image.load_img(img_path, target_size=(height, width))
+    # convert PIL.Image.Image type to 3D tensor with shape (224, 224, 3)
+    x = image.img_to_array(img)
+    # convert 3D tensor to 4D tensor with shape (1, 224, 224, 3) and return 4D tensor
+    return np.expand_dims(x, axis=0)
 
-## Cascade classifiers
-CLF_CASCADE_ALT2 = cv2.CascadeClassifier(CASCADE_ALT2)
-CLF_CASCADE_TREE = cv2.CascadeClassifier(CASCADE_TREE)
-
-# counters
-humans_alt2, humans_tree = 0, 0
-dogs_alt2, dogs_tree     = 0, 0
-
-# let's find humans
-print('Looking at humans dataset...')
-for h in human_files_short:
-    if detect_face(h, CLF_CASCADE_ALT2):
-        humans_alt2 += 1
-    if detect_face(h, CLF_CASCADE_TREE):
-        humans_tree += 1
-
-print('Looking at dogs dataset...')
-for d in dog_files_short:
-    if detect_face(d, CLF_CASCADE_ALT2):
-        dogs_alt2 += 1
-    if detect_face(d, CLF_CASCADE_TREE):
-        dogs_tree += 1
-
-# results
-print('Using ALT2 Cascade, found {}% Human faces'.format(humans_alt2))
-print('Using ALT2 Cascade, found {}% Dog faces'.format(dogs_alt2))
-print()
-print('Using ALT_TREE Cascade, found {}% Human faces'.format(humans_tree))
-print('Using ALT_TREE Cascade, found {}% Dog faces'.format(dogs_tree))
+def paths_to_tensor(img_paths):
+    list_of_tensors = [path_to_tensor(img_path) for img_path in tqdm(img_paths)]
+    return np.vstack(list_of_tensors)

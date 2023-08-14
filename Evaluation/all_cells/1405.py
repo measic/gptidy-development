@@ -1,5 +1,3 @@
-#2D matrix is multiplied elementwise by the scalar A. The 2nd line and indent is for clarity, not required.
-E=np.array([[1,2,3],
-            [4,5,6]])
-J= E*A
-print(J)
+#create a 2D matrix
+L=np.array([[3,2,1],[9,5,6]])
+print(L)

@@ -1,7 +1,2 @@
-# TODO: Select three indices of your choice you wish to sample from the dataset
-indices = []
-
-# Create a DataFrame of the chosen samples
-samples = pd.DataFrame(data.loc[indices], columns = data.keys()).reset_index(drop = True)
-print("Chosen samples of wholesale customers dataset:")
-display(samples)
+# Produce a scatter matrix for each pair of features in the data
+pd.scatter_matrix(data, alpha = 0.3, figsize = (14,8), diagonal = 'kde');

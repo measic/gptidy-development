@@ -1,11 +1,5 @@
-%matplotlib inline
-from IPython.core.pylabtools import figsize
-import matplotlib.pyplot as plt
-import scipy.stats as stats
-figsize(12.5, 4)
-
-
-samples = lambda_1.random(size=20000)
-plt.hist(samples, bins=70, normed=True, histtype="stepfilled")
-plt.title("Prior distribution for $\lambda_1$")
-plt.xlim(0, 8);
+# We're using some fake data here
+data = np.array([10, 25, 15, 20, 35])
+with model:
+    obs = pm.Poisson("obs", lambda_, observed=data)
+print(obs.tag.test_value)

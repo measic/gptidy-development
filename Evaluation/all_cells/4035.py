@@ -1,27 +1,30 @@
-def padRightDownCorner(img, stride, padValue):
-    h = img.shape[0]
-    w = img.shape[1]
+for i in range(len(multiplier)):
+    scale = multiplier[i]
+    
+    imageToTest = cv.resize(oriImg, (0,0), fx=scale, fy=scale, interpolation=cv.INTER_CUBIC)
+    imageToTest_padded, pad = padRightDownCorner(imageToTest, 8, 128)
 
-    pad = 4 * [None]
-    pad[0] = 0 # up
-    pad[1] = 0 # left
-    pad[2] = 0 if (h%stride==0) else stride - (h % stride) # down
-    pad[3] = 0 if (w%stride==0) else stride - (w % stride) # right
+    transposeImage = np.transpose(np.float32(imageToTest_padded[:,:,:]), (2,0,1))/256 - 0.5
+    testimage = transposeImage
+    cmodel = mx.mod.Module(symbol=sym, label_names=[])
+    cmodel.bind(data_shapes=[('data', (1,3,
+                                   testimage.shape[1],testimage.shape[2]))])
+    cmodel.init_params(arg_params=arg_params, aux_params=aux_params)
+    onedata = DataBatch(mx.nd.array([testimage[:,:,:]]), 0)
+    
+    cmodel.forward(onedata)
+    result=cmodel.get_outputs()
+    heatmap = np.moveaxis(result[1].asnumpy()[0], 0, -1)
 
-    img_padded = img
-    pad_up = np.tile(img_padded[0:1,:,:]*0 + padValue, (pad[0], 1, 1))
-    img_padded = np.concatenate((pad_up, img_padded), axis=0)
-    pad_left = np.tile(img_padded[:,0:1,:]*0 + padValue, (1, pad[1], 1))
-    img_padded = np.concatenate((pad_left, img_padded), axis=1)
-    pad_down = np.tile(img_padded[-2:-1,:,:]*0 + padValue, (pad[2], 1, 1))
-    img_padded = np.concatenate((img_padded, pad_down), axis=0)
-    pad_right = np.tile(img_padded[:,-2:-1,:]*0 + padValue, (1, pad[3], 1))
-    img_padded = np.concatenate((img_padded, pad_right), axis=1)
 
-    return img_padded, pad
-
-class DataBatch(object):
-    def __init__(self, data, label, pad=0):
-        self.data = [data]
-        self.label = [label]
-        self.pad = pad
+    heatmap = cv.resize(heatmap, (0,0), fx=model['stride'], fy=model['stride'], interpolation=cv.INTER_CUBIC)
+    heatmap = heatmap[:imageToTest_padded.shape[0]-pad[2], :imageToTest_padded.shape[1]-pad[3], :]
+    heatmap = cv.resize(heatmap, (oriImg.shape[1], oriImg.shape[0]), interpolation=cv.INTER_CUBIC)
+        
+    heatmap_avg = heatmap_avg + heatmap / len(multiplier)
+    
+   
+    f = plt.figure(i)
+    plt.imshow(oriImg[:,:,[2,1,0]])
+    ax2 = plt.imshow(heatmap[:,:,18], alpha=.5)
+    f.show()

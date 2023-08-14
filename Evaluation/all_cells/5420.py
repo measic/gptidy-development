@@ -1,27 +1,27 @@
-for i in range(10):
-    X_train, y_train = shuffle(X_train, y_train)
-train, valid = cv_split(X_train, y_train)
-X_train, y_train = train
-X_valid, y_valid = valid
+### Load the images and plot them here.
+### Feel free to use as many code cells as needed.
+import glob
+import matplotlib.image as mpimg
+import csv
+import matplotlib.pyplot as plt
+import numpy as np
+import cv2 as cv
+import random
+from sklearn.utils import shuffle
+import tensorflow as tf
 
-with tf.Session() as sess:
-    sess.run(tf.global_variables_initializer())
-    num_examples = len(X_train)
-    print("Number of examples: ", num_examples)
-    print("Training...")
-    for i in range(EPOCHS):
-        for offset in range(0, num_examples, BATCH_SIZE):
-            end = offset + BATCH_SIZE
-            batch_x, batch_y = X_train[offset:end], y_train[offset:end]
-            # Expand (128, 32, 32) to (128, 32, 32, 1)
-            batch_x = np.expand_dims(batch_x, axis=3)
-            sess.run(training_operation, feed_dict={x: batch_x, y: batch_y, keep_prob: 0.5})
-        training_accuracy = evaluate(X_train, y_train)
-        validation_accuracy = evaluate(X_valid, y_valid)
-        print("EPOCH {} ...".format(i+1))
-        print("Training Accuracy = {:.3f}".format(training_accuracy))
-        print("Validation Accuracy = {:.3f}".format(validation_accuracy))
-        print()
-        
-    saver.save(sess, './lenet')
-    print("Model saved")
+fig, axs = plt.subplots(2,3, figsize=(10, 6))
+fig.subplots_adjust(hspace = .2, wspace=.001)
+axs = axs.ravel()
+
+my_images = []
+
+for i, img in enumerate(glob.glob('./my-signs/*.png')):
+    image = cv.imread(img)
+    axs[i].axis('off')
+    axs[i].imshow(cv.cvtColor(image, cv.COLOR_BGR2RGB))
+    image = cv.resize(image, (32,32))
+    my_images.append(image)
+
+my_images = np.asarray(my_images)
+print(my_images.shape)

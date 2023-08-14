@@ -1,2 +1,2 @@
-X=X.reshape(len(X),1) #Reshaping the input arrays into 1 by len(x) matrix
-X
+scaler=scaler.fit(X) # What does this fit do?
+scaler

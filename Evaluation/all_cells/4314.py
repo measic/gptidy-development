@@ -1,20 +1,29 @@
-fig, axes = plt.subplots(nrows=2, ncols=1, figsize=(8,8))
+fig, ax = plt.subplots(figsize=(16,8))
+bp = dfBabies.boxplot(column="weight", by="smoke", ax=ax, return_type="dict")
 
-dfBabies.loc[dfBabies["smoke"]==0].hist(column="weight", ax=axes[0], facecolor="steelblue", edgecolor="white")                                                   
-axes[0].set_title("Baby Weight of Non-Smokers", fontsize=20)
-axes[0].set_xlabel("Baby Weight (in ounces)", fontsize=16)
-axes[0].set_ylabel("Frequency", fontsize=16)
-axes[0].set_axisbelow(True)
+for column in bp:
+    for box in column['boxes']:
+        box.set(color='steelblue', linewidth=2)
+    
+    for whisker in column['whiskers']:
+        whisker.set(color='gray', linewidth=2)
 
+    for cap in column['caps']:
+        cap.set(color='gray', linewidth=2)
 
-dfBabies.loc[dfBabies["smoke"]==1].hist(column="weight", ax=axes[1], facecolor="darkseagreen", edgecolor="white")
-axes[1].set_title("Baby Weight of Smokers", fontsize=20)
-axes[1].set_xlabel("Baby Weight (in ounces)", fontsize=16)
-axes[1].set_ylabel("Frequency", fontsize=16)
-axes[1].set_axisbelow(True)
+    for cap in column['medians']:
+        cap.set(color='green', linewidth=2, alpha=0.5)
 
-# Set  axis limits to match
-axes[0].set_xlim([30,180])
-axes[1].set_xlim([30,180]);
+    for cap in column['fliers']:
+        cap.set(markerfacecolor='steelblue', linewidth=2, marker='s', markersize=6, alpha=0.5)
 
-fig.subplots_adjust(hspace=.5)
+ax.set_title('Weight of Smoker\'s Babies vs Non-Smoker\'s Babies', fontsize=18)
+ax.set_ylabel("Weight (in Ounces)", fontsize=16)
+
+short_names = ["Non-Smoker", "Smoker"]
+plt.xticks(range(1,len(short_names)+1),short_names, rotation=90, fontsize=16)
+
+plt.suptitle("")
+ax.set_xlabel("")
+
+ax.grid(alpha=0.25);

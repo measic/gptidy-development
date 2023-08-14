@@ -1,16 +1,27 @@
-#set up lists containing calculated rations for plotting 
-earningscost10k = [earningscost for earningscost in df0_10k_grouped['earnings_cost_ratio']]
-earningsgrowth10k = [earnings for earnings in df0_10k_grouped['earnings_growth_y6_y10']]
-weighted_growth10k = [worthit for worthit in df0_10k_grouped['weighted_growth_to_tuition']]
+#bins = [0,10000,18000,32000,100000]
+#bin_names = ["less_10k","10k_18k","18k_32k", "greater_32k"]
 
-earningscost10k_18k = [earningscost for earningscost in df10_18k_grouped['earnings_cost_ratio']]
-earningsgrowth10k_18k = [earnings for earnings in df10_18k_grouped['earnings_growth_y6_y10']]
-weighted_growth10k_18k = [worthit for worthit in df10_18k_grouped['weighted_growth_to_tuition']]
+#(x,y) values for 4 tiers *note x value doesn't change only y does
+x_axis = [x for x in range(1,9)]
+y_axis1 = df0_10k_grouped["earnings_cost_ratio"]
+y_axis2 = df10_18k_grouped["earnings_cost_ratio"]
+y_axis3 = df18_32_grouped["earnings_cost_ratio"]
+y_axis4 = df32_grouped["earnings_cost_ratio"]
 
-earningscost18k_32k = [earningscost for earningscost in df18_32_grouped['earnings_cost_ratio']]
-earningsgrowth18k_32k = [earnings for earnings in df18_32_grouped['earnings_growth_y6_y10']]
-weighted_growth18k_32k = [worthit for worthit in df18_32_grouped['weighted_growth_to_tuition']]
+#tiered 
+lessThan10k = plt.plot(x_axis, y_axis1, 'go--', linewidth=2, markersize=8, color='blue', label='lessThan10k')
+TenKto18k = plt.plot(x_axis, y_axis2, 'go--', linewidth=2, markersize=8, color='green', label='10Kto18k')
+EighteenTo32k = plt.plot(x_axis, y_axis3, 'go--', linewidth=2, markersize=8, color='yellow', label='18kTo32k')
+greaterThan32k = plt.plot(x_axis, y_axis4, 'go--', linewidth=2, markersize=8, color='red', label=">32k")
 
-earningscost32k = [earningscost for earningscost in df32_grouped['earnings_cost_ratio']]
-earningsgrowth32kk = [earnings for earnings in df32_grouped['earnings_growth_y6_y10']]
-weighted_growth32k = [worthit for worthit in df32_grouped['weighted_growth_to_tuition']]
+
+
+plt.title("Tiered Earnings-Cost ratio per region ($)")
+plt.xlabel("Region")
+plt.ylabel("Tiered Earnings-cost Ratio")
+plt.grid()
+plt.legend(title=["Tiered Tuitions"])
+plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+
+#save fig
+#plt.savefig("Plots/TieredEarningsCostRatio.png")

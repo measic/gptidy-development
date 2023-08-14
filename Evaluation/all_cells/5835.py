@@ -1,19 +1,22 @@
-u = np.add(X,-m).transpose()
-S_hat = np.matmul(u,u.transpose())
+print('A and A transpose')
+A
+A.T
 
-Sigma_hat = S_hat/(N-1)
+print('check eigenvectors')
+# Checking the norms
+np.linalg.norm(v1)
+np.linalg.norm(v2)
 
-print(' Spread matrix Sw:')
-Sw
+# If I was reducing form 3s to 2d than at leats 2 eigenvetors are orthogornal
+print('Since A is NOt symetric their eigenvectors are not orthogonal')
 
-print(' Spread matrix Sb:')
-Sb
+v1.dot(v2.T)
 
-print(' Total spread matrix S_hat:')
-S_hat
+print('check eigenvalues')
 
-print(' Global covariance matrix Sigma_hat:')
-Sigma_hat
+# checking eigenvalues
+print('cheking trace(A) and sum of all eigenvalues')
+np.sum(eigen_values)
+np.trace(A)
 
-print(' Covariance matrix expected Sigma:')
-S
+assert np.abs(np.sum(eigen_values) - np.trace(A)) < 0.1

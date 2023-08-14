@@ -1,2 +1,1 @@
-%load_ext autoreload
-%autoreload 2
+data = pd.read_csv('../data/Injector_Median100k.csv')

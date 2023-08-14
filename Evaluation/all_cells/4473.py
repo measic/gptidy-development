@@ -1,11 +1,9 @@
-
-import xgboost as xgb
-# read in data
-dtrain = xgb.DMatrix('/cxldata/xgboost/agaricus.txt.train')
-dtest = xgb.DMatrix('/cxldata/xgboost/agaricus.txt.test')
-# specify parameters via map
-param = {'max_depth':2, 'eta':1, 'silent':1, 'objective':'binary:logistic' }
-num_round = 2
-bst = xgb.train(param, dtrain, num_round)
-# make prediction
-preds = bst.predict(dtest)
+import pandas
+import numpy
+import random
+import datetime
+import math
+import json
+import seaborn
+import matplotlib.pyplot as plt
+from functools import reduce

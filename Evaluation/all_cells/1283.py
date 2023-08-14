@@ -1,17 +1,29 @@
-#average (region, tuition) & (region, earnings6years)
-y1 = mean_df_clean["tuition_in_state"]
-y2 = mean_df_clean["earnings6years"]
+#list containing 'bins' for tuition
+quartile_bins = []
 
-x_axis = [x for x in range(1,9)]
-x_axis2 = [x+0.3 for x in range(1,9)]
+#bin_names are given after tuition is binned i.e
+#the bin_names are up for change
+bins = [0,10000,18000,32000,100000]
+bin_names = ["less_10k","10k_18k","18k_32k", "greater_32k"]
 
-plt.bar(x_axis, y1, width = 0.3, label="Tuition" )
-plt.bar(x_axis2, y2, width = 0.3, label="Earnings")
+#list reference for obtaining min, median, and max tution
+tuition_list = region_stats['tuition_in_state']
 
-plt.title("Tuition and Earnings per Region")
-plt.xlabel("Region")
-plt.ylabel("Average Tuition & Earnings ($)")
-plt.legend(title=["Legend"])
-plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
-#save fig
-#plt.savefig("Plots/Tuition&EarningsPerRegion.png")
+#obtain 25th percentile, then append to list
+twentyfive_Percentile = tuition_list.quantile(0.25)
+quartile_bins.append(twentyfive_Percentile)
+
+#obtain 50th percentile, then append to list
+fifty_Percentile = tuition_list.quantile(0.50)
+quartile_bins.append(fifty_Percentile)
+
+#obtain 75th percentile, then append to list
+seventyFive_Percentile = tuition_list.quantile(0.75)
+quartile_bins.append(seventyFive_Percentile)
+
+#obtain 100th percentile, then append to list
+ninetyNine_Percentile = tuition_list.quantile(1)
+quartile_bins.append(ninetyNine_Percentile)
+
+#print bins list
+quartile_bins

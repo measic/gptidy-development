@@ -1,8 +1,8 @@
-# A simple for loop to find sum of all odd numbers up to 99
-counter = 0
+# A nested FOR loop to get all possible combinations
+perm = []
 
-for i in range(100):
-    if i % 2:
-        counter += i
+for i in ['a', 'b', 'c']:
+    for j in ['a', 'b', 'c']:
+        perm.append(i+j)
         
-print(counter)
+print(perm)

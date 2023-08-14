@@ -1,2 +1,2 @@
-# This will give us the first three elements
-print(a_list[0:3])
+# This will give us the same thing
+print(a_list[9:])

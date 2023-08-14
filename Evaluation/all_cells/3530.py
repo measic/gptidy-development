@@ -1,6 +1,4 @@
-f = open('demographics.csv','r')   # open the file with reading rights = 'r'
-data = [i for i in csv.reader(f) ] # go through file and read each line
-f.close()                          # close the file again
-
-for line in data:
-    print(line)
+f = open('demographics_new.csv','w') # open a file with writing rights = 'w'
+fw = csv.writer(f)                   # create csv writer
+fw.writerows(data_new)               # write content to file
+f.close()                            # close file 

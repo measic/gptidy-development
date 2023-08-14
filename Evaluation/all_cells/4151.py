@@ -1,19 +1,33 @@
-plt.figure(figsize=(12,6))
-rv_plot2(theta, omega, alpha, u1_z, 8000, 9000, 
-         title1='knee flexion (up single stair)', title2='thigh (up single stair)', 
-         redrange=[8625, 8725])
+plt.figure(figsize=(12,12))
 
-plt.figure(figsize=(12,6))
-rv_plot2(theta, omega, alpha, u1_z, 22000, 23000, 
-         title1='knee flexion (down single stair)', title2='thigh (down single stair)', 
-         redrange=[22010, 22100])
+plt.subplot(2, 2, 1)
+plt.plot(np.arange(8002, 9160), alpha[8002:9160], c='lightblue')
+plt.plot(np.arange(8625, 8725), alpha[8625:8725], c='red', lw=3)
+plt.title('thigh (up single stair)')
+plt.xlabel('time [msec]')
+plt.ylabel('angle [deg]')
+plt.grid()
 
-plt.figure(figsize=(12,6))
-rv_plot2(theta, omega, alpha, u1_z, 56000, 58000,
-        title1='knee flexion (up double stair)', title2='thigh (up double stair)', 
-        redrange=[56625, 56700])
+plt.subplot(2, 2, 2)
+plt.plot(np.arange(21955, 23184), alpha[21955:23184], c='lightblue')
+plt.plot(np.arange(22010, 22100), alpha[22010:22100], c='red', lw=3)
+plt.title('thigh (down single stair)')
+plt.xlabel('time [msec]')
+plt.ylabel('angle [deg]')
+plt.grid()
 
-plt.figure(figsize=(12,6))
-rv_plot2(theta, omega, alpha, u1_z, 66000, 68000,
-        title1='knee flexion (down double stair)', title2='thigh (down double stair)', 
-        redrange=[66475, 66530])
+plt.subplot(2, 2, 3)
+plt.plot(np.arange(55585, 57678), alpha[55585:57678], c='lightblue')
+plt.plot(np.arange(56625, 56700), alpha[56625:56700], c='red', lw=3)
+plt.title('thigh (up double stair)')
+plt.xlabel('time [msec]')
+plt.ylabel('angle [deg]')
+plt.grid()
+
+plt.subplot(2, 2, 4)
+plt.plot(np.arange(66316, 68149), alpha[66316:68149], c='lightblue')
+plt.plot(np.arange(66475, 66530), alpha[66475:66530], c='red', lw=3)
+plt.title('thigh (down double stair)')
+plt.xlabel('time [msec]')
+plt.ylabel('angle [deg]')
+plt.grid()

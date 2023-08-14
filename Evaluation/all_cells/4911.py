@@ -1,2 +1,1 @@
-tau = np.random.randint(0, 80)
-print(tau)
+data = np.r_[stats.poisson.rvs(mu=lambda_1, size=tau), stats.poisson.rvs(mu=lambda_2, size = 80 - tau)]

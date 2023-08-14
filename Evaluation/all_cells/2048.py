@@ -1,9 +1,5 @@
-#LOG
-train1, test1 = log_and_placements_aggregated_per_week_df.iloc[:39,18], log_and_placements_aggregated_per_week_df.iloc[39:,18]
-
-
-model1 = ExponentialSmoothing(train1, seasonal='mul', seasonal_periods=12).fit()
-pred1 = model1.predict(start=test1.index[0], end=test1.index[-1])
-
-
-mean_absolute_error(np.exp(test1),np.exp(pred1))
+plt.plot(df_train_log.index, np.exp(df_train_log), label='Train')
+plt.plot(df_test_log.index, np.exp(df_test_log), label='Test')
+plt.plot(predictions_log.index, np.exp(predictions_log), label='ARIMA(0,0,2) LOG')
+plt.plot(predictions.index, predictions, label='ARIMA(1,0,0)')
+plt.legend(loc='best')

@@ -1,10 +1,11 @@
-params["parameter1"] = "A"
-params["parameter2"] = "B"
+statement1 = False
+statement2 = False
 
-# add a new entry
-params["parameter4"] = "D"
-
-print("parameter1 = " + str(params["parameter1"]))
-print("parameter2 = " + str(params["parameter2"]))
-print("parameter3 = " + str(params["parameter3"]))
-print("parameter4 = " + str(params["parameter4"]))
+if statement1:
+    print("statement1 is True")
+    
+elif statement2:
+    print("statement2 is True")
+    
+else:
+    print("statement1 and statement2 are False")

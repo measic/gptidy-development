@@ -1,3 +1,18 @@
-# incorrect counter seed predictions
-wrong_counter_predictions = predictions_counter_seed[predictions_counter_seed['game_result'] != predictions_counter_seed['predicted']]
-wrong_counter_predictions[['round','seed_t','team_t','seed_o','team_o','game_result','predicted','win_pts','lose_pts']]
+%matplotlib inline
+import numpy as np
+import matplotlib.pyplot as plt
+import IPython
+from scipy.stats import norm
+from abc import ABCMeta, abstractmethod
+from sys import version 
+import multiprocessing
+from numpy import ceil, mean
+import time
+import os
+
+print ' Reproducibility conditions for this notebook '.center(90,'-')
+print 'Python version:     ' + version
+print 'Numpy version:      ' + np.__version__
+print 'IPython version:    ' + IPython.__version__
+print 'Multiprocessing:    ' + multiprocessing.__version__
+print '-'*90

@@ -1,2 +1,1 @@
-n_epochs = 20
-batch_size = 200
+[v.name for v in tf.trainable_variables()]

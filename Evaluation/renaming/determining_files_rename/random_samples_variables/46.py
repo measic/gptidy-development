@@ -57,9 +57,9 @@ def model_arc(x):
     fc2 = tf.nn.relu(fc2)
     fc3_W = tf.Variable(tf.truncated_normal(shape=(324, 108), mean=mu, stddev=sigma))
     fc3_b = tf.Variable(tf.zeros(108))
-    fc3 = tf.nn.xw_plus_b(fc2, fc3_W, fc3_b)
-    fc3 = tf.nn.relu(fc3)
+    variable_def = tf.nn.xw_plus_b(fc2, fc3_W, fc3_b)
+    variable_def = tf.nn.relu(variable_def)
     fc4_W = tf.Variable(tf.truncated_normal(shape=(108, 43), mean=mu, stddev=sigma))
-    variable_def = tf.Variable(tf.zeros(43))
-    logits = tf.nn.xw_plus_b(fc3, fc4_W, variable_def)
+    fc4_b = tf.Variable(tf.zeros(43))
+    logits = tf.nn.xw_plus_b(variable_def, fc4_W, fc4_b)
     return logits

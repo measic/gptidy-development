@@ -1,6 +1,3 @@
-figure()
-plot(x, y, 'r')
-xlabel('x')
-ylabel('y')
-title('title')
-show()
+num_points = 130
+y = np.random.random(num_points)
+plt.plot(y)

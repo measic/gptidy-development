@@ -1,2 +1,1 @@
-av = lv_workspace.get_subset_object('B').get_step_object('step_2').indicator_data_filter_settings['ntot_winter'].allowed_variables
-lv_workspace.get_subset_object('B').get_step_object('step_2').indicator_data_filter_settings['ntot_winter'].settings.df[av]
+B2_NTOT_WINTER_SETTINGS.settings.mapping_water_body['N m Bottenvikens kustvatten']

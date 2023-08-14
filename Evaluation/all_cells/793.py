@@ -1,3 +1,2 @@
-## scalar multiplication
-B = 3 * A
-print(B)
+## matrix multiplication
+print( A @ B )

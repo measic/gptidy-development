@@ -1,6 +1,4 @@
-# count the number of unique characters in the text
-chars = sorted(list(set(text)))
-
-# print some of the text, as well as statistics
-print ("this corpus has " +  str(len(text)) + " total number of characters")
-print ("this corpus has " +  str(len(chars)) + " unique characters")
+# run your text window-ing function 
+window_size = 100
+step_size = 5
+inputs, outputs = window_transform_text(text,window_size,step_size)

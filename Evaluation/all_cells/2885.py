@@ -1,15 +1,9 @@
-abslookup_nolm_aer = axml.load('nolm_aer/abs_lookup.xml')
-print(abslookup_nolm_aer.speciestags)
-abslookup_nolm_aer_36 = axml.load('nolm_aer_36/abs_lookup.xml')
-print(abslookup_nolm_aer_36.speciestags)
-abslookup_nolm_aer_arts = axml.load('nolm_aer_arts/abs_lookup.xml')
-print(abslookup_nolm_aer_arts.speciestags)
-abslookup_nolm_hitran = axml.load('nolm_hitran/abs_lookup.xml')
-print(abslookup_nolm_hitran.speciestags)
-abslookup_lm_aer = axml.load('lm_aer/abs_lookup.xml')
-print(abslookup_lm_aer.speciestags)
-abslookup_lm_aer_36 = axml.load('lm_aer_36/abs_lookup.xml')
-print(abslookup_lm_aer_36.speciestags)
-
-abslookup_lm = abslookup_lm_aer
-abslookup_nolm = abslookup_nolm_aer
+al = deepcopy(abslookup_lm)
+#al.absorptioncrosssection[al.absorptioncrosssection < 0] = np.nan
+#a = abslookup_lm.absorptioncrosssection < 0
+plt.pcolormesh(abslookup_lm.frequencygrid, abslookup_lm.pressuregrid,
+               (al.absorptioncrosssection[0,4].T < 0).astype('int'))
+               #np.log10(np.abs(al.absorptioncrosssection[0,4].T)))
+plt.yscale('log')
+#plt.xlim([17e12, 18e12])
+plt.colorbar()

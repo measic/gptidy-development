@@ -1,5 +1,4 @@
-# OPTIONAL: Select the indices for data points you wish to remove
-outliers  = [154, 128, 75, 66]
-
-# Remove the outliers, if any were specified
-good_data = log_data.drop(log_data.index[outliers]).reset_index(drop = True)
+# Display sample log-data after having a PCA transformation applied
+df_display = pd.DataFrame(np.round(pca_samples, 4), columns = pca_results.index.values)
+df_display.index = log_samples.index
+display(df_display)

@@ -1,4 +1,4 @@
-# sorting lists
-s2.sort()
+l[1] = "p"
+l[2] = "t"
 
-print(s2)
+print(l)

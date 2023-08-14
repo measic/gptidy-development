@@ -1,1 +1,2 @@
-np.random.seed(10)
+data = Counter(y_train)
+labels, count = zip(*data.items())

@@ -1,3 +1,2 @@
 # ADVI
-pdi_advi, pdi_log_advi, wapdi_advi = PDI(post_samples, model)
-log_pdi_advi = np.log(pdi_advi)
+plot_pdi_wapdi(pdi_advi, log_pdi_advi, pdi_log_advi, wapdi_advi, img=img, plot_type="dist")

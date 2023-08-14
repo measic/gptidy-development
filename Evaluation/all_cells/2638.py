@@ -1,10 +1,17 @@
-import plotly as py
-import plotly.graph_objs as go
+def processCSV(file, splitToken, bank): #TODO Move to pandas
+    fecha = []
+    saldo = []
+    movimientos = []
+    first = True
+    
+    if bank == 'cajamar':
+        with open(file) as f:
+            for line in f:
+                if first is False:
+                    tokens = line.split(splitToken)
+                    fecha.append(dt.datetime.strptime(tokens[0], '%d/%m/%Y').date())
+                    saldo.append(float(tokens[len(tokens)-1][:-1].replace('.', '').replace(',', '.')))
+                    movimientos.append(float(tokens[len(tokens)-2].replace('.','').replace(',','.').replace(' ', '')))
+                first = False
 
-import numpy as np
-import datetime as dt
-import os.path
-import xlrd
-import pandas as pd
-
-py.offline.init_notebook_mode(connected=True)
+    return (saldo, fecha, movimientos)

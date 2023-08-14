@@ -1,6 +1,5 @@
-N = 5
-K = 30
+fig, ax = plt.subplots(figsize=(8, 6))
 
-alpha = 2
-P0 = sp.stats.norm
-f = lambda x, theta: sp.stats.norm.pdf(x, theta, 0.3)
+ax.plot(x_plot, dpm_pdfs.T, c='gray');
+
+ax.set_yticklabels([]);

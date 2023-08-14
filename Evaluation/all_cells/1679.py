@@ -1,1 +1,1 @@
-plot_categorical_count(df, 'Employment', title='Employement Statues of respondants', limit=6, xtick_rotation='vertical')
+plot_categorical_count(df, 'WakeTime', title='Wake up time', limit=11, xtick_rotation='vertical')

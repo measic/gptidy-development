@@ -1,19 +1,5 @@
-import sys, os
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
+# TODO add features for normalized by speaker values of left, right, x, y
+# Name these 'norm-rx', 'norm-ry', 'norm-lx', and 'norm-ly'
+# using Z-score scaling (X-Xmean)/Xstd
 
-# DWave Credentials
-dwave_solver = os.getenv('DWAVE_API_SOLVER')
-api_key = os.getenv('DWAVE_API_TOKEN')
-
-from dwave.system.samplers import DWaveSampler
-from dwave.system.composites import EmbeddingComposite
-
-import dwave_networkx as dnx
-
-### Use NetworkX graphic package to create a signed network
-import networkx as nx
-
-# Select a D-Wave system and handle mapping from problem graph to sampler graph
-sampler = EmbeddingComposite(DWaveSampler(solver=dwave_solver, token=api_key))
+features_norm = ['norm-rx', 'norm-ry', 'norm-lx','norm-ly']

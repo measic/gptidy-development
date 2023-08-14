@@ -1,4 +1,5 @@
-# ot_model = wot.ot.OTModel(adata, epsilon = 0.05, lambda1 = 1, lambda2 = 50, growth_iters = 3) 
-# ot_model.compute_all_transport_maps(tmap_out='tmaps/serum')
-
-# we can speed this up by supplying g2 and doing 1 growth iter
+# X_numeric has duplicate columns. The code below removes the duplicate columns
+_, i = np.unique(X_numeric.columns, return_index=True)
+X_Num_Cov=X_numeric.iloc[:, i]
+X_Num_Cov.to_csv('Numerical_FS.csv')
+X_Num_Cov.shape

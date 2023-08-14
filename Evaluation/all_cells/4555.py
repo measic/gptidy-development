@@ -1,2 +1,2 @@
-# set intersection
-print(set1 & set2)
+# set symmetric difference
+print(set1 ^ set2)

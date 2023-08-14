@@ -1,6 +1,19 @@
-post_pdf_contribs = sp.stats.norm.pdf(np.atleast_3d(x_plot),
-                                      trace['mu'][:, np.newaxis, :],
-                                      1. / np.sqrt(trace['lambda'] * trace['tau'])[:, np.newaxis, :])
-post_pdfs = (trace['w'][:, np.newaxis, :] * post_pdf_contribs).sum(axis=-1)
+fig, ax = plt.subplots(figsize=(8, 6))
 
-post_pdf_low, post_pdf_high = np.percentile(post_pdfs, [2.5, 97.5], axis=0)
+n_bins = 20
+ax.hist(old_faithful_df.std_waiting.values, bins=n_bins, normed=True,
+        color=blue, lw=0, alpha=0.5);
+
+ax.plot(x_plot, post_pdfs.mean(axis=0),
+        c='k', label='Posterior expected density');
+ax.plot(x_plot, (trace['w'][:, np.newaxis, :] * post_pdf_contribs).mean(axis=0)[:, 0],
+        '--', c='k', label='Posterior expected mixture\ncomponents\n(weighted)');
+ax.plot(x_plot, (trace['w'][:, np.newaxis, :] * post_pdf_contribs).mean(axis=0),
+        '--', c='k');
+
+ax.set_xlabel('Standardized waiting time between eruptions');
+
+ax.set_yticklabels([]);
+ax.set_ylabel('Density');
+
+ax.legend(loc=2);

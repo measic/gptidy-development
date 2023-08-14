@@ -1,3 +1,3 @@
-'''Some info on the nuclide data structure just created'''
+'''Plot half-life of nuclides'''
 
-nuclides
+plot_nuclides(nuclides)

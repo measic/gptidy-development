@@ -1,2 +1,3 @@
-num_channels = 1
-image_size = X_train.shape[1]
+### Generate data additional (if you want to!)
+### and split the data into training/validation/testing sets here.
+### Feel free to use as many code cells as needed.

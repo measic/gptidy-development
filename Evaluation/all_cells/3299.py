@@ -1,7 +1,3 @@
-class MutationFuzzer(MutationFuzzer):
-    def create_candidate(self):
-        candidate = random.choice(self.population)
-        trials = random.randint(self.min_mutations, self.max_mutations)
-        for i in range(trials):
-            candidate = self.mutate(candidate)
-        return candidate
+seed_input = "http://www.google.com/search?q=fuzzing"
+mutation_fuzzer = MutationFuzzer(seed=[seed_input])
+mutation_fuzzer.fuzz()

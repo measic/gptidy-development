@@ -1,9 +1,8 @@
-plt.figure(figsize=(5,15))
-x = np.arange(75)
-labels = [elem[0] for elem in sorted_list[:75][::-1]]
-heights = [elem[1] for elem in sorted_list[:75][::-1]]
-bars = plt.barh(x, heights)
+x = np.arange(len(dico))
+heights = [elem[1] for elem in sorted_list]
+plt.loglog(x, heights)
 
-plt.yticks(x, labels)
-plt.title("Top 75 most frequent words")
+plt.title("log-log words frequency")
+plt.ylabel("Frequency")
+plt.xlabel("Index")
 plt.show()

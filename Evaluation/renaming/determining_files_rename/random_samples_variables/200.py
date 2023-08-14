@@ -11,11 +11,11 @@ def resize_images(src_dir, dest_dir):
         resize_image(image, src_dir, dest_dir)
 
 def resize_image(image_file, src_dir, dest_dir):
-    in_file = os.path.join(src_dir, image_file)
-    with open(in_file, 'r+b') as fd_img:
+    variable_def = os.path.join(src_dir, image_file)
+    with open(variable_def, 'r+b') as fd_img:
         with Image.open(fd_img) as img:
-            variable_def = resizeimage.resize_contain(img, [299, 299]).convert('RGB')
-            variable_def.save(os.path.join(dest_dir, image_file), img.format)
+            resized_image = resizeimage.resize_contain(img, [299, 299]).convert('RGB')
+            resized_image.save(os.path.join(dest_dir, image_file), img.format)
 if os.path.isdir(images_resized_dir):
     shutil.rmtree(images_resized_dir)
 os.mkdir(images_resized_dir)

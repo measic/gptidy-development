@@ -1,15 +1,23 @@
-# Finally, we will define the send message function for you
-def variable_send_sp_msg(self, factor):
-    
-    assert isinstance(factor, Factor), "Variable can only send messages to factor!"
-    assert can_send_message(self, factor), "Cannot send message!"
-    
-    out_msg = calc_sum_product_variable_to_factor_msg(self, factor)
-    
-    # Send the message
-    factor.receive_msg(self, out_msg)
-    
-    # Remove the pending sign if present
-    self.pending.discard(factor)
-    
-Variable.send_sp_msg = variable_send_sp_msg
+X_prior.reset()
+X.reset()
+Z_prior.reset()
+Z.reset()
+Y_cond.reset()
+Y.reset()
+
+# Forward pass
+X_prior.send_sp_msg(X)
+Z_prior.send_sp_msg(Z)
+X.send_sp_msg(Y_cond)
+Z.send_sp_msg(Y_cond)
+Y_cond.send_sp_msg(Y)
+assert np.allclose(list(Y.in_msgs.values()), [0.821024, 0.178976])
+
+# Backward pass
+Y.send_sp_msg(Y_cond)
+Y_cond.send_sp_msg(X)
+Y_cond.send_sp_msg(Z)
+X.send_sp_msg(X_prior)
+Z.send_sp_msg(Z_prior)
+assert np.allclose(list(X.in_msgs.values()), [[0.95, 0.05],[1., 1.]])
+assert np.allclose(list(Z.in_msgs.values()), [[0.8, 0.2],[1., 1.]])

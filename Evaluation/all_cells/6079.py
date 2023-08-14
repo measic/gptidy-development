@@ -1,1 +1,2 @@
-compare_1D_2D(x0=0, P=50., R=5., Q=.02, vel=1., u=1.) 
+run(track=trk, zs=zs, R=10000, Q=.2, P=P, plot_P=False, 
+    title='R=$10,000\, m^2$, Q=$.2\, m^2$');

@@ -1,61 +1,52 @@
-def hypothesis_inlinecounter(text):
-    hyp = np.concatenate([np.linspace(1, -1, len(x)+1) for x in text.split('\n')])[:-1]
-    return hyp
+def validate_hypothesis(model, diag_classifier, hypothesis, train_len=50,
+                        test_len=1, text_len=500, temperature=0.8,
+                        save_hyp=None, save_diag=None, save_resp=None):
+    # Generate hypothesis data
+    def gen_hyp_data(model, N, text_len=500):
+        texts, hiddens, hyps = [], [], []
+        for i in range(N):
+            text, hidden = generate(model, '\n\n', text_len, temperature, True)
+            hidden = hidden.reshape(hidden.shape[0], -1)
+            hyp = hypothesis(text)
+            hiddens.append(hidden)
+            hyps.append(hyp)
+            texts.append(text)
+        return ''.join(texts), np.concatenate(hyps), np.concatenate(hiddens)
 
-def hypothesis_inside_one(text, single):
-    hyp = re.sub('\{}.*?\{}'.format(single, single), lambda m: single+'#'*(len(m.group())-2)+single, text)
-    return np.array([1 if x == '#' else -1 for x in hyp])
+    # Generate train and test data
+    _, train_hyps, train_hiddens = gen_hyp_data(model, train_len)
+    test_texts, test_hyps, test_hiddens = gen_hyp_data(model, test_len)
+    print(pearsonr(train_hiddens, train_hyps))
+    print(pearsonr(test_hiddens, test_hyps))
 
-def hypothesis_inside_two(text, left, right):
-    hyp = np.full(len(text), -1)
-    inside = False
-    for i in range(len(text) - 1):
-        if text[i] == left:
-            inside = True
-        elif text[i] == right:
-            inside = False
-        if inside:
-            hyp[i+1] = 1
-    return hyp
-
-hypothesis_inside_quotation = lambda x: hypothesis_inside_one(x, '"')
-hypothesis_inside_parantheses = lambda x: hypothesis_inside_two(x, '(', ')')
-
-def hypothesis_comments(text):
-    hyp = np.full(len(text), -1)
-    in_brac_comment = False
-    in_line_comment = False
-    for i in range(len(text)):
-        if text[i:i+2] == '//':
-            in_line_comment = True
-        elif text[i] == '\n':
-            in_line_comment = False
-        elif text[i:i+2] == '/*':
-            in_brac_comment = True
-        elif text[i:i+2] == '*/':
-            in_brac_comment = False
-        if in_brac_comment:
-            hyp[i:i+3] = 1
-        if in_line_comment:
-            hyp[i:i+1] = 1
-    return hyp
-
-def hypothesis_indentation(text, level):
-    hyp = np.full(len(text), -1)
-    cur_level = 0
-    for i, char in enumerate(text):
-        if char == '\n':
-            cur_level = 0
-        elif char == '\t':
-            cur_level += 1
-        if cur_level >= level:
-            hyp[i] = 1
-    return hyp
-
-# plot_colored_text(text, hypothesis_inlinecounter(text), title='Hypothesis: Inline counter', save_file='plots/hyp_inline_counter.png')
-# plot_colored_text(text, hypothesis_inside_quotation(text), title='Hypothesis: Inside quotation', save_file='plots/hyp_inside_quotation.png')
-# plot_colored_text(text, hypothesis_inside_parantheses(text), title='Hypothesis: Inside parantheses', save_file='plots/hyp_inside_parantheses.png')
-# plot_colored_text(text, hypothesis_comments(text), title='Hypothesis: Comments', save_file='plots/hyp_comments.png')
-# plot_colored_text(text, hypothesis_indentation(text, 1), title='Hypothesis: Indent level 1', save_file='plots/hyp_indent_1.png')
-# plot_colored_text(text, hypothesis_indentation(text, 2), title='Hypothesis: Indent level 2', save_file='plots/hyp_indent_2.png')
-# plot_colored_text(text, hypothesis_indentation(text, 3), title='Hypothesis: Indent level 3', save_file='plots/hyp_indent_3.png')
+    # Train Diagnostic Classifier
+    diag_classifier.fit(train_hiddens, train_hyps)
+    
+    # Predict with Diagnostic Classifier
+    pred_hyps = diag_classifier.predict(test_hiddens)
+    
+    # Find responsible neuron
+    resp_neuron = np.argmax(np.abs(diag_classifier.coef_))
+    print(resp_neuron)
+    
+    # Plot results
+    if save_hyp:
+        plot_colored_text(test_texts[:text_len], test_hyps[:text_len],
+                          title='Formed Hypothesis',
+                          save_file=save_hyp)
+    if save_diag:
+        plot_colored_text(test_texts[:text_len], pred_hyps[:text_len],
+                          title='Diagnostic Classifier Prediction',
+                          save_file=save_diag)
+    if save_resp:
+        plot_colored_text(test_texts[:text_len], test_hiddens[:text_len, resp_neuron],
+                          title='Most Responsible Neuron {}'.format(resp_neuron),
+                          save_file=save_resp)
+        
+    del(train_hyps)
+    del(train_hiddens)
+    del(test_texts)
+    del(test_hiddens)
+    gc.collect()
+    
+    return test_hyps, pred_hyps

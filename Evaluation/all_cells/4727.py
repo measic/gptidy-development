@@ -1,15 +1,23 @@
-# get indices of correctly / incorrectly predicted pixels
-# with error in known classes
-# only known classes (novely detection)
-# get indices of correctly / incorrectly predicted pixels
-# with error in known classes
-# only known classes (novely detection)
+# precision-recall curves
 
-pred_t_tr = (data_train.gt_patches != 0) & (data_train.gt_patches == y_pred_label_tr)
-pred_f_tr = (data_train.gt_patches != 0) & (data_train.gt_patches != y_pred_label_tr)
+# msr
+y_scores = (-get_acc_net_msr(y_pred_te)).flatten()
+y_true = pred_f_te.flatten()
+precision_msr, recall_msr, _ = metrics.precision_recall_curve(y_true, y_scores)
+pr_auc_msr = metrics.average_precision_score(y_true, y_scores)
+auroc_msr = metrics.roc_auc_score(y_true, y_scores)
+fpr_msr, tpr_msr, _ = metrics.roc_curve(y_true, y_scores)
 
-pred_t_val = (data_val.gt_patches != 0) & (data_val.gt_patches == y_pred_label_val)
-pred_f_val = (data_val.gt_patches != 0) & (data_val.gt_patches != y_pred_label_val)
+# margin
+y_scores = (-get_acc_net_max_margin(y_pred_te)).flatten()
+precision_margin, recall_margin, _ = metrics.precision_recall_curve(y_true, y_scores)
+pr_auc_margin = metrics.average_precision_score(y_true, y_scores)
+auroc_margin = metrics.roc_auc_score(y_true, y_scores)
+fpr_margin, tpr_margin, _ = metrics.roc_curve(y_true, y_scores)
 
-pred_t_te = (data_test.gt_patches != 0) & (data_test.gt_patches == y_pred_label_te)
-pred_f_te = (data_test.gt_patches != 0) & (data_test.gt_patches != y_pred_label_te)
+# entropy
+y_scores = (-get_acc_net_entropy(y_pred_te)).flatten()
+precision_entropy, recall_entropy, _ = metrics.precision_recall_curve(y_true, y_scores)
+pr_auc_entropy = metrics.average_precision_score(y_true, y_scores)
+auroc_entropy = metrics.roc_auc_score(y_true, y_scores)
+fpr_entropy, tpr_entropy, _ = metrics.roc_curve(y_true, y_scores)

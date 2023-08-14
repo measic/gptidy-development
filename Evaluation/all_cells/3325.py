@@ -1,1 +1,1 @@
-!cd bc-1.07.1; ./configure
+!cd bc-1.07.1/bc; echo 2 + 2 | ./bc

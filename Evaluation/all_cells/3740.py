@@ -1,1 +1,1 @@
-ext_pnicer_discrete.save_fits(path="/tmp/temp.fits")
+pnicer_emap.save_fits(path="/tmp/temp.fits")

@@ -1,36 +1,32 @@
-US = 3 #Upsample factor
-traj_data_us = np.ndarray((len(traj_data)*US,6))
-vel_us = np.ndarray(np.shape(traj_data_us))
-acc_us = np.ndarray(np.shape(traj_data_us))
-psi_us = np.ndarray((len(traj_data)*US,1))
-k=0
-for i, angles in enumerate(traj_data[0:-1]):
-    for j in range(len(angles)):
-        a = traj_data[i][j]
-        b = traj_data[i+1][j]
-        lin_in = np.linspace(a,b,num=US)
-        traj_data_us[k:k+US,j] = lin_in
-        
-        a = vel[i][j]
-        b = vel[i+1][j]
-        lin_in = np.linspace(a,b,num=US)
-        vel_us[k:k+US,j] = lin_in
+Start_power_indicator = 300
+for i in range(len(power_data_250)):
+    if power_data_250[i+10]-power_data_250[i]>Start_power_indicator:
+        starting_point_power = i
+        break
+print('Start at power sample:',starting_point_power-1,' corresponding to time:',power_time_ds[starting_point_power-1],'sec')
 
-        a = acc[i][j]
-        b = acc[i+1][j]
-        lin_in = np.linspace(a,b,num=US)
-        acc_us[k:k+US,j] = lin_in
-        
-    a = psi[i]
-    b = psi[i+1]
-    lin_in = np.linspace(a,b,num=US).reshape(US,1)
-    psi_us[k:k+US] = lin_in
-        
-    k+=US
-    
-#Time vector for angle measurements (fixed in KUKA system)
-delta_t = 0.012/US
-t = np.ndarray((len(traj_data_us),1))
-t[0] = 0
-for i in range(1,len(traj_data_us)):
-    t[i] = t[i-1] + delta_t
+Start_trajectory_indicator = 0.5
+for i in range(len(traj_data_us)):
+    if np.max(np.abs(acc_us[i+10]))>Start_trajectory_indicator:
+        starting_point_traj = i
+        break
+print('Start at trajectory sample:',starting_point_traj,' corresponding to time:',t[starting_point_traj],'sec')
+
+
+plt.figure(figsize=(12,6))
+fig = plt.subplot()
+fig.plot(power_time_ds[0:2000], power_data_250[0:2000],  label='Current',  marker='o',linewidth=0.3, markersize=1.5)
+fig.plot(power_time_ds[starting_point_power-1], power_data_250[starting_point_power-1],  label='Start',  marker='o',linewidth=0.3, markersize=4)
+fig.legend();
+fig.set_ylabel('Ampere [W]')
+fig.set_xlabel('Time')
+fig.set_title('Current');
+
+plt.figure(figsize=(12,6))
+fig = plt.subplot()
+fig.plot(t[0:2000], traj_data_us[0:2000],  label='Current',  marker='o',linewidth=0.3, markersize=1.5)
+fig.plot(t[starting_point_traj], acc_us[starting_point_traj][0],  label='Start',  marker='o',linewidth=0.3, markersize=4)
+fig.legend();
+fig.set_ylabel('Ampere [W]')
+fig.set_xlabel('Time')
+fig.set_title('Current');

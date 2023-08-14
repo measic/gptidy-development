@@ -1,5 +1,2 @@
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-
-import wot
+# create OTModel
+ot_model = wot.ot.OTModel(adata,epsilon = 0.05, lambda1 = 1,lambda2 = 50) 

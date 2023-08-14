@@ -7,12 +7,12 @@ for i in range(17):
         cur_canvas = canvas.copy()
         Y = candidate[index.astype(int), 0]
         X = candidate[index.astype(int), 1]
-        mX = np.mean(X)
+        variable_def = np.mean(X)
         mY = np.mean(Y)
         length = ((X[0] - X[1]) ** 2 + (Y[0] - Y[1]) ** 2) ** 0.5
         angle = math.degrees(math.atan2(X[0] - X[1], Y[0] - Y[1]))
-        variable_def = cv.ellipse2Poly((int(mY), int(mX)), (int(length / 2), stickwidth), int(angle), 0, 360, 1)
-        cv.fillConvexPoly(cur_canvas, variable_def, colors[i])
+        polygon = cv.ellipse2Poly((int(mY), int(variable_def)), (int(length / 2), stickwidth), int(angle), 0, 360, 1)
+        cv.fillConvexPoly(cur_canvas, polygon, colors[i])
         canvas = cv.addWeighted(canvas, 0.4, cur_canvas, 0.6, 0)
 plt.imshow(canvas[:, :, [2, 1, 0]])
 fig = matplotlib.pyplot.gcf()

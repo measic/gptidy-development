@@ -1,1 +1,1 @@
-ext_nicer = science.nicer(control=control)
+ext_nicer.extinction

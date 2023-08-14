@@ -1,3 +1,2 @@
-top10_df = df.where(df['Country'].isin(top_10_list))
-plot_heatmap(top10_df, 'AssessJob1')    
-plt.title('Importance of Industry to assess potential job', fontsize=18)
+plot_heatmap(top10_df, 'AssessJob3')    
+plt.title('Importance of the department or team to be working on', fontsize=18)

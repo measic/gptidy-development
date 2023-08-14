@@ -1,2 +1,3 @@
-m2 = USMap()
-m2.display()
+m3 = USMap()
+m3.zoom = 11
+m3.display()

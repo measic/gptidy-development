@@ -6,14 +6,14 @@ def lane_detection(image):
     high_threshold = 180
     edges = canny(blur_gray, low_threshold, high_threshold)
     imshape = image.shape
-    variable_def = np.array([[(0, imshape[0]), (450, 320), (490, 320), (imshape[1], imshape[0])]], dtype=np.int32)
-    masked_edges = region_of_interest(edges, variable_def)
+    vertices = np.array([[(0, imshape[0]), (450, 320), (490, 320), (imshape[1], imshape[0])]], dtype=np.int32)
+    masked_edges = region_of_interest(edges, vertices)
     rho = 2
     theta = np.pi / 180
     threshold = 15
     min_line_len = 40
     max_line_gap = 20
-    line_image = hough_lines(masked_edges, rho, theta, threshold, min_line_len, max_line_gap)
+    variable_def = hough_lines(masked_edges, rho, theta, threshold, min_line_len, max_line_gap)
     color_edges = np.dstack((edges, edges, edges))
-    lines_edges = weighted_img(line_image, image, α=0.8, β=1.0, λ=0.0)
+    lines_edges = weighted_img(variable_def, image, α=0.8, β=1.0, λ=0.0)
     return lines_edges

@@ -1,7 +1,9 @@
-loss_object = tf.keras.losses.SparseCategoricalCrossentropy(
-    from_logits=True, reduction='none')
-
-# 假設我們要解的是一個 binary classifcation， 0 跟 1 個代表一個 label
-real = tf.constant([1, 1, 0], shape=(1, 3), dtype=tf.float32)
-pred = tf.constant([[0, 1], [0, 1], [0, 1]], dtype=tf.float32)
-loss_object(real, pred)
+def loss_function(real, pred):
+  # 這次的 mask 將序列中不等於 0 的位置視為 1，其餘為 0 
+  mask = tf.math.logical_not(tf.math.equal(real, 0))
+  # 照樣計算所有位置的 cross entropy 但不加總
+  loss_ = loss_object(real, pred)
+  mask = tf.cast(mask, dtype=loss_.dtype)
+  loss_ *= mask  # 只計算非 <pad> 位置的損失 
+  
+  return tf.reduce_mean(loss_)

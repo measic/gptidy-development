@@ -1,10 +1,5 @@
-# alternative matrix multiply)
-print(A @ x)
-print()
-
-x = np.array([[10.0, 4.5]]).T
-print(A @ x)
-print()
-
-x = np.array([10.0, 4.5])
-print(A @ x)
+from scipy.linalg import solve
+A = np.array([[2, 3],[4, -1]])
+b = np.array([[8], [2]])
+x = solve(A, b)
+x

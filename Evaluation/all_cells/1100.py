@@ -1,2 +1,2 @@
-oP7_DataBreed.show()
-oP7_DataBreed.show_breed_name()
+# path = 'E:\EpochedEEG'
+# epoch_files = os.listdir(path)

@@ -1,1 +1,2 @@
-gs_lr_tfidf.fit(X_train, y_train)
+clf = gs_lr_tfidf.best_estimator_
+print('Test Accuracy: %.3f' % clf.score(X_test, y_test))

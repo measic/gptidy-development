@@ -1,24 +1,27 @@
-# 方便比較不同實驗/ 不同超參數設定的結果
-run_id = f"{num_layers}layers_{d_model}d_{num_heads}heads_{dff}dff_{train_perc}train_perc"
-checkpoint_path = os.path.join(checkpoint_path, run_id)
-log_dir = os.path.join(log_dir, run_id)
-
-# tf.train.Checkpoint 可以幫我們把想要存下來的東西整合起來，方便儲存與讀取
-# 一般來說你會想存下模型以及 optimizer 的狀態
-ckpt = tf.train.Checkpoint(transformer=transformer,
-                           optimizer=optimizer)
-
-# ckpt_manager 會去 checkpoint_path 看有沒有符合 ckpt 裡頭定義的東西
-# 存檔的時候只保留最近 5 次 checkpoints，其他自動刪除
-ckpt_manager = tf.train.CheckpointManager(ckpt, checkpoint_path, max_to_keep=5)
-
-# 如果在 checkpoint 路徑上有發現檔案就讀進來
-if ckpt_manager.latest_checkpoint:
-  ckpt.restore(ckpt_manager.latest_checkpoint)
+@tf.function  # 讓 TensorFlow 幫我們將 eager code 優化並加快運算
+def train_step(inp, tar):
+  # 前面說過的，用去尾的原始序列去預測下一個字的序列
+  tar_inp = tar[:, :-1]
+  tar_real = tar[:, 1:]
   
-  # 用來確認之前訓練多少 epochs 了
-  last_epoch = int(ckpt_manager.latest_checkpoint.split("-")[-1])
-  print(f'已讀取最新的 checkpoint，模型已訓練 {last_epoch} epochs。')
-else:
-  last_epoch = 0
-  print("沒找到 checkpoint，從頭訓練。")
+  # 建立 3 個遮罩
+  enc_padding_mask, combined_mask, dec_padding_mask = create_masks(inp, tar_inp)
+  
+  # 紀錄 Transformer 的所有運算過程以方便之後做梯度下降
+  with tf.GradientTape() as tape:
+    # 注意是丟入 `tar_inp` 而非 `tar`。記得將 `training` 參數設定為 True
+    predictions, _ = transformer(inp, tar_inp, 
+                                 True, 
+                                 enc_padding_mask, 
+                                 combined_mask, 
+                                 dec_padding_mask)
+    # 跟影片中顯示的相同，計算左移一個字的序列跟模型預測分佈之間的差異，當作 loss
+    loss = loss_function(tar_real, predictions)
+
+  # 取出梯度並呼叫前面定義的 Adam optimizer 幫我們更新 Transformer 裡頭可訓練的參數
+  gradients = tape.gradient(loss, transformer.trainable_variables)    
+  optimizer.apply_gradients(zip(gradients, transformer.trainable_variables))
+  
+  # 將 loss 以及訓練 acc 記錄到 TensorBoard 上，非必要
+  train_loss(loss)
+  train_accuracy(tar_real, predictions)

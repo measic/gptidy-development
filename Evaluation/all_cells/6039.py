@@ -1,2 +1,2 @@
-import kf_book.book_plots as book_plots
-book_plots.show_residual_chart()
+x = np.array([[10., 4.5]]).T
+x

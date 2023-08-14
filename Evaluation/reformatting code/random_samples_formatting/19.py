@@ -1,27 +1,16 @@
-corpora = []
-for name in name_corpus:
-    try:
-        os.stat(corpus_path+name)
-        with open(corpus_path+name, 'rb') as f:
-            corpora.append(pickle.load(f))
-    except FileNotFoundError:
-        # int to string
-        with open(corpus_path+'kor_'+name, 'rb') as f:
-            corpus = pickle.load(f)
-        corpus = [[str(pid) for pid in line] for line in corpus]
-        with open(corpus_path+'kor_'+name,'wb') as f:
-            pickle.dump(corpus, f)
-        with open(corpus_path+'eng_'+name, 'rb') as f:
-            corpus = pickle.load(f)
-        corpus = [[str(pid) for pid in line] for line in corpus]
-        with open(corpus_path+'eng_'+name,'wb') as f:
-            pickle.dump(corpus, f)
-        # 한글&영문 corpus 병합
-        with open(corpus_path+'kor_'+name, 'rb') as f:
-            kor = pickle.load(f)
-        with open(corpus_path+'eng_'+name, 'rb') as f:
-            eng = pickle.load(f)
-        merged = kor+eng
-        with open(corpus_path+name, 'wb') as f:
-            pickle.dump(merged, f)
-        corpora.append(merged)
+import warnings
+from hmmlearn.hmm import GaussianHMM
+
+def train_a_word(word, num_hidden_states, features):
+    
+    warnings.filterwarnings("ignore", category=DeprecationWarning)
+    training = asl.build_training(features)  
+    X, lengths = training.get_word_Xlengths(word)
+    model = GaussianHMM(n_components=num_hidden_states, n_iter=1000).fit(X, lengths)
+    logL = model.score(X, lengths)
+    return model, logL
+
+demoword = 'BOOK'
+model, logL = train_a_word(demoword, 3, features_ground)
+print("Number of states trained in model for {} is {}".format(demoword, model.n_components))
+print("logL = {}".format(logL))

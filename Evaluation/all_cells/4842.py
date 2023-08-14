@@ -1,8 +1,14 @@
-with open("RNNmodel_128_64_log.pkl", "rb") as file:
-    logs["RNN"] = pickle.load(file)
+r_units = ["RNN", "LSTM", "GRU"]
 
-with open("LSTMmodel_128_64_log.pkl", "rb") as file:
-     logs["LSTM"] = pickle.load(file)
+f, ax = plt.subplots(1,3, sharey=True, figsize=(15,5))
 
-with open("GRUmodel_128_64_log.pkl", "rb") as file:
-    logs["GRU"] = pickle.load(file)
+for i,r_unit in enumerate(r_units):
+    
+    ax[i].plot(logs[r_unit]["acc"],label=r_unit + "_tr", color='blue')
+    ax[i].plot(logs[r_unit]["val_acc"], ls="dashed", label=r_unit + "_val", color="red")
+    ax[i].set_ylabel("Accuracy")
+    ax[i].set_xlabel("Epochs")
+    ax[i].legend()
+
+f.suptitle("Accuracy evolution with respect to epochs")
+plt.show()

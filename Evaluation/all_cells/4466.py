@@ -1,8 +1,10 @@
-# Predict
+import numpy as np
+from xgboost import XGBClassifier
+from sklearn.datasets import fetch_mldata
+mnist = fetch_mldata('MNIST original')
 
-result_1 = []
-for p in [log_clf_s, rnd_clf_s, svm_clf_s]:
-    result_1.append(p.predict(X_test))
-
-y_pred_s = rnd_clf_2.predict(np.column_stack(tuple(result_1)))
-accuracy_score(y_test, y_pred_s)
+X, y = mnist["data"], mnist["target"]
+shuffle_index = np.random.permutation(70000)
+X, y = X[shuffle_index], y[shuffle_index]
+X_train60, X_test, y_train60, y_test = X[:60000], X[60000:], y[:60000], y[60000:]
+X_train, y_train = X_train60[:5000], y_train60[:5000]

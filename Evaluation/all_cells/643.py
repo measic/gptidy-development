@@ -1,4 +1,11 @@
-# Let's start by creating our geolocator. We will use Google Maps API :
-googlemapsapikeyjson = json.loads(open('google_maps_api_keys.json').read())
-# We might need several API keys, to make a potentially huge number of requests
-googlemapsapikeys = googlemapsapikeyjson['keys']
+try:
+    university_canton_dict = json.loads(open('university_canton_dict.json').read())
+except FileNotFoundError:
+    print('The dictionary for universities has not been saved yet. Let''s create a new dictionary.')
+    university_canton_dict = {}
+    
+try:
+    institution_canton_dict = json.loads(open('institution_canton_dict.json').read())
+except FileNotFoundError:
+    print('The dictionary for institutions has not been saved yet. Let''s create a new dictionary.')
+    institution_canton_dict = {}

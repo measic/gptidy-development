@@ -1,5 +1,21 @@
-batch_size = 1
-
-beta3 = least_squares_SGD(Strain1_y, Strain1_z, initial_w, batch_size, max_iters, gamma)      #beta from y = X*beta --> missing the column of ones'
-res3 = definitive_res(Stest1_z.dot(beta3))
-len(Stest1_y[Stest1_y==res3])/len(Stest1_y)
+lmin=-10
+lmax=0
+n=10
+y=Strain1_y
+x=Strain1_z
+y_te=Stest1_y
+x_te=Stest1_z
+ratio=[]
+ratios=[]
+weights=[]
+lambdas = np.logspace(lmin, lmax, n)
+for ind, lambda_ in enumerate(lambdas):
+    weight = ridge_regression(y, x, lambda_)
+    ratio.append(ratio_prediction_threshold(y_te,x_te,weight,-0.1))
+    ratios.append(ratio_prediction_threshold(y_te,x_te,weight,0.1))
+    weights.append(weight)
+    print(ind)
+indx1=np.argmax(ratio)
+indx2=np.argmax(ratios)
+weight=weights[indx]
+lambdaa=lambdas[indx]

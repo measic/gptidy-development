@@ -1,1 +1,1 @@
-f.exclude_list_filter
+s = lv_workspace.get_step_1_object('A')

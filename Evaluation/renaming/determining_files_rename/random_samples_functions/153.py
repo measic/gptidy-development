@@ -18,7 +18,7 @@ class SPC(object):
         self.max_iter = max_iter
         self.threshold_val = threshold_val
 
-    def function_def(self, X_):
+    def fit(self, X_):
         """learn the sparse pc of a data matrix, return sparse estimates
         of the left and right singular vectors (U and V respectively) 
         as well as the standard principal components loading matrix W
@@ -54,7 +54,7 @@ class SPC(object):
         print('...finish')
         return (self.U, self.V, self.W)
 
-    def transform(self, X_, k=2):
+    def function_def(self, X_, k=2):
         X_reduced_spca = np.dot(X_, np.dot(self.V[:k].T, self.V[:k]))
         return X_reduced_spca
 my_spca = SPC(2, 3000, 0.1)

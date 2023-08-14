@@ -1,1 +1,1 @@
-len(valid_inputs) / trials
+from Timer import Timer

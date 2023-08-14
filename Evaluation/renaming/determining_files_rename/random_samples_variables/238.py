@@ -64,17 +64,17 @@ class R_pca:
         if size:
             nrows, ncols = size
         else:
-            sq = np.ceil(np.sqrt(n))
-            nrows = int(sq)
-            ncols = int(sq)
-        variable_def = np.nanmin(self.D)
+            variable_def = np.ceil(np.sqrt(n))
+            nrows = int(variable_def)
+            ncols = int(variable_def)
+        ymin = np.nanmin(self.D)
         ymax = np.nanmax(self.D)
-        print('ymin: {0}, ymax: {1}'.format(variable_def, ymax))
+        print('ymin: {0}, ymax: {1}'.format(ymin, ymax))
         numplots = np.min([n, nrows * ncols])
         plt.figure()
         for n in range(numplots):
             plt.subplot(nrows, ncols, n + 1)
-            plt.ylim((variable_def - tol, ymax + tol))
+            plt.ylim((ymin - tol, ymax + tol))
             plt.plot(self.L[n, :] + self.S[n, :], 'r')
             plt.plot(self.L[n, :], 'b')
             if not axis_on:

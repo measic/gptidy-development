@@ -1,1 +1,2 @@
-runClassifier('genes_all', logit_c_param=.12, svm_c_param=.01)
+sys.path.append('/home/maddoxw/git/PhasedLSTM-Keras')
+from phased_lstm_keras.PhasedLSTM import PLSTM

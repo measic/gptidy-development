@@ -1,1 +1,2 @@
-shop_info['ratio'] = shop_info.loc[:,'wk_66':'wk_68'].mean(axis = 1) / shop_info.loc[:,'wave_model_total_1':'wave_model_total_7'].mean(axis = 1)
+for i in range(1,8):
+    shop_info.loc[:,'wave_model_total_'+str(i)] = shop_info['ratio'] * shop_info.loc[:,'wave_model_total_'+str(i)]

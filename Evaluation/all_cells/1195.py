@@ -1,4 +1,1 @@
-ids_stable_period_1_2_3 = []
-ids_stable_period_1_2_3.extend(ids_stable_period_1)
-ids_stable_period_1_2_3.extend(ids_stable_period_2)
-ids_stable_period_1_2_3.extend(ids_stable_period_3)
+shop_info.loc[:,'2015-07-07':'2016-10-31'].head()

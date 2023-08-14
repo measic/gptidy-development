@@ -1,5 +1,5 @@
-'''
-for i in range(nb_epoch):
-    model.fit(X,y,epochs=1,batch_size=batch_size,verbose=0,shuffle=False)
-    model.reset_states()
- '''   
+def forecast(model, batch_size,row):
+    X=row[0:-1]
+    X=X.reshape(1,1,len(x))
+    yhat=model.predict(X,batch_size=batch_size)
+    return yhat[0,0]

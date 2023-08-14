@@ -1,1 +1,3 @@
-show_stable_period_id(182,3)
+#i = 0
+draw_rule_and_reg_id(ids_cos_sim_high_3_wk[i])
+i+=1

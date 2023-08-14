@@ -1,1 +1,3 @@
-print(storage.bivariate_redundancies.redundancy)
+redundancy = storage.redundancies.redundancy
+subset = ('Col43',)
+feature = 'Col89'

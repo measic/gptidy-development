@@ -1,8 +1,8 @@
-report_width = 80
-just_width = math.floor(report_width / 2)
-attribute_spacing_char = " "
-header_spacing_char = "~"
+#call pandas describe method on dataframe
+describe = data.describe(include = "all")
 
-print("Report width set to {}".format(report_width))
-print("Attribute spacing char set to '{}'".format(attribute_spacing_char))
-print("Header spacing char set to '{}'".format(header_spacing_char))
+#transpose
+describe_transposed = describe.T
+
+#reset_index, moving the column names into a new series
+describe_final = describe_transposed.reset_index()

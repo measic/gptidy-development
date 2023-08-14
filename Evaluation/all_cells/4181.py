@@ -1,2 +1,5 @@
-close_to_pi = 355/113
-close_to_pi
+a = 840
+b = 2 * a
+c = 12
+d = c * b
+d

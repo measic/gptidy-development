@@ -5,7 +5,7 @@ import cv2
 R1 = Rt1[:, 0:3]
 t1 = Rt1[:, 3]
 R2 = Rt2[:, 0:3]
-variable_def = Rt2[:, 3]
+t2 = Rt2[:, 3]
 
 def draw_person(ax, indv_left, indv_right):
     HND_l = 0
@@ -44,10 +44,10 @@ def draw_person(ax, indv_left, indv_right):
     left_knee = triangulate(KNE_l)
     left_foot = triangulate(FOT_l)
     ALL = np.squeeze(np.array([left_hand, left_elbow, left_shoulder, right_shoulder, right_elbow, right_hand, right_elbow, right_shoulder, right_hip, right_knee, right_foot, right_knee, right_hip, left_hip, left_knee, left_foot, left_knee, left_hip, left_shoulder]))
-    X = ALL[:, 0]
+    variable_def = ALL[:, 0]
     Y = ALL[:, 1]
     Z = ALL[:, 2]
-    ax.plot(X, Y, Z)
+    ax.plot(variable_def, Y, Z)
 draw_person(ax, annot1[0], annot2[1])
 draw_person(ax, annot2[0], annot1[1])
 ax.set_xlim([-4000, 4000])
@@ -59,4 +59,4 @@ def plot_cam(ax, R, t):
     ax.scatter(pos[0], pos[1], pos[2])
     ax.plot([pos[0], pos[0]], [pos[1], pos[1]], [pos[2], 0])
 plot_cam(ax, R1, t1)
-plot_cam(ax, R2, variable_def)
+plot_cam(ax, R2, t2)

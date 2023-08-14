@@ -1,3 +1,9 @@
-#can select a single row (index0)
-animals = stimuli.iloc[0,:]
-print(animals)
+#extract a column from dataframe df3
+nums = df3['y']
+print(nums)
+print(type(nums))
+#convert to a numpy array
+realnums = np.array(nums)
+print('After conversion')
+print(type(realnums))
+print(realnums)

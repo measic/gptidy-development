@@ -1,13 +1,13 @@
 NUM_IN_CLASS = 800
 
-def function_def(img):
+def random_translate(img):
     rows, cols, ch = img.shape
     x = random.randint(-4, 4)
     y = random.randint(-4, 4)
     M = np.float32([[1, 0, x], [0, 1, y]])
     return cv.warpAffine(img, M, (cols, rows))
 
-def random_rotate(img):
+def function_def(img):
     rows, cols, ch = img.shape
     degree = random.randint(-8, 8)
     M = cv.getRotationMatrix2D((cols / 2, rows / 2), degree, 1)
@@ -28,7 +28,7 @@ def random_transform_img(rand_img, transform_type_n=None):
         1: random_rotate
         2: random_zoom
     """
-    transform_funcs = [function_def, random_rotate, random_zoom]
+    transform_funcs = [random_translate, function_def, random_zoom]
     if transform_type_n:
         transform = transform_funcs[transform_type_n]
         return transform(rand_img)
@@ -87,13 +87,13 @@ def augment_data(X_train, y_train):
         augmented_data_by_classes.append(augmented_tup)
     return merge_and_shuffle(augmented_data_by_classes)
 rand_img = random.choice(X_train)
-transformed_img = function_def(rand_img)
+transformed_img = random_translate(rand_img)
 (plt.subplot(121), plt.imshow(rand_img), plt.title('Input'))
 (plt.subplot(122), plt.imshow(transformed_img), plt.title('Output'))
 plt.suptitle('Translation')
 plt.show()
 rand_img = random.choice(X_train)
-transformed_img = random_rotate(rand_img)
+transformed_img = function_def(rand_img)
 (plt.subplot(121), plt.imshow(rand_img), plt.title('Input'))
 (plt.subplot(122), plt.imshow(transformed_img), plt.title('Output'))
 plt.suptitle('Rotation')

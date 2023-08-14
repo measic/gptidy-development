@@ -1,16 +1,34 @@
-# Bidirectional RNN
-bi_outputs, _ = tf.nn.bidirectional_dynamic_rnn(
-    cell_fw = cell_fw,
-    cell_bw = cell_bw,
-    inputs = inpts,
-    sequence_length = length,
-    dtype = tf.float32)
+sess.run(tf.global_variables_initializer())
+saver = tf.train.Saver()
 
-outputs = tf.concat(bi_outputs, -1, name='outputs')
+# Creat plot for live stats ploting
+trainPlot = TrainingPlot(TRAIN_STEPS, TEST_ITER, LOSS_ITER)
 
-# pred = tf.matmul(outputs, W)
-# pred = tf.scan(lambda a, x: tf.matmul(x, W), outputs, infer_shape=False)
-pred = tf.layers.dense(inputs=outputs,
-                       units=n_classes,
-                       name='pred')
-prediction = tf.argmax(pred, axis=-1, name='prediction')
+try:
+    for i_batch in range(TRAIN_STEPS):
+        fd = train_iterator.next_feed(BATCH_SIZE)
+        train_step.run(fd)
+        
+        if i_batch % LOSS_ITER == 0:
+            # Plotting loss
+            tmpLoss = loss.eval(fd)
+            trainPlot.updateCost(tmpLoss, i_batch // LOSS_ITER)
+    
+        if i_batch % TEST_ITER == 0:
+            # Plotting accuracy
+            fd_test = test_iterator.next_feed(BATCH_SIZE)
+            accTest = accuracy.eval(fd_test)
+            accTrain = accuracy.eval(fd)
+            trainPlot.updateAcc(accTest, accTrain, i_batch // TEST_ITER)
+
+        if i_batch % SAVE_ITER == 0:
+            saver.save(sess, save_loc)
+        
+except KeyboardInterrupt:
+    saver.save(sess, save_loc)
+    print('Training interrupted, model saved.')
+
+
+fd_test = test_iterator.next_feed(2*BATCH_SIZE)
+accTest = accuracy.eval(fd_test)
+print("Training finished with accuracy:", accTest)

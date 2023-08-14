@@ -1,2 +1,2 @@
-italy = None # 'Italy'
-italy
+kindof_neighbors = None
+kindof_neighbors

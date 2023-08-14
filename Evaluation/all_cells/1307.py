@@ -1,1 +1,1 @@
-unicode_string.encode('utf32')
+utf8_string.decode('utf8')

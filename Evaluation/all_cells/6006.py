@@ -1,2 +1,2 @@
-fig = doc_sent_plot(df.doc_sent)
-py.iplot(fig, filename="doc_sent")
+fig = valence_arousal_plot(df.valence_arousal, df.doc_sent)
+py.iplot(fig, filename="valence_arousal")

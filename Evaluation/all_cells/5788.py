@@ -1,2 +1,4 @@
-### print out the first 2000 characters of the raw text to get a sense of what we need to throw out
-text[:2000]
+# run your text window-ing function 
+window_size = 100
+step_size = 5
+inputs, outputs = window_transform_text(text,window_size,step_size)

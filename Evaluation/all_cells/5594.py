@@ -1,4 +1,4 @@
-mjdmax = get_mjdmax_BessellV(sn)[0]
+# tablepath = "/Users/berto/Code/verbose-enigma/testdata/info/info.dat"
 
-filters_to_sim = convert_column_string_encoding(sn.phot.phot["filter"]).data
-mjd_to_sim = sn.phot.phot["MJD"].data
+# info = Table.read(tablepath, format = "ascii.commented_header")
+info = pcc.functions.load_info()

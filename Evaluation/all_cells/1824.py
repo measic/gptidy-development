@@ -1,2 +1,2 @@
-#Age of animals
-data.hist(column="ConvertedAge", bins=25)
+OrderedBreed = data.OrderedBreed.unique()
+print("Unique Breeds" , (data.OrderedBreed.value_counts() > 0).sum())

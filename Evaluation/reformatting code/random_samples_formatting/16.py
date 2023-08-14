@@ -1,5 +1,10 @@
-# fit the model
-lstm_model=fit_lstm(train_scaled,1,3000,4)
-# forecast the entire training dataset to build up state for forecasting
-train_reshaped=train_scaled[:,0].reshape(len(train_scaled),1,1)
-lstm_model.predict(train_reshaped,batch_size=1)
+class Clustering:
+    """Base class of clustering, offering basic and common variables and operations for clustering."""
+    data        : Any   # array-like (List, pd.Series, np.ndarray((N, L))) data
+    names       : List[str]  = None   # of each data; displayed in plots
+    N           : int        = field(init=False)   # number of data; = len(data) or data.shape[0]
+    L           : int        = field(init=False, default=None)   # number of features; = data.shape[1]
+    assignments : np.ndarray = field(init=False)   # cluster assignment for each data; int type of length N
+    s_dist_mat  : np.ndarray = field(init=False, default=None)   # square distance matrix
+    c_dist_mat  : np.ndarray = field(init=False, default=None)   # condensed distance matrix
+    cache       : dict       = field(default_factory=dict)   # store large intermediate data

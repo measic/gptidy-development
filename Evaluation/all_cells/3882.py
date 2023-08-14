@@ -1,4 +1,4 @@
-X, Annotations = marconi['Soccer2']
+X, Annotations = marconi['Walk1']
 
 camera = 0
 frame = 220

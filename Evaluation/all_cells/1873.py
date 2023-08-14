@@ -1,15 +1,19 @@
-# TODO: Implement SelectorDIC in module my_model_selectors.py
-from my_model_selectors import SelectorDIC
+# autoreload for automatically reloading changes made in my_model_selectors and my_recognizer
+%load_ext autoreload
+%autoreload 2
 
-training = asl.build_training(features_ground)  # Experiment here with different feature sets defined in part 1
-sequences = training.get_all_sequences()
-Xlengths = training.get_all_Xlengths()
-for word in words_to_train:
-    start = timeit.default_timer()
-    model = SelectorDIC(sequences, Xlengths, word, 
-                    min_n_components=2, max_n_components=15, random_state = 14).select()
-    end = timeit.default_timer()-start
-    if model is not None:
-        print("Training complete for {} with {} states with time {} seconds".format(word, model.n_components, end))
-    else:
-        print("Training failed for {}".format(word))
+from my_model_selectors import SelectorConstant
+
+def train_all_words(features, model_selector):
+    training = asl.build_training(features)  # Experiment here with different feature sets defined in part 1
+    sequences = training.get_all_sequences()
+    Xlengths = training.get_all_Xlengths()
+    model_dict = {}
+    for word in training.words:
+        model = model_selector(sequences, Xlengths, word, 
+                        n_constant=3).select()
+        model_dict[word]=model
+    return model_dict
+
+models = train_all_words(features_ground, SelectorConstant)
+print("Number of word models returned = {}".format(len(models)))

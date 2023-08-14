@@ -1,1 +1,1 @@
-top_1970.barh('Row Labels')
+check('tests/q52.py')

@@ -1,4 +1,4 @@
-import theano.tensor as tt
+X = 35
+
 with model:
-    val = first_coin_flips*true_answers + (1 - first_coin_flips)*second_coin_flips
-    observed_proportion = pm.Deterministic("observed_proportion", tt.sum(val)/float(N))
+    observations = pm.Binomial("obs", N, observed_proportion, observed=X)

@@ -1,7 +1,6 @@
-plot_missed_predictions_df = missed_predictions[['game_index','features','model_features']]
-plot_missed_predictions_df = pd.melt(plot_missed_predictions_df, id_vars='game_index', var_name= 'Features Supporting Outcome')
-m_plot = sns.barplot(x='game_index', y='value', hue='Features Supporting Outcome', data= plot_missed_predictions_df) 
-plt.title("Percentage Of Features Consistent With Game Outcomes")
-plt.ylabel('Percentage')
-plt.xlabel('Missed Prediction Game Index')
-m_plot.figure.set_size_inches(20,6)
+test_year = 2018
+
+# scale the feature data corresponding to the 2018 tournament
+feature_copy = feature_data[feature_data['season_t'] == test_year].copy()
+
+feature_copy.head()

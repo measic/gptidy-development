@@ -1,7 +1,7 @@
 from scipy.special import logsumexp
 import numpy as np
 
-def function_def(a, num_classes):
+def one_hot(a, num_classes):
     return np.eye(num_classes)[a.reshape(-1)]
 
 def logprob(x, w, b):
@@ -10,10 +10,10 @@ def logprob(x, w, b):
     ln_p = ln_q - ln_Z
     return (ln_q, ln_Z, ln_p)
 
-def logreg_gradient(x, t, w, b):
+def function_def(x, t, w, b):
     num_classes = len(b)
     ln_q, ln_Z, ln_p = logprob(x, w, b)
-    t_oh = function_def(t, num_classes)
+    t_oh = one_hot(t, num_classes)
     delta = t_oh - np.exp(ln_q) / np.exp(ln_Z)
     dL_db = delta
     dL_dw = np.matmul(x.T, delta)

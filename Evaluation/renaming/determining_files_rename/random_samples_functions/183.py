@@ -10,7 +10,7 @@ def grayscale(img):
     you should call plt.imshow(gray, cmap='gray')"""
     return cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
 
-def function_def(img, low_threshold, high_threshold):
+def canny(img, low_threshold, high_threshold):
     """Applies the Canny transform"""
     return cv2.Canny(img, low_threshold, high_threshold)
 
@@ -117,7 +117,7 @@ def draw_lines_roi(img, lines, vertices, color=[255, 0, 0], thickness=2):
     draw_lines(img, newlines, color, thickness)
     return img
 
-def hough_lines(img, rho, theta, threshold, min_line_len, max_line_gap, vertices):
+def function_def(img, rho, theta, threshold, min_line_len, max_line_gap, vertices):
     """
     `img` should be the output of a Canny transform.
         

@@ -1,15 +1,13 @@
-#---PLOT---
-fig = plt.figure(1, figsize=(16,8))
-fig.clf()
-ax_train = fig.add_subplot(121)
-ax_train.scatter(c1.train[:,0], c1.train[:,1], label="Class +1")
-ax_train.scatter(c2.train[:,0], c2.train[:,1], label="Class -1")
-ax_train.legend()
-ax_train.set_title("Fig 1. Training Data")
+# Finding weight(w) vector
+# w = (mu1 - mu2)*cov_est^T
+sample_mean_c1 = np.array([np.mean(c1.train[:,0]),np.mean(c1.train[:,1])])
+sample_mean_c2 = np.array([np.mean(c2.train[:,0]),np.mean(c2.train[:,1])])
+w              = np.dot((sample_mean_c1 - sample_mean_c2),cov_est**-1)
 
-ax_test  = fig.add_subplot(122)
-ax_test.scatter(c1.test[:,0], c1.test[:,1], label="Class +1")
-ax_test.scatter(c2.test[:,0], c2.test[:,1], label="Class -1")
-ax_test.legend()
-ax_test.set_title("Fig 2. Testing Data")
-plt.show()
+pi_1           = len(c1.test)/len(test_data)
+pi_2           = len(c2.test)/len(test_data)
+# First two terms of bias
+term1          = 0.5*np.dot(np.dot(sample_mean_c1.T, np.linalg.inv(cov_est)),sample_mean_c1)
+term2          = 0.5*np.dot(np.dot(sample_mean_c2.T, np.linalg.inv(cov_est)),sample_mean_c2)
+
+b              = term1 - term2 + np.log(pi_2/pi_1)

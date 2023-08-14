@@ -1,2 +1,3 @@
-# TODO Choose a feature set and model selector
-# TODO Recognize the test set and display the result with the show_errors method
+# create a DataFrame of log likelihoods for the test word items
+df_probs = pd.DataFrame(data=probabilities)
+df_probs.head()

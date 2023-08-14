@@ -1,6 +1,6 @@
-'''Compute half-life times of cumulative FP with >1% yield'''
+'''Compute half-life times of cumulative FP all yields'''
 
-print('total # of FP nuclides = ', len(fp_1_percent))
+print('total # of FP nuclides = ', len(cfpy_az))
 print('')
 
-half_life_times( fp_1_percent, nuclides ) # call the function
+half_life_times( cfpy_az, nuclides ) # call the function

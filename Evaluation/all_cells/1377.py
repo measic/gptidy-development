@@ -1,5 +1,7 @@
-#create row vector then reshape to be a column vector
-C = np.array([4,3,8])
-C = C.reshape(-1,1) #-1 indicates number of rows is inferred from specified number of columns (1)
-print('C')
-print(C)
+#Element
+#convert an array of size 1 (scalar array) into an ordinary scalar element 
+print(A)
+print(type(A)) #before conversion it is a numpy array
+a = np.asscalar(A)
+print(a)
+print(type(a)) #after conversion it is an int (integer)

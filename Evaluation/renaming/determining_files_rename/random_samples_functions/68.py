@@ -13,7 +13,7 @@ def random_rotate(img):
     M = cv.getRotationMatrix2D((cols / 2, rows / 2), degree, 1)
     return cv.warpAffine(img, M, (cols, rows))
 
-def function_def(img):
+def random_zoom(img):
     x = random.randint(1, 5)
     y = random.randint(26, 31)
     pts1 = np.float32([[x, x], [y, x], [x, y], [y, y]])
@@ -28,7 +28,7 @@ def random_transform_img(rand_img, transform_type_n=None):
         1: random_rotate
         2: random_zoom
     """
-    transform_funcs = [random_translate, random_rotate, function_def]
+    transform_funcs = [random_translate, random_rotate, random_zoom]
     if transform_type_n:
         transform = transform_funcs[transform_type_n]
         return transform(rand_img)
@@ -65,7 +65,7 @@ def augment_by_class(training_data_tuple):
         X_train_by_class.append(new_img)
     return (X_train_by_class, y_train_by_class)
 
-def merge_and_shuffle(augmented_data_by_classes):
+def function_def(augmented_data_by_classes):
     augmented_X_train = []
     augmented_y_train = []
     for augmented_tup in augmented_data_by_classes:
@@ -85,7 +85,7 @@ def augment_data(X_train, y_train):
         augmented_tup = augment_by_class(tup)
         assert len(tup[0]) >= NUM_IN_CLASS, 'Class {0} still has {0} examples'.format(tup[1], len(tup[0]))
         augmented_data_by_classes.append(augmented_tup)
-    return merge_and_shuffle(augmented_data_by_classes)
+    return function_def(augmented_data_by_classes)
 rand_img = random.choice(X_train)
 transformed_img = random_translate(rand_img)
 (plt.subplot(121), plt.imshow(rand_img), plt.title('Input'))
@@ -99,7 +99,7 @@ transformed_img = random_rotate(rand_img)
 plt.suptitle('Rotation')
 plt.show()
 rand_img = random.choice(X_train)
-transformed_img = function_def(rand_img)
+transformed_img = random_zoom(rand_img)
 (plt.subplot(121), plt.imshow(rand_img), plt.title('Input'))
 (plt.subplot(122), plt.imshow(transformed_img), plt.title('Output'))
 plt.suptitle('Zoom')

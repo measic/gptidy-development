@@ -1,1 +1,1 @@
-plt.matshow(doripa[['total', 'total6', 'scores']].corr());
+doripa['total'].corr(doripa['total6'])

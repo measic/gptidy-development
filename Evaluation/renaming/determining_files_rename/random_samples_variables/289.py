@@ -6,8 +6,8 @@ def lane_detection_ppline(image, k_size=3, vertex_ratio_h=0.45, vertex_ratio_v=0
      - debug: Whether or not to display the images after each step of the process, for
      debugging or tuning purposes.
     """
-    variable_def, max_x = image.shape[:2]
-    roi = np.array([[(0, variable_def), (round(max_x * vertex_ratio_h), round(variable_def * vertex_ratio_v)), (round(max_x * (1 - vertex_ratio_h)), round(variable_def * vertex_ratio_v)), (max_x, variable_def)]])
+    max_y, max_x = image.shape[:2]
+    variable_def = np.array([[(0, max_y), (round(max_x * vertex_ratio_h), round(max_y * vertex_ratio_v)), (round(max_x * (1 - vertex_ratio_h)), round(max_y * vertex_ratio_v)), (max_x, max_y)]])
     if debug:
         plt.subplot(4, 2, 1)
         plt.imshow(image)
@@ -23,7 +23,7 @@ def lane_detection_ppline(image, k_size=3, vertex_ratio_h=0.45, vertex_ratio_v=0
     if debug:
         plt.subplot(4, 2, 4)
         plt.imshow(edges)
-    masked_edges = region_of_interest(edges, roi)
+    masked_edges = region_of_interest(edges, variable_def)
     if debug:
         plt.subplot(4, 2, 5)
         plt.imshow(masked_edges)

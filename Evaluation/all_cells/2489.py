@@ -1,8 +1,6 @@
-from __future__ import (absolute_import, division, print_function)
-from functools import reduce, partial
-from operator import mul
-import sympy as sp
-import numpy as np
-import matplotlib.pyplot as plt
-from pyneqsys.symbolic import SymbolicSys, TransformedSys, linear_exprs
-sp.init_printing()
+stoichs = [[1, 1, 0, 0, -1], [1, 0, -1, 1, 0]]  # our 2 equilibria
+H = [1, 1, 4, 3, 2]
+N = [0, 0, 1, 1, 0]
+O = [0, 1, 0, 0, 1]
+q = [1, -1, 1, 0, 0]  # charge
+preserv = [H, N, O, q]

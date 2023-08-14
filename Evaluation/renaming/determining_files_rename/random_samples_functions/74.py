@@ -1,4 +1,4 @@
-def logprob(predictions, labels):
+def function_def(predictions, labels):
     """Log-probability of the true labels in a predicted batch."""
     predictions[predictions < 1e-10] = 1e-10
     return np.sum(np.multiply(labels, -np.log(predictions))) / labels.shape[0]
@@ -21,7 +21,7 @@ def sample(prediction):
     p[0, sample_distribution(prediction[0])] = 1.0
     return p
 
-def function_def():
+def random_distribution():
     """Generate a random column of probabilities."""
     b = np.random.uniform(0.0, 1.0, size=[1, vocabulary_size])
     return b / np.sum(b, 1)[:, None]

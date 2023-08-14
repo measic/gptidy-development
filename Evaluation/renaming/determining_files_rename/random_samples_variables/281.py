@@ -3,14 +3,14 @@ def test_sgd(x_train, t_train, x_valid, t_valid, w, b):
     Lvs = []
     epsilon = 0.01
     while (len(Lts) < 2 or abs(Lts[-1] - Lts[-2]) > epsilon) and len(Lts) < 25:
-        L_train, w, b = sgd_iter(x_train, t_train, w, b)
+        variable_def, w, b = sgd_iter(x_train, t_train, w, b)
         logp = []
         for x, t in zip(x_valid, t_valid):
             _, _, logp_valid = logprob(x, w, b)
             logp.append(logp_valid[t])
-        variable_def = np.array(logp).mean()
-        Lts.append(L_train)
-        Lvs.append(variable_def)
+        L_valid = np.array(logp).mean()
+        Lts.append(variable_def)
+        Lvs.append(L_valid)
     x = np.arange(len(Lts))
     plt.plot(x, Lts, label='L_train')
     plt.plot(x, Lvs, label='L_validation')

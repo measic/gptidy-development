@@ -1,3 +1,4 @@
-# Import everything needed to edit/save/watch video clips
-from moviepy.editor import VideoFileClip
-from IPython.display import HTML
+white_output = 'white.mp4'
+clip1 = VideoFileClip("solidWhiteRight.mp4")
+white_clip = clip1.fl_image(process_image) #NOTE: this function expects color images!!
+%time white_clip.write_videofile(white_output, audio=False)

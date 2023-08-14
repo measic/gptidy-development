@@ -1,32 +1,11 @@
-def draw_week_id(id,start_date='wk_0',end_date='wk_68',figsieze=(16,9)):
-    shop_info.loc[id,start_date:end_date].T.plot(figsize=(16,9))
-def draw_week_ids(ids,start_date='wk_0',end_date='wk_68',figsieze=(16,9)):
-    shop_info.loc[ids,start_date:end_date].T.plot(figsize=(16,9))
-def draw_ids(ids,start_date='2015-07-01',end_date='2016-10-31',by_week=False,figsize=(16,9)):
-    if by_week:
-        xmajorLocator = MultipleLocator(7) #将x轴次刻度标签设置为7的倍数
-        ax = plt.subplot(111) 
-        ax.xaxis.set_major_locator(xmajorLocator)
-        shop_info.loc[ids,start_date:end_date].T.plot(figsize=figsize,ax=ax)
-    else: shop_info.loc[ids,start_date:end_date].T.plot(figsize=figsize)
-    plt.show()
-def draw_ids_avg(ids,start_date='2015-07-01',end_date='2016-10-31',by_week=True,figsize=(70,10)):
-    if by_week:
-        xmajorLocator   = MultipleLocator(7) #将x轴次刻度标签设置为7的倍数
-        ax = plt.subplot(111) 
-        ax.xaxis.set_major_locator(xmajorLocator)
-    shop_info.loc[ids,start_date:end_date].mean(axis=0).plot(figsize=figsize)
-    plt.show()
-def draw_ids_diff(ids,start_date='2015-07-01',end_date='2016-10-31',by_week=False,figsize=(16,9)):  
-    if by_week:
-        xmajorLocator   = MultipleLocator(7) #将x轴次刻度标签设置为7的倍数
-        ax = plt.subplot(111) 
-        ax.xaxis.set_major_locator(xmajorLocator)
-    (shop_info.loc[ids[0],start_date:end_date]-shop_info.loc[ids[1],start_date:end_date]).plot(figsize=figsize)
-def draw_id(id,start_date='2015-07-01',end_date='2016-10-31',by_week=False,figsize=(16,9)):
-    if by_week:
-        xmajorLocator = MultipleLocator(7) #将x轴次刻度标签设置为7的倍数
-        ax = plt.subplot(111) 
-        ax.xaxis.set_major_locator(xmajorLocator)
-    shop_info.loc[id,start_date:end_date].plot(legend=True,figsize=figsize)
-
+ids_zero_1_count_in_last_three_week = [513, 987, 1163, 524, 397, 18, 1556, 1688, 5, 1185, 1700, 1959, 683, 1715, 958, 480, 707, 459, 1486, 1831, 722, 735, 352, 363, 1661, 1918]
+for day in dateRange('2016-10-11','2016-10-31'):
+    for id in ids_zero_1_count_in_last_three_week:
+        if shop_info.loc[id,day] == 0:
+            day_offset = (pd.to_datetime(day).date() - datetime.date(2016,10,11)).days % 7 
+            rel_days = []
+            for rel_day in dateRange('2016-10-11','2016-10-31'):
+                if (pd.to_datetime(rel_day).date() - datetime.date(2016,10,11)).days % 7 == day_offset and rel_day != day:
+                    rel_days.append(shop_info.loc[id,rel_day])
+            rel_days = np.array(rel_days)
+            shop_info.loc[id,day] = np.int64(rel_days.mean()+0.5)

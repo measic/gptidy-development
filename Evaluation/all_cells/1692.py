@@ -1,2 +1,2 @@
-plot_heatmap(top10_df, 'AssessJob4')    
-plt.title('Importance of The languages, frameworks, and other technologies', fontsize=18)
+plot_heatmap(top10_df, 'AssessJob6')    
+plt.title('Importance of The office environment or company culture', fontsize=18)

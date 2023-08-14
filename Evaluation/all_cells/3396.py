@@ -1,4 +1,3 @@
-boximg   = hisdb[0][0].crop(box)
-boxgtimg = hisdb[0][1].crop(box)
-plt.imshow(mark_boundaries(np.array(boximg),
-                           np.array(boxgtimg)[:,:,2]))
+#np.array(boxgtimg,dtype=np.int32).shape
+np.array(boxgtimg.convert('I'),dtype=np.int32)
+# pixel[2,2]

@@ -1,13 +1,27 @@
-path = os.getcwd()
+for day_number in range(1,8): # 1~7
+    shop_info.loc[:,'wave_model2_'+str(day_number)] = 0.0
+def get_avg_from_stable_period_(id,n):
+    wks = shop_info.loc[id,'stable_period_'+str(n)]
+    day_list = []
+    for wk_pair in wks:
+        wk_start_date = week_to_date(wk_pair[0])[0]
+        wk_end_date = week_to_date(wk_pair[1])[1]
+        day_list.extend(dateRange(wk_start_date,wk_end_date))
+    #print day_list
+    #print len(day_list)
+    if len(day_list) % 7 != 0 : print 'ERROR'
+    #week_number = len(day_list)/7
+    for day_number in range(1,8): # 1~7
+        predict_day = '2016-11-'+'%02d' %  day_number
+        predict_day = pd.to_datetime(predict_day).date()
+        train_day_list = [day for day in day_list if (predict_day - pd.to_datetime(day).date()).days % 7 == 0]
+        #print train_day_list
+        shop_info.loc[id,'wave_model2_'+str(day_number)] =  shop_info.loc[id,train_day_list].mean()     
 
-# data without overlap
-print("loading data")
-data_train = ZurichLoader(path, 'train')
-data_val = ZurichLoader(path, 'val')
-data_test = ZurichLoader(path, 'test')
-
-print("loading data with overlap")
-# data with overlap, for prediction
-data_train_overlap = ZurichLoader(path, 'train', stride=32, inherit_loader=data_train)
-data_val_overlap = ZurichLoader(path, 'val', stride=32, inherit_loader=data_val)
-data_test_overlap = ZurichLoader(path, 'test', stride=32, inherit_loader=data_test)
+for id in ids_stable_period_1:
+    get_avg_from_stable_period_(id,1)
+for id in ids_stable_period_2:
+    get_avg_from_stable_period_(id,2)
+for id in ids_stable_period_3:
+    get_avg_from_stable_period_(id,3)
+        

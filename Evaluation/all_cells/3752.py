@@ -1,24 +1,17 @@
-with tf.variable_scope("train"):
-    if is_time_major:
-        logits = tf.transpose(logits, [1, 0, 2])
-        crossent = tf.nn.sparse_softmax_cross_entropy_with_logits(
-            labels=dataset.tgt_out_ids, logits=logits)
-        target_weights = tf.sequence_mask(dataset.tgt_size, tf.shape(logits)[1], tf.float32)
-    else:
-        crossent = tf.nn.sparse_softmax_cross_entropy_with_logits(
-            labels=dataset.tgt_out_ids, logits=logits)
-        target_weights = tf.sequence_mask(dataset.tgt_size, tf.shape(logits)[1], tf.float32)
-    loss = tf.reduce_sum(crossent * target_weights) / tf.to_float(batch_size)
-    tf.summary.scalar("loss", loss)
-
-    learning_rate = tf.placeholder(dtype=tf.float32, name="learning_rate")
-    max_global_norm = tf.placeholder(dtype=tf.float32, name="max_global_norm")
-    optimizer = tf.train.MomentumOptimizer(learning_rate, momentum=0.5)
-    params = tf.trainable_variables()
-    gradients = tf.gradients(loss, params)
-    for grad, var in zip(gradients, params):
-        tf.summary.histogram(var.op.name+'/gradient', grad)
-    gradients, _ = tf.clip_by_global_norm(gradients, max_global_norm)
-    for grad, var in zip(gradients, params):
-        tf.summary.histogram(var.op.name+'/clipped_gradient', grad)
-    update = optimizer.apply_gradients(zip(gradients, params))
+if use_attention is False:
+    with tf.variable_scope("beam_search"):
+        beam_width = 4
+        start_tokens = tf.fill([config.batch_size], dataset.SOS)
+        bm_dec_initial_state = tf.contrib.seq2seq.tile_batch(
+            encoder_state, multiplier=beam_width)
+        bm_decoder = tf.contrib.seq2seq.BeamSearchDecoder(
+            cell=decoder_cell,
+            embedding=embedding,
+            start_tokens=start_tokens,
+            initial_state=bm_dec_initial_state,
+            beam_width=beam_width,
+            output_layer=output_proj,
+            end_token=dataset.EOS
+        )
+        bm_outputs, _, _ = tf.contrib.seq2seq.dynamic_decode(
+            bm_decoder, maximum_iterations=config.tgt_maxlen)

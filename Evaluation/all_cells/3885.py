@@ -1,28 +1,26 @@
-X, Annotations = marconi['Walk2']
+fig = plt.figure(figsize=(16,5))
+ax = fig.add_subplot(121); ax.axis('off')
+ay = fig.add_subplot(122); ay.axis('off')
 
-camera = 3
-frame = 5
+P1 = Ps[0]; P2 = Ps[1]
+K1 = Ks[0]; K2 = Ks[1]
+Rt1 = Rts[0]; Rt2 = Rts[1]
 
-fig = plt.figure(figsize=(16,8))
-ax = fig.add_subplot(111)
+annot1 = Annotations[0][0]
+annot2 = Annotations[1][0]
 
-im = X[camera,frame]
-ax.imshow(im)
+indv_left = annot1[0]
+indv_right = annot2[1]
 
-Annotations_for_cam = Annotations[camera]
-Annot_on_frame_cam = Annotations_for_cam[frame]
+lefthand_left = indv_left[1][0]
+lefthand_right = indv_right[1][0]
 
-COLORS = ['red', 'yellow']
+# -------------
+ax.imshow(X[0,0])
+ax.scatter(lefthand_left[0], lefthand_left[1], color='red')
 
-for i, annot in enumerate(Annot_on_frame_cam):
-    if annot is not None:
-        (tl, br), joints = annot
-        head_x, head_y = utils.tl_br_to_plt_plot(
-            tl[1], tl[0], br[1], br[0])
-        ax.plot(head_x, head_y, color=COLORS[i])
-        for jx, jy, visible in joints:
-            plt.scatter(jx, jy, color=COLORS[i], 
-                        alpha=1 if visible == 1 else 0.4)
-        
-plt.axis('off')
+# -------------
+ay.imshow(X[1,0])
+ay.scatter(lefthand_right[0], lefthand_right[1], color='red')
+
 plt.show()

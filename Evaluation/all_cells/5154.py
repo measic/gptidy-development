@@ -1,7 +1,8 @@
-#Valor total - bruto: 891
-#Valor total - Sem Nulos: 714
-treino_dropna=treino.dropna().copy()
-#Valor total - bruto: 1309
-#Valor total - Sem Nulos: 1046
-uniao_dropna=uniao.dropna().copy()
-uniao_dropna.info()
+### Treino - DROPNA
+treino_dropnaSliceNome = treino_dropna['Nome'].str.split(',', expand=True)
+treino_dropna['Primeiro Nome']=treino_dropnaSliceNome[0]
+treino_dropnaNomeSlice = treino_dropnaSliceNome[1].str.split('.', expand=True,n=1)
+treino_dropnaComplemntoSlice = treino_dropnaNomeSlice[1].str.split('(', expand=True)
+treino_dropna['Saudação'] = treino_dropnaNomeSlice[0]
+treino_dropna['Sobrenome'] = treino_dropnaComplemntoSlice[0]
+treino_dropna['Complemento'] = treino_dropnaComplemntoSlice[1]

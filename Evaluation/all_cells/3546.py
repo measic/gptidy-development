@@ -1,3 +1,1 @@
-ekos.load_workspace(unique_id = workspace_uuid)
-# Här får jag ofta felmeddelande:
-# AttributeError: module 'core' has no attribute 'ParameterMapping'
+#ekos.get_workspace(unique_id = workspace_uuid, alias = workspace_alias).delete_alldata_export()

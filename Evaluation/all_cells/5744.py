@@ -1,68 +1,40 @@
-def train_model(beta, lr, name_ext, learn_decay):
-    best_model_validation_acc = 0
-    valid_acc_list = []
-    train_acc_list = []
-    
-    save_file = './train_model_' + 'best' + '.ckpt'
-    num_examples = X_train.shape[0]
-    step = 0
-    
-    saver = tf.train.Saver()
-    
-    with tf.Session() as session:
-        
-        if(RELOAD_MODEL):
-            # Load the weights and bias
-            saver.restore(session, save_file)
-        else:         
-            session.run(tf.global_variables_initializer())
-            
-        print('tensorboard loc:', 'log-directory/' + str.replace(name_ext,'_','/') + '/train')
-        train_writer = tf.summary.FileWriter('log-directory/' + str.replace(name_ext,'_','/') + '/train',session.graph)
-        valid_writer =  tf.summary.FileWriter('log-directory/' + str.replace(name_ext,'_','/') + '/valid')
+# This part was used for hyper-parameter search as well
+EPOCHS = 80
+BATCH_SIZE = 128
+RELOAD_MODEL = False
+HYPER_PARAM_SEARCH_ITERATIONS = 1 #5
 
-        for epoch in range(EPOCHS):
+timestr = time.strftime("%Y%m%d-%H%M%S"); print(timestr);
 
-            if(learn_decay and epoch > 0 and epoch % 30 == 0 and lr > 1e-6):
-                lr = lr/2
-            
-            # shuffling
-            X_train_subset, y_train_subset = shuffle(X_train, y_train)
+for i in range(HYPER_PARAM_SEARCH_ITERATIONS):
 
-            # Train for all the mini-batches in the epoch
-            for offset in range(0, num_examples, BATCH_SIZE):
-                step += 1
+    #LEARNING_RATE = 10 ** np.random.uniform(low = -5, high = -2, size = 1)[0]
+    #BETA = 10 ** np.random.uniform(low = -7, high = -3, size = 1)[0]
+    
+    LEARNING_RATE = 10 ** (-3) #10 ** np.random.uniform(low = -5, high = -3, size = 1)[0]
+    BETA = 10**(-6) #10 ** np.random.uniform(low = -6, high = -3, size = 1)[0]
+    
+    for LEARN_DECAY in [True]: #False, True]
+    
+        # Remove the previous weights and bias
+        tf.reset_default_graph()
+        # Rebuild graph
+        tf_train_dataset, tf_train_labels, tf_train_labels_cls, tf_beta, tf_keep_prob, tf_learning_rate, weights, biases,conv1, conv2, conv3, flat, fc1, fc2, logits, train_prediction, regularizers,  cross_entropy, loss, optimizer, labels_pred_cls, correct_prediction, accuracy_operation, accuracy_operation, summary_op  = define_graph()
+
+        print('------------------------------------------------')
+        print('beta:',BETA, ' / ', 'learning rate:', LEARNING_RATE, ' / ', 'learn decay:', LEARN_DECAY)
+        print('------------------------------------------------')
+
+        name_ext = get_name_ext(timestr=timestr, beta=BETA, learning_rate = LEARNING_RATE, learn_decay = LEARN_DECAY)
+
+        train_acc_list_, valid_acc_list_ = train_model(beta = BETA
+                                                       , lr = LEARNING_RATE
+                                                       , name_ext = name_ext
+                                                       , learn_decay = LEARN_DECAY)
                 
-                end = offset + BATCH_SIZE
-                batch_x, batch_y = X_train_subset[offset:end], y_train_subset[offset:end]
-
-                feed_dict = {tf_train_dataset : batch_x, tf_train_labels : batch_y, 
-                             tf_beta: BETA, tf_keep_prob : 0.5, tf_learning_rate : lr}
-
-                session.run([optimizer], feed_dict = feed_dict)
-
-            # at the end of the epoch, gather statistics
-            training_summary, training_accuracy = evaluate(X_train, y_train, b = beta, lr = lr)
-            train_writer.add_summary(training_summary, step)
-            valid_summary, validation_accuracy = evaluate(X_valid, y_valid, b = beta, lr = lr)
-            valid_writer.add_summary(valid_summary, step)
-            print('Step %s / Epoch %s: Training accuracy: %s, Validation accuracy: %s' % (step, epoch, training_accuracy, validation_accuracy))
-            valid_acc_list.append(validation_accuracy)
-            train_acc_list.append(training_accuracy)
-
-            if(epoch == 9 and validation_accuracy<0.9):
-                print('break')
-                break
-
-            if(validation_accuracy > best_model_validation_acc):
-                best_model_validation_acc = validation_accuracy
-                
-                saver.save(session, save_file) 
-                print("Model saved at: ", save_file) 
-
-        test_summary, test_accuracy = evaluate(X_test, y_test, b = beta, lr = lr)  
-        print('Step %s / Epoch %s: Test accuracy: %s' % (step, epoch,test_accuracy))
-        train_writer.close()   
-        valid_writer.close()   
+        # saving for hyperparemeter search:
+        #combined_train_acc_list = combine_acc_lists(beta = BETA, lr = LEARNING_RATE, ld = LEARN_DECAY, acc_list_temp = train_acc_list_, acc_list = combined_train_acc_list)
+        #combined_valid_acc_list = combine_acc_lists(beta = BETA, lr = LEARNING_RATE, ld = LEARN_DECAY, acc_list_temp = valid_acc_list_, acc_list = combined_valid_acc_list)
         
-    return train_acc_list, valid_acc_list
+        #pickle.dump( combined_train_acc_list, open( "accuracies/train_acc_list.p", "wb" ) )
+        #pickle.dump( combined_valid_acc_list, open( "accuracies/valid_acc_list.p", "wb" ) )

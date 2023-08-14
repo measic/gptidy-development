@@ -1,12 +1,33 @@
-'''Compute half-life times of cumulative FP with >0.1% yield'''
+'''Function to read the blank-spaced column data into a Pandas data frame (table)'''
 
-fp_0dot1_percent = list()
+def read_table(file_name):
+    '''
+    Read table data into a `pandas` data frame (table).  
+    
+    Parameters
+    ----------
+    file_name: str, required
+        File name and its path relative to this notebook.
+    
+    Returns
+    -------
+    df: pandas.df
+        `Pandas` data frame (table).
 
-for fp in cfpy_az:
-    if fp.yield_percent >= 0.1:
-        fp_0dot1_percent.append(fp)
-        
-print('total # of FP nuclides = ', len(fp_0dot1_percent))
-print('')
+    Examples
+    --------
+    '''
+    import pandas as pd
+    
+    df = pd.read_csv( file_name,  
+                      skiprows=6,
+                      delim_whitespace=True)
+    
+# to avoid frustrations, set explicitly the data types of each column
+    for c in df.columns: 
+        if c == 'Y(NO-DIM)':
+            continue
+        df = df.astype({c:float},copy=False)
 
-half_life_times( fp_0dot1_percent, nuclides )
+    #print(df.dtypes)
+    return df

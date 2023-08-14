@@ -1,2 +1,2 @@
-def squared_errors(x_values, y_values, m, b):
+def residual_sum_squares(x_values, y_values, m, b):
     pass

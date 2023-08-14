@@ -30,7 +30,7 @@ with graph.as_default():
     inception_5x5_weights = tf.Variable(tf.truncated_normal([5, 5, depth, depth], stddev=0.1))
     inception_5x5_biases = tf.Variable(tf.zeros([depth]))
 
-    def function_def(data):
+    def inception_layer(data):
         conv_1x1 = tf.nn.conv2d(data, inception_1x1_weights, [1, 1, 1, 1], padding='SAME')
         conv_1x1 = tf.nn.relu(conv_1x1 + inception_1x1_biases)
         print('1x1', conv_1x1.get_shape())
@@ -50,8 +50,8 @@ with graph.as_default():
         print(inception_result.get_shape())
         return inception_result
 
-    def model(data):
-        hidden = function_def(data)
+    def function_def(data):
+        hidden = inception_layer(data)
         shape = hidden.get_shape().as_list()
         reshape = tf.reshape(hidden, [shape[0], shape[1] * shape[2] * shape[3]])
         hidden = tf.nn.elu(tf.matmul(reshape, layer3_weights) + layer3_biases)
@@ -60,9 +60,9 @@ with graph.as_default():
         hidden = tf.nn.dropout(hidden, keep4)
         output = tf.matmul(hidden, layer5_weights) + layer5_biases
         return output
-    logits = model(tf_train_dataset)
+    logits = function_def(tf_train_dataset)
     loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits, tf_train_labels))
     optimizer = tf.train.AdamOptimizer(0.0001).minimize(loss)
     train_prediction = tf.nn.softmax(logits)
-    valid_prediction = tf.nn.softmax(model(tf_valid_dataset))
-    test_prediction = tf.nn.softmax(model(tf_test_dataset))
+    valid_prediction = tf.nn.softmax(function_def(tf_valid_dataset))
+    test_prediction = tf.nn.softmax(function_def(tf_test_dataset))

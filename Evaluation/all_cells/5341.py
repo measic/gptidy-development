@@ -1,6 +1,5 @@
-using MAT
-
-# obtenemos los datos que necesitamos
-mnist = matread("mnist_mas.mat")
-caracteristicas = mnist["cars"]
-clase_de_digito = mnist["desc"];
+# tu código aquí #
+x_ent = 
+y_ent = 
+x_val =
+y_val =

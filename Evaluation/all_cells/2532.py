@@ -1,9 +1,2 @@
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-import pylab as plb
-import math
-from scipy import stats
-
-%matplotlib notebook 
+cdat = dat.query('(TypeOfResponse != "APRespITI") & (TypeOfResponse != "APITIResp") & (RT > 200) & (RT < 750) & (Accuracy != 0) & (StimRep != 1)').copy()
+adat = dat.copy()

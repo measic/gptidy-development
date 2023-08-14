@@ -1,1 +1,6 @@
-print("La precisión del algoritmo con los datos de entrenamiento fue: ", sum(v_max_ind .== y_entren')/length(y_entren))
+using MAT
+
+# obtenemos los datos que necesitamos
+mnist = matread("mnist.mat")
+caracteristicas = mnist["cars"]
+clase_de_digito = mnist["desc"];

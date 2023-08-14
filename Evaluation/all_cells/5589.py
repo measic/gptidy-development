@@ -1,1 +1,4 @@
-# pcc.plot_mangle(sn.spec["2009jf_-7.64.txt"], sn.mangledspec["SN2009jf_55114.060000.spec"])
+# compare_phot_specphot(sn, "BessellB")
+# compare_phot_specphot(sn, "BessellV")
+# compare_phot_specphot(sn, "SDSS_r")
+# compare_phot_specphot(sn, "SDSS_i")

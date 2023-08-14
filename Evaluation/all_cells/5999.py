@@ -1,1 +1,1 @@
-qgrid.show_grid(df.cos_sim[0], export_mode=True)
+qgrid.show_grid(df.phrase_sent, export_mode=True)

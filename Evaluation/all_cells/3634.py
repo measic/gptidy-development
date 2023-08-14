@@ -1,6 +1,4 @@
-train_perc = 20
-val_prec = 1
-drop_prec = 100 - train_perc - val_prec
-
-split = tfds.Split.TRAIN.subsplit([train_perc, val_prec, drop_prec])
-split
+for en, zh in train_examples.take(3):
+  print(en)
+  print(zh)
+  print('-' * 10)

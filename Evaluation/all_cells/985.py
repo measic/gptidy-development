@@ -1,5 +1,6 @@
-scaler=StandardScaler(copy=True, with_mean=True, with_std=True)
+logreg = LogisticRegression(solver='liblinear')
 
-scaler.fit(X_train[numeric_features])
-X_train[numeric_features] = scaler.transform(X_train[numeric_features])
-X_test[numeric_features] = scaler.transform(X_test[numeric_features])
+result = logreg.fit(X_train,y_train)
+
+print("Coeffs ",logreg.coef_)
+print("Intercept ", logreg.intercept_)

@@ -1,69 +1,74 @@
-# Multiple species and diffsuion coefficient plot
-fig, stam_graf0 = plt.subplots()
-#stam_graf0.plot(nuc_burn_model_data[:,2], nuc_mol_mass, 'r')
-stam_graf0.axhline(y=0.0, color='m', linestyle='--') #,label='no change in abundance'
-# scale curve data such that they fit onto the same axes while remaining visible
-scale_factor_D = abs(max(nuc_burn_grads_data[:,10])/max(nuc_burn_grads_data[:,8]))
-scale_factor_C = abs(max(nuc_burn_grads_data[:,6])/max(nuc_burn_grads_data[:,8]))
-scale_factor_N = abs(min(nuc_burn_grads_data[:,7])/max(nuc_burn_grads_data[:,8]))
-scale_factor_Li = abs(max(nuc_burn_grads_data[:,5])/max(nuc_burn_grads_data[:,8]))#x 10$^{11}$
-stam_graf0.plot(nuc_rad_frac*(first_line_R), nuc_burn_grads_data[:,8],'r', label='d$X_{He3}$/dr')# He3
-stam_graf0.plot(nuc_rad_frac*(first_line_R), nuc_burn_grads_data[:,5]/scale_factor_Li,'c', label='d$X_{Li7}$/dr')# Li7 
-stam_graf0.plot(nuc_rad_frac*(first_line_R), nuc_burn_grads_data[:,10]/scale_factor_D, 'k', label='D$_{therm}$')# Dthm
-stam_graf0.plot(nuc_rad_frac*(first_line_R), nuc_burn_grads_data[:,7]/scale_factor_N, 'b', label='d$X_{N14}$/dr')
-stam_graf0.plot(nuc_rad_frac*(first_line_R), nuc_burn_grads_data[:,6]/scale_factor_C, 'g', label='d$X_{C12}$/dr')
-stam_graf0.set_xlabel('Radius / $R_{\odot}$')
-stam_graf0.set_ylabel('d$X_{He3}$/dr / $(M_{He3}/M_{layer}) R_{\odot}$ $^{-1}$')# d$X_{Li7}$/dr R_{\odot}$ $^{-1}
-plt.legend(loc='upper left', bbox_to_anchor=(1.0, 0.7))
+temp_model_21 = []
+temp_model_25 = []
+temp_model_27 = []
+temp_grads_21 = []
+temp_grads_25 = []
+temp_grads_27 = []
 
-#add fractional radius label to plot
-frac_x = stam_graf0.twiny()
-#d_therm = stam_graf0.twinx()
-#d_therm.set_ylim(min(nuc_burn_grads_data[:,10])-100000,max(nuc_burn_grads_data[:,10])+100000)
-frac_x.set_xlim(nuc_rad_frac[0],nuc_rad_frac[-1])
-frac_x.set_xlabel('Fractional radius')
-#d_therm.set_ylabel('D(thermohaline)')
-stam_graf0.set_title('Abundance gradients for burning region for \nlog$(L/L_{\odot})$ = 2.1231\n 1M_sun, Z=Z_sun with diffusion', y=1.15)
+with open ("mu_test_data/diff_mu_logL=2_1231_model") as model_21:
+    data_cleanup(model_21,temp_model_21)
+with open ("mu_test_data/diff_mu_logL=2_5001_model") as model_25:
+    data_cleanup(model_25,temp_model_25)
+with open ("mu_test_data/diff_mu_logL=2_1231_model") as model_27:
+    data_cleanup(model_27,temp_model_27)
+model_data_21 = np.array(temp_model_21)
+model_data_25 = np.array(temp_model_25)
+model_data_27 = np.array(temp_model_27)
 
-plt.show()
-fig.savefig('mu_test_data/mu_test_graphs/burning_logL=2.1231_species_radius_gradient_Dtherm_if.pdf', bbox_inches='tight')
+with open ("mu_test_data/diff_mu_logL=2_1231_grads") as grads_21:
+    data_cleanup(grads_21,temp_grads_21)
+with open ("mu_test_data/diff_mu_logL=2_5001_grads") as grads_25:
+    data_cleanup(grads_25,temp_grads_25)
+with open ("mu_test_data/diff_mu_logL=2_1231_grads") as grads_27:
+    data_cleanup(grads_27,temp_grads_27)
+grads_data_21 = np.array(temp_grads_21)
+grads_data_25 = np.array(temp_grads_25)
+grads_data_27 = np.array(temp_grads_27)
 
-fig, stam_graf0 = plt.subplots()
-# scale curve data such that they fit onto the same axes while remaining visible
-scale_factor_He3 = abs(max(nuc_burn_abund_data[:,3]))
-scale_factor_D = abs(max(nuc_burn_grads_data[:,10]))#/max(nuc_burn_abund_data[:,3]))
-scale_factor_C = abs(max(nuc_burn_abund_data[:,7]))#/max(nuc_burn_abund_data[:,3]))
-scale_factor_N = abs(max(nuc_burn_abund_data[:,9]))#/max(nuc_burn_abund_data[:,3]))
-scale_factor_Li = abs(max(nuc_burn_abund_data[:,5]))#/max(nuc_burn_abund_data[:,3]))#x 10$^{11}$
-scale_factor_O = abs(max(nuc_burn_abund_data[:,11]))#/max(nuc_burn_abund_data[:,3]))#x 10$^{11}$
-stam_graf0.plot(nuc_rad_frac*(first_line_R), nuc_burn_abund_data[:,3]/scale_factor_He3,'r', label='He3')# He3
-stam_graf0.plot(nuc_rad_frac*(first_line_R), nuc_burn_abund_data[:,5]/scale_factor_Li,'c', label='Li7')# Li7 
-#stam_graf0.plot(nuc_rad_frac*(first_line_R), nuc_burn_grads_data[:,10]/scale_factor_D, 'k', label='D$_{therm}$')# Dthm
-stam_graf0.plot(nuc_rad_frac*(first_line_R), nuc_burn_abund_data[:,9]/scale_factor_N, 'b', label='N14')
-stam_graf0.plot(nuc_rad_frac*(first_line_R), nuc_burn_abund_data[:,7]/scale_factor_C, 'g', label='C12')
-stam_graf0.plot(nuc_rad_frac*(first_line_R), nuc_burn_abund_data[:,11]/scale_factor_O, 'y', label='O16')
-stam_graf0.set_xlabel('Radius / $R_{\odot}$')
-stam_graf0.set_ylabel('$X_{i}$ / $M_{i}/M_{layer}$')# d$X_{Li7}$/dr R_{\odot}$ $^{-1}
-plt.legend(loc='upper left', bbox_to_anchor=(1.0, 0.7))
+focus_model_21 = focus_sync(grads_data_21,model_data_21)
+focus_model_25 = focus_sync(grads_data_25,model_data_25)
+focus_model_27 = focus_sync(grads_data_27,model_data_27)
 
-#add fractional radius label to plot
-frac_x = stam_graf0.twiny()
-#d_therm = stam_graf0.twinx()
-#d_therm.set_ylim(min(nuc_burn_grads_data[:,10])-100000,max(nuc_burn_grads_data[:,10])+100000)
-frac_x.set_xlim(nuc_rad_frac[0],nuc_rad_frac[-1])
-frac_x.set_xlabel('Fractional radius')
-#d_therm.set_ylabel('D(thermohaline)')
-stam_graf0.set_title('Abundance gradients for burning region for \nlog$(L/L_{\odot})$ = 2.1231\n 1M_sun, Z=Z_sun with diffusion', y=1.15)
+del_mu_21 = grads_data_21[:,4]
+del_mu_25 = grads_data_25[:,4]
+del_mu_27 = grads_data_27[:,4]
 
-plt.show()
-fig.savefig('mu_test_data/mu_test_graphs/burning_logL=2p1231_5species.pdf', bbox_inches='tight')#_Dtherm_if
+rad_ad_21 = focus_model_21[:,10] - focus_model_21[:,11]
+rad_ad_25 = focus_model_25[:,10] - focus_model_25[:,11]
+rad_ad_27 = focus_model_27[:,10] - focus_model_27[:,11]
 
-"""
-fig, stam_graf0 = plt.subplots()
-#stam_graf0.plot(logP[:-1], mol_mass, 'r')
-stam_graf0.plot(logP, logT, 'k')
-stam_graf0.set_xlabel('log(P)')
-stam_graf0.set_ylabel('log(T$_{eff}$)')
-stam_graf0.set_title('temperature-pressure plot for \nlog$(L/L_{\odot})$ = 2.1231\n 1M_sun, Z=Z_sun with diffusion')
-fig.savefig('mu_test_data/mu_test_graphs/logL=2.1231_logT_logP.pdf', bbox_inches='tight')
-"""
+D_21 = grads_data_21[:,-2]
+D_25 = grads_data_25[:,-2]
+D_27 = grads_data_27[:,-2]
+
+rad_frac_21 = focus_model_21[:,1]
+rad_frac_25 = focus_model_25[:,1]
+rad_frac_27 = focus_model_27[:,1]
+
+mass_frac_21 = grads_data_21[:,0]
+mass_frac_25 = grads_data_25[:,0]
+mass_frac_27 = grads_data_27[:,0]
+
+logP_21 = focus_model_21[:,2]
+logP_25 = focus_model_25[:,2]
+logP_27 = focus_model_27[:,2]
+
+logT_21 = focus_model_21[:,3]
+logT_25 = focus_model_25[:,3]
+logT_27 = focus_model_27[:,3]
+
+logDens_21 = focus_model_21[:,4]
+logDens_25 = focus_model_25[:,4]
+logDens_27 = focus_model_27[:,4]
+
+opac_21 = focus_model_21[:,12]
+opac_25 = focus_model_25[:,12]
+opac_27 = focus_model_27[:,12]
+
+mu_21 = grads_data_21[:,1]
+mu_25 = grads_data_25[:,1]
+mu_27 = grads_data_27[:,1]
+
+model_degen_21 = data_focus(mu_21,0.134e1, model_data_21)
+model_degen_25 = data_focus(mu_25,0.134e1, model_data_25)
+model_degen_27 = data_focus(mu_27,0.134e1, model_data_27)

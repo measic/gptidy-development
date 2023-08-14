@@ -1,14 +1,10 @@
-n_epochs = 40
-batch_size = 50
+plt.plot(z, elu(z), "b-", linewidth=2)
+plt.plot([-5, 5], [0, 0], 'k-')
+plt.plot([-5, 5], [-1, -1], 'k--')
+plt.plot([0, 0], [-2.2, 3.2], 'k-')
+plt.grid(True)
+plt.title(r"ELU 활성화 함수 ($\alpha=1$)", fontsize=14)
+plt.axis([-5, 5, -2.2, 3.2])
 
-with tf.Session() as sess:
-    init.run()
-    for epoch in range(n_epochs):
-        for X_batch, y_batch in shuffle_batch(X_train, y_train, batch_size):
-            sess.run(training_op, feed_dict={X: X_batch, y: y_batch})
-        if epoch % 5 == 0:
-            acc_batch = accuracy.eval(feed_dict={X: X_batch, y: y_batch})
-            acc_valid = accuracy.eval(feed_dict={X: X_valid, y: y_valid})
-            print(epoch, "배치 데이터 정확도:", acc_batch, "검증 세트 정확도:", acc_valid)
-
-    save_path = saver.save(sess, "./my_model_final.ckpt")
+save_fig("elu_plot")
+plt.show()

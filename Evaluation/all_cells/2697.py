@@ -1,6 +1,3 @@
-fig, ax = plt.subplots()
-losses = np.array(losses)
-plt.plot(losses.T[0], label='Discriminator')
-plt.plot(losses.T[1], label='Generator')
-plt.title("Training Losses")
-plt.legend()
+# Load samples from generator taken while training
+with open('train_samples.pkl', 'rb') as f:
+    samples = pkl.load(f)

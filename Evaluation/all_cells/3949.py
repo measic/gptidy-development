@@ -1,2 +1,2 @@
-%load_ext autoreload
-%autoreload 2
+# Run me
+from florfunctions import traintest_split

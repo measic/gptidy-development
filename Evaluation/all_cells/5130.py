@@ -1,2 +1,2 @@
-import seaborn as sns
-import matplotlib.pyplot as plt
+train[colunasGraficos].hist(layout = (3,3))
+plt.show()

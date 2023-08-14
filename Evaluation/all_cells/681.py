@@ -1,4 +1,4 @@
-mean = np.mean(keystrokes, axis=0)
-std = np.std(keystrokes, axis=0)
-
-norm_keystrokes = (keystrokes - mean) / std
+plt.plot(Sigma)
+plt.scatter(np.arange(31), Sigma)
+plt.title("Valores Singulares do Dataset de Keystrokes")
+plt.show()

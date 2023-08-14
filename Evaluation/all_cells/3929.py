@@ -1,1 +1,2 @@
-cy.getResponse()
+json.loads(cy.msgToKernel)['payload']
+#cy.msgToKernel["payload"]

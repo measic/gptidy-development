@@ -1,8 +1,7 @@
-tuned_parameters = [{'n_components': np.arange(3, 9), 
-                     'max_iter': [10000]}]
+# Fit GMM
+gmm = GaussianMixture(**ps_gmm.best_params)
+gmm.fit(draw_subsamples(act_train, .01))
 
-# do parameter search
-ps_gmm = ParameterSearch(GaussianMixture, tuned_parameters, act_train, act_val_all,
-                         pred_f_tr.flatten(), scorer_roc_probas_gmm, 
-                         n_iter=3, verbosity=10, n_jobs=-1, subsample_train=.01, subsample_test=.001)
-ps_gmm.fit()
+# Predict
+probas_gmm = gmm.predict_proba(act_test)
+probas_gmm = get_acc_net_entropy(probas_gmm)

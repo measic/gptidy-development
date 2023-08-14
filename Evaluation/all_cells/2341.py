@@ -1,5 +1,10 @@
-dot_data = StringIO()
-export_graphviz(tree, feature_names=cancer.feature_names, 
-                out_file=dot_data, filled=True)
-graph = pydotplus.graph_from_dot_data(dot_data.getvalue())  
-Image(value=graph.create_png())
+from os import path, environ
+import fiona
+import numpy as N
+import attitude
+from attitude import Orientation, ReconstructedPlane, create_groups
+from attitude.display import plot_interactive, init_notebook_mode
+from attitude.plot import plot_aligned
+from json import dumps
+from sys import argv
+import palettable as P

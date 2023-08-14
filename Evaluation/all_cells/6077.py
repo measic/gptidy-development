@@ -1,1 +1,1 @@
-# your code here
+compare_1D_2D(x0=0, P=50., R=5., Q=.02, vel=-2., u=1.) 

@@ -1,3 +1,5 @@
-from IPython.display import display, Image, SVG, Math, YouTubeVideo
+a = 355.0
+b = 113.0
+c = a / b
 
-SVG(filename='diagrams/testdiag.svg')
+c  # pi to 7 digits

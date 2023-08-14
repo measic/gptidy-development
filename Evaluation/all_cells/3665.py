@@ -1,6 +1,7 @@
-#ignore
-# plot(emb_inp, name='emb_inp', labels=['子詞 subword', 'embedded_dim'], 
-#      shape_desc='\n(batch_size, inp_seq_len, d_model)')
+def create_padding_mask(seq):
+  # padding mask 的工作就是把索引序列中為 0 的位置設為 1
+  mask = tf.cast(tf.equal(seq, 0), tf.float32)
+  return mask[:, tf.newaxis, tf.newaxis, :] #　broadcasting
 
-# plot(emb_tar, name='emb_tar', labels=['子詞 subword', 'embedded_dim'], 
-#      shape_desc='\n(batch_size, tar_seq_len, d_model)')
+inp_mask = create_padding_mask(inp)
+inp_mask

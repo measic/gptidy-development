@@ -1,4 +1,4 @@
-## Import packages
-library(ggplot2)
-library(repr)
-options(repr.plot.width=4, repr.plot.height=4) # Set the initial plot area dimensions
+scale = sd(train$y)
+center = mean(train$y)
+train$y = (train$y - center)/scale
+test$y = (test$y - center)/scale

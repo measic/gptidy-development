@@ -1,1 +1,1 @@
-data4=data3[data3.star_name==nlist[0]]
+plt.hist(np.log10(draws))

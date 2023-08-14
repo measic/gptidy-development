@@ -1,1 +1,4 @@
-m = keras.models.load_model("/Users/tim/MMT/HALcoll/halcoll/data/tiltx_model.h5")
+%%javascript
+require.config({
+   paths: {cytoscape: 'http://localhost:8099/js/cytoscape-2.7.10'}
+   })

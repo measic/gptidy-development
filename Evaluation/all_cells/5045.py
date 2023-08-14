@@ -1,2 +1,1 @@
-def error_line_traces(x_values, y_values, m, b):
-    pass
+errors_for_regression and len(errors_for_regression) # 30

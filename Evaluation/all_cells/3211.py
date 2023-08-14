@@ -1,14 +1,8 @@
-def plot_decision_boundary(X, y, w, i):
-    x1s = np.arange(7)
-    x2s = (-w[2]-w[0]*x1s)/w[1]
+#Run this cell multiple times to iterate through perceptron algorithm.
+w = update_nueron(w, X[i, :], y[i])
 
-    fig = figure(0, (8,6))
-    #Scatter data
-    scatter(X[:,0], X[:,1], c = y, s = 75)
-    scatter(X[i,0], X[i,1], c = 'r', s = 75)
-    #Plot decision boundary
-    plot(x1s, x2s)
+#plot decision boundary and examples
+plot_decision_boundary(X, y, w, i)
 
-    xlabel('$x_1$', fontsize = 20)
-    ylabel('$x_2$', fontsize = 20)
-    grid(1)
+#Increment counter, startover when we reach the end of examples
+i = (i+1)%X.shape[0] 

@@ -1,7 +1,6 @@
-# obtenemos los datos que necesitamos y los ponemos en una matriz de Julia
-vinos = matread("wine.mat")
-datos = vinos["data"]
-
-# separamos las caracteristicas y los tipos de vino
-caracteristicas = datos[:,2:end]
-tipo_de_vino = datos[:,1];
+scatter3D(x_entren[1:39,1],x_entren[1:39,2],x_entren[1:39,3], color="b")
+scatter3D(x_entren[40:78,1],x_entren[40:78,2],x_entren[40:78,3], color="r")
+scatter3D(x_entren[79:end,1],x_entren[79:end,2],x_entren[79:end,3], color="g")
+xlabel("Contenido de Alcohol")
+ylabel("Contenido de Flavonoides")
+zlabel("Densidad Optica relativa")

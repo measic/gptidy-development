@@ -1,2 +1,1 @@
-# how do I erase a key? let's look at some dictionary methods...
-dir(my_dictionary)
+print(whatever[:-12:4])

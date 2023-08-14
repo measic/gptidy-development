@@ -1,16 +1,11 @@
-mu = Partition([4,1])
-n = mu.size()
-v = vandermonde(mu)
-generator = {v.multidegree() : [v]}
-list_op = partial_derivatives(v.parent())
-V = Subspace(generators=generator, operators=list_op, add_degrees=add_degree)
-V_iso = IsotypicComponent(V, n, use_antisymmetry=True)
+def replace_unknown(sequence):
+    """Return a copy of the input sequence where each unknown word is replaced
+    by the literal string value 'nan'. Pomegranate will ignore these values
+    during computation.
+    """
+    return [w if w in data.training_set.vocab else 'nan' for w in sequence]
 
-r = n-1
-deg = v.degree()
-if deg == 0:
-    deg = 1
-op_pol = polarization_operators(r, deg, row_symmetry="permutation")
-V_pol = PolarizedSpace(V_iso, op_pol)
-
-character(V_pol, row_symmetry="permutation")
+def simplify_decoding(X, model):
+    """X should be a 1-D sequence of observations for the model to predict"""
+    _, state_path = model.viterbi(replace_unknown(X))
+    return [state[1].name for state in state_path[1:-1]]  # do not show the start/end state predictions

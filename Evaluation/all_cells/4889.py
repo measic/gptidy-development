@@ -1,5 +1,4 @@
-import pandas as pd
-ax = pd.DataFrame(d_score).plot()
-ax.set_xlabel("Number of Clusters")
-ax.set_ylabel("Silhouette Score\n")
-ax.set_title("Performance vs Complexity\n", fontsize = 16);
+# get centers
+sample_preds = d_model["Kmeans"][2].predict(pca_samples)
+centers = d_model["Kmeans"][2].cluster_centers_
+preds = d_model["Kmeans"][2].fit_predict(reduced_data)

@@ -1,33 +1,24 @@
 reset_graph()
 
-n_inputs = 28 * 28  # MNIST
+import tensorflow as tf
+
+n_inputs = 28 * 28
 n_hidden1 = 300
 n_hidden2 = 100
 n_outputs = 10
 
 X = tf.placeholder(tf.float32, shape=(None, n_inputs), name="X")
-y = tf.placeholder(tf.int32, shape=(None), name="y")
 
-with tf.name_scope("dnn"):
-    hidden1 = tf.layers.dense(X, n_hidden1, activation=selu, name="hidden1")
-    hidden2 = tf.layers.dense(hidden1, n_hidden2, activation=selu, name="hidden2")
-    logits = tf.layers.dense(hidden2, n_outputs, name="outputs")
+training = tf.placeholder_with_default(False, shape=(), name='training')
 
-with tf.name_scope("loss"):
-    xentropy = tf.nn.sparse_softmax_cross_entropy_with_logits(labels=y, logits=logits)
-    loss = tf.reduce_mean(xentropy, name="loss")
+hidden1 = tf.layers.dense(X, n_hidden1, name="hidden1")
+bn1 = tf.layers.batch_normalization(hidden1, training=training, momentum=0.9)
+bn1_act = tf.nn.elu(bn1)
 
-learning_rate = 0.01
+hidden2 = tf.layers.dense(bn1_act, n_hidden2, name="hidden2")
+bn2 = tf.layers.batch_normalization(hidden2, training=training, momentum=0.9)
+bn2_act = tf.nn.elu(bn2)
 
-with tf.name_scope("train"):
-    optimizer = tf.train.GradientDescentOptimizer(learning_rate)
-    training_op = optimizer.minimize(loss)
-
-with tf.name_scope("eval"):
-    correct = tf.nn.in_top_k(logits, y, 1)
-    accuracy = tf.reduce_mean(tf.cast(correct, tf.float32))
-
-init = tf.global_variables_initializer()
-saver = tf.train.Saver()
-n_epochs = 40
-batch_size = 50
+logits_before_bn = tf.layers.dense(bn2_act, n_outputs, name="outputs")
+logits = tf.layers.batch_normalization(logits_before_bn, training=training,
+                                       momentum=0.9)

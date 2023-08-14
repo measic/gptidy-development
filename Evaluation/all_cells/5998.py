@@ -1,2 +1,1 @@
-fig = rel_freq_plot(df.rel_freq)
-py.iplot(fig, filename="rel_freq")
+qgrid.show_grid(df.cos_sim_all, export_mode=True)

@@ -1,1 +1,1 @@
-Image(filename = pathname + DATA_fraction)
+Image(filename = pathname + DATA_pt_fraction)

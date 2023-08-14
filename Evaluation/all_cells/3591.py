@@ -1,1 +1,2 @@
-dw_obj.get_filtered_data(subset = subset_uuid, step = 'step_2', type_area = 22, indicator = 'din_winter')[['DIN']].dropna()
+av = lv_workspace.get_subset_object('B').get_step_object('step_2').indicator_data_filter_settings['ntot_winter'].allowed_variables
+lv_workspace.get_subset_object('B').get_step_object('step_2').indicator_data_filter_settings['ntot_winter'].settings.df[av]

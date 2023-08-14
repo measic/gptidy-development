@@ -1,2 +1,2 @@
-%load_ext watermark
-%watermark -v -p numpy,sklearn,scipy,matplotlib,tensorflow
+def logit(z):
+    return 1 / (1 + np.exp(-z))

@@ -1,7 +1,12 @@
-got = pd.read_csv('test/got.csv')
-radial1 = TreeChart(dataframe = got, 
-          child_column="actor", 
-          parent_column="to", 
-          diameter = 800)
-radial1.addTooltip( template = "{actor} from {house} is casted by {name}.")
-radial1.show()
+chart_2 = MapChart(dataframe = df, 
+       projection = "orthographic", 
+       region = "world", 
+       unit = 'country', 
+       value = 'searches', coerce_country=False
+      )\
+.addColor(options = {"palette": {"min":"lightblue", "max": "steelblue"}, "opacity": 0.5})\
+.enableZoom()\
+.enableClickToCenter()\
+.addTooltip()
+
+chart_2.show()

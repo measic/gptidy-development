@@ -1,7 +1,13 @@
-bbm = Model(name='b&b')
-x, y, z = bbm.integer_var_list(3, name=['x', 'y', 'z'])
-bbm.maximize(x + y + 2*z)
-bbm.add_constraint(7*x + 2*y + 3*z <= 36)
-bbm.add_constraint(5*x + 4*y + 7*z <= 42)
-bbm.add_constraint(2*x + 3*y + 5*z <= 28)
-bbm.solve(log_output=True);
+# variables for total production
+desk = tm2.integer_var(name='desk', lb=100)
+cell = tm2.continuous_var(name='cell', lb=100)
+
+# two variables per machine type:
+desk1 = tm2.integer_var(name='desk1')
+cell1 = tm2.integer_var(name='cell1')
+
+desk2 = tm2.integer_var(name='desk2')
+cell2 = tm2.integer_var(name='cell2')
+
+# yes no variable
+z = tm2.binary_var(name='z')

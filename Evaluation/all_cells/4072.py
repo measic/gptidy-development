@@ -1,5 +1,3 @@
-author_degree_list = list(coauthor_graph.degree())
-degree_list = [degree for (author, degree) in author_degree_list]
-
-degree_frequencies = Counter(degree_list)
-print degree_frequencies
+plt.loglog(degree_frequencies.keys(), degree_frequencies.values(), basex=np.e, basey=np.e)
+plt.title("Cantidad de autores de cada grado - Escala Log Log")
+plt.show()

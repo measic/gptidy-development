@@ -47,8 +47,8 @@ def invert_scale(scaler, X, value):
     new_row = [x for x in X] + [value]
     array = numpy.array(new_row)
     array = array.reshape(1, len(array))
-    inverted = scaler.inverse_transform(array)
-    return inverted[0, -1]
+    variable_def = scaler.inverse_transform(array)
+    return variable_def[0, -1]
 
 def fit_lstm(train, batch_size, nb_epoch, neurons):
     X, y = (train[:, 0:-1], train[:, -1])
@@ -74,8 +74,8 @@ supervised_values = supervised.values
 train, test = (supervised_values[0:-12], supervised_values[-12:])
 scaler, train_scaled, test_scaled = scale(train, test)
 lstm_model = fit_lstm(train_scaled, 1, 3000, 4)
-variable_def = train_scaled[:, 0].reshape(len(train_scaled), 1, 1)
-lstm_model.predict(variable_def, batch_size=1)
+train_reshaped = train_scaled[:, 0].reshape(len(train_scaled), 1, 1)
+lstm_model.predict(train_reshaped, batch_size=1)
 predictions = list()
 for i in range(len(test_scaled)):
     X, y = (test_scaled[i, 0:-1], test_scaled[i, -1])

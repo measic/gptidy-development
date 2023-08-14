@@ -1,15 +1,8 @@
-from aipython.searchBranchAndBound import DF_branch_and_bound
+infile = get_dataset_path('gamma_test_large.simtel.gz')   
 
-s_dfbb = DF_branch_and_bound(problem=search_simple1)
+dl1_parameters_filename = 'dl1.h5'
 
-# Visualization options
-s_dfbb.sleep_time = 0.2 # The time, in seconds, between each step in auto solving
-s_dfbb.line_width = 4.0 # The thickness of edges
-s_dfbb.text_size = 15 # The fontsize of the text
-s_dfbb.detail_level = 1 # 0=no text, 1=truncated text, 2=full text
-s_dfbb.show_edge_costs = True
-s_dfbb.show_node_heuristics = True
+allowed_tels = {1} # select LST1 only
+max_events = 300 # limit the number of events to analyse in files - None if no limit
 
-# Display the widget
-display(s_dfbb)
-s_dfbb.search()
+cal = CameraCalibrator()

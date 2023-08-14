@@ -1,3 +1,2 @@
-#InvalidRTCI
-a = RTanalysis.Invalid.mean()
-sms.DescrStatsW(RTanalysis.Invalid).tconfint_mean()
+a = RTrunanalysis.loc[RTrunanalysis['Run'] == 0].Invalid.mean()
+sms.DescrStatsW(RTrunanalysis.loc[RTrunanalysis['Run'] == 0].Invalid).tconfint_mean()

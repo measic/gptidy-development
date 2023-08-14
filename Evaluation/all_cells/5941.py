@@ -1,10 +1,16 @@
-parametersSVM = {
-    'C':[1e-15, 1e-10, 1e-5, 1e-4, 1e-3, 1e-2, 1.0],
+shrinkage = np.linspace(0.1,1.0).tolist()
+shrinkage.append('auto')
+
+parametros_LDA_lsqr_eigen = {
+    "solver": ["eigen"],
+    "priors": priors,
+    "shrinkage": shrinkage,
+    "n_components": range(1, 20)
 }
 
-(tiempo_SVM, grid_svm) = correr_y_mostrar(
-    LinearSVC(), 
-    parametersSVM, 
+(tiempo_LDA_lsqr_eigen, grid_lda) = correr_y_mostrar(
+    LDA(),
+    parametros_LDA_lsqr_eigen,
     5,
-    5
+    10
 )

@@ -7,19 +7,19 @@ for k in range(len(mapIdx)):
     candB = all_peaks[limbSeq[k][1] - 1]
     nA = len(candA)
     nB = len(candB)
-    indexA, indexB = limbSeq[k]
+    variable_def, indexB = limbSeq[k]
     if nA != 0 and nB != 0:
         connection_candidate = []
         for i in range(nA):
             for j in range(nB):
                 vec = np.subtract(candB[j][:2], candA[i][:2])
-                variable_def = math.sqrt(vec[0] * vec[0] + vec[1] * vec[1])
-                vec = np.divide(vec, variable_def)
+                norm = math.sqrt(vec[0] * vec[0] + vec[1] * vec[1])
+                vec = np.divide(vec, norm)
                 startend = zip(np.linspace(candA[i][0], candB[j][0], num=mid_num), np.linspace(candA[i][1], candB[j][1], num=mid_num))
                 vec_x = np.array([score_mid[int(round(startend[I][1])), int(round(startend[I][0])), 0] for I in range(len(startend))])
                 vec_y = np.array([score_mid[int(round(startend[I][1])), int(round(startend[I][0])), 1] for I in range(len(startend))])
                 score_midpts = np.multiply(vec_x, vec[0]) + np.multiply(vec_y, vec[1])
-                score_with_dist_prior = sum(score_midpts) / len(score_midpts) + min(0.5 * oriImg.shape[0] / variable_def - 1, 0)
+                score_with_dist_prior = sum(score_midpts) / len(score_midpts) + min(0.5 * oriImg.shape[0] / norm - 1, 0)
                 criterion1 = len(np.nonzero(score_midpts > param['thre2'])[0]) > 0.8 * len(score_midpts)
                 criterion2 = score_with_dist_prior > 0
                 if criterion1 and criterion2:

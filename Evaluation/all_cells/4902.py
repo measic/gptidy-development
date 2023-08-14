@@ -1,3 +1,4 @@
-with pm.Model() as ab_testing:
-    p_A = pm.Uniform("P(A)", 0, 1)
-    p_B = pm.Uniform("P(B)", 0, 1)
+with pm.Model() as model:
+    parameter = pm.Exponential("poisson_param", 1.0, testval=0.5)
+
+print("\nparameter.tag.test_value =", parameter.tag.test_value)

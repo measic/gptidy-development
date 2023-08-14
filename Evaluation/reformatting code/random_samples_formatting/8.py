@@ -1,2 +1,2 @@
-df=pd.read_csv('twitter_archive_master.csv')
-df.info()
+exp_name = 'classification'
+classification_network = load_model(exps_path, exp_name, 60, camera_parameters_path)

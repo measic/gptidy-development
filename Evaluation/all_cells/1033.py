@@ -1,7 +1,5 @@
-x_test[x_test==-999]=np.NaN
-z_test=x_test[:,~np.isnan(x_test).any(axis=0)] #z is our matrix of observations with size (number of observations, number of features without -999)
-z1_test = build_poly(z_test,9)
-z2_test=interaction_prodbis(z_test,0,False)
-z3_test=build_poly(z2_test,6)
-z_test = np.c_[z1_test,z3_test]
-#z_test=np.c_[z1_test,z3_test]
+beta1,l = least_squares(Strain1_y, Strain1_z)      #beta from y = X^T*beta --> missing the column of ones'
+#print(beta1)
+res1 = definitive_res(Stest1_z.dot(beta1))
+#print(res1)
+len(Stest1_y[Stest1_y==res1])/len(Stest1_y)

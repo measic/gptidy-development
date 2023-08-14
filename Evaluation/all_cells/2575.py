@@ -1,1 +1,5 @@
-stats.ttest_rel(posttest.Q3_SC_ForcedChoicePerformance, posttest.Q3_SCT_ForcedChoicePerformance)
+import statsmodels.stats.api as sms
+
+#ValidRTCI
+a = RTanalysis.Valid.mean()
+sms.DescrStatsW(RTanalysis.Valid).tconfint_mean()

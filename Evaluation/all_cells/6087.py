@@ -1,3 +1,1 @@
-x = np.array([100., 0.])
-run(track=trk, zs=zs, R=var, Q=.02, P=1., x0=x,
-    plot_P=False, title='$P=1\, m^2$');
+plot_covariances(R=200., Q=.2, count=5, title='$R = 200\, m^2$')

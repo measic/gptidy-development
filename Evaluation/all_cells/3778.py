@@ -1,11 +1,8 @@
-array = np.array([1,2,3,4,5,6,7,8,9])
-matrix = np.array([[10,11,12],[13,14,15], [16,17,18]])
+matrix_1 = np.array([[1,2,3],[4,5,6]])
+print(matrix_1.shape)
+matrix_2 = np.array([[1,2,3],[1,2,3], [1,2,3]])
+matrix_3 = np.dot(matrix_1,matrix_2)
+matrices_1 = [matrix_1, matrix_2, matrix_3]
+names_1 = ['matrix_1', 'matrix_2', 'matrix_3']
 
-min_array_val = np.min(array)
-max_array_val = np.max(array)
-min_matrix_val = np.min(matrix)
-max_matrix_val = np.max(matrix)
-print(f'min_array_val: {min_array_val}')
-print(f'max_array_val: {max_array_val}')
-print(f'min_matrix_val: {min_matrix_val}')
-print(f'max_matrix_val: {max_matrix_val}')
+visulize_multiplication(matrices_1, names_1)

@@ -1,1 +1,1 @@
-sig #函数签名
+type(sig.parameters) #映射代理

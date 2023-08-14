@@ -1,2 +1,3 @@
-X = tf.placeholder(tf.float32, shape=(None, n_inputs), name="X")
-y = tf.placeholder(tf.int32, shape=(None), name="y")
+with tf.name_scope("loss"):
+    xentropy = tf.nn.sparse_softmax_cross_entropy_with_logits(labels=y, logits=logits)
+    loss = tf.reduce_mean(xentropy, name="loss")

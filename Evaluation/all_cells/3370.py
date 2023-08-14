@@ -1,5 +1,2 @@
-if not os.path.exists('../data/amazonas/amazonas.pkl'):
-    df_vs = locate_vs('../data/amazonas/amazonas.txt', pix_nb=20, acc_min=1_000_000)
-    df_vs.to_pickle('../data/amazonas/amazonas.pkl')
-else:
-    df_vs = pd.read_pickle('../data/amazonas/amazonas.pkl')
+sub_latlon = df_vs[['new_lat', 'new_lon']].dropna().values
+print(f'Out of {len(df_vs)} virtual stations in Hydroweb, {len(sub_latlon)} could be found in HydroSHEDS.')

@@ -1,15 +1,26 @@
-batch_size = 2
-demo_examples = tf.data.Dataset.from_tensor_slices((
-    [en for en, _ in demo_examples], [zh for _, zh in demo_examples]
-))
+#ignore
+# 讀取之前建立的 emb layer 來保證每次的 emb_inp, emb_tar 結果都一樣
+d_model = 4
+vocab_size_en = subword_encoder_en.vocab_size + 2
+vocab_size_zh = subword_encoder_zh.vocab_size + 2
 
-# 將兩個句子透過之前定義的字典轉換成子詞的序列（sequence of subwords）
-# 並添加 padding token: <pad> 來確保 batch 裡的句子有一樣長度
-demo_dataset = demo_examples.map(tf_encode)\
-  .padded_batch(batch_size, padded_shapes=([-1], [-1]))
+emb_en_model_path = os.path.join(output_dir, "demo_emb_en_model.h5")
+emb_zh_model_path = os.path.join(output_dir, "demo_emb_zh_model.h5")
 
-# 取出這個 demo dataset 裡唯一一個 batch
-inp, tar = next(iter(demo_dataset))
-print('inp:', inp)
-print('' * 10)
-print('tar:', tar)
+# en
+if not os.path.exists(emb_en_model_path):
+  demo_emb_en_model = tf.keras.Sequential()
+  demo_emb_en_model.add(tf.keras.layers.Embedding(vocab_size_en, d_model))
+  demo_emb_en_model.save(emb_en_model_path)
+  embedding_layer_en = demo_emb_en_model
+else:
+  embedding_layer_en = tf.keras.models.load_model(emb_en_model_path)
+# zh
+if not os.path.exists(emb_zh_model_path):
+  demo_emb_zh_model = tf.keras.Sequential()
+  demo_emb_zh_model.add(tf.keras.layers.Embedding(vocab_size_zh, d_model))
+  demo_emb_zh_model.save(emb_zh_model_path)
+  embedding_layer_zh = demo_emb_zh_model
+else:
+  embedding_layer_zh = tf.keras.models.load_model(emb_zh_model_path)
+clear_output()

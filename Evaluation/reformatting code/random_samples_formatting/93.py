@@ -1,6 +1,4 @@
-import kf_book.mkf_internal as mkf_internal
-
-var = 27.5
-data = mkf_internal.zs_var_275()
-run(track=trk, zs=zs, R=var, Q=.02, P=500., plot_P=True, 
-    title='$P=500\, m^2$');
+# In Python 3 these two operations will give the same result
+# (in Python 2 the first one will be treated as an integer division). 
+print(1 / 2)
+print(1 / 2.0)

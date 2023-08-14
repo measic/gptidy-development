@@ -1,2 +1,2 @@
-training = asl.build_training(features_ground)
-print("Training words: {}".format(training.words))
+df_means = asl.df.groupby('speaker').mean()
+df_means

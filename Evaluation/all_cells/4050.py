@@ -1,23 +1,16 @@
-import sympy as sym
-from sympy import *
-A, U, S = symbols("A U S")
-alpha_UA, alpha_AU, alpha_US, alpha_SU  = symbols("alpha_UA alpha_AU alpha_US alpha_SU")
+%matplotlib inline
+from numpy import *
+import matplotlib.pyplot as plt
 
-model_dyn = [
-    alpha_UA*U - alpha_AU*A,
-    alpha_AU*A + alpha_SU*S - (alpha_UA + alpha_US)*U,
-    alpha_US*U - alpha_SU*S,
-    A + U + S - 1 # this equation sets the total population size to 1
-    ]
+inc = linspace(0, 0.5, 101) # incidence
+scr = linspace(0, 0.5, 101) # screening
+inc,scr = meshgrid(inc, scr)
 
-# steady-state solution
-sol_dyn = solve(model_dyn, A, U, S)
+# proportion of population in each compartment
+ZU = U_fun(inc*p_asymp, sc + scr*p_true_pos, inc*(1-p_asymp), scr*p_true_pos + att_symp*p_true_pos)
+ZA = A_fun(inc*p_asymp, sc + scr*p_true_pos, inc*(1-p_asymp), scr*p_true_pos + att_symp*p_true_pos)
+ZS = S_fun(inc*p_asymp, sc + scr*p_true_pos, inc*(1-p_asymp), scr*p_true_pos + att_symp*p_true_pos)
 
-# functions for calculating the proportion of the population in each compartment at 
-# steady state, given transition rates between compartments
-dyn_fun = lambdify((alpha_UA, alpha_AU, alpha_US, alpha_SU), sol_dyn[A] + sol_dyn[S])
-U_fun = lambdify((alpha_UA, alpha_AU, alpha_US, alpha_SU), sol_dyn[U])
-A_fun = lambdify((alpha_UA, alpha_AU, alpha_US, alpha_SU), sol_dyn[A])
-S_fun = lambdify((alpha_UA, alpha_AU, alpha_US, alpha_SU), sol_dyn[S])
-
-sol_dyn
+Zprev = 1 - ZU
+Ztest = scr + ZS*att_symp
+Zdiag = (ZA+ZS)*scr*p_true_pos + ZU*scr*p_false_pos + ZS*att_symp*p_true_pos

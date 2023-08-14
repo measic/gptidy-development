@@ -1,3 +1,1 @@
-diag_classifier = LinearRegression()
-# Train Diagnostic Classifier
-diag_classifier.fit(train_hiddens, train_hyps)
+scipy.stats.pearsonr(x, y)

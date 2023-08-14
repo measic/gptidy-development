@@ -1,4 +1,3 @@
-# ----------------------------------------------------------------------
-# Find the test files included in the package
-science_path = get_resource_path(package="pnicer.tests_resources", resource="Orion_A_2mass.fits")
-control_path = get_resource_path(package="pnicer.tests_resources", resource="CF_2mass.fits")
+# 1d array
+array = np.array([1,2,3,4,5,6,7,8,9])
+visulize_array(array, 'array')

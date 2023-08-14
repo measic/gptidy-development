@@ -1,29 +1,27 @@
-fig, ax = plt.subplots(figsize=(16,8))
-bp = dfBabies.boxplot(column="weight", by="smoke", ax=ax, return_type="dict")
-
-for column in bp:
-    for box in column['boxes']:
-        box.set(color='steelblue', linewidth=2)
+def winners_and_margins(dfClean):
     
-    for whisker in column['whiskers']:
-        whisker.set(color='gray', linewidth=2)
+    dfNew = pd.DataFrame(columns = ["STATE", "D", "WINNER", "MARGIN", "WINPER"])
+    
+    for i in range(len(dfClean)):
+        row = dfClean.iloc[i]
+        district = dfNew.loc[(dfNew["STATE"] == row["STATE"]) & (dfNew["D"] == row["D"])]
+        
+        if(district.empty):
+            dfRow = row[["STATE", "D"]]
+            dfRow["WINNER"] = row["CANDIDATE NAME"]
+            dfRow["MARGIN"] = 100
+            dfRow["WINPER"] = row["GENERAL PERCENT"]
+            dfNew = dfNew.append(dfRow)
+        else:
+            (Margin, WinPer) = dfNew.loc[district.index[0], ['MARGIN', 'WINPER']]
+            if(WinPer < row["GENERAL PERCENT"]):
+                dfNew.loc[district.index[0], 'WINPER'] = row["GENERAL PERCENT"]
+            elif(Margin > WinPer - row["GENERAL PERCENT"]):
+                dfNew.loc[district.index[0], 'MARGIN'] = WinPer - row["GENERAL PERCENT"]
+    
+    dfNew = dfNew.sort_values(by='MARGIN')
+    dfNew.drop(['WINPER'], axis = 1, inplace = True)
+    
+    return dfNew
 
-    for cap in column['caps']:
-        cap.set(color='gray', linewidth=2)
-
-    for cap in column['medians']:
-        cap.set(color='green', linewidth=2, alpha=0.5)
-
-    for cap in column['fliers']:
-        cap.set(markerfacecolor='steelblue', linewidth=2, marker='s', markersize=6, alpha=0.5)
-
-ax.set_title('Weight of Smoker\'s Babies vs Non-Smoker\'s Babies', fontsize=18)
-ax.set_ylabel("Weight (in Ounces)", fontsize=16)
-
-short_names = ["Non-Smoker", "Smoker"]
-plt.xticks(range(1,len(short_names)+1),short_names, rotation=90, fontsize=16)
-
-plt.suptitle("")
-ax.set_xlabel("")
-
-ax.grid(alpha=0.25);
+winners_and_margins(clean_election_data())

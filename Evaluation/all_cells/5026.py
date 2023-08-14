@@ -1,1 +1,2 @@
-movies[0]['budget']/1000000
+x_values = None
+y_values = None

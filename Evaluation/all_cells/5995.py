@@ -1,6 +1,2 @@
-print "\n".join(
-    textfilter.normalize_text(
-        sample_lyrics,
-        sentences=True  # preserves sentences
-    )
-)
+fig = rel_freq_plot(df.rel_freq)
+py.iplot(fig, filename="rel_freq")

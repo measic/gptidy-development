@@ -1,3 +1,2 @@
-from sklearn.linear_model import Ridge
-clf = Ridge(alpha=1.0)
-clf.fit(X_train, y_train)
+y_train_predict=clf.predict(X_train)
+np.size(y_train_predict)

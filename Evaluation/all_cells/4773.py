@@ -1,2 +1,2 @@
-# Create DensityForest instance
-clf_df = DensityForest(**ps_df.best_params, **default_params)
+# get probabilities for all images
+probas_df = clf_df.decision_function(act_test)

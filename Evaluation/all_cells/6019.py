@@ -1,11 +1,4 @@
-resids_qq = function(df, score, bins = 10){
-    options(repr.plot.width=4, repr.plot.height=3.5) # Set the initial plot area dimensions
-    df$resids = df$y - score
-    ggplot() + 
-    geom_qq(data = df, aes(sample = resids)) + 
-    stat_qq_line(data = df, aes(sample = resids)) +
-    ylab('Quantiles of residuals') + xlab('Quantiles of standard Normal') +
-    ggtitle('QQ plot of residual values')
-}
-
-resids_qq(test, score)
+path = untar_data(URLs.MNIST_SAMPLE)
+data = ImageDataBunch.from_folder(path)
+def simple_learner(): return Learner(data, simple_cnn((3,16,16,2)), metrics=[accuracy])
+learn = simple_learner()

@@ -1,1 +1,1 @@
-from datetime import datetime
+unicode_string = '가'

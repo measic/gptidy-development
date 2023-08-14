@@ -1,5 +1,3 @@
-train, valid, test = df.split_frame(
-    ratios=[0.6,0.2], 
-    seed=1234, 
-    destination_frames=['train.hex','valid.hex','test.hex']
-)
+## Get the AUC on the validation set
+perf = gbm.model_performance(valid)
+print perf.auc()

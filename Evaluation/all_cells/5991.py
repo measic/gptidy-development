@@ -1,2 +1,3 @@
-py.sign_in(username=USERNAME, api_key=API_KEY)  # credentials for plot.ly API
-qgrid.nbinstall(overwrite=True)  # copies over JS dependencies
+print textfilter.normalize_text(
+    u"Ain't nothing more that'll have you grinnin’ like a possum eatin’ a sweet tater than these 80 songs."
+)

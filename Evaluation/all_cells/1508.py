@@ -1,7 +1,6 @@
-### TODO: implement cleaned_text in my_answers.py
-from my_answers import cleaned_text
+# count the number of unique characters in the text
+chars = sorted(list(set(text)))
 
-text = cleaned_text(text)
-
-# shorten any extra dead space created above
-text = text.replace('  ',' ')
+# print some of the text, as well as statistics
+print ("this corpus has " +  str(len(text)) + " total number of characters")
+print ("this corpus has " +  str(len(chars)) + " unique characters")

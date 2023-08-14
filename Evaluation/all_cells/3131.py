@@ -1,1 +1,1 @@
-np.unique(lights_labels, return_counts=True)
+X, y = lights_data, lights_labels

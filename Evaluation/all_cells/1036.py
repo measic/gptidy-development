@@ -1,3 +1,5 @@
-initial_w = np.zeros(Strain1_z.shape[1])    #w is an array of size = number of features (i.e. number of columns in z)
-max_iters = 5000
-gamma = 0.000001
+batch_size = 1
+
+beta3 = least_squares_SGD(Strain1_y, Strain1_z, initial_w, batch_size, max_iters, gamma)      #beta from y = X*beta --> missing the column of ones'
+res3 = definitive_res(Stest1_z.dot(beta3))
+len(Stest1_y[Stest1_y==res3])/len(Stest1_y)

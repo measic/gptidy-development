@@ -1,1 +1,1 @@
-x_values and y_values and y_actual(13, x_values, y_values) # 26.0
+error(x_values, y_values, 1.7, 10, 13) # -6.099999999999994

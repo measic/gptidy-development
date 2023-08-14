@@ -1,1 +1,2 @@
-print gbm_best.cross_validation_metrics_summary()
+preds = best_model.predict(test)
+preds.head()

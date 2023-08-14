@@ -1,1 +1,1 @@
-from BITS.clustering.numeric import ClusteringNumeric
+c.calc_dist_mat()

@@ -1,2 +1,8 @@
-##  save dataframe with biodiversity indices to csv
-data.to_csv(output + "\\" + river + "_biodiv.csv")
+import numpy as np
+
+import matplotlib.pyplot as plt
+%matplotlib inline
+import seaborn
+
+import sys
+from importlib import reload

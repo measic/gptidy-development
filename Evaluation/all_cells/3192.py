@@ -1,2 +1,3 @@
-#Careful, just run this once!
-X = np.hstack((X, np.ones((X.shape[0], 1))))
+def neuron(x, w):
+    '''Simple McCulloch-Pitts Neuron model, x and w and are numpy arrays of the same shape'''
+    return np.dot(x, w) > 0

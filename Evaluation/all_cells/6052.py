@@ -1,3 +1,3 @@
-for _ in range(4):
-    x, P = predict(x=x, P=P, F=F, Q=0)
-    print('x =', x)
+from filterpy.common import Q_discrete_white_noise
+Q = Q_discrete_white_noise(dim=2, dt=1., var=2.35)
+print(Q)

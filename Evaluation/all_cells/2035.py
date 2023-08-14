@@ -1,1 +1,1 @@
-plot_acf(df_train,lags=30)
+df_test.tail()

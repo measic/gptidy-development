@@ -1,7 +1,4 @@
-import getpass
-from arcgis.gis import *
-
-password = getpass.getpass("Please enter password: ")
-dev_gis = GIS('https://www.arcgis.com', 'username', password)
-print("Successfully logged in to {} as {}".format(dev_gis.properties.urlKey + '.' + dev_gis.properties.customBaseUrl,
-                                                 dev_gis.users.me.username))
+feature_layer_coll_item = feature_layer_srch_results[0]
+feature_layers = feature_layer_coll_item.layers
+feature_layer = feature_layers[0]
+feature_layer.properties.name

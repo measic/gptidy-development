@@ -1,7 +1,9 @@
-df['CareerSatisfaction'].value_counts()
-sat = df[np.logical_or(np.logical_or(df['CareerSatisfaction'] == 'Moderately satisfied', df['CareerSatisfaction'] == 'Extremely satisfied'), df['CareerSatisfaction'] == 'Slightly satisfied')]
+fig, axes = plt.subplots(10, 1, figsize=(14, 34))
 
-plt.figure(figsize=(14, 8))
-sns.countplot(data=sat, x='Country', hue='CareerSatisfaction', palette='Paired', order=sat['Country'].value_counts()[:10].index)
-sns.despine(left=True)
-plt.xticks(rotation='vertical')
+for ax, country in zip(axes, top_10_list):
+    data = df[df['Country'] == country]
+    sns.countplot(data=data, x='TimeFullyProductive', palette='Paired', ax=ax, order=data['TimeFullyProductive'].value_counts().index)
+    ax.set_title('Productivity time in {}'.format(country), fontsize=16)
+    #plt.xticks(rotation='vertical')
+    sns.despine(left=True)
+plt.subplots_adjust(hspace=.6)

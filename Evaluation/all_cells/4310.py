@@ -1,3 +1,1 @@
-fig, ax = plt.subplots(figsize=(8,4))
-dfTitanic.hist(column="Age", ax=ax);
-print(dfTitanic["Age"].describe())
+dfBabyDirt = pd.read_csv('http://www.stat.berkeley.edu/~statlabs/data/babies.data', delim_whitespace=True)

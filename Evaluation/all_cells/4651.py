@@ -1,7 +1,23 @@
-from PIL import ImageFile                            
-ImageFile.LOAD_TRUNCATED_IMAGES = True                 
+from keras.preprocessing.image import ImageDataGenerator
 
-# pre-process the data for Keras
-train_tensors = paths_to_tensor(train_files).astype('float32')/255
-valid_tensors = paths_to_tensor(valid_files).astype('float32')/255
-test_tensors  = paths_to_tensor(test_files).astype('float32')/255
+# create and configure augmented image generator
+datagen_train = ImageDataGenerator(
+    width_shift_range=0.1,  # randomly shift images horizontally (10% of total width)
+    height_shift_range=0.1,  # randomly shift images vertically (10% of total height)
+    horizontal_flip=True,   # randomly flip images horizontally
+    rotation_range=25,  # degrees
+    # featurewise_std_normalization=True
+) 
+
+# create and configure augmented image generator
+datagen_valid = ImageDataGenerator(
+    width_shift_range=0.1,  # randomly shift images horizontally (10% of total width)
+    height_shift_range=0.1,  # randomly shift images vertically (10% of total height)
+    horizontal_flip=True,  # randomly flip images horizontally
+    rotation_range=25,
+    # featurewise_std_normalization=True
+)
+
+# fit augmented image generator on data
+datagen_train.fit(train_tensors)
+datagen_valid.fit(valid_tensors)

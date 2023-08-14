@@ -1,1 +1,5 @@
-test_bsd100(sr_resnet_test.model, img_width=img_width, img_height=img_height)
+conv = getRawDataFromFile()
+
+idx1, idx2 = np.random.choice(len(conv), 2)
+
+conv[idx1], conv[idx2]

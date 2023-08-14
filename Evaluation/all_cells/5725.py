@@ -1,10 +1,20 @@
-unique, counts = np.unique(y_train, return_counts=True)
-unique_test, counts_test = np.unique(y_test, return_counts=True)
+oi = np.random.randint(0,n_train)
+orig_img = X_train[oi]
 
-#print(dict(zip(unique, counts)))
-plt.hist(y_train, color = 'b', label = 'train', normed = True, bins=range(n_classes+1))
-plt.hist(y_test, color = 'r', alpha = 0.5, label = 'test', normed = True, bins=range(n_classes+1))
-plt.title('Distribution of the number of images per class \n for train and test set')
-plt.xlabel('Class')
-plt.ylabel('Percentage of images')
+fig = plt.figure(figsize=(2,2))
+fig.add_subplot(1,1,1)
+plt.imshow(X_train[oi])
+plt.axis('off')
+plt.title('original image', fontsize=10)
+
+fig = plt.figure(figsize=(8,8))
+for i in range(5):
+    fig.add_subplot(1,5,i+1)
+    new_image = transform_image(orig_img,20,10,5)
+    plt.imshow(new_image)
+    plt.axis('off')
+
+fig.suptitle('5 augmented images:', x=0.5,y=0.6, fontsize=10)
+plt.tight_layout()
 plt.show()
+    

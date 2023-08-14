@@ -1,1 +1,2 @@
-old_df = pd.read_csv('data/School.csv', parse_dates=[1, 2, 3, 7, 8])
+all_df = pd.concat([old_df, f18_df], verify_integrity=True, ignore_index=True, sort=True)
+all_df.head()

@@ -1,4 +1,2 @@
-X = np.hstack((X, np.ones((X.shape[0], 1))))
-
-#Initialize Weights to zero:
-w = np.zeros(X.shape[1])
+num_examples = 9
+im_shape = (20, 20)

@@ -1,55 +1,46 @@
-corpus    = "BrentProvidence"
-providence_data_file = os.path.join("data/words_sentences/providence_avg_prosody_pos.csv")
-brent_data_file      = os.path.join("data/words_sentences/brent_avg_prosody_pos.csv")
-both_data_file       = os.path.join("data/words_sentences/brentprovidence_avg_prosody_pos.csv")
+# compute and plot correlations
 
-# define x-fields (column IDs) to keep at 1    = word itself
-#                                         2    = pos
-#                                         3    = length (letters)
-#                                         4    = frequency
-#                                         5-93 = egemaps prosody features
-features  = list(range(1,93))
 
-pos_filter = None  #[['pos', 'nouns','function_words']]
+# if you like select a subset of features like this
+# featureset = ['freq', 
+#                'length']
+#               'mfcc2_sma3_amean',
+#               'mfcc4V_sma3nz_amean', 
+#               'MeanVoicedSegmentLengthSec']
+# x_selected = x_train[featureset].copy()
+# print(x_selected.head(5))
 
-# define name (col header) of y-variable in data file
-y         = 'y'
+# otherwise take the whole training set
+x_selected  = x_train
 
-# load data, x-fields, y-field, train/dev/test split from input file
-print("extracting providence...")
-providence_x_train, providence_y_train, _, _, _, _, labels = get_data_from_tsv(providence_data_file, 
-                                                                      x_fields=features, 
-                                                                      y_field=y, 
-                                                                      x_filter=pos_filter,
-                                                                      train_portion=1.0,
-                                                                      shuffle=False)
-print("extracting brent...")
-brent_x_train, brent_y_train, _, _, _, _, labels = get_data_from_tsv(brent_data_file, 
-                                                                      x_fields=features, 
-                                                                      y_field=y, 
-                                                                      x_filter=pos_filter,
-                                                                      train_portion=1.0,
-                                                                      shuffle=False)
+# get correlation matrix
+correlations= x_selected.corr()
 
-print("extracting brentprovidence...")
-both_x_train, both_y_train, _, _, _, _, labels = get_data_from_tsv(both_data_file, 
-                                                                      x_fields=features, 
-                                                                      y_field=y, 
-                                                                      x_filter=pos_filter,
-                                                                      train_portion=1.0,
-                                                                      shuffle=False)
+# do the plotting
+fig      = plt.figure()
+ax1      = fig.add_subplot(111)
+ax1.grid(True)
+colormap = cm.get_cmap('jet', len(correlations.columns))
+cax      = ax1.imshow(correlations, 
+                      interpolation="nearest", 
+                      cmap=colormap)
+plt.title('EGEMAPS Feature Correlation')
+labels=[str(i) for i in range(len(correlations.columns))]
+fig.colorbar(cax)
+fig.show()
 
-if corpus == "Providence":
-    x_train = providence_x_train
-    y_train = providence_y_train
-elif corpus == "Brent":
-    x_train = brent_x_train
-    y_train = brent_y_train
-elif corpus == "BrentProvidence":
-    x_train = both_x_train
-    y_train = both_y_train
+# print features values with correlation higher than some threshold
+threshold = 0.9
+print("Features with abs(correlation) > 0.9 ")
+for row in range(correlations.shape[0]):
+    for col in range(correlations.shape[1]):
+        val = correlations.iloc[row, col]
+        if val != 1.0 and (val > threshold or val < (-threshold)):
+            print(" --- ".join([str(val), 
+                                str(row),
+                                str(col),
+                                correlations.index[row], 
+                                correlations.columns[col]]))
 
-first_numeric_feature = x_train.columns.tolist().index('log_length')
-first_egemaps_feature = x_train.columns.tolist().index('F0semitoneFrom27.5Hz_sma3nz_amean')
 
-print(first_numeric_feature,first_egemaps_feature)
+

@@ -1,5 +1,9 @@
-y_true, y_pred = validate_hypothesis(model, LinearRegression(), hypothesis_inlinecounter,
-                                     train_len=95, test_len=5,
-                                     save_hyp='plots/hyp_inlinecounter_shake.png',
-                                     save_diag='plots/diag_inlinecounter_shake.png',
-                                     save_resp='plots/resp_inlinecounter_shake.png')
+%matplotlib inline
+import matplotlib.pyplot as plt
+import numpy as np
+import scipy as sc
+import scipy.optimize as sco
+import scipy.constants as c
+import scipy.integrate as sci
+from scipy.optimize import curve_fit as cf
+import pandas as pd

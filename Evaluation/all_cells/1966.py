@@ -1,14 +1,11 @@
-# # To save the model without the training data, in order to make predictions without re-training the model
-# # Source: https://www.geeksforgeeks.org/saving-a-machine-learning-model/
+# Note: Use an alpha of .01 when creating the model for this activity
+from sklearn.linear_model import Ridge
 
-# import pickle
-# from sklearn.externals import joblib 
-  
-# # Save the model as a pickle in a file 
-# joblib.dump(model_5K, 'model_5K.pkl')
-  
-# # Load the model from the file 
-# model_5K_from_joblib = joblib.load('model_5K.pkl')  
-  
-# # Use the loaded model to make predictions 
-# model_5K_from_joblib.predict(X_test_5K) 
+ridge_5K = Ridge(alpha=.01).fit(X_train_5K, y_train_5K)
+
+predictions_5K = ridge_5K.predict(X_test_5K)
+
+MSE = mean_squared_error(y_test_5K, predictions)
+r2 = ridge_5K.score(X_test_5K, y_test_5K)
+
+print(f"MSE: {MSE}, R2: {r2}")

@@ -1,1 +1,1 @@
-str.upper?
+full_name.upper()

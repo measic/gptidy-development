@@ -1,7 +1,7 @@
-coauthor_graph = nx.Graph()
-for index, row in df.iterrows():
-    paper_authors = row['authors'].split("&")
-    paper_authors = map(lambda x: x.strip(),paper_authors)
-    paper_authors_pairs = list(itertools.combinations(paper_authors, 2))
-    coauthor_graph.add_nodes_from(paper_authors)
-    coauthor_graph.add_edges_from(paper_authors_pairs)
+nodes_visible = random.sample(coauthor_graph.nodes(), 1000)
+nx.draw_networkx(coauthor_graph, with_labels=False, node_size=10, nodelist = nodes_visible)
+plt.tick_params(axis='x', labelbottom='off')
+plt.tick_params(axis='y', labelleft='off')
+plt.title("Grafo de Co-autorias")
+plt.rcParams["figure.figsize"] = [14,6]
+plt.show()

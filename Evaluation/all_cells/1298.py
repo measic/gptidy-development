@@ -1,2 +1,1 @@
-now = datetime.datetime.now()
-now
+datetime.__file__

@@ -1,8 +1,4 @@
-import theano.tensor as tt
-
-with pm.Model() as theano_test:
-    p1 = pm.Uniform("p", 0, 1)
-    p2 = 1 - p1
-    p = tt.stack([p1, p2])
-    
-    assignment = pm.Categorical("assignment", p)
+data = np.array([10, 5])
+with model:
+    fixed_variable = pm.Poisson("fxd", 1, observed=data)
+print("value: ", fixed_variable.tag.test_value)

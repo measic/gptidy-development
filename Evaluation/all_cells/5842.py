@@ -1,7 +1,12 @@
-# LDA
-lda = LinearDiscriminantAnalysis(n_components=2)
-X_lda = lda.fit(X_iris, y).transform(X_iris)
-
-## PCA See no need to use labels
-pca = sklearnPCA(n_components=2)
-X_pca = pca.fit_transform(X_iris)
+import numpy as np
+import cv2
+import tensorflow as tf
+from sklearn.utils import shuffle
+from utils import *
+from lenet import *
+from lenet_model import *
+from collections import Counter
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+%matplotlib inline

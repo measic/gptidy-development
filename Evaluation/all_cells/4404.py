@@ -1,14 +1,12 @@
-from sklearn.ensemble import BaggingClassifier 
-from sklearn.tree import DecisionTreeClassifier
-
-bag_clf = BaggingClassifier( 
-    DecisionTreeClassifier(), 
-    n_estimators=500, 
-    max_samples=300, 
-    bootstrap=False, 
-    n_jobs=-1
-)
-
-bag_clf.fit(X_train, y_train)
-y_pred = bag_clf.predict(X_test)
-accuracy_score(y_pred, y_test)
+print ("Total", "trues", "falses")
+for sample in bag_clf1.estimators_samples_:
+    count = 0
+    trues = 0
+    falses = 0
+    for i in sample:
+        count +=1
+        if i:
+            trues += 1
+        else:
+            falses += 1
+    print ("%d\t%d\t%d\n" %(count, trues, falses))

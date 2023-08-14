@@ -1,18 +1,12 @@
-def squared(Table):
-    #This function squares all the values on a table
-    D=[]
-    for i,var in enumerate(Table.keys()):
-        D+=[Table[var]**2]
-        D[i].name='%s_Squared'%var
-    return pandas.concat(D,axis=1)
-
-def absolute(Table):
-    #This function squares all the values on a table
-    D=[]
-    for i,var in enumerate(Table.keys()):
-        D+=[(Table[var]**2)**0.5]
-        D[i].name='%s_Absolute'%var
-    return pandas.concat(D,axis=1)
-
-#Example
-#pandas.concat([Trial_data[Protein[:4]],squared(Trial_data[Protein[:4]]),absolute(Trial_data[Protein[:4]])],axis=1).T
+def make_pca(Table,All_Data,n,name='PCA_test',whiten=False):
+    pca = PCA(n_components=n,whiten=whiten)
+    pca.fit(All_Data[Table.keys()])
+    trans_PCA=pca.transform(Table)
+    #Saving the components of the PCA
+    components=pca.components_
+    PCA_table=pandas.DataFrame(components,columns=Table.keys(),index=['%s_%i'%(name,i+1) for i in range(n)])
+    PCA_table.to_csv('%s_components.csv'%name)
+    #pca.explained_variance_ratio_##pca.get_params()
+    #Needs to return the PCA transformation
+    return pandas.DataFrame(trans_PCA,columns=['%s_%i'%(name,i+1) for i in range(n)],index=Table.index)
+#pandas.concat([Trial_data[Protein[:4]],make_pca(Trial_data[Protein[:4]],Dream9,3),make_pca(Trial_data[Protein[:4]],Dream9,2,'Whiten_PCA',True)],axis=1).T

@@ -11,9 +11,9 @@ def merge_channels(images):
     Merge images from three different channels
      - images: a list of 3 images, each in a channel
     """
-    variable_def = weighted_img(images[0], images[1], α=0.5, β=0.5, λ=0.0)
-    variable_def = weighted_img(variable_def, images[2], α=1.0, β=0.5, λ=0.0)
-    return variable_def
+    merged = weighted_img(images[0], images[1], α=0.5, β=0.5, λ=0.0)
+    merged = weighted_img(merged, images[2], α=1.0, β=0.5, λ=0.0)
+    return merged
 
 def lane_detection_ppline_3_channels(image, k_size=3, vertex_ratio_h=0.45, vertex_ratio_v=0.6, low_thresh=50, high_thresh=200, L2gradient=False, rho=2, theta=1 * np.pi / 180.0, min_votes=15, min_line_len=40, max_line_gap=20, angle=3 * np.pi / 16, angle_thresh=np.pi / 16, debug=False):
     """
@@ -62,13 +62,13 @@ def lane_detection_ppline_3_channels(image, k_size=3, vertex_ratio_h=0.45, verte
         plt.subplot(5, 3, 13)
         plt.imshow(hls_lines_image)
     try:
-        combined = extend_lines(image, lines, angle=angle, angle_thresh=angle_thresh)
+        variable_def = extend_lines(image, lines, angle=angle, angle_thresh=angle_thresh)
         if debug:
             plt.subplot(5, 3, 14)
-            plt.imshow(combined)
+            plt.imshow(variable_def)
     except IndexError:
         print('Error. Try relaxing your angle parameters a litte.')
-    return combined
+    return variable_def
 
 def process_image_3_channels(image, k_size=3, vertex_ratio_h=0.45, vertex_ratio_v=0.6, low_thresh=50, high_thresh=200, L2gradient=False, rho=2, theta=1 * np.pi / 180.0, min_votes=15, min_line_len=40, max_line_gap=20, angle=3 * np.pi / 16, angle_thresh=np.pi / 16, debug=False):
     result = lane_detection_ppline_3_channels(image, k_size=k_size, low_thresh=low_thresh, high_thresh=high_thresh, L2gradient=L2gradient, rho=rho, theta=theta, min_votes=min_votes, min_line_len=min_line_len, max_line_gap=max_line_gap, angle=angle, angle_thresh=angle_threshold, debug=debug)

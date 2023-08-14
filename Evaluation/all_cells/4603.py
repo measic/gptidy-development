@@ -1,11 +1,7 @@
-# TODO: Import 'r2_score'
+# TODO: Import 'train_test_split'
 
-def performance_metric(y_true, y_predict):
-    """ Calculates and returns the performance score between 
-        true and predicted values based on the metric chosen. """
-    
-    # TODO: Calculate the performance score between 'y_true' and 'y_predict'
-    score = None
-    
-    # Return the score
-    return score
+# TODO: Shuffle and split the data into training and testing subsets
+X_train, X_test, y_train, y_test = (None, None, None, None)
+
+# Success
+print "Training and testing split was successful."

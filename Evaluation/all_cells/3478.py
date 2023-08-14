@@ -1,6 +1,6 @@
-# Good indentation
-statement1 = statement2 = True
+statement1 = False 
 
 if statement1:
-    if statement2:
-        print("both statement1 and statement2 are True")
+    print("printed if statement1 is True")
+    
+    print("still inside the if block")

@@ -1,1 +1,1 @@
-c.calc_dist_mat()
+from BITS.plot.plotly import make_hist, make_scatter, make_layout, show_plot

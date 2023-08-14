@@ -1,3 +1,9 @@
-'''Total sum of independent FP yield per 100 fissions'''
+'''Generate a list of nuclides with 1% or more fission yield'''
 
-print('Total sum = ',round(sum([fpy.yield_percent for fpy in cfpy_az]),1))
+fp_1_percent = list() # this list will be used later
+
+for fp in cfpy_az:
+    if fp.yield_percent >= 1.0:
+        fp_1_percent.append(fp)
+        
+print('# of FP nuclides = ', len(fp_1_percent))

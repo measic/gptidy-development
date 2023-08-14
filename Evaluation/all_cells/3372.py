@@ -1,2 +1,3 @@
-sub_latlon = df_vs[['new_lat', 'new_lon']].dropna().values
-print(f'Out of {len(df_vs)} virtual stations in Hydroweb, {len(sub_latlon)} could be found in HydroSHEDS.')
+df_ll = df_vs[['new_lat', 'new_lon']].dropna()
+duplicated = df_ll[df_ll.duplicated(keep=False)]
+duplicated

@@ -1,3 +1,6 @@
-x = np.array([100., 0.])
-run(track=trk, zs=zs, R=var, Q=.02, P=500., x0=x,
-   plot_P=False, title='$P=500\, m^2$');
+from scipy.linalg import pinv
+
+H = np.array([[1, 0.]]) 
+z0 = 3.2
+x = np.dot(pinv(H), z0)
+print(x)

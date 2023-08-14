@@ -1,1 +1,3 @@
-%timeit -r1 -n1 np.linalg.solve(A, b)
+import scipy.linalg
+
+%timeit -r1 -n1 scipy.linalg.inv(A) @ b

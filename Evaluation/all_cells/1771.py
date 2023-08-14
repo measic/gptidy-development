@@ -1,23 +1,29 @@
-trace_illum_x = []
-trace_illum_y = []
-trace_illum_z = []
+view_scatter = go.Scatter3d(
+    x=trace_viewing_x,
+    y=trace_viewing_y,
+    z=trace_viewing_z,
+    mode='markers',
+    marker=dict(
+        size=12,
+        line=dict(
+            color='rgba(217, 217, 217, 0.14)',
+            width=0.5
+        ),
+        opacity=0.8
+    )
+)
 
-trace_viewing_x = []
-trace_viewing_y = []
-trace_viewing_z = []
-
-for i, row in df_viewing.iterrows():
-    illum_x, illum_y, illum_z = polar_to_euclidean(row['illum_theta'],row['illum_phi'])
-    view_x, view_y, view_z = polar_to_euclidean(row['view_theta'],row['view_phi'])
-    
-    line_x = [illum_x, 0, view_x]
-    line_y = [illum_y, 0, view_y]
-    line_z = [illum_z, 0, view_z]
-    
-    trace_illum_x.append(illum_x)
-    trace_illum_y.append(illum_y)
-    trace_illum_z.append(illum_z)
-    
-    trace_viewing_x.append(view_x)
-    trace_viewing_y.append(view_y)
-    trace_viewing_z.append(view_z)
+layout = go.Layout(
+    title='Viewing places',
+    autosize=True,
+    width=900,
+    height=800,
+    margin=dict(
+        l=65,
+        r=50,
+        b=65,
+        t=90
+    )
+)
+fig = go.Figure(data=[view_scatter], layout=layout)
+iplot(fig, filename='viewing')

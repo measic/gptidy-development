@@ -1,2 +1,2 @@
-U_values = value_iteration(sequential_decision_environment)
-print('\n'.join([str(k)+':'+str(v) for k, v in U_values.items()]))
+agent = PassiveTDAgent(policy, sequential_decision_environment, alpha=lambda n: 60./(59+n))
+graph_utility_estimates(agent, sequential_decision_environment, 500, [(2,2)])

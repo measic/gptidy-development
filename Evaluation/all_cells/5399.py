@@ -1,2 +1,3 @@
-# Display the results of the clustering from implementation
-vs.cluster_results(reduced_data, preds, centers, pca_samples)
+# Display the predictions
+for i, pred in enumerate(sample_preds):
+    print("Sample point", i, "predicted to be in Cluster", pred)

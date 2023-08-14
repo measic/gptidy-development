@@ -1,4 +1,4 @@
-# Bad indentation! This would lead to error
-#if statement1:
-#    if statement2:
-#    print("both statement1 and statement2 are True")  # this line is not properly indented
+if statement1:
+    print("printed if statement1 is True")
+    
+print("now outside the if block")

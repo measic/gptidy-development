@@ -1,33 +1,48 @@
-'''Function to read the blank-spaced column data into a Pandas data frame (table)'''
+'''Function for creating a FP yield(A,Z) list container'''
 
-def read_table(file_name):
+def get_fpy_az( df ):
     '''
-    Read table data into a `pandas` data frame (table).  
-    
+    Create a list of named tuple nuclides
     Parameters
     ----------
-    file_name: str, required
-        File name and its path relative to this notebook.
+    df: pandas data frame, required
+        Table of data for nuclides.
     
     Returns
     -------
-    df: pandas.df
-        `Pandas` data frame (table).
+    nuclides: list(namedtuple)
+        List of namedtuples. Names: name, element_name, Z, A, yield_percent.
 
     Examples
     --------
     '''
-    import pandas as pd
     
-    df = pd.read_csv( file_name,  
-                      skiprows=6,
-                      delim_whitespace=True)
-    
-# to avoid frustrations, set explicitly the data types of each column
-    for c in df.columns: 
-        if c == 'Y(NO-DIM)':
-            continue
-        df = df.astype({c:float},copy=False)
+    nuclides = list()
 
-    #print(df.dtypes)
-    return df
+    # design a container data structure
+    from collections import namedtuple
+    FPY = namedtuple('FPY', ['name','element_name','Z','A','yield_percent'])
+
+    import pandas as pd
+
+    # Use the Mendeleev python package (periodic table of elements)
+    from mendeleev import element
+    
+    total_yield = 0.0 # sum total yield
+    for row in df.itertuples(index=False):
+        z = int(row[0])
+        for j in range(1,len(row)-1):
+            if row[j] < 1.e-10: # this will eliminate many zeros
+                continue
+            a_str = df.columns[j] # index column is not part of the columns
+            symbol = element(z).symbol
+            name = name=symbol+'-'+a_str
+            element_name = element(z).name
+            yield_value = row[j]
+            total_yield += yield_value
+            nuc = FPY( name=name, element_name=element_name, Z=z, A=int(a_str), yield_percent=yield_value )
+        
+            nuclides.append(nuc)
+            
+    print('Sum of yield values in data file = ',round(total_yield,2))
+    return nuclides

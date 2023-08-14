@@ -1,11 +1,2 @@
-parametersKNN = {
-    'n_neighbors' : list(range(1, 32)),
-    'weights'     : ['uniform', 'distance']
-}
-
-(tiempo_KNN, grid_knn) = correr_y_mostrar(
-    KNeighborsClassifier(), 
-    parametersKNN, 
-    5, 
-    10
-)
+# Fully train the SRGAN with VGG loss and Discriminator loss
+srgan_network.train_full_model(coco_path, num_images=80000, epochs=5, batch_size=16)

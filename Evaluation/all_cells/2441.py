@@ -1,2 +1,1 @@
-seqs = load_fasta("sample.fasta")
-seqs
+!(cat sample.out.fasta)

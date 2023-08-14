@@ -1,77 +1,24 @@
-fig, stam_graf0 = plt.subplots()
-stam_graf0.axvline(x=rad_frac_27[np.argmax(D_27)]*(5.70E+01), color='m', linestyle='--',label='log$(L/L_{\odot})$=2.1231 max')
-stam_graf0.plot(rad_frac_21*(2.21E+01), D_21,'r', label='log$(L/L_{\odot})$=2.1231')
-stam_graf0.plot(rad_frac_25*(3.88E+01), D_25,'g', label='log$(L/L_{\odot})$=2.5001')
-stam_graf0.plot(rad_frac_27*(5.70E+01), D_27, 'b', label='log$(L/L_{\odot})$=2.1231')
-stam_graf0.set_xlabel('Radius / $R_{\odot}$')
-stam_graf0.set_ylabel('$D_{therm}$ / cm$^{2}$s$^{-1}$')
-plt.legend(loc='upper left', bbox_to_anchor=(1.0, 0.7))
-stam_graf0.set_xlim(0.05,0.15)
-stam_graf0.set_title('Thermohaline coefficients vs radius for various \nlog$(L/L_{\odot})$ for 1M_sun, Z=Z_sun with diffusion', y=1.15)
-plt.show()
-fig.savefig('mu_test_data/mu_test_graphs/logL=various_radius_Dtherm.pdf', bbox_inches='tight')
-
-fig, stam_graf0 = plt.subplots()
-#stam_graf0.axvline(x=mass_frac_27[np.argmax(D_27)], color='m', linestyle='--',label='log$(L/L_{\odot})$=2.1231 max')
-stam_graf0.plot(mass_frac_21, D_21,'r', label='log$(L/L_{\odot})$=2.1231')
-stam_graf0.plot(mass_frac_25, D_25,'g', label='log$(L/L_{\odot})$=2.5001')
-stam_graf0.plot(mass_frac_27, D_27, 'b', label='log$(L/L_{\odot})$=2.1231')
-stam_graf0.set_xlabel('Mass / $M_{\odot}$')
-stam_graf0.set_ylabel('$D_{therm}$ / cm$^{2}$s$^{-1}$')
-plt.legend(loc='upper left', bbox_to_anchor=(1.0, 0.7))
-stam_graf0.set_xlim(0.28,0.38)
-stam_graf0.set_title('Thermohaline coefficients vs mass for various \nlog$(L/L_{\odot})$ for 1M_sun, Z=Z_sun with diffusion', y=1.15)
-plt.show()
-fig.savefig('mu_test_data/mu_test_graphs/logL=various_mass_Dtherm.pdf', bbox_inches='tight')
-
-fig, stam_graf0 = plt.subplots()
-stam_graf0.axvline(x=logP_27[np.argmax(D_27)], color='m', linestyle='--',label='log$(L/L_{\odot})$=2.1231 max')
-stam_graf0.plot(logP_21, D_21,'r', label='log$(L/L_{\odot})$=2.1231')
-stam_graf0.plot(logP_25, D_25,'g', label='log$(L/L_{\odot})$=2.5001')
-stam_graf0.plot(logP_27, D_27, 'b', label='log$(L/L_{\odot})$=2.1231')
-stam_graf0.set_xlabel('log($P$ / erg cm$^{-3}$)')
-stam_graf0.set_ylabel('$D_{therm}$ / cm$^{2}$s$^{-1}$')
-plt.legend(loc='upper left', bbox_to_anchor=(1.0, 0.7))
-stam_graf0.set_xlim(14,17)
-stam_graf0.set_title('Thermohaline coefficients vs logP for various \nlog$(L/L_{\odot})$ for 1M_sun, Z=Z_sun with diffusion', y=1.15)
-plt.show()
-fig.savefig('mu_test_data/mu_test_graphs/logL=various_logP_Dtherm.pdf', bbox_inches='tight')
-
-fig, stam_graf0 = plt.subplots()
-stam_graf0.axvline(x=logT_27[np.argmax(D_27)], color='m', linestyle='--',label='log$(L/L_{\odot})$=2.1231 max')
-stam_graf0.plot(logT_21, D_21,'r', label='log$(L/L_{\odot})$=2.1231')
-stam_graf0.plot(logT_25, D_25,'g', label='log$(L/L_{\odot})$=2.5001')
-stam_graf0.plot(logT_27, D_27, 'b', label='log$(L/L_{\odot})$=2.1231')
-stam_graf0.set_xlabel('log($T$ / K)')
-stam_graf0.set_ylabel('$D_{therm}$ / cm$^{2}$s$^{-1}$')
-plt.legend(loc='upper left', bbox_to_anchor=(1.0, 0.7))
-stam_graf0.set_xlim(6.5,7.8)
-stam_graf0.set_title('Thermohaline coefficients vs logT for various \nlog$(L/L_{\odot})$ for 1M_sun, Z=Z_sun with diffusion', y=1.15)
-plt.show()
-fig.savefig('mu_test_data/mu_test_graphs/logL=various_logT_Dtherm.pdf', bbox_inches='tight')
-
-fig, stam_graf0 = plt.subplots()
-stam_graf0.axvline(x=logDens_27[np.argmax(D_27)], color='m', linestyle='--',label='log$(L/L_{\odot})$=2.1231 max')
-stam_graf0.plot(logDens_21, D_21,'r', label='log$(L/L_{\odot})$=2.1231')
-stam_graf0.plot(logDens_25, D_25,'g', label='log$(L/L_{\odot})$=2.5001')
-stam_graf0.plot(logDens_27, D_27, 'b', label='log$(L/L_{\odot})$=2.1231')
-stam_graf0.set_xlabel(r'log($\rho$ / g cm$^{-3}$)')
-stam_graf0.set_ylabel('$D_{therm}$ / cm$^{2}$s$^{-1}$')
-plt.legend(loc='upper left', bbox_to_anchor=(1.0, 0.7))
-stam_graf0.set_xlim(-1,1)
-stam_graf0.set_title('Thermohaline coefficients vs logDens for various \nlog$(L/L_{\odot})$ for 1M_sun, Z=Z_sun with diffusion', y=1.15)
-plt.show()
-fig.savefig('mu_test_data/mu_test_graphs/logL=various_logDens_Dtherm.pdf', bbox_inches='tight')
-
-fig, stam_graf0 = plt.subplots()
-stam_graf0.axvline(x=opac_27[np.argmax(D_27)], color='m', linestyle='--',label='log$(L/L_{\odot})$=2.1231 max')
-stam_graf0.plot(opac_21, D_21,'r', label='log$(L/L_{\odot})$=2.1231')
-stam_graf0.plot(opac_25, D_25,'g', label='log$(L/L_{\odot})$=2.5001')
-stam_graf0.plot(opac_27, D_27, 'b', label='log$(L/L_{\odot})$=2.1231')
-stam_graf0.set_xlabel(r'Opacity, $\kappa$')
-stam_graf0.set_ylabel('$D_{therm}$ / cm$^{2}$s$^{-1}$')
-plt.legend(loc='upper left', bbox_to_anchor=(1.0, 0.7))
-stam_graf0.set_xlim(0.38,0.55)
-stam_graf0.set_title('Thermohaline coefficients vs opacity for various \nlog$(L/L_{\odot})$ for 1M_sun, Z=Z_sun with diffusion', y=1.15)
-plt.show()
-fig.savefig('mu_test_data/mu_test_graphs/logL=various_opac_Dtherm.pdf', bbox_inches='tight')
+#sanity check
+X_frac_arr = []
+for j in range(len(mass_frac_ab)):
+    X_layer_j = 0
+    for i in range(14):
+        # check the data
+        # print i , 'mass fraction = ', abund_data[0,i+1]
+        X_layer_j = X_layer_j + abund_data[j,i+1]
+    
+        
+    X_frac_arr.append(X_layer_j)
+        
+print 'size of _abund columns: ', len(mass_frac_ab)
+max_frac = max(X_frac_arr)
+min_frac = min(X_frac_arr)
+av_frac = sum(X_frac_arr)/len(mass_frac_ab)
+#print abund_data[0,:]
+print 'Fraction of shell mass in shell (should = 1) = ', av_frac
+print 'Maximum shell fractional mass: shell ', X_frac_arr.index(max_frac), ' with value of ', max_frac
+print 'Minimum shell fractional mass: shell ', X_frac_arr.index(min_frac), ' with value of ', min_frac
+X_dev_arr = []
+for k in X_frac_arr:
+    X_dev_arr.append(k - 1)
+print X_frac_arr[0], ' - 1 = ',X_dev_arr[0]

@@ -1,2 +1,2 @@
-plt.figure(figsize=(6,6))
-rv_plot(theta, omega, 22000, 23000, redrange=[22010, 22100], title='knee flexion (down single stair)')
+plt.plot(np.arange(56600, 56800), a2_x[56600:56800])
+plt.grid()

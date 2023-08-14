@@ -1,5 +1,5 @@
-plt.plot(target_returns, variances, 'bo-')
-plt.title('Variance vs. Target Return')
-plt.xlabel('target return (in %)')
-plt.ylabel('variance')
-plt.show()
+# Import the visualization code
+import visuals as vs
+
+# Pretty display for notebooks
+%matplotlib inline

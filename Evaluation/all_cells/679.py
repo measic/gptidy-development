@@ -1,3 +1,4 @@
-password = ".tie5Roanl\n" # Lembrando que o enter é pressionado ao final da senha
-print("Número de teclas na digitação da senha: {}".format(len(password)))
-print("Número de colunas na matriz do dataset: {}".format(keystrokes.shape[1]))
+mean = np.mean(keystrokes, axis=0)
+std = np.std(keystrokes, axis=0)
+
+norm_keystrokes = (keystrokes - mean) / std

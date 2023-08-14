@@ -1,1 +1,1 @@
-stats.ttest_rel(posttest.Q2_SceneColorScheme, posttest.Q2_SceneTreeFrequency)
+stats.ttest_rel(posttest.Q2_ImageType, posttest.Q2_LightType)

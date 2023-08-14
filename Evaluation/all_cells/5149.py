@@ -1,2 +1,1 @@
-passageirosMedia = passageiros['PassagemPreco'].mean()
-passageirosMedia
+uniao.info()

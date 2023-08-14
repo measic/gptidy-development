@@ -1,21 +1,8 @@
-%matplotlib inline
-import numpy
-import matplotlib.pyplot as plt
-import time
-import numpy as np
-from sys import getsizeof
-from math import exp, log
-import os
-import random
-import string
-from tqdm import tqdm
+capacities = [1e3, 3e3, 1e4, 3e4, 1e5, 3e5, 1e6, 3e6]
+bloom_fp = []
+cuckoo_fp = []
 
-from cuckoofilter import CuckooFilter
-from cuckoofilter import CountingBloomFilter
-from collections import defaultdict
-
-try:
-    import seaborn as sns
-    sns.set(context='notebook', style='darkgrid',  font='sans-serif', font_scale=1)
-except ImportError: #proceed anyway even if user does not have seaborn. 
-    pass
+for size in capacities:
+    bfp, cfp = counting_bloom_and_cuckoo_filter_fpr(size, finger_print_size=0.5, bucket_size=4, alpha=0.8)
+    bloom_fp.append(bfp)
+    cuckoo_fp.append(cfp)

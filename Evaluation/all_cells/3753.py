@@ -1,7 +1,8 @@
-with tf.variable_scope("greedy_decoder"):
-    g_helper = tf.contrib.seq2seq.GreedyEmbeddingHelper(
-        embedding, tf.fill([dataset.config.batch_size], dataset.SOS), dataset.EOS)
-    g_decoder = tf.contrib.seq2seq.BasicDecoder(decoder_cell, g_helper, decoder_initial_state,
-                                             output_layer=output_proj)
+#sess = tf.Session(config=tf.ConfigProto(device_count={'GPU': 0}))
+sess = tf.Session()
+dataset.run_initializers(sess)
+sess.run(tf.global_variables_initializer())
 
-    g_outputs, _, _ = tf.contrib.seq2seq.dynamic_decode(g_decoder, maximum_iterations=30)
+merged_summary = tf.summary.merge_all()
+writer = tf.summary.FileWriter(os.path.join(LOG_DIR, 's2s_sandbox', 'tmp'))
+writer.add_graph(sess.graph)

@@ -1,8 +1,4 @@
-all_coverage, cumulative_coverage = population_coverage(
-    mutation_fuzzer.population, http_program)
-
-import matplotlib.pyplot as plt
-plt.plot(cumulative_coverage)
-plt.title('Coverage of urlparse() with random inputs')
-plt.xlabel('# of inputs')
-plt.ylabel('lines covered');
+seed = ["Hello World"]
+cgi_runner = FunctionCoverageRunner(cgi_decode)
+m = MutationCoverageFuzzer(seed)
+results = m.runs(cgi_runner, 10000)

@@ -1,7 +1,7 @@
-# In CSV, label is the first column, after the features, followed by the key
-CSV_COLUMNS = ['fare_amount', 'pickuplon','pickuplat','dropofflon','dropofflat','passengers', 'key']
-FEATURES = CSV_COLUMNS[1:len(CSV_COLUMNS) - 1]
-LABEL = CSV_COLUMNS[0]
-
-df_train = pd.read_csv('./data/taxi-train.csv', header = None, names = CSV_COLUMNS)
-df_valid = pd.read_csv('./data/taxi-valid.csv', header = None, names = CSV_COLUMNS)
+# Line plot
+series.plot()
+plt.xticks(rotation=90)
+pyplot.show()
+# The reason this chart doesn't match up with what's provided because python
+# Understands time now and there are missing data for several points across multiple dates
+# I guess I will have to try differently to reproduce this

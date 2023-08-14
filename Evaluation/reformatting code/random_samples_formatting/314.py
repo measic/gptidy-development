@@ -1,12 +1,6 @@
-import plotly
-from plotly.offline import iplot
-from plotly import tools
-import plotly.graph_objs as go
+checkpointer = ModelCheckpoint(filepath='saved_models/weights.best.VGG16.hdf5', 
+                               verbose=1, save_best_only=True)
 
-def regression_and_rss(scatter_trace, regression_traces, rss_calc_trace):
-    fig = tools.make_subplots(rows=1, cols=2)
-    for reg_trace in regression_traces:
-        fig.append_trace(reg_trace, 1, 1)
-    fig.append_trace(scatter_trace, 1, 1)
-    fig.append_trace(rss_calc_trace, 1, 2)
-    iplot(fig)
+VGG16_model.fit(train_VGG16, train_targets, 
+          validation_data=(valid_VGG16, valid_targets),
+          epochs=20, batch_size=20, callbacks=[checkpointer], verbose=1)

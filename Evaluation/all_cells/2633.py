@@ -1,1 +1,4 @@
-plot_pdi_wapdi(pdi_mcmc, log_pdi_mcmc, pdi_log_mcmc, wapdi_mcmc, img, img_mcmc_2, name="MCMC", k=0.5, plot_type="heatmap")
+test_path = "../out/ADVI_invgamma/"
+img_41004 = plt.imread(test_path + "41004_1/pdi_heat.jpg")
+plt.figure(figsize = (15,15))
+plt.imshow(img_41004);

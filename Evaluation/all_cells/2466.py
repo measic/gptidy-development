@@ -1,1 +1,2 @@
-run_command("echo something")
+def return_itself(arg):
+    return arg

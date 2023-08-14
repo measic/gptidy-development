@@ -1,5 +1,6 @@
 '''Test cell'''
-if np.allclose(dist, pairwise_distances(tf_idf[430,:], tf_idf[1,:])):
+reference = [list(row).index(min(row)) for row in distances]
+if np.allclose(closest_cluster, reference):
     print('Pass')
 else:
     print('Check your code again')

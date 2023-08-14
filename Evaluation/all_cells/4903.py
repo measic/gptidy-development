@@ -1,3 +1,6 @@
-print("parameter.tag.test_value =", parameter.tag.test_value)
-print("data_generator.tag.test_value =", data_generator.tag.test_value)
-print("data_plus_one.tag.test_value =", data_plus_one.tag.test_value)
+with pm.Model() as model:
+    lambda_1 = pm.Exponential("lambda_1", 1.0)
+    lambda_2 = pm.Exponential("lambda_2", 1.0)
+    tau = pm.DiscreteUniform("tau", lower=0, upper=10)
+
+new_deterministic_variable = lambda_1 + lambda_2

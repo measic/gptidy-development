@@ -1,2 +1,1 @@
-w = ekos.get_workspace(unique_id = workspace_uuid)
-len(w.data_handler.get_all_column_data_df())
+#w.copy_subset(source_uuid='default_subset', target_alias='A')

@@ -1,6 +1,7 @@
-sbi_corr_max_ROA = max_corr(sbi_corr_high_ROA)
-sbi_corr_max_NIMTA = max_corr(sbi_corr_high_NIMTA)
-sbi_corr_max_NNPASTA = max_corr(sbi_corr_high_NNPASTA)
-print(sbi_corr_high_ROA)
-print(sbi_corr_max_NIMTA)
-print(sbi_corr_max_NNPASTA)
+import numpy as np
+from sklearn.linear_model import LinearRegression
+data_1999_2009_sbi = data_1999_2009_sbi.T
+
+lregression_model_ROA = LinearRegression()
+lregression_model_ROA.fit(np.array(data_1999_2009_sbi[['BTA-RATIO']]).reshape(-1, 1),
+                          np.array(data_1999_2009_sbi[['ROA']]).reshape(-1, 1))

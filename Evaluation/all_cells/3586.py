@@ -1,2 +1,1 @@
-by_period = by_year[['mean_ek_value']].describe()
-by_period
+by_period['mean'].get_value('mean_ek_value')

@@ -1,10 +1,10 @@
-def Hart(x,H):
-    F = 1.0;L = 1.0;Bo = 1.0;rhoo = 1.0
-    eta = 1.0; nu =1.0
-    #H = Bo*L/(np.sqrt(rhoo*nu*eta))
-    u = (F*L)/(np.sqrt(rhoo*Bo))*np.sqrt(eta/nu)*(1/np.tanh(H))*(1-((np.cosh(H*x/L))/(np.cosh(H)))) 
-    b = ((F*L)/(Bo))*(((np.sinh(H*x/L))/(np.sinh(H)))-x/L)
-    return [u,b]
-    
-    
-    
+X = np.linspace(-1,1,256)
+plt.plot(X+0.5,-Hart(X,1)[0]+0.5,"k-",label= "H = 1")
+#plt.plot(X+0.5,-Hart(X,10)[0]+0.5,"b-",label= "H = 10")
+#plt.plot(X+0.5,-Hart(X,0.1)[0]+0.5,"r-",label= "H = 0.1")
+plt.xlabel("x")
+plt.ylabel("$u_{y}$")
+plt.title("Perfil Velocidad Hartmann")
+plt.grid(True)
+plt.legend()
+plt.savefig("Perfil_Hartmann")

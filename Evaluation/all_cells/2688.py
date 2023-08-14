@@ -1,5 +1,24 @@
-def model_inputs(real_dim, z_dim):
-    inputs_real = 
-    inputs_z = 
+def discriminator(x, n_units=128, reuse=False, alpha=0.01):
+    ''' Build the discriminator network.
     
-    return inputs_real, inputs_z
+        Arguments
+        ---------
+        x : Input tensor for the discriminator
+        n_units: Number of units in hidden layer
+        reuse : Reuse the variables with tf.variable_scope
+        alpha : leak parameter for leaky ReLU
+        
+        Returns
+        -------
+        out, logits: 
+    '''
+    with tf.variable_scope # finish this
+        # Hidden layer
+        h1 =
+        # Leaky ReLU
+        h1 =
+        
+        logits =
+        out =
+        
+        return out, logits

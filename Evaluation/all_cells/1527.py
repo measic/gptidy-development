@@ -1,1 +1,1 @@
-data = xr.open_mfdataset(r'C:\MAIACData\nc_monthly_daily\*.nc')['data']
+subset = data.isel(x=slice(x_start, y_stop), y=slice(y_start, y_stop))

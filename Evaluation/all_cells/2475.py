@@ -1,70 +1,55 @@
-def get_data_from_tsv(feature_file, x_fields, y_field, x_filter=None, seed=0, as_np_array=False, scale=False, shuffle=False, train_portion=0.6, test_portion=0.2):
+corpus    = "BrentProvidence"
+providence_data_file = os.path.join("data/words_sentences/providence_avg_prosody_pos.csv")
+brent_data_file      = os.path.join("data/words_sentences/brent_avg_prosody_pos.csv")
+both_data_file       = os.path.join("data/words_sentences/brentprovidence_avg_prosody_pos.csv")
 
-    # Load the dataset
-    my_data = pandas.read_csv(feature_file)
+# define x-fields (column IDs) to keep at 1    = word itself
+#                                         2    = pos
+#                                         3    = length (letters)
+#                                         4    = frequency
+#                                         5-93 = egemaps prosody features
+features  = list(range(1,93))
 
+pos_filter = None  #[['pos', 'nouns','function_words']]
 
-    # Drop missing values
-    print(my_data.shape)
-    my_data = my_data.dropna()
-    my_data = my_data.reset_index(drop=True)
-    print(my_data.shape)
-    
-    # Filter responses if len(x_filter) > 0
-    if not x_filter == None:
-        for ff in x_filter:
-            my_data = my_data[my_data[ff[0]].isin(ff[1:])]
-            print("filtering %s by " % ff[0], ff[1:], "num datapoints left: ", len(my_data))
-        my_data = my_data.reset_index(drop=True)
-    labels = my_data['word']
-        
-    # turn frequencies into log frequencies
-    if 'freq' in x_fields or my_data.columns.get_loc('freq') in x_fields:
-        idx = my_data.columns.get_loc('freq')
-        my_data.iloc[:,idx] = np.log(my_data.iloc[:,idx])
-        my_data=my_data.rename(columns = {'freq':'log_freq'})
-    
-    # turn lengths into log lengths
-    if 'length' in x_fields or my_data.columns.get_loc('length') in x_fields:
-        idx = my_data.columns.get_loc('length')
-        my_data.iloc[:,idx] = np.log(my_data.iloc[:,idx])
-        my_data=my_data.rename(columns = {'length':'log_length'})
- 
-    # Choose the coefficients
-    if type(x_fields[0]) == str:
-        x_fields.append(y_field)
-        my_data = my_data[x_fields]
-    else:
-        x_fields.append(my_data.columns.get_loc(y_field))
-        my_data = my_data.iloc[:,x_fields]
-    del x_fields[-1]
-    
-    
-    # Split the data into training/testing sets
-    x_train, y_train, x_dev, y_dev, x_test, y_test = train_validate_test_split(my_data, 
-                                                                               y_field,
-                                                                               train_percent=train_portion,
-                                                                               validate_percent=test_portion,
-                                                                               seed=seed,
-                                                                               shuffle=shuffle)
+# define name (col header) of y-variable in data file
+y         = 'y'
 
-    if scale:
-        x_train = pandas.DataFrame(preprocessing.scale(x_train), columns=x_train.columns, index=x_train.index)
-        x_dev   = pandas.DataFrame(preprocessing.scale(x_dev)  , columns=x_dev.columns, index=x_dev.index)
-        x_test  = pandas.DataFrame(preprocessing.scale(x_test) , columns=x_test.columns, index=x_test.index)
-        y_train = pandas.DataFrame(preprocessing.scale(y_train), columns=y_train.columns, index=y_train.index)
-        y_dev   = pandas.DataFrame(preprocessing.scale(y_dev)  , columns=y_dev.columns, index=y_dev.index)
-        y_test  = pandas.DataFrame(preprocessing.scale(y_test) , columns=y_test.columns, index=y_test.index)
+# load data, x-fields, y-field, train/dev/test split from input file
+print("extracting providence...")
+providence_x_train, providence_y_train, _, _, _, _, labels = get_data_from_tsv(providence_data_file, 
+                                                                      x_fields=features, 
+                                                                      y_field=y, 
+                                                                      x_filter=pos_filter,
+                                                                      train_portion=1.0,
+                                                                      shuffle=False)
+print("extracting brent...")
+brent_x_train, brent_y_train, _, _, _, _, labels = get_data_from_tsv(brent_data_file, 
+                                                                      x_fields=features, 
+                                                                      y_field=y, 
+                                                                      x_filter=pos_filter,
+                                                                      train_portion=1.0,
+                                                                      shuffle=False)
 
-    
-    if as_np_array:
-        x_train = np.array(x_train).astype(np.float)
-        y_train = np.array(y_train).astype(np.float)
-        x_dev   = np.array(x_dev).astype(np.float)
-        y_dev   = np.array(y_dev).astype(np.float)
-        x_test  = np.array(x_test).astype(np.float)
-        y_test  = np.array(y_test).astype(np.float)
-        
-    return x_train, y_train, x_dev, y_dev, x_test, y_test, labels
+print("extracting brentprovidence...")
+both_x_train, both_y_train, _, _, _, _, labels = get_data_from_tsv(both_data_file, 
+                                                                      x_fields=features, 
+                                                                      y_field=y, 
+                                                                      x_filter=pos_filter,
+                                                                      train_portion=1.0,
+                                                                      shuffle=False)
 
+if corpus == "Providence":
+    x_train = providence_x_train
+    y_train = providence_y_train
+elif corpus == "Brent":
+    x_train = brent_x_train
+    y_train = brent_y_train
+elif corpus == "BrentProvidence":
+    x_train = both_x_train
+    y_train = both_y_train
 
+first_numeric_feature = x_train.columns.tolist().index('log_length')
+first_egemaps_feature = x_train.columns.tolist().index('F0semitoneFrom27.5Hz_sma3nz_amean')
+
+print(first_numeric_feature,first_egemaps_feature)

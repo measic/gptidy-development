@@ -1,3 +1,2 @@
-Z1=X.loc[:, X.dtypes == np.float64] #Extracting columns with values of type float 
-Z2=X.loc[:, X.dtypes == np.int64]   #Extracting columns with values of type int
-X_numeric=pd.concat([Z1,Z2], axis=1)
+gROOT.ProcessLine('std::vector<double> params0 = sim0->findGammaCalibrationConstants()')
+gROOT.ProcessLine('sim0->writeStateToDisk("CalibParams_4.txt")')

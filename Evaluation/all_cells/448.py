@@ -1,41 +1,78 @@
-class ItemSelector(BaseEstimator, TransformerMixin):
-    """For data grouped by feature, select subset of data at a provided key.
+# %%time
 
-    The data is expected to be stored in a 2D data structure, where the first
-    index is over features and the second is over samples.  i.e.
+# we need a custom pre-processor to extract correct field,
+# but want to also use default scikit-learn preprocessing (e.g. lowercasing)
+default_preprocessor = CountVectorizer().build_preprocessor()
 
-    >> len(data[key]) == n_samples
 
-    Please note that this is the opposite convention to scikit-learn feature
-    matrixes (where the first index corresponds to sample).
+def build_preprocessor(field):
+    field_idx = list(dataset.columns).index(field)
+    # if field == 'playlist_pid': from IPython.core.debugger import set_trace; set_trace()
+    return lambda x: default_preprocessor(x[field_idx])
 
-    ItemSelector only requires that the collection implement getitem
-    (data[key]).  Examples include: a dict of lists, 2D numpy array, Pandas
-    DataFrame, numpy record array, etc.
 
-    >> data = {'a': [1, 5, 2, 5, 2, 8],
-               'b': [9, 4, 1, 4, 1, 3]}
-    >> ds = ItemSelector(key='a')
-    >> data['a'] == ds.transform(data)
+vectorizer = FeatureUnion([
+    (
+        'track_artist_uri',
+        CountVectorizer(
+            ngram_range=(1, 1),
+            token_pattern=r".+",
+            stop_words=None,
+            # max_features=50000,
+            preprocessor=build_preprocessor('track_artist_uri'))),
+    (
+        'track_album_uri',
+        CountVectorizer(
+            ngram_range=(1, 1),
+            token_pattern=r".+",
+            stop_words=None,
+            # max_features=50000,
+            preprocessor=build_preprocessor('track_album_uri'))),
+    (
+        'track_uri',
+        CountVectorizer(
+            ngram_range=(1, 1),
+            token_pattern=r".+",
+            stop_words=None,
+            # max_features=50000,
+            preprocessor=build_preprocessor('track_uri'))),
 
-    ItemSelector is not designed to handle data grouped by sample.  (e.g. a
-    list of dicts).  If your data is structured this way, consider a
-    transformer along the lines of `sklearn.feature_extraction.DictVectorizer`.
+    (
+        'playlist_pid',
+        CountVectorizer(
+            ngram_range=(1, 1),
+            token_pattern=r".+",
+            stop_words=None,
+            # max_features=50000,
+            preprocessor=build_preprocessor('playlist_pid'))),
 
-    Parameters
-    ----------
-    key : hashable, required
-        The key corresponding to the desired value in a mappable.
-    """
-    def __init__(self, key):
-        self.key = key
+    ("playlist_name",
+      CountVectorizer(
+            ngram_range=(1, 1),
+            token_pattern=r"(?u)\b\w+\b",
+            stop_words=None,
+            analyzer = 'word',
+            # max_features=50000,
+            preprocessor=build_preprocessor("playlist_name"))),
+    
+    ("playlist_description",
+      CountVectorizer(
+            ngram_range=(1, 1),
+            token_pattern=r"(?u)\b\w+\b",
+            stop_words=None,
+            analyzer = 'word',
+            # max_features=50000,
+            preprocessor=build_preprocessor("playlist_description"))),
+#     (
+#         'track_pos',
+#         CountVectorizer(
+#             ngram_range=(1, 1),
+#             token_pattern=r".+",
+#             stop_words=None,
+#             # max_features=50000,
+#             preprocessor=build_preprocessor('track_pos'))),
 
-    def fit(self, x, y=None):
-        return self
-
-    def transform(self, data_dict):
-        # if self.key == 'playlist_pid': from IPython.core.debugger import set_trace; set_trace()
-        return data_dict[:,[self.key]].astype(np.int64)
-
-    def get_feature_names(self):
-        return [dataset.columns[self.key]]
+    ('track_duration_ms',
+     ItemSelector(list(dataset.columns).index('track_duration_ms'))),
+])
+X_train = vectorizer.fit_transform(data_train.values)

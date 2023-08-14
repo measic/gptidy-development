@@ -1,1 +1,1 @@
-[v.name for v in tf.global_variables()]
+learning_rate = 0.01

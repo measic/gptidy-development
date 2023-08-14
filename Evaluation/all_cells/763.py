@@ -1,11 +1,40 @@
-##  for each row calculate Hill N-infinity
-for i in range(len(data)):
-    
-    N = 0.0
-    for x in range(len(data.iloc[0]))[4:last]:
-        if data.iloc[i][x] > 0:
-            N += data.iloc[i][x]
-    
-    
-    array = data.iloc[i][4:last]
-    data.loc[i,'N_Inf'] = 1/(max(array)/N)
+##  define color list
+colors = ['b', 'g', 'r', 'k', 'c', 'm', 'y']
+##  define index for iterating through color list
+index = 0
+##  for each river segment
+for segment in segments:
+    ##  subset df to non-zero values for the current river segment
+    segDF = data.loc[data['RiverSeg'] == segment]
+    segDF = segDF[segDF["lam'"]>0]
+
+    ## sort based on year
+    segDF = segDF.sort_values('Year')
+    ## define x,y for plotting
+    x = segDF["Year"]
+    y = segDF["N_Inf"]
+    ## change name of y to Riv Seg for legend
+    y.name = segment
+    ##  build graph...
+    ##  plot segment x vs y
+    plt.plot(x,y,colors[index])
+    ##  locate legend
+    plt.legend(loc=(1.05,0.2))
+    ##  advance color index
+    index += 1
+
+##  update title
+plt.title("Hill N_Inf, " + river + " River Segments")
+##  label x axis
+plt.xlabel('Year')
+##  label y axis
+plt.ylabel("N_Inf'")
+##  force x axis to integer values, increment by 1 year
+plt.xticks(np.arange(min(x), max(x)+1, 1.0))
+##  rotate year labels 90 degrees
+plt.xticks(rotation=90)    
+
+##  save figure
+plt.savefig(output + "\\" + river + "_Hill_N_Inf.png", bbox_inches='tight',dpi=300, size=(2000,2000))
+##  display figure
+plt.show()

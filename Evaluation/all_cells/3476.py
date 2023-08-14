@@ -1,4 +1,6 @@
-i = 5
+# Good indentation
+statement1 = statement2 = True
 
-print('Value is ', i)
-print('I repeat, the value is ', i)
+if statement1:
+    if statement2:
+        print("both statement1 and statement2 are True")

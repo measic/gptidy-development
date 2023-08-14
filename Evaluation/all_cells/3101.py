@@ -1,1 +1,2 @@
-test_black = np.zeros((255, 255, 3))
+raveled.reshape(255, 255, 3);
+reshaped = raveled.reshape(255, 255, 3);

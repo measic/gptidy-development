@@ -1,4 +1,4 @@
-app_path = os.getcwd()
-os.chdir(os.getcwd())
-filesep = '\\' if platform.system() == 'Windows' else '/'
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "creds" + filesep + "sarasmaster-524142bf5547.json"
+print(bigquery.WriteDisposition.WRITE_TRUNCATE)
+print(bigquery.WriteDisposition.WRITE_APPEND)
+print(bigquery.SourceFormat.NEWLINE_DELIMITED_JSON)
+print(bigquery.SourceFormat.CSV)

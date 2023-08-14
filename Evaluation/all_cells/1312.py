@@ -1,1 +1,5 @@
-'가나다라마바사아자차카타파하'.encode('utf8')[1:-1].decode('utf8')
+f = open('utf8_string.txt', 'rb')  # read + binary
+utf8_string = f.read()
+f.close()
+
+utf8_string.decode('utf8')  # utf8 -> unicode

@@ -1,15 +1,27 @@
-### TODO: Test the performance of the dog_detector function
-### on the images in human_files_short and dog_files_short.
+## Show history
 
-humans, dogs = 0, 0
-
-print('Looking for dogs in Humans dataset..')
-for h in human_files_short:
-    if dog_detector(h):
-        humans += 1
-print('Looking for dogs in Dogs dataset...')
-for d in dog_files_short:
-    if dog_detector(d):
-        dogs +=1
-print('In Humans dataset, found {}% dogs'.format(humans))
-print('In Dogs dataset, found {}% dogs'.format(dogs))
+def show_history_graph(history):
+    '''  Graphically show the history of model fitting
+    '''
+    
+    plt.figure(figsize=(8,8))
+    plt.subplot(221)
+    # summarize history for accuracy
+    plt.plot(history.history['acc'])
+    plt.plot(history.history['val_acc'])
+    plt.title('model accuracy')
+    plt.ylabel('accuracy')
+    plt.xlabel('epoch')
+    plt.legend(['train', 'test'], loc='upper left')
+    
+    # summarize history for loss
+    plt.subplot(222)
+    plt.plot(history.history['loss'])
+    plt.plot(history.history['val_loss'])
+    plt.title('model loss')
+    plt.ylabel('loss')
+    plt.xlabel('epoch')
+    plt.legend(['train', 'test'], loc='upper left')
+    
+    plt.tight_layout()
+    plt.show() 

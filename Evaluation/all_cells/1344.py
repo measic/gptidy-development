@@ -1,1 +1,1 @@
-obj.index
+fruits['apple']

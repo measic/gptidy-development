@@ -1,1 +1,1 @@
-plot_categorical_count(df, 'Gender', title='number of respondents per Gender')
+plot_categorical_count(df, 'UndergradMajor', 'Majors count', limit=100, xtick_rotation='vertical')

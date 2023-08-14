@@ -1,30 +1,8 @@
-def portfolio_annualised_performance(weights, mean_returns, cov_matrix):
-    """This function calculates annualised portfolio returns and volatility (risk).
-    
-    Parameters
-    ----------
-      `weights`: randomly generated weights for each stock in a portfolio
-      `mean_returns`: mean of stock daily_returns
-      `cov_matrix`: coeffecient matrix of all the daily_returns
-    
-    Returns
-    -------
-      Both annualised `standard_deviation` and `returns`.
-    """
-    annual_returns = np.sum(mean_returns * weights) * 252
-    std = np.sqrt(np.dot(weights.T, np.dot(cov_matrix,
-                                           weights))) * np.sqrt(252)
-    return std, annual_returns
-
-
-#########################################################################################
-
-
-def random_portfolio(mean_returns,
-                     cov_matrix,
-                     num_portfolios=10000,
-                     risk_free_rate=0.00):
-    """This function generates portfolios with random weights for each stock.
+def portfolio_optimization_random_ef(mean_returns,
+                                     cov_matrix,
+                                     num_portfolios=10000,
+                                     risk_free_rate=0.00):
+    """This function plots the random simulation of efficient frontier.
     
     Parameters
     ----------
@@ -33,22 +11,73 @@ def random_portfolio(mean_returns,
       `num_portfolios`: default is `10000` but can be tuned
       `risk_free_rate`: default is `0.00` can vary from 0 through 1
     
-    Returns
-    -------
-      `results` and `weights_record`.
+    Prints
+    ------
+      Prints the summary of `portfolio` and `sharpe` results.
+    
+    Plots
+    -----
+      The simulation which is generated at random.
     """
+    results, weights = random_portfolio(
+        mean_returns=mean_returns,
+        cov_matrix=cov_matrix,
+        num_portfolios=25000,
+        risk_free_rate=0.0178)
 
-    results = np.zeros((3, num_portfolios))
-    weights_record = []
-    for i in range(num_portfolios):
-        weights = np.random.rand(4)
-        weights /= np.sum(weights)
-        weights_record.append(weights)
+    max_sharpe_id = np.argmax(results[2])
+    std, ret = results[0, max_sharpe_id], results[1, max_sharpe_id]
+    max_sharpe_allocation = pd.DataFrame(
+        weights[max_sharpe_id],
+        index=dataframe.columns,
+        columns=['allocation'])
+    max_sharpe_allocation['allocation'] = max_sharpe_allocation[
+        'allocation'].apply(lambda x: round(x * 100, 2))
+    max_sharpe_allocation = max_sharpe_allocation.T
 
-        portfolio_std_dev, portfolio_return = portfolio_annualised_performance(
-            weights=weights, mean_returns=mean_returns, cov_matrix=cov_matrix)
+    min_sharpe_id = np.argmin(results[2])
+    std_min, ret_min = results[0, min_sharpe_id], results[1, min_sharpe_id]
+    min_sharpe_allocation = pd.DataFrame(
+        weights[min_sharpe_id],
+        index=dataframe.columns,
+        columns=['allocation'])
+    min_sharpe_allocation['allocation'] = min_sharpe_allocation[
+        'allocation'].apply(lambda x: round(x * 100, 2))
+    min_sharpe_allocation = min_sharpe_allocation.T
 
-        results[0, i] = portfolio_std_dev
-        results[1, i] = portfolio_return
-        results[2, i] = (portfolio_return - risk_free_rate) / portfolio_std_dev
-    return results, weights_record
+    print('-' * 70)
+    print("  Maximum Sharpe ratio Portfolio Allocation\n")
+    print("    Annualised Return : {:.3f}".format(ret))
+    print("    Annualised Volatility : {:.3f}".format(std))
+    display.display(max_sharpe_allocation)
+    print('-' * 70)
+    print("  Minimum Sharpe ratio Portfolio Allocation\n")
+    print("    Annualised Return : {:.3f}".format(ret_min))
+    print("    Annualised Volatility : {:.3f}".format(std_min))
+    display.display(min_sharpe_allocation)
+    print('-' * 70)
+
+    plt.figure(figsize=(15, 7))
+    plt.scatter(
+        results[0, :],
+        results[1, :],
+        c=results[2, :],
+        cmap='Set1_r',
+        s=10,
+        alpha=0.3)
+    plt.colorbar()
+    plt.scatter(std, ret, marker='*', s=300, c='g', label='Max Sharpe ratio')
+    plt.scatter(
+        std_min, ret_min, marker='*', s=300, c='r', label='Min Sharpe ratio')
+    plt.title('Portfolio Optimization Random Efficient Frontier')
+    plt.xlabel('Annualised Volatility')
+    plt.ylabel('Annualised Returns')
+    plt.legend()
+    plt.show()
+
+
+portfolio_optimization_random_ef(
+    mean_returns=mean_returns,
+    cov_matrix=cov_matrix,
+    num_portfolios=25000,
+    risk_free_rate=0.0178)

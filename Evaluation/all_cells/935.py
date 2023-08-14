@@ -1,7 +1,3 @@
-# Testing the function with Shampoo dataset and convert this into a supervised learning problem
-from pandas import read_csv
-from pandas import datetime
-from pandas import concat
-
-supervised=timeseries_to_supervised(X,1)
-supervised.head()
+# invert differenced value
+def inverse_difference(history, yhat, interval=1):
+    return yhat + history[-interval]

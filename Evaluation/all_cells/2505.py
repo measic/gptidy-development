@@ -1,7 +1,8 @@
 #NBVAL_IGNORE_OUTPUT
-# Plot shot record for true and smooth velocity model and the difference
-from examples.seismic import plot_shotrecord
 
-plot_shotrecord(true_d.data, model, t0, tn)
-plot_shotrecord(smooth_d.data, model, t0, tn)
-plot_shotrecord(smooth_d.data - true_d.data, model, t0, tn)
+# Prepare the varying source locations
+source_locations = np.empty((nshots, 2), dtype=np.float32)
+source_locations[:, 0] = np.linspace(0., 1000, num=nshots)
+source_locations[:, 1] = 30.
+
+plot_velocity(model, source=source_locations)

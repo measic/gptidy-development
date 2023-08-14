@@ -1,1 +1,1 @@
-alignment.__dict__
+from BITS.seq.cigar import Cigar, FlattenCigar

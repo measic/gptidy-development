@@ -5,7 +5,7 @@ n_inputs = height * width
 conv1_fmaps = 32
 conv1_ksize = 3
 conv1_stride = 1
-variable_def = 'SAME'
+conv1_pad = 'SAME'
 conv2_fmaps = 64
 conv2_ksize = 3
 conv2_stride = 2
@@ -18,7 +18,7 @@ with tf.name_scope('inputs'):
     X = tf.placeholder(tf.float32, shape=[None, n_inputs], name='X')
     X_reshaped = tf.reshape(X, shape=[-1, height, width, channels])
     y = tf.placeholder(tf.int32, shape=[None], name='y')
-conv1 = tf.layers.conv2d(X_reshaped, filters=conv1_fmaps, kernel_size=conv1_ksize, strides=conv1_stride, padding=variable_def, activation=tf.nn.relu, name='conv1')
+conv1 = tf.layers.conv2d(X_reshaped, filters=conv1_fmaps, kernel_size=conv1_ksize, strides=conv1_stride, padding=conv1_pad, activation=tf.nn.relu, name='conv1')
 conv2 = tf.layers.conv2d(conv1, filters=conv2_fmaps, kernel_size=conv2_ksize, strides=conv2_stride, padding=conv2_pad, activation=tf.nn.relu, name='conv2')
 with tf.name_scope('pool3'):
     pool3 = tf.nn.max_pool(conv2, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='VALID')
@@ -30,9 +30,9 @@ with tf.name_scope('output'):
     Y_proba = tf.nn.softmax(logits, name='Y_proba')
 with tf.name_scope('train'):
     xentropy = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=y)
-    loss = tf.reduce_mean(xentropy)
+    variable_def = tf.reduce_mean(xentropy)
     optimizer = tf.train.AdamOptimizer()
-    training_op = optimizer.minimize(loss)
+    training_op = optimizer.minimize(variable_def)
 with tf.name_scope('eval'):
     correct = tf.nn.in_top_k(logits, y, 1)
     accuracy = tf.reduce_mean(tf.cast(correct, tf.float32))

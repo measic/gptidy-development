@@ -1,10 +1,11 @@
 ### Test test test
-X_prior.reset()
-X.reset()
-assert X_prior.pending == set()
-
+nodes = [X_prior, X, Z_prior, Z, Y_cond, Y]
+for n in nodes:
+    n.reset()
+    
 X_prior.pending.add(X)
-assert str(list(X_prior.pending)[0]) == X.name
+Z_prior.pending.add(Z)
+Y.pending.add(Y_cond)
 
-X_prior.send_sp_msg(X)
-assert X_prior.pending == set()
+sum_product(nodes)
+assert np.allclose(Y.marginal(), [0.821024, 0.178976])

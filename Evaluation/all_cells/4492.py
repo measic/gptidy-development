@@ -1,4 +1,3 @@
-null_info_dataframe = reduce(lambda left,right: pandas.merge(left,right,on='index'), [percent_null,
-                                                                                 percent_filled,
-                                                                                 filled_count_series,
-                                                                                 null_count_series])
+merged = reduce(
+    lambda left, right: pandas.merge(left, right, on='index', how="left"),
+    [null_info_dataframe, dtypes_final, describe_final])

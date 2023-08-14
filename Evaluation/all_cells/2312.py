@@ -1,3 +1,5 @@
-# scale the raw pixel intensities to the range [0, 1] (this improves training)
-data = np.array(data, dtype="float") / 255.0
-labels = np.array(labels)
+batch_size_train = 100
+batch_size_test = 1000
+learning_rate = 0.01
+n_epochs = 15
+log_interval = 10

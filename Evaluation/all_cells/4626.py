@@ -1,3 +1,3 @@
-image = mpimg.imread('test_images/whiteCarLaneSwitch.jpg')
-lane_detected = lane_detection(image)
-plt.imshow(lane_detected)
+# Import everything needed to edit/save/watch video clips
+from moviepy.editor import VideoFileClip
+from IPython.display import HTML

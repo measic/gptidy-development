@@ -1,1 +1,1 @@
-평점.get('고수')
+obj = {'name': 'AskDjango', 'since': 2015}

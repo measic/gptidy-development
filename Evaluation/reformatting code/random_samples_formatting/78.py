@@ -1,14 +1,33 @@
-grad_rate = df_county_data["Graduation Rate"]
-pov_rate = df_county_data["Poverty Rate"]
+import os
+import sys
+import tarfile
+import time
 
-plt.scatter(pov_rate, grad_rate)
 
-plt.grid()
-plt.title("High School Graduation Rates and Poverty Rates by County")
-plt.ylabel("Graduation Rates")
-plt.xlabel("Poverty Rate")
-# plt.text(50, 0.925, "Note:\nWe notice an inverse corellation ship between Graduation rates and Povetry rates.")
+source = 'http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz'
+target = 'aclImdb_v1.tar.gz'
 
-# Save an image of the chart and print it to the screen
-plt.savefig("Images/County_Grad_Poverty_Rates1.png", bbox_inches = "tight")
-plt.show()
+
+def reporthook(count, block_size, total_size):
+    global start_time
+    if count == 0:
+        start_time = time.time()
+        return
+    duration = time.time() - start_time
+    progress_size = int(count * block_size)
+    speed = progress_size / (1024.**2 * duration)
+    percent = count * block_size * 100. / total_size
+    sys.stdout.write("\r%d%% | %d MB | %.2f MB/s | %d sec elapsed" %
+                    (percent, progress_size / (1024.**2), speed, duration))
+    sys.stdout.flush()
+
+
+if not os.path.isdir('aclImdb') and not os.path.isfile('aclImdb_v1.tar.gz'):
+    
+    if (sys.version_info < (3, 0)):
+        import urllib
+        urllib.urlretrieve(source, target, reporthook)
+    
+    else:
+        import urllib.request
+        urllib.request.urlretrieve(source, target, reporthook)

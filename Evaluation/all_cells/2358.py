@@ -1,11 +1,25 @@
-# 200 new values from x=0 to x=15
-n_new = 200
-X_new = np.linspace(0, 15, n_new)[:,None]
+np.random.seed(1)
 
-# add the GP conditional to the model, given the new X values
-with model:
-    f_pred = gp.conditional("f_pred", X_new)
+# number of data points
+n = 200
 
-# Sample from the GP conditional distribution
-with model:
-    pred_samples = pm.sample_ppc(trace, vars=[f_pred], samples=1000)
+# x locations
+x = np.linspace(0, 1.5, n)
+
+# true covariance
+ℓ_true = 0.1
+η_true = 1.0
+cov_func = η_true**2 * pm.gp.cov.ExpQuad(1, ℓ_true)
+K = cov_func(x[:,None]).eval()
+
+# zero mean function
+mean = np.zeros(n)
+
+# sample from the gp prior
+f_true = np.random.multivariate_normal(mean, K + 1e-6 * np.eye(n), 1).flatten()
+
+# link function
+def invlogit(x, eps=sys.float_info.epsilon):
+    return (1.0 + 2.0 * eps) / (1.0 + np.exp(-x)) + eps
+
+y = pm.Bernoulli.dist(p=invlogit(f_true)).random()

@@ -1,2 +1,1 @@
-theta = regression_optimize_theta(x, y, sigma_n, kernel, [1, 0.1])
-util.solve_and_visualize(regression_GP, kernel, x, y, theta)
+util.temperature_example(regression_GP, regression_optimize_theta, periodic_kernel, [1, 1, 1, 0.01])

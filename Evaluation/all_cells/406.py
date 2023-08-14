@@ -1,1 +1,1 @@
-Grafica("vx.dat","vy.dat","x.dat","y.dat",32)
+Grafica("Bx.dat","By.dat","x.dat","z.dat",32)

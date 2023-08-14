@@ -1,20 +1,23 @@
-period    = 200
-power_data_250 = np.ndarray((len(range(period,len(volt_data),period))*5,1))
-start = np.argmin(volt_data[0:200])
+#Time vector for angle measurements (fixed in KUKA system)
+delta_t = 0.012
+t = np.ndarray((len(traj_data),1))
+t[0] = 0
+for i in range(1,len(traj_data)):
+    t[i] = t[i-1] + delta_t
 
-i=0
-for j in range(start,len(power_data),period):
-    power_data_250[i:i+5] = np.mean(power_data[j:j+period])
-    i += 5
+#Velocity 
+vel = np.ndarray(np.shape(traj_data))
+for i in range(len(traj_data)-1):
+    vel[i] = np.divide( traj_data[i+1] - traj_data[i], delta_t)
+vel[-1] = vel[-2]
 
-#Linear interpolation instead of constant value upsampling
-i=0
-lin_in=np.ndarray((5,1))
-for j in range(0,len(power_data_250),5):
-    a = power_data_250[i]
-    if i+6 > len(power_data_250):
-        break
-    b = power_data_250[i+6]
-    lin_in = np.linspace(a,b,num=5).reshape(5,1)
-    power_data_250[i:i+5] = lin_in
-    i+=5
+#Acceleration
+acc = np.ndarray(np.shape(traj_data))
+for i in range(len(traj_data)-1):
+    acc[i] = np.divide( vel[i+1] - vel[i], delta_t)
+acc[-1] = acc[-2]
+
+#Pseudopower
+psi = np.ndarray((np.shape(traj_data)[0],1))
+for i in range(len(traj_data)):
+    psi[i] = np.sum(np.abs(vel[i]*acc[i]))

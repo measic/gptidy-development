@@ -1,1 +1,1 @@
-stats = stats.dropna(how='all')
+melted_stats

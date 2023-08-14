@@ -1,14 +1,14 @@
-unique_datatypes = list(merged["data_type"].unique())
+from keras.callbacks import ModelCheckpoint  
 
-print("Unique datatypes in this dataset are: {}".format(unique_datatypes))
+### TODO: specify the number of epochs that you would like to use to train the model.
 
-if "float64" in unique_datatypes or "int64" in unique_datatypes:
-    
-    round_values = True
-    rounded_places = 4
-    
-    for column in ["mean", "std", "min", "25%", "50%", "75%", "max"]:
-        
-        merged[column] = merged[column].astype(float).round(rounded_places)
-else:
-    round_values = False
+epochs = ...
+
+### Do NOT modify the code below this line.
+
+checkpointer = ModelCheckpoint(filepath='saved_models/weights.best.from_scratch.hdf5', 
+                               verbose=1, save_best_only=True)
+
+model.fit(train_tensors, train_targets, 
+          validation_data=(valid_tensors, valid_targets),
+          epochs=epochs, batch_size=20, callbacks=[checkpointer], verbose=1)

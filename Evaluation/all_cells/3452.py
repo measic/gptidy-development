@@ -1,1 +1,1 @@
-print("Name: {}\nNumber: {}\nString: {}".format("Nipype", 3, 3 * "-"))
+print("This {verb} a {noun}.".format(noun = "test", verb = "is"))

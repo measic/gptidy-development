@@ -1,1 +1,1 @@
-learn.fit_one_cycle(3, lr)
+learn = Learner(data, simple_cnn((3, 16, 16, 2)), metrics=[accuracy, error_rate], callback_fns=[CSVLogger])

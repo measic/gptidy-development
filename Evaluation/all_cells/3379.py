@@ -1,13 +1,3 @@
-import torch
-import torch.utils.data
-import torchvision
-from glob import glob
-import json
-import os
-from pathlib import Path
-import random
-from PIL import Image
-from zipfile import ZipFile
-import torchvision.transforms as transforms
-
-import numpy as np
+import datasets.divahisdb as diva
+hisdb = diva.HisDBDataset(datasets_path / diva.NAME, gt=True)
+page, page_gt = hisdb[0]

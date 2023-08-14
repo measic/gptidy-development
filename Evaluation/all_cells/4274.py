@@ -1,2 +1,2 @@
-# Produce a scatter matrix without outliers... distribution appears more normal
-pd.scatter_matrix(good_data, alpha = 0.3, figsize = (14,8), diagonal = 'kde');
+# Display sample log-data after having a PCA transformation applied
+display(pd.DataFrame(np.round(pca_samples, 4), columns = pca_results.index.values))

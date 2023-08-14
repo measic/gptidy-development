@@ -1,1 +1,1 @@
-dw_obj.calculate_ek_value(water_body = wb)
+dw_obj.water_body_indicator_df[wb]

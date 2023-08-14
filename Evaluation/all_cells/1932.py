@@ -1,3 +1,4 @@
-df = get_distinct_values('is_male')
-df.plot(x='is_male', y='num_babies', logy=True, kind='bar');
-df.plot(x='is_male', y='avg_wt', kind='bar');
+df = get_distinct_values('plurality')
+df = df.sort_values('plurality')
+df.plot(x='plurality', y='num_babies', logy=True, kind='bar');
+df.plot(x='plurality', y='avg_wt', kind='bar');

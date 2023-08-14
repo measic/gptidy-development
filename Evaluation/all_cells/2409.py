@@ -1,1 +1,1 @@
-c.plot_dist_mat()
+from BITS.clustering.seq import ClusteringSeq

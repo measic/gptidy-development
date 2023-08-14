@@ -1,9 +1,12 @@
-my_dense_layer = partial(
-    tf.layers.dense, activation=tf.nn.relu,
-    kernel_regularizer=tf.contrib.layers.l1_regularizer(scale))
+with tf.name_scope("eval"):
+    correct = tf.nn.in_top_k(logits, y, 1)
+    accuracy = tf.reduce_mean(tf.cast(correct, tf.float32), name="accuracy")
 
-with tf.name_scope("dnn"):
-    hidden1 = my_dense_layer(X, n_hidden1, name="hidden1")
-    hidden2 = my_dense_layer(hidden1, n_hidden2, name="hidden2")
-    logits = my_dense_layer(hidden2, n_outputs, activation=None,
-                            name="outputs")
+learning_rate = 0.01
+
+with tf.name_scope("train"):
+    optimizer = tf.train.GradientDescentOptimizer(learning_rate)
+    training_op = optimizer.minimize(loss)
+
+init = tf.global_variables_initializer()
+saver = tf.train.Saver()

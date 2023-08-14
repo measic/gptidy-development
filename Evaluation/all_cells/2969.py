@@ -1,1 +1,1 @@
-runClassifier('best_fit_15000', logit_c_param=.13, svm_c_param=.01)
+runClassifier('best_fit_15000_allgenes', logit_c_param=.11, svm_c_param=.01)

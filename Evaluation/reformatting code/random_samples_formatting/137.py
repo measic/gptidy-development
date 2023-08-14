@@ -1,11 +1,21 @@
-x0 = np.array([[1.], [1.]])  # 2x1 vector 
+logp = []
+for x, t in zip(x_valid, t_valid):
+    _, _, logp_valid = logprob(x, w, b)
+    logp.append(logp_valid[t])
 
-A = tf.constant(np.array([[1.001, 0], [0, -0.6]]), dtype=tf.float32, name='A')  # system dynamics
-B = tf.constant(np.array([[1.], [1.]]), dtype=tf.float32, name='B')
+data = list(zip(logp, x_valid, t_valid))
+data.sort(key=lambda tup: tup[0])
 
-Q = tf.constant([[1.,0.], [0.,1.]], name='Q')  # weighting
-R = tf.constant(1., name='R')
+# hardest 8 digits
+xs = np.array([d[1] for d in data[:8]])
+ts = np.array([d[2] for d in data[:8]])
 
-x = tf.constant(x0, dtype=tf.float32, name="state")
+plt.suptitle('8 hardest digitis', y = 1.05)
+plot_digits(xs, num_cols=4, targets=ts)
 
-T = 10
+# easiest 8 digits
+xs = np.array([d[1] for d in data[-8:]])
+ts = np.array([d[2] for d in data[-8:]])
+
+plt.suptitle('8 easiest digitis', y = 1.05)
+plot_digits(xs, num_cols=4, targets=ts)

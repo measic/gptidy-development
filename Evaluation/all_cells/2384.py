@@ -1,4 +1,2 @@
-def stick_breaking(beta):
-    portion_remaining = tt.concatenate([[1], tt.extra_ops.cumprod(1 - beta)[:-1]])
-
-    return beta * portion_remaining
+with model:
+    trace = pm.sample(2000, n_init=50000, random_seed=SEED)

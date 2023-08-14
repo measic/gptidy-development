@@ -1,1 +1,2 @@
-check('tests/q51.py')
+top_1970_with_2009 = ...
+top_1970_with_2009

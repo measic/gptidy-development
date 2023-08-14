@@ -1,13 +1,20 @@
-edge_cols = []
-frustrated_edges = imbalance.keys()
-for edge in G.edges(data=True):
-    if (edge[0],edge[1]) in frustrated_edges:
-        edge_cols.append("black")
-    elif edge[2]["sign"] == -1:
-        edge_cols.append("red")
-    else:
-        edge_cols.append("green")
+# Plot graph density for each threshold. 
+thresh_array = []
+density_distr = []
 
-fig,ax = plt.subplots(figsize=(15,10))
-nx.draw_networkx(G, pos=nx.drawing.layout.bipartite_layout(G, nodes_one), ax=ax, 
-                 with_labels=True, node_size=1000, node_color="white", edge_color=edge_cols)
+for i in np.arange(0.1, 1, 0.1):
+    density_array = []
+    for j in range(1, int(num_examples/5)):
+        corr_mat = corr_tensor[j*5, :, :].copy()
+        corr_mat[(corr_mat > -1*i) & (corr_mat < i)] = 0
+        G, density = make_graph(corr_mat, nodes, 'signed')
+        
+        density_array.append(density)
+    
+    density_distr.append(density_array)
+
+plt.boxplot(density_distr)
+plt.ylabel("Graph Density")
+plt.xlabel("Correlation Threshold (10^-1)")
+plt.title("Density vs Threshold")
+plt.show()

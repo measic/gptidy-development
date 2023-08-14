@@ -1,6 +1,6 @@
-plt.plot(f/3e10, y_lm, label='AER-LM 3.2')
-plt.plot(f/3e10, y_lm_36, label='AER-LM 3.6')
-plt.plot(f/3e10, ty.physics.planck(f, 300), label='Planck')
-plt.ylabel('Radiance')
-plt.xlabel('Wavenumber')
-l = plt.legend()
+# load the clustered/reduced and reverse-geocoded google location history data
+df_ggl = pd.read_csv('data/google-location-history.csv', encoding='utf-8')
+cols_to_retain = ['datetime', 'neighborhood', 'city', 'state', 'country', 'lat', 'lon']
+df_ggl = df_ggl[cols_to_retain]
+print('There are {:,} rows in the google data set'.format(len(df_ggl)))
+df_ggl.head()

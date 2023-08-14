@@ -1,9 +1,9 @@
-def counting_bloom_and_cuckoo_filter_fpr(capacity, finger_print_size=0.5, bucket_size=4,\
-                                         number_of_bytes=100000, alpha=0.75):
-    alpha = number_of_bytes / (capacity * finger_print_size * bucket_size)
-    
-    analytic_bloom_error = exp(-(((number_of_bytes-1)*log(2)**2)/capacity) ) 
-    
-    analytic_cuckoo_error = 1 / (2**( finger_print_size*alpha*8 - log(2*bucket_size, 2)))#this is estimated from the paper
-     
-    return analytic_bloom_error, analytic_cuckoo_error
+plt.loglog(np.array(capacities), np.array(bloom_fp), "-ro", ms=7, label="Counting Bloom filter")
+plt.loglog(np.array(capacities), np.array(cuckoo_fp), "-go", ms=7, label="Cuckoo Filter")
+plt.axhline(y=0.03, xmin=0, xmax=1, hold=None, ls="--")
+plt.xlim([2.5*10e1, 10e7])
+plt.ylim([10e-65, 10e10])
+plt.ylabel("False Positive Rate")
+plt.xlabel("Capacity (Max # items inserted)")
+plt.legend()
+plt.savefig('images/false_positive_test.png', bbox_inches='tight')

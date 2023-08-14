@@ -1,3 +1,5 @@
-plt.plot(df_per_day.index,df_per_day['client-ip-unique-count'],label="Unique IP")
-plt.plot(df_per_day.index,df_per_day['cs-username-unique-count'],label="Unique User")
-plt.legend()
+model = sm.tsa.ARIMA(df_per_day_train,(1,0,4)).fit()
+
+predictions = model.predict(300,302,dynamic=True)
+
+predictions

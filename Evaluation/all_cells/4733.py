@@ -1,7 +1,6 @@
-# dropout metrics
-y_scores = probas_dropout.flatten()
-precision_dropout, recall_dropout, _ = metrics.precision_recall_curve(y_true, y_scores)
-pr_auc_dropout = metrics.average_precision_score(y_true, y_scores)
-auroc_dropout = metrics.roc_auc_score(y_true, y_scores)
-fpr_dropout, tpr_dropout, _ = metrics.roc_curve(y_true, y_scores)
-print("AUROC: %.2f, PR AUC: %.2f" % (auroc_dropout, pr_auc_dropout))
+# get activations
+act_val_all = get_activations_batch(model_unet, -2, data_val_overlap.im_patches, 20, verbose=True)
+
+# retain only activation weights for which there is a ground truth
+act_val_all = remove_overlap(data_val.imgs, act_val_all, patch_size=64, stride=32)
+act_val = act_val_all[pred_t_val]

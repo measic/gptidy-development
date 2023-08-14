@@ -1,3 +1,3 @@
 ### Resposta: Sim
-mesmo_numero_passagem=train.groupby(['Sobreviventes','PassagemNumero']).size()
-mesmo_numero_passagem
+mesma_cabine=train.groupby(['Sobreviventes','Cabine']).size()
+mesma_cabine

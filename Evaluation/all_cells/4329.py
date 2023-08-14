@@ -1,1 +1,10 @@
-print("안녕! 힘세고 강한 아침! '나는 왈도'")
+sample_list = []
+sumsum = 0
+
+for i in range(10) :
+  sample_list.append(i)
+  sumsum += i
+  print(i)
+print('loop done')
+print(sumsum)
+print(sample_list)

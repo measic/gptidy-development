@@ -1,7 +1,3 @@
-# Append
-new_list = [1,2,3]
-new_list.append(5)
-print(new_list)
-
-new_list.append(6)
+# Pop
+new_list.pop(0)
 print(new_list)

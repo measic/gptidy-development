@@ -1,1 +1,1 @@
-img_predictions.describe()
+tweet_info.tail()

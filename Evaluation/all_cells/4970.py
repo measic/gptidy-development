@@ -1,1 +1,1 @@
-four_x_plus_fifteen = [(4, 1), (15, 0)]
+delta_f(four_x_plus_fifteen, 2, 1) # 4

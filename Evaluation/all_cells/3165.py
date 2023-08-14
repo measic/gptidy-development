@@ -1,6 +1,3 @@
-'''Compute half-life times of cumulative FP all yields'''
+'''Read data'''
 
-print('total # of FP nuclides = ', len(cfpy_az))
-print('')
-
-half_life_times( cfpy_az, nuclides ) # call the function
+cfpy_az_df = read_table('data/pu-239-cfpy-AZ-thermal.dat')

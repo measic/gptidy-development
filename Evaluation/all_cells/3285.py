@@ -1,10 +1,6 @@
-def mutate(s):
-    """Return s with a random mutation applied"""
-    mutators = [
-        delete_random_character,
-        insert_random_character,
-        flip_random_character
-    ]
-    mutator = random.choice(mutators)
-    # print(mutator)
-    return mutator(s)
+def is_valid_url(url):
+    try:
+        result = http_program(url)
+        return True
+    except ValueError:
+        return False

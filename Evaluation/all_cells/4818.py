@@ -1,9 +1,4 @@
-plt.figure(figsize=(5,15))
-x = np.arange(75)
-labels = [elem[0] for elem in sorted_list[-75:][::-1]]
-heights = [elem[1] for elem in sorted_list[-75:][::-1]]
-bars = plt.barh(x, heights)
-
-plt.yticks(x, labels)
-plt.title("Top 75 least frequent words")
-plt.show()
+#Get the length of the filtered dictionary (where frequency of the word == 1)
+num_word_1 = len({k: v for k,v in dico.items() if v == 1})
+num_word_tot = len(dico)
+"{un} / {tot} words appearing only once".format(un=num_word_1, tot=num_word_tot)

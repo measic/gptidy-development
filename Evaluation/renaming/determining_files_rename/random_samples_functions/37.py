@@ -2,7 +2,7 @@ from scipy.special import logsumexp
 from scipy.special import expit
 import numpy as np
 
-def function_def(a, num_classes):
+def one_hot(a, num_classes):
     return np.eye(num_classes)[a.reshape(-1)]
 
 def mlp_logprob(x, W, b, V, a):
@@ -15,7 +15,7 @@ def mlp_logprob(x, W, b, V, a):
 def mlp_gradient(x, t, W, b, V, a):
     num_classes = len(b)
     ln_p, ln_q, ln_Z, h = mlp_logprob(x, W, b, V, a)
-    t_oh = function_def(t, num_classes)
+    t_oh = one_hot(t, num_classes)
     delta_q = t_oh - np.exp(ln_q) / np.exp(ln_Z)
     delta_h = np.matmul(delta_q, W.T)
     dL_db = delta_q
@@ -46,7 +46,7 @@ def mlp_sgd_iter(x_train, t_train, W, b, V, a, lr):
     logp_train = logp.mean()
     return (logp_train, W, b, V, a)
 
-def eval_mean_logp(xs, ts, W, b, V, a):
+def function_def(xs, ts, W, b, V, a):
     logps = []
     for x, t in zip(xs, ts):
         logp, _, _, _ = mlp_logprob(x, W, b, V, a)

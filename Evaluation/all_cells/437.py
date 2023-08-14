@@ -1,6 +1,8 @@
-from yellowbrick.text import FreqDistVisualizer
+tfidf_transformer = TfidfTransformer()
 
-plt.figure(figsize=(15,20))
-visualizer = FreqDistVisualizer(n=100, features = cv_description.get_feature_names())
-#visualizer.fit(dt_mat_description)
-#visualizer.poof()
+tfidf_mat_description = tfidf_transformer.fit_transform(dt_mat_description)
+playlist_df['playlist_description_tfidf_score']=list(tfidf_mat_description.toarray())
+
+tfidf_mat_name = tfidf_transformer.fit_transform(dt_mat_name)
+playlist_df['playlist_name_tfidf_score']=list(tfidf_mat_name.toarray())
+playlist_df

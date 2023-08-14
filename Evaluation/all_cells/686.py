@@ -1,11 +1,58 @@
-colors = {"s002": "#E32636", "s003": "#B0BF1A", "s004": "#7CB9E8", "s005": "#84DE02", "s007": "#EFDECD", "s008": "#00308F", "s010": "#0048BA", "s011": "#AF002A", "s012": "#C9FFE5", "s013": "#72A0C1", "s015": "#C46210", "s016": "#B284BE", "s017": "#E52B50", "s018": "#9F2B68", "s019": "#F19CBB", "s020": "#AB274F", "s021": "#D3212D", "s022": "#3B7A57", "s024": "#FFBF00", "s025": "#FF7E00", "s026": "#3B3B6D", "s027": "#391802", "s028": "#804040", "s029": "#D3AF37", "s030": "#34B334", "s031": "#FF8B00", "s032": "#FF9899", "s033": "#431C53", "s034": "#B32134", "s035": "#FF033E", "s036": "#CFCFCF", "s037": "#551B8C", "s038": "#F2B400", "s039": "#9966CC", "s040": "#A4C639", "s041": "#F2F3F4", "s042": "#CD9575", "s043": "#665D1E", "s044": "#915C83", "s046": "#841B2D", "s047": "#FAEBD7", "s048": "#008000", "s049": "#66B447", "s050": "#8DB600", "s051": "#FBCEB1", "s052": "#00FFFF", "s053": "#7FFFD4", "s054": "#D0FF14", "s055": "#C0C0C0", "s056": "#4B5320", "s057": "#3B444B"}
-reduced_keystrokes_ = reduced_keystrokes[:,:2]
+#Especifica que dispositivo rodará a computação
+with tf.device("/device:CPU:0"):
+    
+    # Cria uma variável (placeholder) cujos valores serão posteriormentes preenchidos
+    # com os dados do dataset. Essa variável armazena os dados na dimensão original.
+    x = tf.placeholder(tf.float32, shape=[None, 31])
 
-vis_users = ["s005", "s010", "s011", "s016"]
-plt.figure(figsize=(10,10))
-for i, point in enumerate(reduced_keystrokes_):
-    #Para facilitar a visualização, faremos o plot de apenas quatro usuários
-    if recordings[i][0] in vis_users:
-        plt.scatter(point[0], point[1], c=colors[recordings[i][0]])
-plt.title("Dados de digitação dos usuários {} (SVD)".format(", ".join(vis_users)))
-plt.show()
+    
+    # Definimos a primeira camada da rede aqui
+    # A variável encoder_W1 é a matriz de pesos que leva o dado original em 31D para a
+    # representação intermediária em 20D.
+    # A variável encoder_b1 é somada à representação em 20D para permitir a translação
+    # nesse novo espaço.
+    encoder_W1 = tf.get_variable("e_W1", shape=[31, 20], initializer=tf.contrib.layers.xavier_initializer())
+    encoder_b1 = tf.Variable(tf.zeros([20]), name="e_b1")
+
+    # A variável embedding_20D efetivamente utiliza encoder_W1 e encoder_b1 para calcular
+    # a representação do vetor em espaço 20D.
+    embedding_20D = tf.nn.relu(tf.matmul(x, encoder_W1) + encoder_b1)
+
+    
+    # De forma semelhante à camada anterior, as variáveis encoder_W2 e encoder_b2 levam
+    # o vetor 20D para o espaço 2D desejado.
+    encoder_W2 = tf.get_variable("e_W2", shape=[20, 2], initializer=tf.contrib.layers.xavier_initializer())
+    encoder_b2 = tf.Variable(tf.zeros([2]), name="e_b2")
+
+    # A variável embedding_2D armazena a representação em 2D do nosso dado original
+    # convertendo a representação intermediária em 20D para a final em 2D.
+    embedding_2D = tf.matmul(embedding_20D, encoder_W2) + encoder_b2
+    
+    # A variável embedding_2D_activated passa a representação em 2D do vetor por uma função
+    # de ativação para dar prosseguimento ao resto da rede (reconstrução do dado original).
+    embedding_2D_activated = tf.nn.sigmoid(embedding_2D)
+
+    
+    # Queremos agora voltar com as dimensões do dado representado em 2D. Para isso, de forma
+    # parecida com a parte de compressão da rede, utilizaremos decoder_W1 e decoder_b1 para
+    # levar o vetor 2D a um espaço intermediário em 20D.
+    decoder_W1 = tf.get_variable("d_W1", shape=[2, 20], initializer=tf.contrib.layers.xavier_initializer())
+    decoder_b1 = tf.Variable(tf.zeros([20]), name="d_b1")
+
+    # A variável reconstruction_20D armazena a reconstrução no espaço intermediário 20D.
+    reconstruction_20D = tf.nn.relu(tf.matmul(embedding_2D_activated, decoder_W1) + decoder_b1)
+
+    # Por fim, as variáveis decoder_W2 e decoder_b2 fazem a reconstrução final dos dados.
+    decoder_W2 = tf.get_variable("d_W2", shape=[20, 31], initializer=tf.contrib.layers.xavier_initializer())
+    decoder_b2 = tf.Variable(tf.zeros([31]), name="d_b2")
+
+    # A variável reconstruction_31D guarda a reconstrução feita pelo decoder e idealmente
+    # representa o dado original do dataset.
+    reconstruction_31D = tf.matmul(reconstruction_20D, decoder_W2) + decoder_b2
+
+    # Utilizamos o erro quadrado médio como métrica de custo da rede.
+    loss = tf.reduce_mean(tf.pow(x - reconstruction_31D, 2))
+
+    # A variável train_step é responsável por fazer uma atualização de pesos através de
+    # backpropagation.
+    train_step = tf.train.AdamOptimizer(learning_rate=0.00001).minimize(loss)

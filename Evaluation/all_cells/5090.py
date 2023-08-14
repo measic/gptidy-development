@@ -1,2 +1,2 @@
-### Join
-join.describe()
+colunasSemCabine = colunasTeste[:]
+colunasSemCabine.remove('Cabine')

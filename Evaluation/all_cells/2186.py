@@ -1,4 +1,6 @@
-generator = {v.multidegree() : [v]}
-list_op = partial_derivatives(v.parent())
-V = Subspace(generators=generator, operators=list_op, add_degrees=add_degree)
-V.basis()
+r = 2 
+deg = 2
+op_pol = polarization_operators(r, deg)
+V_pol = PolarizedSpace(V_iso, op_pol)
+for value in V_pol.values():
+    show(value.basis())

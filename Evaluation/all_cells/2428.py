@@ -1,1 +1,1 @@
-from BITS.seq.cigar import Cigar, FlattenCigar
+cigar.string

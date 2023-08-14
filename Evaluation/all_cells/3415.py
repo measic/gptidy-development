@@ -1,3 +1,5 @@
-# integers
-x = 1
-type(x)
+# boolean
+b1 = True
+b2 = False
+
+type(b1)

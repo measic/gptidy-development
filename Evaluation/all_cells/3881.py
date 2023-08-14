@@ -1,4 +1,4 @@
-X, Annotations = marconi['SBoard']
+X, Annotations = marconi['Volleyball']
 
 camera = 0
 frame = 220

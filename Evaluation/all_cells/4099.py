@@ -1,1 +1,1 @@
-sch = algorithms.UncontrolledCharging()
+sim.run()

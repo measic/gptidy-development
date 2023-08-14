@@ -1,3 +1,2 @@
-plt.plot(df_per_day.index, df_per_day["client-ip-unique-count"], label='Actuals')
-plt.plot(df_per_day.index, df_per_day["client-ip-unique-count-MEAN"], label='MEAN')
-plt.legend(loc='best')
+df_per_day_train = df_per_day.loc[:299,['client-ip-unique-count']]
+df_per_day_test= df_per_day.loc[300:,['client-ip-unique-count']]

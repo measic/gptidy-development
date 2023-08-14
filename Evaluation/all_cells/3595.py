@@ -1,1 +1,1 @@
-B2_NTOT_WINTER_SETTINGS.settings.mapping_water_body['N m Bottenvikens kustvatten']
+lv_workspace.get_data_filter_info(step=1, subset='A') 

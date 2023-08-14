@@ -1,17 +1,18 @@
-if use_attention is False:
-    with tf.variable_scope("beam_search"):
-        beam_width = 4
-        start_tokens = tf.fill([config.batch_size], dataset.SOS)
-        bm_dec_initial_state = tf.contrib.seq2seq.tile_batch(
-            encoder_state, multiplier=beam_width)
-        bm_decoder = tf.contrib.seq2seq.BeamSearchDecoder(
-            cell=decoder_cell,
-            embedding=embedding,
-            start_tokens=start_tokens,
-            initial_state=bm_dec_initial_state,
-            beam_width=beam_width,
-            output_layer=output_proj,
-            end_token=dataset.EOS
-        )
-        bm_outputs, _, _ = tf.contrib.seq2seq.dynamic_decode(
-            bm_decoder, maximum_iterations=config.tgt_maxlen)
+%%time
+
+def train(epochs, logstep, lr):
+    print("Running {} epochs with learning rate {}".format(epochs, lr))
+    for i in range(epochs):
+        _, s = sess.run([update, merged_summary], feed_dict={learning_rate: lr, max_global_norm: 5.0})
+        l = sess.run(loss)
+        writer.add_summary(s, i)
+        if i % logstep == logstep - 1:
+            print("Iter {}, learning rate {}, loss {}".format(i+1, lr, l))
+            
+print("Start training...")
+if use_toy_data:
+    train(100, 10, .5)
+else:
+    train(350, 50, 1)
+    train(1000, 100, 0.1)
+    train(1000, 100, 0.01)

@@ -1,2 +1,8 @@
-l2_tfidf = raw_tfidf / np.sqrt(np.sum(raw_tfidf**2))
-l2_tfidf
+import re
+def preprocessor(text):
+    text = re.sub('<[^>]*>', '', text)
+    emoticons = re.findall('(?::|;|=)(?:-)?(?:\)|\(|D|P)',
+                           text)
+    text = (re.sub('[\W]+', ' ', text.lower()) +
+            ' '.join(emoticons).replace('-', ''))
+    return text

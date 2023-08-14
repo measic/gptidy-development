@@ -1,2 +1,3 @@
-#Therefore we use the nanmean() instead
-print(np.nanmean(data2))
+#corresponding array of sin() values.
+y = np.sin(x)
+print(y)

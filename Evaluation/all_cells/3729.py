@@ -1,5 +1,4 @@
-# ----------------------------------------------------------------------
-# Define feature names and extinction vector
-mag_names = ["Jmag", "Hmag", "Kmag"]
-err_names = ["e_Jmag", "e_Hmag", "e_Kmag"]
-extvec = [2.5, 1.55, 1.0]  # Indebetouw et al. 2015
+control = ApparentMagnitudes.from_fits(path=control_path, extvec=extvec,
+                                       mag_names=mag_names, err_names=err_names, 
+                                       lon_name="GLON", lat_name="GLAT",
+                                       frame="galactic", coo_unit="deg")

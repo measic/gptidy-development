@@ -1,1 +1,1 @@
-from BITS.util.log import print_log
+do_something(1, additional=2)

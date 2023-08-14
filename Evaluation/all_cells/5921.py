@@ -1,13 +1,25 @@
-if not is_labels_encod:
-    # Turn labels into numbers and apply One-Hot Encoding
-    encoder = LabelBinarizer()
-    encoder.fit(train_labels)
-    train_labels = encoder.transform(train_labels)
-    test_labels = encoder.transform(test_labels)
+%matplotlib inline
 
-    # Change to float32, so it can be multiplied against the features in TensorFlow, which are float32
-    train_labels = train_labels.astype(np.float32)
-    test_labels = test_labels.astype(np.float32)
-    is_labels_encod = True
+# Load the modules
+import pickle
+import math
 
-print('Labels One-Hot Encoded')
+import numpy as np
+import tensorflow as tf
+from tqdm import tqdm
+import matplotlib.pyplot as plt
+
+# Reload the data
+pickle_file = 'notMNIST.pickle'
+with open(pickle_file, 'rb') as f:
+  pickle_data = pickle.load(f)
+  train_features = pickle_data['train_dataset']
+  train_labels = pickle_data['train_labels']
+  valid_features = pickle_data['valid_dataset']
+  valid_labels = pickle_data['valid_labels']
+  test_features = pickle_data['test_dataset']
+  test_labels = pickle_data['test_labels']
+  del pickle_data  # Free up memory
+
+
+print('Data and modules loaded.')

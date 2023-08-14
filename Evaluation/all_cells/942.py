@@ -1,7 +1,2 @@
-from sklearn.preprocessing import MinMaxScaler
-scaler=MinMaxScaler(feature_range=(-1,1)) # Again storing it as a variable
-scaler
-
-# A note about the MinMaxScaler: it transforms features by scaling each feature 
-# to a given range. The estimator scales and tanslates each feature individually such that it is 
-# in the given range of the traninig set
+scaled_X=scaler.transform(X) #Damn what's the difference between transform and scaler?
+scaled_X[:10]

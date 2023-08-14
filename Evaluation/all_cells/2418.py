@@ -1,1 +1,1 @@
-show_plot([trace_hist], layout)
+from BITS.plot.plotly import make_line

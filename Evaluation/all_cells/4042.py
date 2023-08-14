@@ -1,46 +1,8 @@
-param={}
-param['octave'] = 3
-param['use_gpu'] = 1
-param['starting_range'] = 0.8
-param['ending_range'] = 2
-param['scale_search'] = [0.5, 1, 1.5, 2]
-param['thre1'] = 0.1
-param['thre2'] = 0.05
-param['thre3'] = 0.5
-param['mid_num'] = 4
-param['min_num'] = 10
-param['crop_ratio'] = 2.5
-param['bbox_ratio'] = 0.25
-param['GPUdeviceNumber'] = 3
-
-import scipy
-print heatmap_avg.shape
-
-#plt.imshow(heatmap_avg[:,:,2])
-from scipy.ndimage.filters import gaussian_filter
-all_peaks = []
-peak_counter = 0
-
-for part in range(19-1):
-    x_list = []
-    y_list = []
-    map_ori = heatmap_avg[:,:,part]
-    map = gaussian_filter(map_ori, sigma=3)
-    
-    map_left = np.zeros(map.shape)
-    map_left[1:,:] = map[:-1,:]
-    map_right = np.zeros(map.shape)
-    map_right[:-1,:] = map[1:,:]
-    map_up = np.zeros(map.shape)
-    map_up[:,1:] = map[:,:-1]
-    map_down = np.zeros(map.shape)
-    map_down[:,:-1] = map[:,1:]
-    
-    peaks_binary = np.logical_and.reduce((map>=map_left, map>=map_right, map>=map_up, map>=map_down, map > param['thre1']))
-    peaks = zip(np.nonzero(peaks_binary)[1], np.nonzero(peaks_binary)[0]) # note reverse
-    peaks_with_score = [x + (map_ori[x[1],x[0]],) for x in peaks]
-    id = range(peak_counter, peak_counter + len(peaks))
-    peaks_with_score_and_id = [peaks_with_score[i] + (id[i],) for i in range(len(id))]
-
-    all_peaks.append(peaks_with_score_and_id)
-    peak_counter += len(peaks)
+# find connection in the specified sequence, center 29 is in the position 15
+limbSeq = [[2,3], [2,6], [3,4], [4,5], [6,7], [7,8], [2,9], [9,10], \
+           [10,11], [2,12], [12,13], [13,14], [2,1], [1,15], [15,17], \
+           [1,16], [16,18], [3,17], [6,18]]
+# the middle joints heatmap correpondence
+mapIdx = [[31,32], [39,40], [33,34], [35,36], [41,42], [43,44], [19,20], [21,22], \
+          [23,24], [25,26], [27,28], [29,30], [47,48], [49,50], [53,54], [51,52], \
+          [55,56], [37,38], [45,46]]

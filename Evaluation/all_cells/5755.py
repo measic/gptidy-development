@@ -1,22 +1,14 @@
-best_acc_matrix = best_acc[["Beta","Learning_Rate","Acc_valid"]]
+fig = plt.figure(figsize=(15, 15))
 
-best_acc_matrix["log_beta"] = np.log10(best_acc_matrix["Beta"])
-best_acc_matrix["log_learning_rate"] = np.log10(best_acc["Learning_Rate"])
+for i in range(5):
+    oi = np.random.randint(0,y_error_pred.shape[0])
+    fig.add_subplot(1,5,i+1)
+    plt.imshow(X_error_original[oi])
+    #plt.imshow(X_error[oi].reshape(32,32), cmap = 'gray')
+    plt.text(0,-5,signnames[str(y_error_true[oi])],color='w',backgroundcolor='g', fontsize=10, weight="bold") 
+    plt.text(0,-2,signnames[str(y_error_pred[oi])],color='w',backgroundcolor='r', fontsize=10, weight="bold") 
+    plt.axis('off')
 
-cm = plt.cm.get_cmap('hot')
-plt.scatter(x=np.log10(best_acc["Beta"]), y=np.log10(best_acc["Learning_Rate"]), 
-            c=-best_acc["Acc_valid"],s=100*best_acc["Acc_valid"],
-            cmap=cm)
-plt.xlim( [-8,0])
-plt.ylim( [-8,0])
-plt.xlabel('Log Beta')
-plt.ylabel('Log Learning Rate')
-
-row_iterator = best_acc_matrix.iterrows()
-_, last = next(row_iterator)  
-for i, row in row_iterator:
-    plt.annotate(round(100*row["Acc_valid"],1), (row["log_beta"]+0.08,row["log_learning_rate"]+0.08),
-                fontsize=8)
-
-plt.title("Validation accuracy after 9 epochs \nfor different regularization parameter and learning rates")
-plt.show()
+fig.suptitle('Plotting examples where the model is wrong \n Green = actual class / Red = model prediction', x=0.5,y=0.7, fontsize=20)
+plt.tight_layout()
+plt.show() 

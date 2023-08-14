@@ -1,1 +1,1 @@
-img_predictions.head()
+img_predictions.info()

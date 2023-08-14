@@ -1,1 +1,1 @@
-df2.head()
+df.head()    #dfの最初の部分の表示

@@ -1,5 +1,8 @@
-# plot first 2 PCA components
-_, ax = plt.subplots(1, 1, figsize=(8, 8))
-plot_pts_2d(act_test[:, :2], data_test.gt_patches.flatten(), ax, classes_to_keep, colors, subsample_pct=.0005)
-ax.set_axis_off()
-print("Variance explained by first 2 components: %.2f" % np.sum(pca.explained_variance_ratio_[:2]))
+tuned_parameters = [{'n_components': np.arange(3, 9), 
+                     'max_iter': [10000]}]
+
+# do parameter search
+ps_gmm = ParameterSearch(GaussianMixture, tuned_parameters, act_train, act_val_all,
+                         pred_f_tr.flatten(), scorer_roc_probas_gmm, 
+                         n_iter=3, verbosity=10, n_jobs=-1, subsample_train=.01, subsample_test=.001)
+ps_gmm.fit()

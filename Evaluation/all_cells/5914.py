@@ -1,6 +1,14 @@
-# Plot the weights of the first layer for the best model 
-for e in [1,5,10]:
-    V = Vs[0][e]
-    plt.figure(figsize=(10,6))
-    plt.suptitle(f'First layer weights after {e-1} epoch', y = 1.05)
-    plot_digits(V.T, num_cols=5)
+import hashlib
+import os
+import pickle
+from urllib.request import urlretrieve
+
+import numpy as np
+from PIL import Image
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelBinarizer
+from sklearn.utils import resample
+from tqdm import tqdm
+from zipfile import ZipFile
+
+print('All modules imported.')

@@ -18,10 +18,10 @@ with graph.as_default():
     layer4_biases = init_weights([num_hidden_full_2], method='ones')
     keep4 = tf.placeholder('float')
     layer5_weights = init_weights([num_hidden_full_2, num_labels])
-    variable_def = init_weights([num_labels], method='ones')
+    layer5_biases = init_weights([num_labels], method='ones')
     inception_1x1_weights = tf.Variable(tf.truncated_normal([1, 1, num_channels, depth], stddev=0.1))
     inception_1x1_biases = tf.Variable(tf.zeros([depth]))
-    pre_inception_1x1_weights = tf.Variable(tf.truncated_normal([1, 1, num_channels, depth], stddev=0.1))
+    variable_def = tf.Variable(tf.truncated_normal([1, 1, num_channels, depth], stddev=0.1))
     pre_inception_1x1_biases = tf.Variable(tf.zeros([depth]))
     inception_1x1_pool_weights = tf.Variable(tf.truncated_normal([1, 1, num_channels, depth], stddev=0.1))
     inception_1x1_pool_biases = tf.Variable(tf.zeros([depth]))
@@ -34,7 +34,7 @@ with graph.as_default():
         conv_1x1 = tf.nn.conv2d(data, inception_1x1_weights, [1, 1, 1, 1], padding='SAME')
         conv_1x1 = tf.nn.relu(conv_1x1 + inception_1x1_biases)
         print('1x1', conv_1x1.get_shape())
-        conv_pre = tf.nn.conv2d(data, pre_inception_1x1_weights, [1, 1, 1, 1], padding='SAME')
+        conv_pre = tf.nn.conv2d(data, variable_def, [1, 1, 1, 1], padding='SAME')
         conv_pre = tf.nn.relu(conv_pre + pre_inception_1x1_biases)
         conv_pool = tf.nn.avg_pool(data, [1, 3, 3, 1], [1, 1, 1, 1], padding='SAME')
         conv_pool = tf.nn.conv2d(conv_pool, inception_1x1_pool_weights, [1, 1, 1, 1], padding='SAME')
@@ -58,7 +58,7 @@ with graph.as_default():
         hidden = tf.nn.dropout(hidden, keep3)
         hidden = tf.nn.elu(tf.matmul(hidden, layer4_weights) + layer4_biases)
         hidden = tf.nn.dropout(hidden, keep4)
-        output = tf.matmul(hidden, layer5_weights) + variable_def
+        output = tf.matmul(hidden, layer5_weights) + layer5_biases
         return output
     logits = model(tf_train_dataset)
     loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits, tf_train_labels))

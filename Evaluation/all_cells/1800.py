@@ -1,21 +1,7 @@
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.patches as patches
-from matplotlib import rc
-plt.style.use('classic')
-rc('font', **{'family': 'DejaVu Sans', 'serif': ['Computer Modern'], 'size':15})
-rc('figure', facecolor='w')
-import astropy.io.fits as fits
-from astropy.nddata import Cutout2D
-import math, os
-from scipy.stats import poisson
-from legacy import plotImg
+def poisson_approx(data, mean):
+    pdist = np.array(np.exp((data*np.log(mean))-(data*np.log(data))+data-mean))
+    return pdist
 
-#optional dependencies
-from distutils.spawn import find_executable
-
-if find_executable('latex'): rc('text', usetex=True)
-else: rc('text', usetex=False)
-    
-try: from natsort import natsorted
-except: pass
+def gaussian(data,mean,sigma):
+    gdist = np.array((1/(sigma*(2*math.pi)**(.5)))*np.exp(-.5*((data-mean)/sigma)**2))   
+    return gdist

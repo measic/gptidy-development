@@ -1,19 +1,20 @@
-def runLogitL1(train_data, train_labels, dev_data, dev_labels, c_param):
-    l1 = LogisticRegression(penalty='l1', tol=.01, 
-                            solver="liblinear", multi_class="ovr",
-                            max_iter=500, C=c_param)
-    # Fit model
-    l1.fit(train_data, train_labels) 
-    # Predict
-    predict = l1.predict(dev_data)
-    # Get precision, recall, f1 scores
-    scores = precision_recall_fscore_support(dev_labels, predict, average='weighted')  
-    
-    # Get the features with non-zero coefficients.  We will use
-    # this list to reduce the features for the
-    # following logistic regression with L2 regularization
-    non_zero_sums = np.where(np.sum(l1.coef_, axis=0) != 0)
-    names = np.array(list(train_data.columns))
-    non_zero_names = names[non_zero_sums] 
-    
-    return {'scores': scores, 'non_zero_genes': non_zero_names}
+#
+#  Run classifier on each binary matrix, that has different
+#  number of columns (genes).  Iterate through different
+#  C values, using Logistic Regression L1 regularization 
+#  to eliminate features.  Now run Logistic Regression, L2
+#  regularization and keep track of precision, recall,
+#  and confusion matrix.  Plot these metrics per feature
+#  size and show the confusion matrix for the best performing
+#  feature size.
+#
+def runClassifier(name, logit_c_param=.1, svm_c_param=.01):
+    warnings.filterwarnings('ignore')
+    data_object    = all_data[name]
+    data          = data_object['data']
+    labels        = data_object['labels']
+    label_encoder = data_object['label_encoder']
+    splits = splitData(data, labels)
+    eliminateFeatures(splits['train_data'], splits['train_labels'],
+                      splits['dev_data'], splits['dev_labels'], 
+                      logit_c_param, svm_c_param, label_encoder)

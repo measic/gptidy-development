@@ -1,11 +1,8 @@
-# These are all the modules we'll be using later. Make sure you can import them
-# before proceeding further.
-from __future__ import print_function
-import os
-import numpy as np
-import random
-import string
-import tensorflow as tf
-import zipfile
-from six.moves import range
-from six.moves.urllib.request import urlretrieve
+def read_data(filename):
+  with zipfile.ZipFile(filename) as f:
+    name = f.namelist()[0]
+    data = tf.compat.as_str(f.read(name))
+  return data
+  
+text = read_data(filename)
+print('Data size %d' % len(text))

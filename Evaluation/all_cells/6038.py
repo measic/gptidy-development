@@ -1,3 +1,3 @@
-#format the book
-import book_format
-book_format.set_style()
+x = np.array([[10.0],
+              [4.5]])
+x

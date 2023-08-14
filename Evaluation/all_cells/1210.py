@@ -1,1 +1,1 @@
-#shop_info.loc[ids_zero_morethan1_count_in_last_three_week_but_no_zero_in_last_two_week,:]
+shop_info.loc[ids_zero_morethan1_count_in_last_three_week_and_two_week,'wave_model2_1':'wave_model2_7']

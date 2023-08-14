@@ -3,25 +3,16 @@ import matplotlib.pyplot as plt
 import json
 import numpy as np
 
-with open("pretrain losses - srgan.json") as f:
+with open("pretrain losses - discriminator.json") as f:
     data = json.load(f)
 
-print("Pretrain loss: Loaded SRGAN JSON.")
+print("Pretrain loss: Loaded discriminator JSON")
 
-# plot the generator loss values
-print("Generator loss")
-plt.plot(data['generator_loss'])
+# plot the discriminator loss values
+print("Discriminator loss")
+plt.plot(data['discriminator_loss'])
 plt.show()
 
-print("Mean gan loss :", np.mean(data['generator_loss']))
-print("Std gan loss : ", np.std(data['generator_loss']))
-print("Min gan loss : ", np.min(data['generator_loss']))
-
-# plot the PSNR loss values
-print("PSNR loss")
-plt.plot(data['val_psnr'])
-plt.show()
-
-print("Mean psnr loss :", np.mean(data['val_psnr']))
-print("Std psnr loss : ", np.std(data['val_psnr']))
-print("Min psnr loss : ", np.min(data['val_psnr']))
+print("Mean discriminator loss :", np.mean(data['discriminator_loss']))
+print("Std discriminator loss : ", np.std(data['discriminator_loss']))
+print("Min discriminator loss : ", np.min(data['discriminator_loss']))

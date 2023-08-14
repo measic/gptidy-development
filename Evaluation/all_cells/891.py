@@ -1,1 +1,3 @@
-# BK df_flevoland10.plot.bar(figsize=(18,7.0),title='Top 10 opleiding met meeste MBO 4 diplomas Flevoland in 2017')
+# BK
+print(df_zwolle.shape)
+df_zwolle.describe()

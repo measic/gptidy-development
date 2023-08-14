@@ -1,5 +1,9 @@
-def say_hello():
-    # block belonging to the function
-    print('hello world')
+x = 50
 
-say_hello() # call the function
+def func(x):
+    print('x is', x)
+    x = 2
+    print('Changed local x to', x)
+
+func(x)
+print('x is still', x)

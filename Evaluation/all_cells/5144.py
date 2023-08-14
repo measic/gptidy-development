@@ -1,3 +1,1 @@
-treino['PortoEmbarque'] = treino['PortoEmbarque'].fillna('NA')
-uniao['PortoEmbarque'] = uniao['PortoEmbarque'].fillna('NA')
-uniao.info()
+uniao.loc[(uniao['PassagemNumero']=='3701')]

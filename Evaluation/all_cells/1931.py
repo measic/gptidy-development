@@ -1,14 +1,4 @@
-def get_distinct_values(column_name):
-    sql = """
-SELECT
-  {0},
-  COUNT(1) AS num_babies,
-  AVG(weight_pounds) AS avg_wt
-FROM
-  publicdata.samples.natality
-WHERE
-  year > 2000
-GROUP BY
-  {0}
-    """.format(column_name)
-    return bq.Query(sql).execute().result().to_dataframe()
+df = get_distinct_values('mother_age')
+df = df.sort_values('mother_age')
+df.plot(x='mother_age', y='num_babies');
+df.plot(x='mother_age', y='avg_wt');

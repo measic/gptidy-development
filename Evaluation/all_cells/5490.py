@@ -1,17 +1,10 @@
-import cvxopt
+X, t = create_X_and_t(X1, X2)
+a = compute_multipliers(X, t)
 
-def compute_multipliers(X, t):
-    N = X.shape[0]
-    K = computeK(t.reshape(-1,1) * X)
-    
-    P = cvxopt.matrix(K)
-    q = cvxopt.matrix(-np.ones(N))
-    G = cvxopt.matrix(-np.eye(N))
-    h = cvxopt.matrix(np.zeros(N))
-    A = cvxopt.matrix(t).T
-    b = cvxopt.matrix(0.0)
+cond = (a > 1e-6).reshape(-1)
 
-    sol = cvxopt.solvers.qp(P, q, G, h, A, b)
-    a = np.array(sol['x'])
-
-    return a
+plt.scatter(X[(t==-1),0], X[(t==-1),1], color='blue')
+plt.scatter(X[(t==1),0], X[(t==1),1], color='green')
+plt.scatter(X[cond,0], X[cond,1], color='red', marker='x', s=100)
+plt.title("Support vectors")
+plt.show()

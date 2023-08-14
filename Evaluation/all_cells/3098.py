@@ -1,1 +1,2 @@
-black_array[100:110, 100:110] = (255, 255, 255)
+plt.imshow(black_array)
+plt.show();

@@ -1,4 +1,4 @@
-plt.plot(np.arange(8600, 9000), a2_x[8600:9000])
+plt.plot(np.arange(56600, 57000), a2_x[56600:57000])
 plt.xlabel('time [msec]')
 plt.ylabel('acceleration [G]')
 plt.grid()

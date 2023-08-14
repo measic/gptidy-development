@@ -1,18 +1,7 @@
-import numpy as np
-import pandas as pd
-from pandas import Series,DataFrame
-df = pd.read_csv("hotels_data.csv")
+#counting and sorting by common hotel name
+df["Hotel_Count"] = df.groupby('Hotel Name')['Hotel Name'].transform('count')
+descending_hotels = df.sort_values(by=['Hotel_Count'],ascending=False).reset_index()
 
-from datetime import datetime
-from dateutil.parser import parse
-
-#parsing string to date time format
-def get_datetime(date_str):
-    return datetime.strptime(date_str, '%m/%d/%Y %H:%M')
-
-df["DayDiff"] = DataFrame([get_datetime(val) for val in df["Checkin Date"]]) - DataFrame([get_datetime(val) for val in df["Snapshot Date"]])
-df["WeekDay"] = DataFrame([get_datetime(val).weekday() for val in df["Checkin Date"]])
-df["DiscountDiff"] = df["Original Price"] - df["Discount Price"]
-df["DiscountPerc"] = (df["DiscountDiff"]/df["Original Price"]) * 100
-
-df
+#getting first 150 hotels  
+df_hotels = descending_hotels["Hotel Name"].unique()[:150]
+most_common_hotels = descending_hotels[descending_hotels['Hotel Name'].isin(df_hotels)]

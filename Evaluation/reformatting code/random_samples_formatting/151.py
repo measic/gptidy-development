@@ -1,16 +1,15 @@
-if visualize_dataset == True:
+r_units = ["RNN", "LSTM", "GRU"]
 
-    # Create subset of merged containing data type = object and nunique between range above
-    chosen_categorical_features = list(merged[(merged["unique"] >= nunique_range[0]) & 
-                               (merged["unique"] <= nunique_range[1]) & 
-                               (merged["data_type"] == "object")]["index"])
 
-    print("Categorical features: {}".format(chosen_categorical_features))
+f, ax = plt.subplots(1,3, sharey=True, figsize=(15,5))
 
-    # Remove unwanted features
-    for feature in features_to_exclude:
-        if feature in chosen_categorical_features:
-            chosen_categorical_features.remove(feature)
-
-    # Preview chosen_categorical_features
-    print("Categorical features being used in pairplot: {}".format(chosen_categorical_features))
+for i,r_unit in enumerate(r_units):
+    
+    ax[i].plot(logs[r_unit]["loss"],label=r_unit + "_tr", color='blue')
+    ax[i].plot(logs[r_unit]["val_loss"], ls="dashed", label=r_unit + "_val", color="red")
+    ax[i].set_ylabel("Loss")
+    ax[i].set_xlabel("Epochs")
+    ax[i].legend()
+    
+f.suptitle("Loss evolution with respect to epochs")
+plt.show()

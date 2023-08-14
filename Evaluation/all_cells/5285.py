@@ -1,9 +1,9 @@
-reset_graph()
+my_dense_layer = partial(
+    tf.layers.dense, activation=tf.nn.relu,
+    kernel_regularizer=tf.contrib.layers.l1_regularizer(scale))
 
-n_inputs = 28 * 28  # MNIST
-n_hidden1 = 300
-n_hidden2 = 50
-n_outputs = 10
-
-X = tf.placeholder(tf.float32, shape=(None, n_inputs), name="X")
-y = tf.placeholder(tf.int32, shape=(None), name="y")
+with tf.name_scope("dnn"):
+    hidden1 = my_dense_layer(X, n_hidden1, name="hidden1")
+    hidden2 = my_dense_layer(hidden1, n_hidden2, name="hidden2")
+    logits = my_dense_layer(hidden2, n_outputs, activation=None,
+                            name="outputs")

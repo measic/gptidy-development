@@ -1,1 +1,1 @@
-w.get_step_object(step = 2, subset = subset_uuid).indicator_ref_settings
+indicator_list = w.get_available_indicators(subset= 'A', step=2)

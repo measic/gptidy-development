@@ -1,1 +1,2 @@
-check('tests/q411.py')
+school = Table.read_table('school.csv')
+school

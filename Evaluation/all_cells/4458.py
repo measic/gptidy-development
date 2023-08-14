@@ -1,13 +1,19 @@
+from sklearn.metrics import mean_squared_error
 
-plt.figure(figsize=(11,4))
-
-plt.subplot(121)
-plot_predictions([gbrt], X, y, axes=[-0.5, 0.5, -0.1, 0.8], label="Ensemble predictions")
-plt.title("learning_rate={}, n_estimators={}".format(gbrt.learning_rate, gbrt.n_estimators), fontsize=14)
-
-plt.subplot(122)
-plot_predictions([gbrt_slow], X, y, axes=[-0.5, 0.5, -0.1, 0.8])
-plt.title("learning_rate={}, n_estimators={}".format(gbrt_slow.learning_rate, gbrt_slow.n_estimators), fontsize=14)
-
-save_fig("gbrt_learning_rate_plot")
-plt.show()
+gbrt = GradientBoostingRegressor(max_depth=2, warm_start=True)
+min_val_error = float("inf")
+error_going_up = 0
+for n_estimators in range(1, 120):
+    print(n_estimators)
+    gbrt.n_estimators = n_estimators
+    gbrt.fit(X_train, y_train)
+    y_pred = gbrt.predict(X_test)
+    val_error = mean_squared_error(y_test, y_pred)
+    if val_error < min_val_error:
+        min_val_error = val_error
+        error_going_up = 0
+    else:
+        error_going_up += 1
+        if error_going_up == 5:
+            print("Stopping")
+            break # early stopping

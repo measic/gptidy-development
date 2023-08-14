@@ -1,1 +1,1 @@
-save_fasta(seqs, "sample.out.fasta")
+from BITS.seq.plot import DotPlot

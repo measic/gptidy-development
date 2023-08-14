@@ -1,1 +1,1 @@
-Area = Area.set_index('time')
+E01 = Area.loc[Area['LSOA'] == 'E01017182']

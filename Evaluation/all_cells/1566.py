@@ -1,1 +1,1 @@
-Pixel[:10]
+Pixel = Pixel[['data']].dropna()

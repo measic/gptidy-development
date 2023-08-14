@@ -1,1 +1,1 @@
-plot_categorical_count(df, column='Country', title='Number of respondant per country', limit=10)
+plot_categorical_count(df, 'OpenSource', title='Number of Open Source Contributour')

@@ -1,11 +1,10 @@
-tf.reset_default_graph()
-# Create our input placeholders
-input_real, input_z = 
+# Optimizers
+learning_rate = 0.002
 
-# Generator network here
-g_model = 
-# g_model is the generator output
+# Get the trainable_variables, split into G and D parts
+t_vars = 
+g_vars = 
+d_vars = 
 
-# Disriminator network here
-d_model_real, d_logits_real = 
-d_model_fake, d_logits_fake = 
+d_train_opt = 
+g_train_opt = 

@@ -1,20 +1,6 @@
-### TODO: create required RNN model
-# import keras network libraries
-from keras.models import Sequential
-from keras.layers import Dense
-from keras.layers import LSTM
-import keras
+# print out training and testing errors
+training_error = model.evaluate(X_train, y_train, verbose=0)
+print('training error = ' + str(training_error))
 
-# given - fix random seed - so we can all reproduce the same results on our default time series
-np.random.seed(0)
-
-
-# TODO: implement build_part1_RNN in my_answers.py
-from my_answers import build_part1_RNN
-model = build_part1_RNN(window_size)
-
-# build model using keras documentation recommended optimizer initialization
-optimizer = keras.optimizers.RMSprop(lr=0.001, rho=0.9, epsilon=1e-08, decay=0.0)
-
-# compile the model
-model.compile(loss='mean_squared_error', optimizer=optimizer)
+testing_error = model.evaluate(X_test, y_test, verbose=0)
+print('testing error = ' + str(testing_error))

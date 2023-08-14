@@ -18,24 +18,24 @@ def hypothesis_inside_two(text, left, right):
             hyp[i + 1] = 1
     return hyp
 hypothesis_inside_quotation = lambda x: hypothesis_inside_one(x, '"')
-variable_def = lambda x: hypothesis_inside_two(x, '(', ')')
+hypothesis_inside_parantheses = lambda x: hypothesis_inside_two(x, '(', ')')
 
 def hypothesis_comments(text):
     hyp = np.full(len(text), -1)
     in_brac_comment = False
-    in_line_comment = False
+    variable_def = False
     for i in range(len(text)):
         if text[i:i + 2] == '//':
-            in_line_comment = True
+            variable_def = True
         elif text[i] == '\n':
-            in_line_comment = False
+            variable_def = False
         elif text[i:i + 2] == '/*':
             in_brac_comment = True
         elif text[i:i + 2] == '*/':
             in_brac_comment = False
         if in_brac_comment:
             hyp[i:i + 3] = 1
-        if in_line_comment:
+        if variable_def:
             hyp[i:i + 1] = 1
     return hyp
 

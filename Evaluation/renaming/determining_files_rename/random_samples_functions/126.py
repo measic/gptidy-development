@@ -7,7 +7,7 @@ t1 = Rt1[:, 3]
 R2 = Rt2[:, 0:3]
 t2 = Rt2[:, 3]
 
-def function_def(ax, indv_left, indv_right):
+def draw_person(ax, indv_left, indv_right):
     HND_l = 0
     ELB_l = 1
     SHO_l = 2
@@ -48,15 +48,15 @@ def function_def(ax, indv_left, indv_right):
     Y = ALL[:, 1]
     Z = ALL[:, 2]
     ax.plot(X, Y, Z)
-function_def(ax, annot1[0], annot2[1])
-function_def(ax, annot2[0], annot1[1])
+draw_person(ax, annot1[0], annot2[1])
+draw_person(ax, annot2[0], annot1[1])
 ax.set_xlim([-4000, 4000])
 ax.set_ylim([-4000, 4000])
 ax.set_zlim([0, 4000])
 
-def plot_cam(ax, R, t):
+def function_def(ax, R, t):
     pos = -R.T @ t
     ax.scatter(pos[0], pos[1], pos[2])
     ax.plot([pos[0], pos[0]], [pos[1], pos[1]], [pos[2], 0])
-plot_cam(ax, R1, t1)
-plot_cam(ax, R2, t2)
+function_def(ax, R1, t1)
+function_def(ax, R2, t2)

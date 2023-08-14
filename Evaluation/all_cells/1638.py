@@ -1,1 +1,1 @@
-plot_scores(doripa)
+plot_stacked_scores(sunshine_sessions)

@@ -1,4 +1,7 @@
-(dependence (spanVariance [(1, 0  ), (0,1)::(ℝ,ℝ)]) :: ℝ+>ℝ) $ 1
-(dependence (spanVariance [(1, 0.1), (0,1)::(ℝ,ℝ)]) :: ℝ+>ℝ) $ 1
-(dependence (spanVariance [(2,-1  ), (0,1)::(ℝ,ℝ)]) :: ℝ+>ℝ) $ 1
-(dependence (spanVariance [(1, 0  ), (1,1)::(ℝ,ℝ)]) :: ℝ+>ℝ) $ 1
+inj :: ℝ² +> ℝ³
+inj =  ex.<V2 1 0
+   ^+^ ey.<V2 2 1
+   ^+^ ez.<V2 2 3
+inj' = pseudoInverse inj
+inj . inj'
+inj' . inj

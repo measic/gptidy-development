@@ -1,12 +1,18 @@
-d_model = 4 # FFN 的輸入輸出張量的最後一維皆為 `d_model`
-dff = 6
+# 之後可以調的超參數。這邊為了 demo 設小一點
+d_model = 4
+num_heads = 2
+dff = 8
 
-# 建立一個小 FFN
-small_ffn = point_wise_feed_forward_network(d_model, dff)
-# 懂子詞梗的站出來
-dummy_sentence = tf.constant([[5, 5, 6, 6], 
-                              [5, 5, 6, 6], 
-                              [9, 5, 2, 7], 
-                              [9, 5, 2, 7],
-                              [9, 5, 2, 7]], dtype=tf.float32)
-small_ffn(dummy_sentence)
+# 新建一個使用上述參數的 Encoder Layer
+enc_layer = EncoderLayer(d_model, num_heads, dff)
+padding_mask = create_padding_mask(inp)  # 建立一個當前輸入 batch 使用的 padding mask
+enc_out = enc_layer(emb_inp, training=False, mask=padding_mask)  # (batch_size, seq_len, d_model)
+
+print("inp:", inp)
+print("-" * 20)
+print("padding_mask:", padding_mask)
+print("-" * 20)
+print("emb_inp:", emb_inp)
+print("-" * 20)
+print("enc_out:", enc_out)
+assert emb_inp.shape == enc_out.shape

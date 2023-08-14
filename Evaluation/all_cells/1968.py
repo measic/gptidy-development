@@ -1,11 +1,33 @@
-# Note: Use an alpha of .01 when creating the model for this activity
-from sklearn.linear_model import Ridge
+# Re-run the model without the Bib numbers as a feature to test if Bib numbers are helpful
 
-ridge_5K = Ridge(alpha=.01).fit(X_train_5K, y_train_5K)
+### set up data for modeling
+X_nobib = boston_clean[['Age','Official Time Duration', 'F', 'M', 'Temp (F)']]
+y_nobib = boston_clean['5K Duration'].values.reshape(-1, 1)
+print(X_nobib.shape, y_nobib.shape)
 
-predictions_5K = ridge_5K.predict(X_test_5K)
+# split the data into test and train subsets
 
-MSE = mean_squared_error(y_test_5K, predictions)
-r2 = ridge_5K.score(X_test_5K, y_test_5K)
+from sklearn.model_selection import train_test_split
 
-print(f"MSE: {MSE}, R2: {r2}")
+X_train_nobib, X_test_nobib, y_train_nobib, y_test_nobib = train_test_split(X_nobib, y_nobib, random_state=29)
+# X_train_nobib.head()
+
+# Create a linear regression model and fit it to the training data
+
+from sklearn.linear_model import LinearRegression
+model_nobib = LinearRegression()
+model_nobib.fit(X_train_nobib, y_train_nobib)
+
+# Make predictions
+
+predictions_nobib = model_nobib.predict(X_test_nobib)
+
+# Plot the residuals
+
+plt.scatter(model_nobib.predict(X_train_nobib), model_nobib.predict(X_train_nobib) - y_train_nobib, c="blue", label="Training Data")
+plt.scatter(model_nobib.predict(X_test_nobib), model_nobib.predict(X_test_nobib) - y_test_nobib, c="orange", label="Testing Data")
+plt.legend()
+plt.hlines(y=0, xmin=y_test_nobib.min(), xmax=y_test_nobib.max())
+plt.title("Residual Plot No Bib Model")
+plt.savefig('model_nonbib.png')
+plt.show()

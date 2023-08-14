@@ -1,9 +1,5 @@
-#ignore
-# plot(q, name='q', labels=['子詞 subword', 'depth'], 
-#      shape_desc='\n(batch_size, seq_len_q, depth)')
-
-# plot(k, name='k', labels=['子詞 subword', 'depth'], 
-#      shape_desc='\n(batch_size, seq_len_k, depth)')
-
-# plot(v, name='v', labels=['子詞 subword', 'depth_v'], 
-#      shape_desc='\n(batch_size, seq_len_q, depth_v)')
+mask = None
+output, attention_weights = scaled_dot_product_attention(q, k, v, mask)
+print("output:", output)
+print("-" * 20)
+print("attention_weights:", attention_weights)

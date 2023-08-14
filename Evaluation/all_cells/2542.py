@@ -1,14 +1,20 @@
-RTanalysis = pd.DataFrame()
-lists = [[] for list in range(0,5)]
+#now for run as well
+
+RTrunanalysis = pd.DataFrame()
+new_RTlists = [[] for list in range(0,5)]
 
 for ID in range(10,86):
     sub = cdat[cdat.subject == ID]
-    lists[0].append(ID)
-    validRT_trials = sub[sub.TrialType == 'Valid'].RT.mean()
-    invalidRT_trials = sub[sub.TrialType == 'Invalid'].RT.mean()
-    lists[1].append(validRT_trials)
-    lists[2].append(invalidRT_trials)
+    for runID in range(0,4):
+        run = sub[sub.RunCounter == runID]
+        new_RTlists[0].append(ID)
+        new_RTlists[1].append(runID)
+        validRT_trials = run[run.TrialType == 'Valid'].RT.mean()
+        invalidRT_trials = run[run.TrialType == 'Invalid'].RT.mean()
+        new_RTlists[2].append(validRT_trials)
+        new_RTlists[3].append(invalidRT_trials)
     
-RTanalysis['SubjectID'] = lists[0]
-RTanalysis['Valid'] = lists[1]
-RTanalysis['Invalid'] = lists[2]
+RTrunanalysis['SubjectID'] = new_RTlists[0]
+RTrunanalysis['Run'] = new_RTlists[1]
+RTrunanalysis['Valid'] = new_RTlists[2]
+RTrunanalysis['Invalid'] = new_RTlists[3]

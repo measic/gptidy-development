@@ -1,11 +1,12 @@
-train_acc_list_ = 'train_acc_list_.p'
-valid_acc_list_ = 'valid_acc_list_.p'
+def prepare_analysis(df):
+    
+    acc_2 = pd.DataFrame(np.transpose(df))
 
-with open(train_acc_list_, mode='rb') as f:
-    train_acc_list_ = pickle.load(f)
-with open(valid_acc_list_, mode='rb') as f:
-    valid_acc_list_ = pickle.load(f)
+    acc_2.columns = ['Acc_train','Beta', 'Learning_Rate', 'Learning_Decay', 'Acc_valid']
+    acc_2['Group'] = acc_2['Beta'] + acc_2['Learning_Rate'] + acc_2['Learning_Decay']
+    
+    return acc_2
 
-plt.plot(train_acc_list_)
-plt.plot(valid_acc_list_)
-plt.title('accuracy for training and validation set by epoch')
+acc = prepare_analysis(all_acc)
+acc['counter'] = acc.groupby(['Beta','Learning_Rate','Learning_Decay']).cumcount()+1
+acc = acc.sort_values(['Beta', 'Learning_Rate', 'Learning_Decay', 'counter'])

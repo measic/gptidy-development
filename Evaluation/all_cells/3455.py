@@ -1,5 +1,3 @@
-'''This is a multi-line string. This is the first line.
-This is the second line.
-"What's your name?," I asked.
-He said "Bond, James Bond."
-'''
+print(l)
+print(l[1:3])
+print(l[::2])

@@ -1,6 +1,13 @@
-def unnormalized_log_marginal(self):
-    unnormalized_log_marginal = np.sum(np.array(list(self.in_msgs.values())), axis=0)
+def max_sum(node_list):
     
-    return unnormalized_log_marginal + np.log(self.observed_state)
-
-Variable.unnormalized_log_marginal = unnormalized_log_marginal
+    for n in node_list:
+#         print(n, ':', *list(n.pending))
+        while len(n.pending) > 0:            
+            f = next(iter(n.pending))
+            n.send_ms_msg(f)
+            
+    for n in reversed(node_list):
+        
+        while len(n.pending) > 0:
+            f = next(iter(n.pending))
+            n.send_ms_msg(f)

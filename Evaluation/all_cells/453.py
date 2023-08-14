@@ -1,1 +1,3 @@
-print(accuracy_score(y_train, y_pred))
+%%time
+y_test_pred = AdaModel.predict(X_test)
+print(accuracy_score(y_test, y_test_pred))

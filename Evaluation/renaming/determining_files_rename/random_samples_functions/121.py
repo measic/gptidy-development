@@ -8,7 +8,7 @@ class two_layer_nn(tf.keras.Model):
         self.dense_out = tf.layers.Dense(output_size, activation=None)
         self.loss_type = loss_type
 
-    def predict(self, input_data):
+    def function_def(self, input_data):
         """ Runs a forward-pass through the network.     
             Args:
                 input_data: 2D tensor of shape (n_samples, n_features).   
@@ -40,7 +40,7 @@ class two_layer_nn(tf.keras.Model):
             loss = self.loss_fn(input_data, target)
         return tape.gradient(loss, self.variables)
 
-    def function_def(self, input_data, target, optimizer, num_epochs=500, verbose=50, track_accuracy=True):
+    def fit(self, input_data, target, optimizer, num_epochs=500, verbose=50, track_accuracy=True):
         """ Function to train the model, using the selected optimizer and
             for the desired number of epochs. It also stores the accuracy
             of the model after each epoch.

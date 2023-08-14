@@ -1,2 +1,2 @@
-plt.plot(np.arange(8600, 8800), a2_x[8600:8800])
+plt.plot(np.arange(21955, 23184), a2_x[21955:23184])
 plt.grid()

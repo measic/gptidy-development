@@ -1,6 +1,9 @@
-import seaborn as sns
+%display latex
 
-freqs = [score[1] for score in comm_enrich_scores]
+%runfile young_idempotent.py
+%runfile diagonal_polynomial_ring.py
+%runfile subspace.py
+%runfile add_degree.py
+%runfile diagram.py
 
-sns.set(color_codes=True)
-sns.kdeplot(freqs, shade=True)
+SymmetricFunctions(QQ).inject_shorthands(verbose=False)

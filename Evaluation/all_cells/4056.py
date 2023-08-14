@@ -1,32 +1,18 @@
-from scipy.optimize import fsolve
+# incidence and screening based on 2014 data
+cov_2014 = 493327. / 3500026.
+adpc_2014 = 47437. / 3500026.
+[incsol, scrsol] = fsolve(
+    lambda x: [test_diag_fun(x)[0] - cov_2014, test_diag_fun(x)[1] - adpc_2014], 
+    [0.09, 0.25] 
+    )
+inc = incsol
+scr = scrsol
+parms = \
+    [incsol*p_asymp, sc + scrsol*p_true_pos, incsol*(1-p_asymp), scrsol*p_true_pos + att_symp*p_true_pos]
 
-tsym, dsym, ssym, test_sym = symbols('tsym dsym ssym test_sym')
-
-model_test_diag = [
-    tsym - ( ssym + (1 - A - U)*test_sym ),
-    dsym - ( A*ssym*p_true_pos + U*ssym*p_false_pos + (1 - A - U)*test_sym*p_true_pos )
-    ]
-
-sol_test_diag = solve(model_test_diag, tsym, dsym)
-test_fun = lambdify((A, U, ssym, test_sym), sol_test_diag[tsym])
-diag_fun = lambdify((A, U, ssym, test_sym), sol_test_diag[dsym])
-
-def test_diag_fun(parms):
-    # parms = (incidence, screening rate)
-    inc = parms[0]
-    scr = parms[1]
-    
-    A = A_fun(inc*p_asymp, sc + scr*p_true_pos, inc*(1 - p_asymp), scr*p_true_pos + att_symp*p_true_pos)
-    U = U_fun(inc*p_asymp, sc + scr*p_true_pos, inc*(1 - p_asymp), scr*p_true_pos + att_symp*p_true_pos)
-    return [test_fun(A, U, scr, att_symp), diag_fun(A, U, scr, att_symp)]
-
-
-# set up a function to simulate system dynamics when perturbed from steady state
-from scipy.integrate import odeint
-
-def dydt(y, t, parms):
-    return([
-    parms[1]*y[1] + parms[3]*y[2] - (parms[0] + parms[2])*y[0],
-    parms[0]*y[0] - parms[1]*y[1],
-    parms[2]*y[0] - parms[3]*y[2]
-    ])
+# solve, 2013-2014
+sol_13_14 = odeint(dydt, 
+       sol_12_13[999,:], 
+       linspace(0,10,1000), 
+       args = (parms,)
+      )

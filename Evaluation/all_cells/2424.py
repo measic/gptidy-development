@@ -1,1 +1,1 @@
-r = EdlibRunner("global", revcomp=True, cyclic=False)
+alignment.__dict__

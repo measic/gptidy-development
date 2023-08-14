@@ -1,2 +1,2 @@
-### Decision Trees
-from sklearn.ensemble import ExtraTreesClassifier
+modeloExtraTreesClassifier = ExtraTreesClassifier()
+modeloExtraTreesClassifier.fit(x,y)

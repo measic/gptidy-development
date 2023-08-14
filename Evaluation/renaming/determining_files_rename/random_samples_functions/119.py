@@ -66,13 +66,13 @@ def draw_lines(img, lines, color=[255, 0, 0], thickness=10):
                 if slope < 0.5 or slope > 0.8:
                     continue
                 right_lines.append(line)
-    function_def(img, left_lines, color, thickness)
-    function_def(img, right_lines, color, thickness)
+    draw_lines_oneside(img, left_lines, color, thickness)
+    draw_lines_oneside(img, right_lines, color, thickness)
 
 def get_slope(x1, y1, x2, y2):
     return (y2 - y1) / (x2 - x1)
 
-def function_def(img, lines, color, thickness):
+def draw_lines_oneside(img, lines, color, thickness):
     if len(lines) == 0:
         return
     top = 330
@@ -112,7 +112,7 @@ def hough_lines(img, rho, theta, threshold, min_line_len, max_line_gap):
     draw_lines(line_img, lines)
     return line_img
 
-def weighted_img(img, initial_img, α=0.8, β=1.0, λ=0.0):
+def function_def(img, initial_img, α=0.8, β=1.0, λ=0.0):
     """
     `img` is the output of the hough_lines(), An image with lines drawn on it.
     Should be a blank image (all black) with lines drawn on it.

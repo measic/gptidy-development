@@ -5,7 +5,7 @@ with tf.Session() as sess:
     saver = tf.train.import_meta_graph('./lenet.meta')
     saver.restore(sess, './lenet')
     batch_x = np.expand_dims(my_images_normalized, axis=3)
-    variable_def = sess.run(softmax_logits, feed_dict={x: batch_x, keep_prob: 1.0})
+    sample_softmax_logits = sess.run(softmax_logits, feed_dict={x: batch_x, keep_prob: 1.0})
     my_top_k = sess.run(top_k, feed_dict={x: batch_x, keep_prob: 1.0})
     fig, axs = plt.subplots(len(my_images), 1, figsize=(20, 25))
     fig.subplots_adjust(hspace=1.0, wspace=0.6)
@@ -16,7 +16,7 @@ with tf.Session() as sess:
         guess1 = my_top_k[1][i][0]
         index1 = np.argwhere(y_valid == guess1)[0]
         guess2 = my_top_k[1][i][1]
-        index2 = np.argwhere(y_valid == guess2)[0]
+        variable_def = np.argwhere(y_valid == guess2)[0]
         guess3 = my_top_k[1][i][2]
         index3 = np.argwhere(y_valid == guess3)[0]
         title = ''

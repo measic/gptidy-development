@@ -1,7 +1,9 @@
 fig = plt.figure()
-plt.plot(train_counter, train_losses, color='blue')
-plt.scatter(test_counter, test_losses, color='red')
-plt.legend(['Train Loss', 'Test Loss'], loc='upper right')
-plt.xlabel('number of training examples seen')
-plt.ylabel('negative log likelihood loss')
-plt.show()
+for i in range(9):
+    plt.subplot(3,3,i+1)
+    plt.tight_layout()
+    plt.imshow(example_data[i][0], cmap='gray', interpolation='none')
+    plt.title("Prediction: {}/{}".format(le.inverse_transform(output.data.max(1, keepdim=True)[1][i])[0],
+                                         le.inverse_transform(example_targets[i].view(-1, 1)[0])[0]))
+    plt.xticks([])
+    plt.yticks([])

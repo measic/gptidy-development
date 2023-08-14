@@ -32,14 +32,14 @@ class EuropeanOption(object):
             raise ValueError('Error: Negative inputs not allowed')
         self.discount = np.exp(-self.r * self.T)
 
-    def getmodel(self):
+    def function_def(self):
         return self.model
 
     def __str__(self):
         return 'This European Option is priced using {0}'.format(self.getmodel())
 
     @abstractmethod
-    def function_def(self):
+    def value(self):
         pass
 
     @abstractmethod

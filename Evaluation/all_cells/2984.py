@@ -1,5 +1,1 @@
-x = Input(shape=input_shape)
-h1 = Dense(n_neurons, activation='relu')(x)
-h2 = Dense(n_neurons, activation='relu')(h1)
-z = Dense(msig.n_classes, activation='softmax')(h2)
-model = Model(inputs=[x], outputs=[z])
+(model.input_shape, model.output_shape)

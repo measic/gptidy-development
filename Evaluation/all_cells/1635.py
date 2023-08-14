@@ -1,1 +1,1 @@
-sunshine_sessions[['climbing_scores', 'tech_scores', 'gym_scores', 'hang_scores', 'arc_scores']].max()
+plot_stacked_scores(doripa);

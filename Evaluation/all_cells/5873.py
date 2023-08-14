@@ -1,5 +1,2 @@
-for pred, img in zip(result[1], test_images):
-    plt.imshow(img)
-    plt.show()
-    for i in pred:
-        print(sign_name[i])
+# Load the 'sim_no-learning' log file from the initial simulation results
+vs.plot_trials('sim_no-learning.csv')

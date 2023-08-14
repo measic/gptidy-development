@@ -1,14 +1,8 @@
-# Features - remove the thing we're trying to predict!
-features = data_full.drop('SalePrice', axis = 1)
+# Define root-mean-square-error function - use 10-fold cross-validation
+# You have to use neg_mean_squared_error because mean_squared_error will be deprecated in future
+def rmse_cv(model):
+    rmse = np.sqrt(-cross_val_score(model, X_train, y, scoring="neg_mean_squared_error", cv = 5))
+    return rmse
 
-# Create dummy variables - for each categorical data, make several boolean flags
-features = pd.get_dummies(features)
-
-# Make matrices to pass to scikit learn:
-X_train = features[:train.shape[0]]
-X_test = features[train.shape[0]:]
-y = train['SalePrice']
-
-# Verify that the number of features has been increased due to the dummy variables:
-print('Number of features in original dataset, including categorical fields: ', train.shape[1], 
-      '\nNumber of features, including dummy variables for categorical fields: ', X_train.shape[1])
+# Invoke Ridge regularisation
+model_ridge = Ridge()

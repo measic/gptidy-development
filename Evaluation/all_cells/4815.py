@@ -1,5 +1,9 @@
-conv = getRawDataFromFile()
+plt.figure(figsize=(5,15))
+x = np.arange(75)
+labels = [elem[0] for elem in sorted_list[:75][::-1]]
+heights = [elem[1] for elem in sorted_list[:75][::-1]]
+bars = plt.barh(x, heights)
 
-idx1, idx2 = np.random.choice(len(conv), 2)
-
-conv[idx1], conv[idx2]
+plt.yticks(x, labels)
+plt.title("Top 75 most frequent words")
+plt.show()

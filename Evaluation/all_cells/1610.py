@@ -1,9 +1,16 @@
-nyc3 = initializeMap()
+%matplotlib inline
 
-nyc3 = visualizeLinks([regionNodes[0]], [regionLinks[0]], [colors[0]], links, nyc3)
-nyc3 = visualizeLinks([regionNodes[5]], [regionLinks[5]], [colors[5]], links, nyc3)
-nyc3 = visualizeLinks([regionNodes[10]], [regionLinks[10]], [colors[10]], links, nyc3)
+import matplotlib
+import matplotlib.pyplot as plt
+import gym
+import numpy as np
+import bisect
+import math
+import os
+import random
+import tensorflow as tf
 
+from agents.random_agent import run_episode_random_agent
+from agents.human_crafted_agent import human_decision, run_episode_human_crafted_agent
 
-print('plotted roads')
-nyc3
+tf.logging.set_verbosity(tf.logging.WARN)  # Remove Info logs

@@ -1,3 +1,2 @@
-resultado_treino_dropna=treino_dropna[colunasTreino]
-resultado_treino=treino[colunasTreino]
-resultado_teste=teste[colunasTeste]
+%load_ext watermark
+%watermark -v -p numpy,sklearn,scipy,matplotlib,tensorflow

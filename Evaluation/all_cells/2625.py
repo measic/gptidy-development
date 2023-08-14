@@ -1,2 +1,4 @@
-post_samples_2 = advi.approx.sample(1000)
-pm.traceplot(post_samples_2);
+print("MCMC:")
+cluster_metric(gt_seg.flatten(), clusters_2)
+print("\nADVI:")
+cluster_metric(gt_seg.flatten(), y_2)

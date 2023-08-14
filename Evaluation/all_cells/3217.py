@@ -1,2 +1,2 @@
-imshow(brick, cmap = 'gray')
+imshow(ball, cmap = 'gray')
 colorbar()

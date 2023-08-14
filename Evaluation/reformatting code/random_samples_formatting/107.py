@@ -1,27 +1,22 @@
-#helper in getting top features and making visual
-#convert relevant dataframe columns to lowercase so we can compare with top feature output
-
-track_artist_lower_df = tracks_df["track_artist_uri"].apply(lambda x: x.lower())
-track_album_lower_df = tracks_df["track_album_uri"].apply(lambda x: x.lower())
-merged_track_uri_lower_df = merged["track_uri"].apply(lambda x: x.lower())
-
-#Take a uri and return album, artist or song title in plain english
-def get_translation(uri_type, uri):
+%matplotlib inline
+def solve_and_plot(nsys):
+    fig = plt.figure(figsize=(12, 4))
+    ax_out = plt.subplot(1, 2, 1, xscale='log', yscale='log')
+    ax_err = plt.subplot(1, 2, 2, xscale='log')
+    ax_err.set_yscale('symlog', linthreshy=1e-14)
+    xres, extra = nsys.solve_and_plot_series(
+        c0, c0+K, NH3_varied, NH3_idx, 'scipy', 
+        plot_kwargs=dict(ax=ax_out), plot_residuals_kwargs=dict(ax=ax_err))
+    for ax in (ax_out, ax_err):
+        ax.set_xlabel('[NH3]0 / M')
+    ax_out.set_ylabel('Concentration / M')
+    ax_out.legend(loc='best')
+    ax_err.set_ylabel('Residuals')
     
-    track = False  #if a single track/song is input as uri, I need to handle it differently
-    if uri_type == "track_artist_uri":
-        df = track_artist_lower_df
-        col = "track_artist_name"
-    elif uri_type == "track_album_uri":
-        df = track_album_lower_df
-        col = "track_album_name"
-    elif uri_type == "track_uri":
-        df = merged_track_uri_lower_df
-        col = "track_name"
-        track = True   #Handle track_name differently by going to the merged df
-    for i in range(len(tracks_df)):
-        if df[i] == uri:
-            if track == True:
-                return merged.iloc[i][col]
-            return tracks_df.iloc[i][col]
-            break
+    avg_nfev = np.average([nfo['nfev'] for nfo in extra['info']])
+    avg_njev = np.average([nfo['njev'] for nfo in extra['info']])
+    success = np.average([int(nfo['success']) for nfo in extra['info']])
+    return {'avg_nfev': avg_nfev, 'avg_njev': avg_njev, 'success': success}
+
+    
+solve_and_plot(neqsys)

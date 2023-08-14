@@ -1,2 +1,1 @@
-# MCMC
-plot_pdi_wapdi(pdi_mcmc, log_pdi_mcmc, pdi_log_mcmc, wapdi_mcmc, plot_type="dist")
+plot_pdi_wapdi(pdi_mcmc, log_pdi_mcmc, pdi_log_mcmc, wapdi_mcmc, img, img_mcmc_2, name="MCMC", k=0.5, plot_type="heatmap")

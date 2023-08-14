@@ -1,2 +1,12 @@
-#If use the ordinary mean() we get "nan" meaning "can't calculate on this array"
-print(np.mean(data2))
+tweets_data = []
+
+tweet_file = open('tweet_json.txt', "r")
+
+for line in tweet_file:
+    try:
+        tweet = json.loads(line)
+        tweets_data.append(tweet)
+    except:
+        continue
+        
+tweet_file.close()

@@ -1,11 +1,9 @@
-### Test test test
-nodes = [X_prior, X, Z_prior, Z, Y_cond, Y]
-for n in nodes:
-    n.reset()
-    
-X_prior.pending.add(X)
-Z_prior.pending.add(Z)
-Y.pending.add(Y_cond)
+### Test, test, test
+X_prior.reset()
+X.reset()
+Y_cond.reset()
 
-sum_product(nodes)
-assert np.allclose(Y.marginal(), [0.821024, 0.178976])
+X_prior.send_sp_msg(X)
+X.set_observed(0)
+X.send_sp_msg(Y_cond)
+assert np.allclose(list(Y_cond.in_msgs.values()), [9.5e-01, 5.0e-12])

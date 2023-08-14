@@ -1,3 +1,11 @@
-he_init = tf.variance_scaling_initializer()
-hidden1 = tf.layers.dense(X, n_hidden1, activation=tf.nn.relu,
-                          kernel_initializer=he_init, name="hidden1")
+plt.plot(z, leaky_relu(z, 0.05), "b-", linewidth=2)
+plt.plot([-5, 5], [0, 0], 'k-')
+plt.plot([0, 0], [-0.5, 4.2], 'k-')
+plt.grid(True)
+props = dict(facecolor='black', shrink=0.1)
+plt.annotate('통과', xytext=(-3.5, 0.5), xy=(-5, -0.2), arrowprops=props, fontsize=14, ha="center")
+plt.title("Leaky ReLU 활성화 함수", fontsize=14)
+plt.axis([-5, 5, -0.5, 4.2])
+
+save_fig("leaky_relu_plot")
+plt.show()

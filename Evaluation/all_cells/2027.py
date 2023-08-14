@@ -1,1 +1,2 @@
-log_and_placements_aggregated_per_week_df["client-ip-unique-count-log"] = np.log(log_and_placements_aggregated_per_week_df["client-ip-unique-count"])
+log_and_placements_aggregated_per_week_df.reset_index(inplace=True)
+log_and_placements_aggregated_per_week_df.head()

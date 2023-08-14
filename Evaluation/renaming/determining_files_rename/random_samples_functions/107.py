@@ -16,7 +16,7 @@ filename = '/Users/shengyuchen/Dropbox/Engagement - Business/My Hub/AI:ML:DL Pla
 def parser(x):
     return datetime.strptime('190' + x, '%Y-%b')
 
-def timeseries_to_supervised(data, lag=1):
+def function_def(data, lag=1):
     df = DataFrame(data)
     columns = [df.shift(i) for i in range(1, lag + 1)]
     columns.append(df)
@@ -24,7 +24,7 @@ def timeseries_to_supervised(data, lag=1):
     df.fillna(0, inplace=True)
     return df
 
-def function_def(dataset, interval=1):
+def difference(dataset, interval=1):
     diff = list()
     for i in range(interval, len(dataset)):
         value = dataset[i] - dataset[i - interval]

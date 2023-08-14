@@ -1,8 +1,1 @@
-sbi_high_corr_ROA_factor = factor_with_high_corr(sbi_corr_high_ROA)
-sbi_high_corr_ROE_factor = factor_with_high_corr(sbi_corr_high_ROE)
-sbi_high_corr_NIMTA_factor = factor_with_high_corr(sbi_corr_high_NIMTA)
-sbi_high_corr_NNPASTA_factor = factor_with_high_corr(sbi_corr_high_NNPASTA)
-% store sbi_high_corr_ROA_factor
-% store sbi_high_corr_ROE_factor
-% store sbi_high_corr_NIMTA_factor
-% store sbi_high_corr_NNPASTA_factor
+from mdp import sequential_decision_environment

@@ -1,5 +1,3 @@
-# Let's plot the RMSE as a function of alpha
-matplotlib.rcParams['figure.figsize'] = (7,3)
-cv_ridge.plot(title = 'RMSE as a function of alpha (Ridge regularisation)')
-plt.xlabel('alpha')
-plt.ylabel('RMSE')
+# This looks like it correpsonds to alpha = 30, so let's fit the model with that.
+model_ridge = Ridge(alpha = 30)
+model_ridge.fit(X_train, y)

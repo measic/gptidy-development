@@ -1,2 +1,4 @@
-GCS_PATTERN = 'gs://flowers-public/*/*.jpg'
-CLASSES = ['daisy', 'dandelion', 'roses', 'sunflowers', 'tulips'] # flower labels (folder names in the data)
+def decode_jpeg(filename):
+  bits = tf.io.read_file(filename)
+  image = tf.image.decode_jpeg(bits)
+  return image

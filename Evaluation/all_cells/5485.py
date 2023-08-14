@@ -1,14 +1,11 @@
-N1 = 20
-m1 = [1,1]
-cov1 = np.diag([0.2, 0.3])
-N2 = 30
-m2 = [3,3]
-cov2 = np.diag([0.1, 0.3])
+### Test your function
+dim = 2
+N1_test = 3
+N2_test = 4
+X1_test = np.arange(6).reshape((N1_test, dim))
+X2_test = np.arange(8).reshape((N2_test, dim))
+X_test, t_test = create_X_and_t(X1_test, X2_test)
 
-X1 = np.random.multivariate_normal(m1, cov1, N1)
-X2 = np.random.multivariate_normal(m2, cov2, N2)
 
-plt.scatter(X1[:,0], X1[:,1], color='blue')
-plt.scatter(X2[:,0], X2[:,1], color='green')
-plt.title("Syntetic separable data")
-plt.show()
+assert X_test.shape == (N1_test + N2_test, dim), "the shape of X is incorrect"
+assert t_test.shape == (N1_test + N2_test,), "the shape of t is incorrect"

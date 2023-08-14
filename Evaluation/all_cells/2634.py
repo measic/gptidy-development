@@ -1,1 +1,3 @@
-plot_pdi_wapdi(pdi_advi, log_pdi_advi, pdi_log_advi, wapdi_advi, img, img_advi_2, name="ADVI", k=0.5, plot_type="heatmap")
+img_61060 = plt.imread(test_path + "61060_1/pdi_heat.jpg")
+plt.figure(figsize = (15,15))
+plt.imshow(img_61060);

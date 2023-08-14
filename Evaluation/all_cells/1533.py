@@ -1,1 +1,1 @@
-monthly_data = After2009.resample('M', dim='time', how='mean', keep_attrs=True)
+data = monthly_data

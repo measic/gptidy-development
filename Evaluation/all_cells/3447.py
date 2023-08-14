@@ -1,1 +1,3 @@
-print("str1", 1.0, False)       # The print function converts all arguments to strings
+s2 = "value1 = %.2f. value2 = %d" % (3.1415, 1.5)
+
+print(s2)

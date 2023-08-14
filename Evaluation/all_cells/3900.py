@@ -1,1 +1,1 @@
-sns.palplot(qual_palette)
+!pip install GeoBases3K

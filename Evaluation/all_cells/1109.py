@@ -1,1 +1,1 @@
-# gamma_pca_data.shape
+# final_means.shape

@@ -1,2 +1,1 @@
-cy.status = ""
-print(cy.getSelectedNodes())
+print(cy.status)

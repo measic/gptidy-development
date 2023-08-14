@@ -1,3 +1,5 @@
-E = np.array([[1,2,3],[4,5,6]]) #create a 2x3 matrix
-print(E)
-print(E[1][2])
+E[0][2]= 10 
+print('first\n',E)
+# a more compact way to access the same element is using a "," instead of the interior brackets ']['
+E[0,2] = 10
+print('2nd\n',E)

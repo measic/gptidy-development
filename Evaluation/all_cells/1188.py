@@ -1,10 +1,19 @@
-ids_lowest_point_error_compared_to_last_three_days = []
-def cal_lowest_point_error_compared_to_last_three_days(x):
-    sales_list = sorted(x['2016-10-11':'2016-10-31'].tolist())
-    if sales_list[1] > 0:
-        if 1.0 * sales_list[0] / sales_list[1] < 0.7:
-            ids_lowest_point_error_compared_to_last_three_days.append(x['shop_id'])
-shop_info.apply(lambda x: cal_lowest_point_error_compared_to_last_three_days(x) ,axis=1)
-print len(ids_lowest_point_error_compared_to_last_three_days)
+ids_cos_sim_low_between_wk_1_2 = shop_info[shop_info['cos_sim_between_wk_1_2']<0.98].index.tolist()
+ids_cos_sim_low_between_wk_2_3 = shop_info[shop_info['cos_sim_between_wk_2_3']<0.98].index.tolist()
+ids_cos_sim_low_between_wk_1_3 = shop_info[shop_info['cos_sim_between_wk_1_3']<0.98].index.tolist()
+ids_cos_sim_low_3_wk = []
+ids_cos_sim_low_3_wk.extend(ids_cos_sim_low_between_wk_1_2)
+ids_cos_sim_low_3_wk.extend(ids_cos_sim_low_between_wk_2_3)
+ids_cos_sim_low_3_wk.extend(ids_cos_sim_low_between_wk_1_3)
+ids_cos_sim_low_3_wk = list(set(ids_cos_sim_low_3_wk))
+print len(ids_cos_sim_low_between_wk_1_2)
+print len(ids_cos_sim_low_between_wk_2_3)
+print len(ids_cos_sim_low_between_wk_1_3)
+print len(ids_cos_sim_low_3_wk)
+ids_cos_sim_high_3_wk =[ i  for i in shop_info.index.tolist() if i not in ids_cos_sim_low_3_wk]
+print len(ids_cos_sim_high_3_wk)
+ids_cos_sim_high_23_wk = [i for i in shop_info[shop_info['cos_sim_between_wk_2_3']>0.98].index.tolist() if i not in ids_cos_sim_high_3_wk and i in  shop_info[shop_info['cos_sim_between_wk_1_2']>0.95].index.tolist()]
+print len(ids_cos_sim_high_23_wk)
 
-#draw_ids(ids_lowest_point_error_compared_to_last_three_days,start_date='2016-10-11',end_date='2016-10-31',by_week=True)
+ids_cos_sim_low_3_wk_other = [i for i in ids_cos_sim_low_3_wk if i not in ids_cos_sim_high_23_wk]
+print len(ids_cos_sim_low_3_wk_other)

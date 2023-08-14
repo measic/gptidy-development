@@ -1,14 +1,33 @@
-### plot some figures we got wrong
+### TODO: Write a function that takes a path to an image as input
+### and returns the dog breed that is predicted by the model.
 
-fig = plt.figure(figsize=(20, 12))
+from keras.applications.inception_v3 import InceptionV3
+from keras.applications.inception_v3 import preprocess_input as preprocess_inception_input
 
-for i, ix in enumerate(np.random.choice(test_tensors.shape[0], size=24, replace=False)):
-    ax = fig.add_subplot(4, 6, i+1, xticks=[], yticks=[])
-    ax.imshow(np.squeeze(test_tensors[ix]))
-    # correct img ix
-    true_index = np.argmax(test_targets[ix])
-    # predicted img ix
-    pred_index = predictions[ix]
-    ax.set_title('{}\n[{}]'.format(dog_names[pred_index], dog_names[true_index]),
-                color=('blue' if pred_index == true_index else 'red'))
-plt.tight_layout()
+def detect_dog_breed(img_path, given_model, use_bottleneck=True, img_H=224, img_W=224):
+    ''' Detect dog breed given image in the img_path,
+        using given model, using either bottleneck features (or not)
+        with given img Height and Width
+        
+        @return: Dog breed (str)
+    '''
+    print('Detecting dog breed...')
+    tensor = path_to_tensor(img_path, img_H, img_W)
+    
+    # using given image, extract its bottleneck features by running thru InceptionV3 n/w first
+    if use_bottleneck: 
+        tensor = extract_InceptionV3(tensor)
+    else:
+        tensor = preprocess_inception_input(tensor)
+    
+    # print('  [input tensor shape: {}]'.format(tensor.shape))
+    # make predictions (probabilities)
+    predicted_vector = given_model.predict(tensor)
+    # get max index
+    y_hat = np.argmax(predicted_vector)
+    chance = 100. * predicted_vector[0][y_hat]  # probability of correctness
+    # print('  [y_hat:{}]'.format(y_hat))
+    # print('  prob:{:.2f}%'.format(chance))
+
+    # return dog breed and probability 
+    return dog_names[y_hat], chance

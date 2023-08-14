@@ -1,24 +1,15 @@
-def hypothesis_inlinecounter(text):
-    hyp = np.concatenate([np.linspace(1, -1, len(x)+1) for x in text.split('\n')])[:-1]
-    return hyp
+# Generate hypothesis data
+def gen_hyp_data(model, N, text_len=500):
+    texts, hiddens, hyps = [], [], []
+    for i in range(N):
+        text, hidden = generate(model, '\n\n', text_len, 0.8, True)
+        hidden = hidden.reshape(hidden.shape[0], -1)
+        hyp = hypothesis_inlinecounter(text)
+        hiddens.append(hidden)
+        hyps.append(hyp)
+        texts.append(text)
+    return ''.join(texts), np.concatenate(hyps), np.concatenate(hiddens)
 
-def hypothesis_capswords(text):
-    hyp = np.concatenate([np.full(len(x)+1, 1) if re.sub('[^a-zA-Z]+', '', x).isupper() else np.full(len(x)+1, -1) for x in text.split('\n')])[:-1]
-    return hyp
-
-def hypothesis_pos(text, pos_tag):
-    hyp = text.replace('1', '0')
-    for word, tag in pynlpir.segment(text):
-        if tag == pos_tag:
-            hyp = hyp.replace(word, '1'*len(word), 1)
-        else:
-            hyp = hyp.replace(word, '0'*len(word), 1)
-    hyp = [1 if x=='1' else -1 for x in re.sub('[^1]', '0', hyp)]
-    
-    return hyp
-
-def hypothesis_verbs(text):
-    return hypothesis_pos(text, 'verb')
-
-def hypothesis_nouns(text):
-    return hypothesis_pos(text, 'noun')
+# Generate train and test data
+train_texts, train_hyps, train_hiddens = gen_hyp_data(model_gru, 500)
+test_texts, test_hyps, test_hiddens = gen_hyp_data(model_gru, 2)

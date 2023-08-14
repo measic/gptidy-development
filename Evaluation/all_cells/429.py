@@ -1,4 +1,3 @@
-print(len(playlists))
-print(len(tracks))
-print(len(map_pl))
-print(len(map_pl_duplicate))
+playlist_df = pd.DataFrame(playlists)
+playlist_df.head()
+# print(playlist_df.describe())

@@ -1,9 +1,20 @@
-esyss = constructEigenSystem euclideanNorm 1e-8 (arr h) [V3 1 2 3]
-
-import Numeric (showGFloat)
-
-forM_ (take 12 esyss) $ \vs -> do
-   forM_ vs $ \ev -> putStrLn $ "λ = " ++ showGFloat (Just 5) (ev_Eigenvalue ev)
-                                ",\t±" ++ showGFloat (Just 1) (ev_Badness ev)
-                                "\t: " ++ show (ev_Eigenvector ev)
-   putStrLn ""
+ev_Eigenvalue <$> roughEigenSystem euclideanNorm
+     (    ex.<V3  1   1 (-1)
+      ^+^ ey.<V3  1 (-2)  2
+      ^+^ ez.<V3(-1)  2   3 :: ℝ³+>ℝ³ )
+ev_Eigenvalue <$> roughEigenSystem euclideanNorm
+     (    ex.<V3  1   1.1   1
+      ^+^ ey.<V3  1   1   1.1
+      ^+^ ez.<V3  1   1   1 :: ℝ³+>ℝ³ )
+ev_Eigenvalue <$> roughEigenSystem euclideanNorm
+     (    ex.<V3  1   1   1
+      ^+^ ey.<V3  1   1   1
+      ^+^ ez.<V3  1   1   1 :: ℝ³+>ℝ³ )
+ev_Eigenvalue <$> roughEigenSystem euclideanNorm
+     (    ex.<V3  1   0   0.1
+      ^+^ ey.<V3  0.2   1   0
+      ^+^ ez.<V3  0   0.1   1 :: ℝ³+>ℝ³ )
+ev_Eigenvalue <$> roughEigenSystem euclideanNorm
+     (    ex.<V3  1   0   0
+      ^+^ ey.<V3  0   1   0
+      ^+^ ez.<V3  0   0   1 :: ℝ³+>ℝ³ )

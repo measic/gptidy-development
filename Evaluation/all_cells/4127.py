@@ -1,45 +1,4 @@
-plt.figure(figsize=(12,12))
-
-plt.subplot(2, 2, 1)    #パレットを2行2列に分割し，一番左上に以下のグラフを描く
-plt.plot(theta[2000:5000], omega[2000:5000], c='black')
-plt.plot(theta[5000:7500], omega[5000:7500], c='green')
-plt.plot(theta[7500:10000], omega[7500:10000], c='blue')
-plt.plot(theta[10000:12500], omega[10000:12500], c='red')
-plt.plot(theta[12500:15000], omega[12500:15000], c='orange')
-plt.title('knee flexion (up sigle stairs)')
-plt.xlabel('angle [deg]')
-plt.ylabel('angular velocity [deg/s]')
-plt.grid()
-
-plt.subplot(2, 2, 2)
-plt.plot(theta[14000:17000], omega[14000:17000], c='black')
-plt.plot(theta[17000:20000], omega[17000:20000], c='green')
-plt.plot(theta[20000:23000], omega[20000:23000], c='blue')
-plt.plot(theta[23000:26000], omega[23000:26000], c='red')
-plt.plot(theta[26000:28000], omega[26000:28000], c='orange')
-plt.title('knee flexion (down sigle stairs)')
-plt.xlabel('angle [deg]')
-plt.ylabel('angular velocity [deg/s]')
-plt.grid()
-
-plt.subplot(2, 2, 3)
-plt.plot(theta[52000:54000], omega[52000:54000], c='black')
-plt.plot(theta[54000:56000], omega[54000:56000], c='green')
-plt.plot(theta[56000:58000], omega[56000:58000], c='blue')
-plt.plot(theta[58000:60000], omega[58000:60000], c='red')
-plt.plot(theta[60000:64000], omega[60000:64000], c='orange')
-plt.title('knee flexion (up double stairs)')
-plt.xlabel('angle [deg]')
-plt.ylabel('angular velocity [deg/s]')
-plt.grid()
-
-plt.subplot(2, 2, 4)    #パレットを2行2列に分割し，一番右下に以下のグラフを描く
-plt.plot(theta[63000:65000], omega[63000:65000], c='black')
-plt.plot(theta[65000:67000], omega[65000:67000], c='green')
-plt.plot(theta[67000:69000], omega[67000:69000], c='blue')
-plt.plot(theta[69000:71000], omega[69000:71000], c='red')
-plt.plot(theta[71000:74000], omega[71000:74000], c='orange')
-plt.title('knee flexion (down double stairs)')
-plt.xlabel('angle [deg]')
-plt.ylabel('angular velocity [deg/s]')
-plt.grid()
+xi = np.where(theta==np.min(theta[ti:tm]))[0][0]   #np.minは教科書p.129を参照
+xf = np.where(theta==np.min(theta[tm:tf]))[0][0]
+xm = xi + (xf - xi) // 2
+print(f'xi={xi}, xf={xf}, xm={xm}')

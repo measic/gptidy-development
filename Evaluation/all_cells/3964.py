@@ -1,1 +1,2 @@
-report.plot()
+#Run me
+report.peek() #Depends on dataframe

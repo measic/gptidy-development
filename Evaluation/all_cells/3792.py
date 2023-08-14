@@ -1,1 +1,1 @@
-data[data.symbol == "FB"].head()
+len(data.symbol.unique())

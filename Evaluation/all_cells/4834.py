@@ -1,12 +1,6 @@
-#Meta-parameters
-embedding_size = 128
-hidden_size = 64
-dropout = 0.
-recurrent_dropout = 0.
+#reshape dataset and target for RNN
+list_sentences = [s for c in filtered_sentences for s in c]
+X = np.array(list_sentences.copy())
 
-batch_size = 64
-epochs = 32
-validation_split = 0.2
-
-dataset_cut = -1
-maxlen = 25
+#one hot encoding of X for target T
+T = keras.utils.to_categorical(np.asarray(X))

@@ -1,2 +1,5 @@
-## display first 5 rows of data frame with new index
-data.iloc[0:5]
+import sys
+sys.path.append('/mnt/c/Users/Jesse/Desktop/glucose')
+sys.path.append('/mnt/c/Users/Jesse/Desktop/glucose/src')
+sys.path.append('/mnt/c/Users/Jesse/Desktop/glucose/src/policies')
+sys.path.append('/mnt/c/Users/Jesse/Desktop/glucose/src/policies/bellman_backup')

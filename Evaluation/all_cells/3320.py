@@ -1,4 +1,1 @@
-seed = ["1 + 1"]
-bc = ProgramRunner(program="bc")
-m = MutationFuzzer(seed)
-outcomes = m.runs(bc, trials=100)
+sum(1 for completed_process, outcome in outcomes if completed_process.stderr == "")

@@ -1,4 +1,5 @@
-n = 15
-x, A = vm(n)
-print("For n = {}, x = {}".format(n, x) )
-print("For n = {}, the condition number is {}".format(n, np.linalg.cond(A)))
+A = np.array([[1, 2, 4],
+              [4, 5, 6],
+              [7, 8, 9]])
+Q = np.triu(A)
+print(Q)

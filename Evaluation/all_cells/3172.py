@@ -1,6 +1,6 @@
-'''Compute half-life times of cumulative FP with >1% yield'''
+'''Create the FP yield(A,Z) list container'''
 
-print('total # of FP nuclides = ', len(fp_1_percent))
-print('')
+cfpy_az = get_fpy_az( cfpy_az_df )
 
-half_life_times( fp_1_percent, nuclides ) # call the function
+print('Sum of yield values in dictionary container = ',round(sum([fp.yield_percent for fp in cfpy_az]),2))
+print('# of FP nuclides = ', len(cfpy_az))

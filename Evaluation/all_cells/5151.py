@@ -1,1 +1,1 @@
-uniao.info()
+treino.info()

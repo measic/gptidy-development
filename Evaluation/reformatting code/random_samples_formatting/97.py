@@ -1,9 +1,17 @@
-start_day = (pd.to_datetime('2016-11-01').date() - datetime.timedelta(21)).strftime("%Y-%m-%d") 
-for day_number in range(1,8): # 1~7
-    shop_info.loc[:,'wave_model1_'+str(day_number)] = 0.0
-    predict_day = '2016-11-'+'%02d' %  day_number
-    predict_day = pd.to_datetime(predict_day).date()
-    day_list = [day for day in dateRange(start_day,'2016-10-31') if (predict_day - pd.to_datetime(day).date()).days % 7 == 0]
-    shop_info.loc[ids_cos_sim_high_3_wk,'wave_model1_'+str(day_number)] = shop_info.loc[ids_cos_sim_high_3_wk,day_list].mean(axis=1)
+# Tenemos 45 datos por cada clase, entonces seleccionaremos aleatoriamente 6 ileras de características (~15%) para  probar el algoritmo al final.
 
-#shop_info['wave_model1_1']
+using StatsBase
+# aleatorizamos los números en el rango del 1 al 45
+vino_1_aleat = sample(1:45, 45, replace = false)
+# aleatorizamos los números en el rango del 46 al 90
+vino_2_aleat = sample(46:90, 45, replace = false)
+# aleatorizamos los números en el rango del 91 al 135
+vino_3_aleat = sample(91:135, 45, replace = false)
+
+# separamos los datos que nos servirán para entrenar
+x_entren = [caracteristicas[vino_1_aleat[1:39],:]; caracteristicas[vino_2_aleat[1:39],:]; caracteristicas[vino_3_aleat[1:39],:]]
+y_entren = [tipo_de_vino[vino_1_aleat[1:39]]; tipo_de_vino[vino_2_aleat[1:39]]; tipo_de_vino[vino_3_aleat[1:39]]]
+
+# separamos los datos que nos servirán para probar el algoritmo
+x_prueba = [caracteristicas[vino_1_aleat[40:end],:]; caracteristicas[vino_2_aleat[40:end],:]; caracteristicas[vino_3_aleat[40:end],:]]
+y_prueba = [tipo_de_vino[vino_1_aleat[40:end]]; tipo_de_vino[vino_2_aleat[40:end]]; tipo_de_vino[vino_3_aleat[40:end]]];

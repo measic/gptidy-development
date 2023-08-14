@@ -1,5 +1,4 @@
-# print out the number of unique characters in the dataset
-chars = sorted(list(set(text)))
-print ("this corpus has " +  str(len(chars)) + " unique characters")
-print ('and these characters are ')
-print (chars)
+# use your function
+window_size = 100
+step_size = 5
+X,y = encode_io_pairs(text,window_size,step_size)

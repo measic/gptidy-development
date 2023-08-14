@@ -2,7 +2,7 @@ from scipy.special import logsumexp
 from scipy.special import expit
 import numpy as np
 
-def one_hot(a, num_classes):
+def function_def(a, num_classes):
     return np.eye(num_classes)[a.reshape(-1)]
 
 def mlp_logprob(x, W, b, V, a):
@@ -15,7 +15,7 @@ def mlp_logprob(x, W, b, V, a):
 def mlp_gradient(x, t, W, b, V, a):
     num_classes = len(b)
     ln_p, ln_q, ln_Z, h = mlp_logprob(x, W, b, V, a)
-    t_oh = one_hot(t, num_classes)
+    t_oh = function_def(t, num_classes)
     delta_q = t_oh - np.exp(ln_q) / np.exp(ln_Z)
     delta_h = np.matmul(delta_q, W.T)
     dL_db = delta_q
@@ -63,10 +63,10 @@ def func(w):
     logpt, grad_W, grad_b, grad_V, grad_a = mlp_gradient(x_train[0:1, :], t_train[0:1], w.reshape(20, 10), b, V, a)
     return logpt
 
-def function_def(w):
+def grad(w):
     logpt, grad_W, grad_b, grad_V, grad_a = mlp_gradient(x_train[0:1, :], t_train[0:1], w.reshape(20, 10), b, V, a)
     return grad_W.flatten()
-finite_diff_error = check_grad(func, function_def, W.flatten())
+finite_diff_error = check_grad(func, grad, W.flatten())
 print('Finite difference error grad_W:', finite_diff_error)
 assert finite_diff_error < 0.001, 'Your gradient computation for W seems off'
 
@@ -74,10 +74,10 @@ def func(b):
     logpt, grad_W, grad_b, grad_V, grad_a = mlp_gradient(x_train[0:1, :], t_train[0:1], W, b, V, a)
     return logpt
 
-def function_def(b):
+def grad(b):
     logpt, grad_W, grad_b, grad_V, grad_a = mlp_gradient(x_train[0:1, :], t_train[0:1], W, b, V, a)
     return grad_b.flatten()
-finite_diff_error = check_grad(func, function_def, b)
+finite_diff_error = check_grad(func, grad, b)
 print('Finite difference error grad_b:', finite_diff_error)
 assert finite_diff_error < 0.001, 'Your gradient computation for b seems off'
 
@@ -85,10 +85,10 @@ def func(v):
     logpt, grad_W, grad_b, grad_V, grad_a = mlp_gradient(x_train[0:1, :], t_train[0:1], W, b, v.reshape(28 * 28, 20), a)
     return logpt
 
-def function_def(v):
+def grad(v):
     logpt, grad_W, grad_b, grad_V, grad_a = mlp_gradient(x_train[0:1, :], t_train[0:1], W, b, v.reshape(28 * 28, 20), a)
     return grad_V.flatten()
-finite_diff_error = check_grad(func, function_def, V.flatten())
+finite_diff_error = check_grad(func, grad, V.flatten())
 print('Finite difference error grad_V:', finite_diff_error)
 assert finite_diff_error < 0.001, 'Your gradient computation for V seems off'
 
@@ -96,9 +96,9 @@ def func(a):
     logpt, grad_W, grad_b, grad_V, grad_a = mlp_gradient(x_train[0:1, :], t_train[0:1], W, b, V, a)
     return logpt
 
-def function_def(a):
+def grad(a):
     logpt, grad_W, grad_b, grad_V, grad_a = mlp_gradient(x_train[0:1, :], t_train[0:1], W, b, V, a)
     return grad_a.flatten()
-finite_diff_error = check_grad(func, function_def, a.flatten())
+finite_diff_error = check_grad(func, grad, a.flatten())
 print('Finite difference error grad_a:', finite_diff_error)
 assert finite_diff_error < 0.001, 'Your gradient computation for a seems off'

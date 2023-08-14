@@ -1,4 +1,5 @@
 with tf.Session() as sess:
+    init.run()
     saver.restore(sess, "./my_model_final.ckpt")
 
     for epoch in range(n_epochs):
@@ -7,4 +8,4 @@ with tf.Session() as sess:
         accuracy_val = accuracy.eval(feed_dict={X: X_valid, y: y_valid})
         print(epoch, "검증 세트 정확도:", accuracy_val)
 
-    save_path = saver.save(sess, "./my_new_model_final.ckpt")    
+    save_path = new_saver.save(sess, "./my_new_model_final.ckpt")

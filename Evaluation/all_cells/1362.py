@@ -1,1 +1,1 @@
-d4.loc['Colorado', 'two']
+d4.loc[['Colorado', 'Utah'], ['two', 'three']]

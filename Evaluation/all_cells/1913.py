@@ -1,20 +1,18 @@
-def return_cuckoo_filter_with_specified_load_factor(capacity, finger_print_size=2, load_factor=0.2):
-    c_filter = CuckooFilter(capacity, finger_print_size, bucket_size=2)
-    for i in range(int(capacity*6)):
-        try:
-            item = "".join(random.sample(string.ascii_lowercase, 12))
-            c_filter.add(item)
-        except Exception('CuckooFilter has filled up!'):
-            break
-            
-        if round(c_filter.get_load_factor(), 2) == round(load_factor, 2):
-            return c_filter, c_filter.get_load_factor()
-    raise ValueError
+timings_cuckoo_2 = sorted(timings_cuckoo.items()) #redundant variable, but doing this to make sure this cell can be rerun
+timings_bloom_2 = sorted(timings_bloom.items())
 
-def return_bloom_filter_with_specified_load_factor(capacity, percent_to_fill=0.2):
-    b_filter = CountingBloomFilter(capacity)
-    for i in range(int(percent_to_fill*capacity)):
-        item = "".join(random.sample(string.ascii_lowercase, 12))
-        b_filter.add(item)
+load_factors_emp = []
+cuckoo_times_array = []
+bloom_times_array = []
+
+for key, times in timings_cuckoo_2:
+    load_factors_emp.append(key)
+    current_y = [np.percentile(times, p) for p in (25, 50, 75)]
+    cuckoo_times_array.append(current_y)
     
-    return b_filter, percent_to_fill
+for key, times in timings_bloom_2:
+    current_y = [np.percentile(times, p) for p in (25, 50, 75)]
+    bloom_times_array.append(current_y)
+    
+cuckoo_times_array = np.asarray(cuckoo_times_array)
+bloom_times_array = np.asarray(bloom_times_array)

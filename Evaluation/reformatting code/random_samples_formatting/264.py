@@ -1,2 +1,5 @@
-df_sector = df.groupby(['MBO SECTOR']).sum()[['2013   AANT','2014   AANT','2015   AANT','2016   AANT','2017   AANT']]
-df_sector
+U = defaultdict(lambda: -1000.) # Very Large Negative Value for Comparison see below.
+for state_action, value in q_agent.Q.items():
+    state, action = state_action
+    if U[state] < value:
+                U[state] = value

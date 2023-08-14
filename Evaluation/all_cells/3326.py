@@ -1,1 +1,1 @@
-!cd bc-1.07.1; make CFLAGS="--coverage"
+!cd bc-1.07.1/bc; gcov main.c

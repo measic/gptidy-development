@@ -1,4 +1,3 @@
-x = np.array([[[[[[1],[2],[3]]]]]])
-print(f'1x.shape)
-print(np.squeeze(x).shape)
-visulize_array(np.squeeze(x),'np.squeeze(x)')
+__author__ = "Sreejith Sreekumar"
+__email__ = "sreekumar.s@husky.neu.edu"
+__version__ = "0.0.1"

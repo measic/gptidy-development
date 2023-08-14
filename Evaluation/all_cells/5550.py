@@ -1,1 +1,1 @@
-tweet_info_clean['id']=tweet_info_clean['id'].apply(str)
+twitter_archive_clean = pd.merge(left=twitter_archive_clean, right=tweet_info_clean, left_on='tweet_id', right_on='id', how='inner')

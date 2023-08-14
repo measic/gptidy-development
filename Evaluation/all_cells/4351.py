@@ -1,1 +1,3 @@
-ls
+import platform
+
+platform.platform()

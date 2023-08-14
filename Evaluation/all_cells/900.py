@@ -1,1 +1,1 @@
-df_totaalcategorie.plot.bar(figsize=(8,5.0),title='Aantal MBO 4 Afgestudeerden per Categorie')
+df_gt.plot.bar(figsize=(20,8.0),title='Aantal MBO 4 Afgestudeerden - Thuismarkt')

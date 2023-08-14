@@ -1,1 +1,1 @@
-data = data.load()
+stats

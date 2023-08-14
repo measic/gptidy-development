@@ -1,7 +1,1 @@
-from IPython.core.display import HTML
-
-
-def css_styling():
-    styles = open("../styles/custom.css", "r").read()
-    return HTML(styles)
-css_styling()
+four_x_cubed_plus_eleven_x_squared = [(4, 3), (11, 2)]

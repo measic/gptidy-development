@@ -1,17 +1,22 @@
-data = []
-for sem in semester_codes:
-    data.append(
-        go.Bar(
-            x=get_semester_asana(all_df, sem)['Overdue'].value_counts(normalize=True).keys().days,
-            y=get_semester_asana(all_df, sem)['Overdue'].value_counts(normalize=True).values,
-            name=semester_names[sem],
-            marker={ 'color': semester_colors[sem] }
-        )
-    )
+# concatenate all name fields from overdue tasks
+before_text = ' '.join(list(all_df[all_df['Overdue'].astype('timedelta64[D]') < 0]['Name'].dropna()))
+sameday_text = ' '.join(list(all_df[all_df['Overdue'].astype('timedelta64[D]') == 0]['Name'].dropna()))
+overdue_text = ' '.join(list(all_df[all_df['Overdue'].astype('timedelta64[D]') > 0]['Name'].dropna()))
 
-layout = go.Layout(
-    barmode='group'
-)
+before_wordcloud = generate_wordcloud(before_text)
+sameday_wordcloud = generate_wordcloud(sameday_text)
+overdue_wordcloud = generate_wordcloud(overdue_text)
 
-fig = go.Figure(data=data, layout=layout)
-iplot(fig, filename='grouped-bar')
+# display wordclouds using matplotlib
+f, axes = plt.subplots(2, 2, sharex=True)
+f.set_size_inches(18, 10)
+axes[0, 0].imshow(before_wordcloud, interpolation="bilinear")
+axes[0, 0].set_title('Completed Before', fontsize=36)
+axes[0, 0].axis("off")
+axes[0, 1].imshow(sameday_wordcloud, interpolation="bilinear")
+axes[0, 1].set_title('Completed Same Day', fontsize=36)
+axes[0, 1].axis("off")
+axes[1, 0].imshow(overdue_wordcloud, interpolation="bilinear")
+axes[1, 0].set_title('Overdue', fontsize=36)
+axes[1, 0].axis("off")
+axes[1, 1].axis("off")

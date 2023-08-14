@@ -1,16 +1,14 @@
 with tf.Session() as sess:
-    sess.run(tf.global_variables_initializer())
-    for i in range(1000):
-        sess.run(train, feed_dict={input_layer : x0.T})
-        if i % 100 == 0:
-            results = sess.run([xs, us, loss], feed_dict={input_layer : x0.T})
-            labels  = "xs us loss".split(' ')
-            print('training iteration', i)
-            for label,result in zip(*(labels,results)) :
-                print(label)
-                print(result)
-                print('')
-            print('gradients')
-            for g, v in grads_and_vars:
-                print(str(sess.run(g, feed_dict={input_layer : x0.T})) + " - " + v.name)
-            print('----------------------')
+    A_np, B_np, Q_np, R_np = sess.run([A, B, Q, R])
+
+K, P, eig = controlpy.synthesis.controller_lqr_discrete_time(A_np, B_np, Q_np, R_np)
+x_np = x0
+u_np = (-K@x_np)
+xs_np, us_np = np.array(x_np), np.array(u_np)
+loss_np = 0
+for i in range(T):
+    loss_np += x_np.T@Q_np@x_np + u_np.T*R_np*u_np
+    x_np = A_np@x_np + B_np@u_np
+    u_np = (-K@x_np)
+    xs_np = np.hstack([xs_np, x_np])
+    us_np = np.hstack([us_np, u_np])

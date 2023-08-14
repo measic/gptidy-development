@@ -1,10 +1,12 @@
 # get unused data using vulture
 import subprocess
 
-def get_unused_data(NUM_FILES, SAMPLES_FOLDER_NAME, condition):
+def get_unused_data(NUM_FILES, SAMPLES_FOLDER_NAME, condition, failed_ids):
     unused = [[] for _ in range(NUM_FILES)]
 
     for i in range(NUM_FILES):
+        if i in failed_ids:
+            continue
         file_name = f'{SAMPLES_FOLDER_NAME}/{i}.py'
 
         # Run on each files

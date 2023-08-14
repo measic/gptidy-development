@@ -1,38 +1,11 @@
-class MyVectorizer(BaseEstimator, TransformerMixin):
+#Set the pipelines for categorical variables
+discrete_pipe_dog = Pipeline(steps=[('Vectorizer', MyVectorizer(cols=discrete['dog'], hashing=None))])
+discrete_pipe_cat = Pipeline(steps=[('Vectorizer', MyVectorizer(cols=discrete['cat'], hashing=None))])
 
-    def __init__(self, cols, hashing=None):
-        """
-        args:
-            cols: a list of column names of the categorical variables
-            hashing: 
-                If None, then vectorization is a simple one-hot-encoding.
-                If an integer, then hashing is the number of features in the output.
-        """
-        self.cols = cols
-        self.hashing = hashing
-        
-    def fit(self, X, y=None):
+#Set the pipelines for continuous variables
+continuous_pipe_cat = Pipeline(steps=[('Scale', MyScaler(continuous['cat']))])
+continuous_pipe_dog = Pipeline(steps=[('Scale', MyScaler(continuous['dog']))])
 
-        data = X[self.cols]
-        
-        # Choose a vectorizer
-        if self.hashing is None:
-            self.myvec = DictVectorizer(sparse=False)
-        else:
-            self.myvec = FeatureHasher(n_features = self.hashing)
-    
-        self.myvec.fit(X[self.cols].to_dict(orient='records'))
-        return self
-            
-    def transform(self, X):
-            
-        # Vectorize Input
-        if self.hashing is None:
-            return pd.DataFrame(
-                self.myvec.transform(X[self.cols].to_dict(orient='records')),
-                columns = self.myvec.feature_names_
-            )
-        else:
-            return pd.DataFrame(
-                self.myvec.transform(X[self.cols].to_dict(orient='records')).toarray()
-            )
+#Bring the discrete and continuous pipelines together for cats and dogs
+union_dog = FeatureUnion([('Discrete', discrete_pipe_dog), ('Continuous', continuous_pipe_dog)])
+union_cat = FeatureUnion([('Discrete', discrete_pipe_cat), ('Continuous', continuous_pipe_cat)])

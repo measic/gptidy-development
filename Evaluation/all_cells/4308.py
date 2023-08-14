@@ -1,4 +1,3 @@
-firstClassRate = (dfTitanic.loc[(dfTiDirt["Survived"] == 1) & (dfTitanic["Pclass"] == 1), ["Survived"]].count() / dfTitanic.loc[dfTitanic["Pclass"] == 1, ["Survived"]].count())
-secondClassRate = (dfTitanic.loc[(dfTiDirt["Survived"] == 1) & (dfTitanic["Pclass"] == 2), ["Survived"]].count() / dfTitanic.loc[dfTitanic["Pclass"] == 2, ["Survived"]].count())
-thirdClassRate = (dfTitanic.loc[(dfTiDirt["Survived"] == 1) & (dfTitanic["Pclass"] == 3), ["Survived"]].count() / dfTitanic.loc[dfTitanic["Pclass"] == 3, ["Survived"]].count())
-print("First Class Fraction: {0:.4f}\nSecond Class Fraction: {1:.4f}\nThird Class Fraction: {2:.4f}".format(firstClassRate["Survived"], secondClassRate["Survived"], thirdClassRate["Survived"]))
+fig, ax = plt.subplots(figsize=(8,4))
+dfTitanic.hist(column="Age", ax=ax);
+print(dfTitanic["Age"].describe())

@@ -1,4 +1,4 @@
-yellow_output = 'yellow.mp4'
-clip2 = VideoFileClip('solidYellowLeft.mp4')
-yellow_clip = clip2.fl_image(process_image)
-%time yellow_clip.write_videofile(yellow_output, audio=False)
+challenge_output = 'extra.mp4'
+clip2 = VideoFileClip('challenge.mp4')
+challenge_clip = clip2.fl_image(process_image)
+%time challenge_clip.write_videofile(challenge_output, audio=False)

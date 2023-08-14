@@ -1,17 +1,29 @@
-def sgd_iter(x_train, t_train, W, b):
+def test_sgd(x_train, t_train, x_valid, t_valid, w, b):
+    Lts = []
+    Lvs = []
+    epsilon = 1e-2
+    while (len(Lts) < 2 or abs(Lts[-1] - Lts[-2]) > epsilon) and len(Lts) < 25:
+        L_train, w, b = sgd_iter(x_train, t_train, w, b)
+        
+        logp = []
+        for x, t in zip(x_valid, t_valid):
+            _, _, logp_valid = logprob(x, w, b)
+            logp.append(logp_valid[t])
+
+        L_valid = np.array(logp).mean()
+        
+        Lts.append(L_train)
+        Lvs.append(L_valid)
+        
+    x = np.arange(len(Lts))
+    plt.plot(x, Lts, label = "L_train")
+    plt.plot(x, Lvs, label = "L_validation")
+    plt.legend()
+    plt.show()
     
-    #every day I am shufflin`
-    indices = np.arange(len(x_train))
-    np.random.shuffle(indices)
-    lr = 1e-4
-    
-    logp = np.zeros(len(x_train))
-    for i in indices:
-        x = x_train[i:i+1]
-        t = t_train[i]
-        logp[i], grad_w, grad_b = logreg_gradient(x, t, W, b)
-        W = W + lr*grad_w #grad ascent
-        b = b + lr*grad_b
-    
-    logp_train = logp.mean()
-    return logp_train, W, b
+    return w, b
+        
+np.random.seed(1243)
+w = np.zeros((28*28, 10))
+b = np.zeros(10)
+w,b = test_sgd(x_train, t_train, x_valid, t_valid, w, b)

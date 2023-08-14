@@ -1,2 +1,5 @@
-gig_bet_graph = coauthor_graph.subgraph(gig_comp - set(disting_bet.keys()))
-gig_degree_graph = coauthor_graph.subgraph(gig_comp - set(disting_degree.keys()))
+ax = sns.barplot(x=0,y=1,hue=2, data=degree_df)
+ax.set_xlabel('Grado de nodo')
+ax.set_ylabel('Cantidad de nodos con ese grado')
+ax.set_title('Analisis sacando 2% distinguido')
+plt.show()

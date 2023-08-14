@@ -1,1 +1,1 @@
-mutation_fuzzer.fuzz()
+from Fuzzer import Runner

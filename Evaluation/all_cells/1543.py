@@ -1,1 +1,1 @@
-data
+stats = stats.dropna(how='all')

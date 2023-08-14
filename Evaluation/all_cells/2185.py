@@ -1,3 +1,3 @@
-n = 3
-v = vandermonde(Partition([2,1]))
-v
+V_iso = IsotypicComponent(V, n)
+for value in V_iso.values():
+    show(value.basis())

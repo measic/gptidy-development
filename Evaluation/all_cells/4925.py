@@ -1,28 +1,22 @@
-figsize(12.5, 10)
+figsize(12.5, 4)
 
-#histogram of posteriors
+import scipy.stats as stats
+binomial = stats.binom
 
-ax = plt.subplot(311)
+parameters = [(10, .4), (10, .9)]
+colors = ["#348ABD", "#A60628"]
 
-plt.xlim(0, .1)
-plt.hist(p_A_samples, histtype='stepfilled', bins=25, alpha=0.85,
-         label="posterior of $p_A$", color="#A60628", normed=True)
-plt.vlines(true_p_A, 0, 80, linestyle="--", label="true $p_A$ (unknown)")
-plt.legend(loc="upper right")
-plt.title("Posterior distributions of $p_A$, $p_B$, and delta unknowns")
+for i in range(2):
+    N, p = parameters[i]
+    _x = np.arange(N + 1)
+    plt.bar(_x - 0.5, binomial.pmf(_x, N, p), color=colors[i],
+            edgecolor=colors[i],
+            alpha=0.6,
+            label="$N$: %d, $p$: %.1f" % (N, p),
+            linewidth=3)
 
-ax = plt.subplot(312)
-
-plt.xlim(0, .1)
-plt.hist(p_B_samples, histtype='stepfilled', bins=25, alpha=0.85,
-         label="posterior of $p_B$", color="#467821", normed=True)
-plt.vlines(true_p_B, 0, 80, linestyle="--", label="true $p_B$ (unknown)")
-plt.legend(loc="upper right")
-
-ax = plt.subplot(313)
-plt.hist(delta_samples, histtype='stepfilled', bins=30, alpha=0.85,
-         label="posterior of delta", color="#7A68A6", normed=True)
-plt.vlines(true_p_A - true_p_B, 0, 60, linestyle="--",
-           label="true delta (unknown)")
-plt.vlines(0, 0, 60, color="black", alpha=0.2)
-plt.legend(loc="upper right");
+plt.legend(loc="upper left")
+plt.xlim(0, 10.5)
+plt.xlabel("$k$")
+plt.ylabel("$P(X = k)$")
+plt.title("Probability mass distributions of binomial random variables");

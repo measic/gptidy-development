@@ -1,2 +1,2 @@
-W1 = Subspace(generators=generator, operators=list_op, add_degrees=add_degree)
-W1.basis()
+x00, x01, x02 = v.parent().variables()[0]
+v.symmetric_derivative((1,))

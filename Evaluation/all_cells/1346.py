@@ -1,1 +1,1 @@
-fruits['apple']
+fruits.index

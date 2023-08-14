@@ -1,1 +1,13 @@
-model.sample (model.loglike_Einasto, model.prior_transform_Einasto, 'DMdataref2.txt',[10,10,10E10])
+# Set up.
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+from IPython.core.interactiveshell import InteractiveShell
+InteractiveShell.ast_node_interactivity = 'all'
+
+np.random.seed(42)
+
+%load_ext autoreload
+%autoreload 2

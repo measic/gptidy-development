@@ -1,8 +1,8 @@
-### Treino
-treinoSliceNome = treino['Nome'].str.split(',', expand=True)
-treino['Primeiro Nome']=treinoSliceNome[0]
-treinoNomeSlice = treinoSliceNome[1].str.split('.', expand=True,n=1)
-treinoComplemntoSlice = treinoNomeSlice[1].str.split('(', expand=True)
-treino['Saudação'] = treinoNomeSlice[0]
-treino['Sobrenome'] = treinoComplemntoSlice[0]
-treino['Complemento'] = treinoComplemntoSlice[1]
+### Teste
+testeSliceNome = teste['Nome'].str.split(',', expand=True)
+teste['Primeiro Nome']=testeSliceNome[0]
+testeNomeSlice = testeSliceNome[1].str.split('.', expand=True,n=1)
+testeComplemntoSlice = testeNomeSlice[1].str.split('(', expand=True)
+teste['Saudação'] = testeNomeSlice[0]
+teste['Sobrenome'] = testeComplemntoSlice[0]
+teste['Complemento'] = testeComplemntoSlice[1]

@@ -1,4 +1,5 @@
-posterior_probability = simulations.mean(axis=0)
-print("posterior prob of defect | realized defect ")
-for i in range(len(D)):
-    print("%.2f                     |   %d" % (posterior_probability[i], D[i]))
+from separation_plot import separation_plot
+
+
+figsize(11., 1.5)
+separation_plot(posterior_probability, D)

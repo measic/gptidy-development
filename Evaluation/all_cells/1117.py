@@ -1,1 +1,1 @@
-# gamma_final_mean.shape
+# plt.scatter(data[], results[:,3]);

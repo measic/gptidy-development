@@ -1,1 +1,1 @@
-pnicer_emap = ext_pnicer_discrete.build_map(bandwidth=5 / 60, metric="gaussian", sampling=2, use_fwhm=True)
+pnicer_emap.plot_map(figsize=10)

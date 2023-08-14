@@ -1,1 +1,1 @@
-melted_stats
+melted_stats['year'] = melted_stats.time.dt.year

@@ -1,1 +1,1 @@
-act_val_all.shape
+ps_gmm.best_params

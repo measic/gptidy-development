@@ -1,1 +1,1 @@
-intvl_len(interval([1, 2], [4, 5]))
+subtract_intvl(interval([1, 5], [8, 10]), interval([2, 3], [5, 9]))

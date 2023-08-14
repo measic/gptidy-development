@@ -1,56 +1,56 @@
-class EuropeanOption(object):
-    """ Abstract Class for European options. Partially implemented.
-    S0 : float : initial stock/index level
-    strike : float : strike price
-    T : float : time to maturity (in year fractions)
-    r : float : constant risk-free short rate
-    div :    float : dividend yield
-    sigma :  float : volatility factor in diffusion term
-    model: str: name of the model for the pricing"""
+class MonteCarlo(EuropeanOption):
 
-    __metaclass__ = ABCMeta
-
-    def __init__(self, option_type, S0, strike, T, r, div, sigma, model):
+    def __init__(self, simulations, option_type, S0, strike, T, r, div, sigma, 
+                 antithetic = True, 
+                 moment_matching = True, 
+                 fixed_seed = True):
+        EuropeanOption.__init__(self, option_type, S0, strike, T, r, div, sigma, "MonteCarlo")
         try:
-            self.option_type = option_type
-            assert isinstance(option_type, str)
-            self.S0 = float(S0)
-            self.strike = float(strike)
-            self.T = float(T)
-            self.r = float(r)
-            self.div = float(div)
-            self.sigma = float(sigma)
-            self.model = str(model)
-        except ValueError:
-            print('Error passing Options parameters')
-
-        models = ['BlackScholes', 'MonteCarlo', 
-                  'BinomialTree', 'TrinomialTree',
-                  'FFT', 'PDE']
-        
-        if model not in models:
-            raise Exception('Error: Model unknown')
-            
-        option_types = ['call', 'put']
-        
-        if option_type not in option_types:
-            raise ValueError("Error: Option type not valid. Enter 'call' or 'put'")
-        if S0 < 0 or strike < 0 or T <= 0 or r < 0 or div < 0 or sigma < 0:
-            raise ValueError('Error: Negative inputs not allowed')
-            
-        self.discount = np.exp(-self.r * self.T)
-
-    def getmodel(self):
-        return self.model
-
-    def __str__(self):
-        return "This European Option is priced using {0}".format(self.getmodel())
-
-    @abstractmethod
-    def value(self):
-        pass
+            self.antithetic = bool(antithetic)
+            self.moment_matching = bool(moment_matching)
+            self.fixed_seed = bool(fixed_seed)
+            if self.simulations > 0 :
+                self.simulations = int(simulations)
+            else:
+                raise ValueError("Simulation's number has to be positive integer")                    
+        except:
+            raise ValueError("Problem assigning types in MC arguments")
     
-    @abstractmethod
+    def simulation_terminal(self, seed = 1234567890):
+        if self.fixed_seed:
+            assert isinstance(seed, int)
+            np.random.seed(seed)
+        if self.antithetic: 
+            brownian = np.random.standard_normal(size = int(np.ceil(self.simulations/2.)))
+            brownian = np.concatenate((brownian, -brownian))
+        else:
+            brownian = np.random.standard_normal(size = self.simulations)
+        if self.moment_matching: 
+            brownian = brownian - np.mean(brownian)
+            brownian = brownian / np.std(brownian)
+            
+        price_terminal = self.S0 * np.exp((self.r - self.div - 0.5 * self.sigma ** 2) *
+                                          self.T +
+                                          self.sigma * np.sqrt(self.T) * brownian)
+        return price_terminal
+
+    def generate_payoffs(self):
+        price_terminal = self.simulation_terminal()
+        if self.option_type == 'call':
+            payoff = np.maximum((price_terminal - self.strike), 0)
+        else:
+            payoff = np.maximum((self.strike - price_terminal), 0)
+        return payoff
+
+    @property
+    def value(self):
+        payoff = self.generate_payoffs()
+        return self.discount * np.sum(payoff) / float(len(payoff))
+    
+    @property
     def delta(self):
-        pass
-        
+        value_terminal = np.array(self.simulation_terminal() / float(self.S0))
+        payoff = self.generate_payoffs()
+        delta = np.zeros(len(payoff))
+        delta[np.nonzero(payoff)] = value_terminal[np.nonzero(payoff)]
+        return self.discount * np.sum(delta) / float(len(payoff))

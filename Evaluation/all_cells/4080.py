@@ -1,1 +1,1 @@
-print "Camino minimo medio L para la componente gigante: " + str(nx.average_shortest_path_length(gig_comp_graph))
+print "Coeficiente de Clustering C para el grafo random con misma distribucion: " + str(nx.average_clustering(random_degree_graph))

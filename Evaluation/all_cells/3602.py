@@ -1,3 +1,1 @@
-# show available waterbodies
-lst = data_after_subset_filter.SEA_AREA_NAME.unique()
-print('Waterbodies in subset:\n{}'.format('\n'.join(lst)))
+f = lv_workspace.get_data_filter_object(step=1, subset='A') 

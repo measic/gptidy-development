@@ -1,5 +1,1 @@
-# encontrando los máximos valores de cada columna y sus indices
-v_max = findmax(v,1)
-
-# encontrando solo los índices
-v_max_ind = v_max[2] - range(0,117)'*3;
+### Escribe tu código aquí para llevar a cabo la evaluación del algoritmo con los datos prueba ###

@@ -1,14 +1,21 @@
-unique_datatypes = list(merged["data_type"].unique())
+# Store list of features relevant to dictionary
+merged_attributes = list(merged.columns)
+merged_attributes.remove("index")
 
-print("Unique datatypes in this dataset are: {}".format(unique_datatypes))
-
-if "float64" in unique_datatypes or "int64" in unique_datatypes:
+# Iterate through merged records
+for index in range(merged.shape[0]):
     
-    round_values = True
-    rounded_places = 4
+    # Store column name
+    column = merged.loc[index, "index"]
     
-    for column in ["mean", "std", "min", "25%", "50%", "75%", "max"]:
+    # Create empty list, to store sub dictionaries in
+    profile_dict[column] = []
+    
+    # For each attribute in merged_attributes list do this
+    for attr in merged_attributes:
         
-        merged[column] = merged[column].astype(float).round(rounded_places)
-else:
-    round_values = False
+        # Locate the value of the attribuet for a given record
+        value = merged.loc[index, attr]
+        
+        # Append dictionary to list within main dictionary
+        profile_dict[column].append({attr: value})

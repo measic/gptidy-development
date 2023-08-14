@@ -1,2 +1,7 @@
-#Sort the data along the time dimension
-PM25 = PM25.isel(time=np.argsort(PM25.time))
+import pandas as pd
+
+import plotly
+import plotly.plotly as py
+import plotly.graph_objs as go
+
+plotly.tools.set_credentials_file(username='srjit', api_key='lpKtXjzR7LBaqHwlxFQp')

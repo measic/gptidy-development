@@ -1,35 +1,23 @@
-reset_graph()
+import numpy as np
 
-n_inputs = 28 * 28  # MNIST
-n_hidden1 = 300 # 재사용
-n_hidden2 = 50  # 재사용
-n_hidden3 = 50  # 재사용
-n_hidden4 = 20  # 새로 만듦!
-n_outputs = 10  # 새로 만듦!
+n_batches = len(X_train) // batch_size
 
-X = tf.placeholder(tf.float32, shape=(None, n_inputs), name="X")
-y = tf.placeholder(tf.int32, shape=(None), name="y")
+with tf.Session() as sess:
+    init.run()
+    restore_saver.restore(sess, "./my_model_final.ckpt")
+    
+    h2_cache = sess.run(hidden2, feed_dict={X: X_train})
+    h2_cache_valid = sess.run(hidden2, feed_dict={X: X_valid}) # 책에는 없음
 
-with tf.name_scope("dnn"):
-    hidden1 = tf.layers.dense(X, n_hidden1, activation=tf.nn.relu,
-                              name="hidden1") # 동결층 재사용
-    hidden2 = tf.layers.dense(hidden1, n_hidden2, activation=tf.nn.relu,
-                              name="hidden2") # 동결층 재사용 & 캐싱
-    hidden2_stop = tf.stop_gradient(hidden2)
-    hidden3 = tf.layers.dense(hidden2_stop, n_hidden3, activation=tf.nn.relu,
-                              name="hidden3") # 동결하지 않고 재사용
-    hidden4 = tf.layers.dense(hidden3, n_hidden4, activation=tf.nn.relu,
-                              name="hidden4") # 새로 만듦!
-    logits = tf.layers.dense(hidden4, n_outputs, name="outputs") # 새로 만듦!
+    for epoch in range(n_epochs):
+        shuffled_idx = np.random.permutation(len(X_train))
+        hidden2_batches = np.array_split(h2_cache[shuffled_idx], n_batches)
+        y_batches = np.array_split(y_train[shuffled_idx], n_batches)
+        for hidden2_batch, y_batch in zip(hidden2_batches, y_batches):
+            sess.run(training_op, feed_dict={hidden2:hidden2_batch, y:y_batch})
 
-with tf.name_scope("loss"):
-    xentropy = tf.nn.sparse_softmax_cross_entropy_with_logits(labels=y, logits=logits)
-    loss = tf.reduce_mean(xentropy, name="loss")
+        accuracy_val = accuracy.eval(feed_dict={hidden2: h2_cache_valid, # 책에는 없음
+                                                y: y_valid})             # 책에는 없음
+        print(epoch, "검증 세트 정확도:", accuracy_val)                      # 책에는 없음
 
-with tf.name_scope("eval"):
-    correct = tf.nn.in_top_k(logits, y, 1)
-    accuracy = tf.reduce_mean(tf.cast(correct, tf.float32), name="accuracy")
-
-with tf.name_scope("train"):
-    optimizer = tf.train.GradientDescentOptimizer(learning_rate)
-    training_op = optimizer.minimize(loss)
+    save_path = saver.save(sess, "./my_new_model_final.ckpt")

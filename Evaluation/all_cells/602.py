@@ -1,27 +1,59 @@
-def friction (vi, vf, F0):
+def blockMotionVaryingMasses (t, blockPositions, vBlock, i, blockNum, kp, kc, mass, F0, v0, vf):
     """
-    Returns the friction of the bottom plate against blocks moving at a specific velocity
+    Returns the differential equation that models the motion of the blocks
     
-    Arguments:  vi - initial velocity of the block
-                vf - final velocity of the block
+    Arguments:  t - time
+                blockPositions - the positions of the blocks
+                vBlock - the velocity of the block
+                i - the index of the current block
+                blockNum - the number of blocks
+                kp - spring constant of leaf springs
+                kc - spring constant of springs between blocks
+                mass - masses of individual blocks
                 F0 - the static friction force
-    
-    Returned: The force due to friction
+                v0 - initial velocity of top plate
+                vf - the friction coefficient
+                
+    Returned: The differential equation modeling the motion of the individual blocks
     
     Examples:
     
-    >>> friction (0, 1, 20)
-    -20.0
+    >>> blockMotion (0, (0, 1, 2, 3, 4), 0, 2, 5, 0, 0, 1, 0, 1, 20)
+    array([ 0.,  0.])
     
-    >>> friction (1, 1, 20)
-    -10.0
     """
-    # Calculates sign of vi
-    if vi == 0:
-        sign = 1
-        
+    # Sets position and velocity of the block
+    xi = blockPositions[i] - i
+    vi = vBlock
+    mi = mass[i]
+    
+    # Block motion for the first block, connected to a block one distance unit away
+    if i == 0:
+        xiP = blockPositions[i + 1] - (i + 1)
+        springForce = kc*(xiP - xi) + kp * (v0 * t - xi)
+    
+    # Block motion for the last block, connected to a block one distance unit away
+    elif i == blockNum - 1:
+        xiM = blockPositions[i - 1] - (i - 1)
+        springForce = kc*(xiM - xi) + kp * (v0 * t - xi)
+   
+    # Block motion for all the middle blocks, connected to their neighbors
     else:
-        sign = vi / abs(vi)
+        xiM = blockPositions[i - 1] - (i - 1)
+        xiP = blockPositions[i + 1] - (i + 1)
+        springForce = kc*(xiP + xiM - 2 * xi) + kp * (v0 * t - xi)
+    
+    frictionForce = friction (vi, vf, F0)
+    
+    # If spring force is large enough to overpower friction, change velocity
+    if abs(springForce) <= abs(frictionForce):
+        dv = -vi
+        vi = 0
+        dx = vi
+    
+    else: 
+        totalForce = (springForce + frictionForce) / mi
+        dx = vi
+        dv = totalForce
         
-    force = -((F0) * sign / (1 + abs(vi/vf)))
-    return force
+    return np.array([dx, dv], float)

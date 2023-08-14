@@ -1,4 +1,4 @@
-def get_df_cols(csvfilename, cols, separator):
+def function_def(csvfilename, cols, separator):
     """
   Method to get a dataframe from a csv file with specified columns
   
@@ -37,7 +37,7 @@ def get_airports_arrival_sorted(dataframe):
     result_dataframe = result_dataframe.sort_values(by=['pax'], ascending=False)
     return result_dataframe
 
-def function_def(dataframe):
+def add_airports_name(dataframe):
     """
   Method to add a column in a dataframe containing the full name of airports
   thanks to the IATA CODE
@@ -58,5 +58,5 @@ def print_top_n_arrival_airport(dataframe, n):
   @n         : the number of airports to show
   """
     df = get_airports_arrival_sorted(dataframe)
-    df = function_def(df)
+    df = add_airports_name(df)
     print(df.head(n))

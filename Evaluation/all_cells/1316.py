@@ -1,1 +1,2 @@
-import requests
+import locale
+locale.getpreferredencoding(False)

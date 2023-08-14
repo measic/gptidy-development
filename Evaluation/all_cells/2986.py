@@ -1,1 +1,22 @@
-(model.input_shape, model.output_shape)
+# define model
+model = Sequential()
+# model.add(Masking(mask_value=-1, input_shape=(1,)))
+# model.add(LSTM(n_neurons, input_shape=(msig.window_size, 1), return_sequences=True))
+# model.add(LSTM(n_neurons, input_shape=self.input_shape, return_sequences=False, dropout=0.5))
+# model.add(LSTM(n_neurons, input_shape=(2, 1)))
+# model.add(LSTM(n_neurons, input_shape=(window_size, 2)))
+model.add(LSTM(n_neurons, batch_input_shape=(batch_size, window_size, 1), stateful=stateful, return_sequences=True))
+# model.add(LSTM(n_neurons, batch_input_shape=(window_size, 1, 1), stateful=stateful, return_sequences=True))
+# model.add(LSTM(n_neurons, batch_input_shape=(window_size, 1, 1), stateful=stateful))
+model.add(LSTM(n_neurons, stateful=stateful, return_sequences=True))
+# model.add(LSTM(n_neurons))
+# for _ in range(n_layers):
+#     model.add(LSTM(n_neurons, stateful=stateful, return_sequences=True))
+# model.add(LSTM(n_neurons, stateful=stateful))
+# model.add(Dense(n_classes, activation='softmax'))
+# model.add(Dropout(0.5))
+# model.add(Reshape((n_neurons, n_classes, 1)))
+model.add(TimeDistributed(Dense(n_classes, activation='softmax')))
+
+model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
+model.summary()

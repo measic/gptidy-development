@@ -1,1 +1,2 @@
-four_x_squared_plus_four_x_minus_ten = [(4, 2), (4, 1), (-10, 0)]
+def term_output(term, input_value):
+    pass

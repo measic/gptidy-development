@@ -1,4 +1,1 @@
-import pandas as pd
-import numpy as np
-import matplotlib.pylab as plt
-%matplotlib inline
+dfTitanic = dfTiDirt.dropna(subset=["Survived", "Pclass", "Age", "Sex"]).copy()

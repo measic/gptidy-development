@@ -1,1 +1,1 @@
-p.plot(["BessellB"])
+sn.load_mangledspec()

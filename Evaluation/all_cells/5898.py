@@ -1,1 +1,2 @@
-# Hidden tests for efficiency
+# DO NOT REMOVE THIS CELL!
+# It contains hidden tests

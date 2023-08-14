@@ -1,2 +1,1 @@
-### Não.
-uniao.loc[(uniao['Cabine']=='B28')]
+uniao.loc[(uniao['PassagemPreco'].isnull())]

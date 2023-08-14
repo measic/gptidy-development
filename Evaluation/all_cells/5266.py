@@ -1,11 +1,18 @@
-with tf.name_scope("dnn"):
-    hidden1 = tf.layers.dense(X, n_hidden1, activation=tf.nn.relu,
-                              name="hidden1") # 동결층 재사용
-    hidden2 = tf.layers.dense(hidden1, n_hidden2, activation=tf.nn.relu,
-                              name="hidden2") # 동결층 재사용
-    hidden2_stop = tf.stop_gradient(hidden2)
-    hidden3 = tf.layers.dense(hidden2_stop, n_hidden3, activation=tf.nn.relu,
-                              name="hidden3") # 동결하지 않고 재사용
-    hidden4 = tf.layers.dense(hidden3, n_hidden4, activation=tf.nn.relu,
-                              name="hidden4") # 새로 만듦!
-    logits = tf.layers.dense(hidden4, n_outputs, name="outputs") # 새로 만듦!
+reuse_vars = tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES,
+                               scope="hidden[123]") # 정규 표현식
+restore_saver = tf.train.Saver(reuse_vars) # 1-3층 복원
+
+init = tf.global_variables_initializer()
+saver = tf.train.Saver()
+
+with tf.Session() as sess:
+    init.run()
+    restore_saver.restore(sess, "./my_model_final.ckpt")
+
+    for epoch in range(n_epochs):
+        for X_batch, y_batch in shuffle_batch(X_train, y_train, batch_size):
+            sess.run(training_op, feed_dict={X: X_batch, y: y_batch})
+        accuracy_val = accuracy.eval(feed_dict={X: X_valid, y: y_valid})
+        print(epoch, "검증 세트 정확도:", accuracy_val)
+
+    save_path = saver.save(sess, "./my_new_model_final.ckpt")

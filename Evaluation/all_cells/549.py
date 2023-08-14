@@ -1,11 +1,10 @@
-# Set file characteristics
-runNum = "003"
-
-# Initialize storage        
-# Plot each PSD
 for detNum, detName in detNames.iteritems():
-    gROOT.ProcessLine('TFile *AmBe{0} = new TFile("AmBe_{1}_ls_{0}.root","update")'.format(detNum,runNum))
-    #gROOT.ProcessLine('eventTree->Draw("(m_amplitude-m_shape)/m_shape:m_shape>>(1250,0,35000,1024,0,1)","","colz")')
-    
-    gROOT.ProcessLine('TFile *{0} = new TFile("CalibData_{1}.root","recreate")'.format(detName, detNum))
+    gROOT.ProcessLine('AmBe{}->cd()'.format(detNum))
+    gROOT.ProcessLine('eventTree->Draw("m_amplitude>>AmBeGamma(1250,0,35000)","(m_amplitude-m_shape)/m_shape<{}")'.format(cutPt[detNum]))
+    gROOT.ProcessLine('TH1F* AmBeData{0} = (TH1F*) AmBe{0}->Get("AmBeGamma")'.format(detNum))
+    gROOT.ProcessLine('AmBe{0}->Write()'.format(detNum))
     pause()
+    
+    gROOT.ProcessLine('{0}->cd()'.format(detName))
+    gROOT.ProcessLine('AmBeData{}->Write()'.format(detNum))
+    gROOT.ProcessLine('AmBe{}->Close()'.format(detNum))

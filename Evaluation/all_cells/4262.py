@@ -1,2 +1,2 @@
-# Display a description of the dataset
-display(data.describe())
+# Check if the samples vary significantly
+display(samples - data.mean().round())

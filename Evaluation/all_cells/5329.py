@@ -1,2 +1,1 @@
-### Tu código aquí para calcular la matriz v ###
-v = 
+print("La precisión del algoritmo con los datos de entrenamiento fue: ", sum(v_max_ind .== y_entren')/length(y_entren))

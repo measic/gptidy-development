@@ -1,4 +1,6 @@
-# Download the Inception model once and reuse it (set the flag and clobber it each time).
-if force_inception_download and os.path.isdir(model_dir):    
-    shutil.rmtree(model_dir)
-retrain.maybe_download_and_extract()
+A = np.array([[54, 14, -11, 2], 
+              [14, 50, -4, 29],
+              [-11, -4, 55, 22],
+              [2, 29, 22, 95]]
+            )
+b = np.array([1, 1, 1, 1])

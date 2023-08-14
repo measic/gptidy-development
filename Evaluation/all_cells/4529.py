@@ -1,3 +1,5 @@
-# we can access an element in greeting
-greeting = "HelloWorld!"
-print( greeting[0] )
+# example above
+a = 3
+b = a
+print(hex(id(a)))
+print(hex(id(b)))

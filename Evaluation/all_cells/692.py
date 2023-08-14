@@ -1,44 +1,29 @@
-# Utilizaremos a variável losses para armazenar os custos ao longo do treinamento.
-losses = []
+# Para não deixar o gráfico visualmente poluido, faremos o plot apenas
+# dos dados de 4 usuários.
+plot_points_31D = {"s005":[], "s010":[], "s011":[], "s016":[]}
+plot_points_2D = {"s005":[], "s010":[], "s011":[], "s016":[]}
+for i, point in enumerate(norm_keystrokes):
+    if recordings[i][0] in vis_users:
+        plot_points_31D[recordings[i][0]].append(point)
 
-# min_loss guardará o custo do melhor conjunto de pesos até agora.
-# Utilizaremos isso para decidir quando salvarmos os pesos.
-min_loss = float("inf")
-
-#Inicializamos uma sessao do tensorflow para podermos utilizar as variáveis criadas
-# anteriormente.
+# Novamente, para acessar os valores das variáveis do tensorflow,
+# precisamos iniciar uma Session.
 with tf.Session() as sess:
+    # Restaura os pesos relativos ao menor custo encontrado durante o treinamento.
+    # Isso garante que estamos usando o melhor conjunto de pesos encontrados e não
+    # o último.
+    saver.restore(sess, "./weights_autoencoder_no_final_relu/model_e99b118_1516716900.9840117.ckpt")
+    print("Model restored.")
     
-    # Essa função efetivamente chama a inicialização das variáveis criadas.
-    # As inicializa de acordo com as especificações na declaração.
-    sess.run(tf.global_variables_initializer())
-    
-    # Vamos treinar a rede por 100 épocas.
-    # Cada época é uma passagem completa pelo conjunto de treino.
-    for epoch in range(100):
-        # Como o conjunto de treino é composto de 20000 exemplos, faremos o
-        # treinamento em 200 batches de tamanho 100 cada um.
-        for i in range(200):
-            
-            # Utilizamos nossa função para pegar o próximo batch
-            batch = next_batch(100, i)
-            
-            # Atualizamos os pesos da rede ao executar train_step.
-            # Em seguida pegamos o valor de custo atual para
-            # armazenamento e comparação futura.
-            _, current_loss = sess.run([train_step, loss], feed_dict={x:batch})
-            
-            # Armazenamos a loss desse batch
-            losses.append(current_loss)
+    # Para cada usuário, armazena as coordenadas em 2D de cada ponto seu.
+    for user in plot_points_31D:
+        points_31D = np.array(plot_points_31D[user])
+        points_2D = sess.run(embedding_2D, feed_dict={x:points_31D})
+        plot_points_2D[user] = points_2D
 
-            print("Ep {}: Batch #{} - Loss: {}".format(epoch, i, losses[-1]))
-            
-            # Caso o custo atual seja menor que a menor até então, encontramos 
-            # pesos melhores para a rede, e portanto devemos salvá-los
-            if losses[-1] < min_loss:
-                # Atualizamos o valor do melhor custo 
-                min_loss = losses[-1]
-                
-                # Salvamos os pesos da rede em um arquivo
-                save_path = saver.save(sess, "./weights_autoencoder_no_final_relu/model_e{}b{}_{}.ckpt".format(epoch, i, time.time()))
-                print("Model saved in file: %s" % save_path)
+# Configura parâmetros do gráfico e o desenha na tela.
+plt.figure(figsize=(10,10))
+for user in plot_points_2D:
+    plt.scatter(plot_points_2D[user][:,0], plot_points_2D[user][:,1], c=colors[user])
+plt.title("Dados de digitação dos usuários {} (Autoencoder)".format(", ".join(vis_users)))
+plt.show()

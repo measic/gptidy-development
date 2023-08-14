@@ -1,2 +1,2 @@
-def term_output(term, input_value):
+def output_at(list_of_terms, x_value):
     pass

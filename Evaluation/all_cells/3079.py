@@ -1,6 +1,9 @@
-print('KNN R-squared: ' + str(knn_grid_score))
-print('Decision Tree R-squared: ' + str(dt_grid_score))
-print('KNN Mean Absolute Error: ' + str(knn_mae))
-print('Decision Tree Mean Absolute Error: ' + str(dt_mae))
-print('KNN Explained Variance Score: ' + str(knn_evs))
-print('Decision Explained Variance Score: ' + str(dt_evs))
+import matplotlib.pyplot as plt
+
+plt.scatter(dt_grid.predict(test_features), test_outcome, alpha=0.5, label='DecisionTree')
+plt.scatter(knn_grid.predict(test_features), test_outcome, alpha=0.5, label='KNN')
+plt.plot(test_outcome, test_outcome, label='y=x', c='green', alpha=0.2)
+plt.legend()
+plt.ylabel('Actual Delay')
+plt.xlabel('Predicted Delay')
+plt.title('Predicted v.s. Actual Delay')

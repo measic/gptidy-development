@@ -1,4 +1,4 @@
-def function_def(loglike_model, prior_transform_model, datafile, priorRange):
+def sample_withplot(loglike_model, prior_transform_model, datafile, priorRange):
     data_file = io.get_data_file_path(datafile)
     data_x, data_xerr, data_y, data_yerr = io.load_data(data_file)
     n = len(priorRange)
@@ -6,9 +6,9 @@ def function_def(loglike_model, prior_transform_model, datafile, priorRange):
     def new_loglike_model(theta):
         return loglike_model(theta, (data_x, data_xerr, data_y, data_yerr))
 
-    def new_prior_transform_model(theta):
+    def function_def(theta):
         return prior_transform_model(theta, priorRange)
-    result = nestle.sample(new_loglike_model, new_prior_transform_model, n)
+    result = nestle.sample(new_loglike_model, function_def, n)
     print('log evidence')
     print(result.logz)
     print('numerical (sampling) error on logz')

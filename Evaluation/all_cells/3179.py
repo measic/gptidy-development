@@ -1,8 +1,4 @@
-print(1)
-print(1*1)
-print(2)
-print(2*2)
-print(5)
-print(5*5)
-print(9)
-print(9*9)
+myVariable = 0
+
+for number in [1,2,5,9]:
+    myVariable = myVariable + number

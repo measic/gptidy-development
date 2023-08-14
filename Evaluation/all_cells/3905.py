@@ -1,3 +1,6 @@
-# GLOBAL VARIABLES
-BOOKINGS = '/content/gdrive/My Drive/Colab Notebooks/bookings.csv'
-GEO_O = GeoBase(data='ori_por', verbose=False)
+#PRINT THE TOP TEN
+cols = ["arr_port","pax"]
+
+dataframe = get_df_cols(BOOKINGS,cols,'^')
+
+print_top_n_arrival_airport(dataframe,10)

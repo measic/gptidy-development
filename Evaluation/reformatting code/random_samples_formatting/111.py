@@ -1,48 +1,66 @@
-# A function to do data manipulation
+# This cell makes sure that you have all the necessary libraries installed
 
-transform_data <- function(df ,   # data frame 
-                           a = Conf_alpha ,   # confidence level
-                           a_0 = alpha_0, b_0= beta_0 # Beta prior parameter
-                          ) {
-    num_tests = length(unique(df$Test_group))-1 
+import sys
+import platform
+from importlib.util import find_spec, module_from_spec
+
+def check_newer_version(version_inst, version_nec):
+    version_inst_split = version_inst.split('.')
+    version_nec_split = version_nec.split('.')
+    for i in range(min(len(version_inst_split), len(version_nec_split))):
+        if int(version_nec_split[i]) > int(version_inst_split[i]):
+            return False
+        elif int(version_nec_split[i]) < int(version_inst_split[i]):
+            return True
+    return True
+        
     
-    result= data.frame()
-    for (k in 0:num_tests){
-        df_k = df[ df$Test_group == k, ]
-        data = as.data.frame.matrix( table(df_k$Date, df_k$Convert))
-        data[,1] = data[,1] + data[,2]   # change the first column from not convert to total counts
-        
-        Date = rownames(data)   #  row name to Date 
-        Day = as.numeric( as.Date(Date) - min(as.Date(Date)) +1)  # Compute date from start
-        data = cbind(Date, Day, k, data) # add to data
-        rownames(data) <- NULL
-        colnames(data) <- c("Date", "Day", "Test_group", "Total", "Convert")
+module_list = [('jupyter', '1.0.0'), 
+               ('matplotlib', '2.0.2'), 
+               ('numpy', '1.13.1'), 
+               ('python', '3.6.2'), 
+               ('sklearn', '0.19.0'), 
+               ('scipy', '0.19.1'), 
+               ('nb_conda', '2.2.1')]
 
-        # calculate the cumulated clicked and cumulated converted
-        data$Cum_Total  = cumsum(data$Total)
-        data$Cum_Convert = cumsum(data$Convert)
-        data$CRate  =  data$Cum_Convert/ data$Cum_Total 
+packages_correct = True
+packages_errors = []
 
-        ## Upper and lower limit of frequentist confidence interval
-        data$Conf_LL =  data$CRate - qnorm(1-a/2, mean = 0, sd = 1) * sqrt( data$CRate*(1-data$CRate)/data$Cum_Total  )
-        data$Conf_UL =  data$CRate + qnorm(1-a/2, mean = 0, sd = 1) * sqrt( data$CRate*(1-data$CRate)/data$Cum_Total  )
-        data$Conf_LL = as.numeric(lapply(data$Conf_LL, function(x) max(0, x) ))
-        data$Conf_UL = as.numeric(lapply(data$Conf_UL, function(x) min(1, x) ))
-        
-        ## Summaries based on posterior probability 
-        post_alpha = a_0 + data$Cum_Convert 
-        post_beta  = b_0 + data$Cum_Total - data$Cum_Convert 
-        data$Post_mean = (post_alpha)/ ( post_alpha + post_beta ) 
-            
-        # compute equal-tailed credible interval for the posterior Beta distribution
-        data$Cred_LL = qbeta( a/2 , shape1 = post_alpha , shape2 = post_beta ) 
-        data$Cred_UL = qbeta(1-a/2, shape1 = post_alpha , shape2 = post_beta )   
-        data$Cred_LL = as.numeric(lapply(data$Cred_LL, function(x) max(0, x) ))
-        data$Cred_UL = as.numeric(lapply(data$Cred_UL, function(x) min(1, x) ))
+for module_name, version in module_list:
+    if module_name == 'scikit-learn':
+        module_name = 'sklearn'
+    if module_name == 'pyyaml':
+        module_name = 'yaml'
+    if 'python' in module_name:
+        python_version = platform.python_version()
+        if not check_newer_version(python_version, version):
+            packages_correct = False
+            error = f'Update {module_name} to version {version}. Current version is {python_version}.'
+            packages_errors.append(error) 
+            print(error)
+    else:
+        spec = find_spec(module_name)
+        if spec is None:
+            packages_correct = False
+            error = f'Install {module_name} with version {version} or newer, it is required for this assignment!'
+            packages_errors.append(error) 
+            print(error)
+        else:
+            x =__import__(module_name)
+            if hasattr(x, '__version__') and not check_newer_version(x.__version__, version):
+                packages_correct = False
+                error = f'Update {module_name} to version {version}. Current version is {x.__version__}.'
+                packages_errors.append(error) 
+                print(error)
 
-        # save the data set to result
-        if (dim(result)[1] > 0){ result= rbind(result, data)}
-        else{result= data}
-    }
-    return(result)
-}
+try:
+    from google.colab import drive
+    packages_correct = False
+    error = """Please, don't use google colab!
+It will make it much more complicated for us to check your homework as it merges all the cells into one."""
+    packages_errors.append(error) 
+    print(error)
+except:
+    pass
+
+packages_errors = '\n'.join(packages_errors)

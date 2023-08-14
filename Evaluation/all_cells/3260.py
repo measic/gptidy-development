@@ -1,16 +1,16 @@
-from image_aq.utils.pascal_voc_io import PascalVocWriter
+# Copiar anotações já revisadas com LabelImg - anotar manualmente último contêiner trabalhado no LabelImg 
+# para não copiar labels não revisados
+from shutil import copyfile
 
-def gera_voc(file):
-    foldername, filename = os.path.split(file)
-    img = imageio.imread(file)
-    imgSize = img.shape
-    print(foldername, filename, imgSize)
-    voc_writer = PascalVocWriter(foldername, filename, imgSize)
-    coords = find_conteiner(file)
-    voc_writer.addBndBox(*coords, 'cc', '')
-    voc_writer.save(file[:-4]+'.xml')
-
-file = lista[0]
-print(file)
-gera_voc(file)
-glob.glob(foldername+'/*')
+IMG_PATH = '../image_aq/files/conteiner_to_check/'
+cont = 0
+for file in lista[100:1000]:
+    cont +=1
+    # print(file)
+    basename = os.path.basename(file)
+    # print(basename)
+    copyfile(file, os.path.join(IMG_PATH, basename))
+    copyfile(file[:-4]+'.xml', os.path.join(IMG_PATH, basename[:-4]+'.xml'))
+    #if file.find('CMAU122') != -1:
+    #    break
+print(cont)

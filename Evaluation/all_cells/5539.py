@@ -1,1 +1,1 @@
-twitter_archive_clean.info()
+twitter_archive_clean.dtypes

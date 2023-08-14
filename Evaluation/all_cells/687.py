@@ -1,2 +1,3 @@
-retained_info = (Sigma[0] + Sigma[1]) / np.sum(Sigma)
-print("Estimativa de informação retida: {}%".format(100*retained_info))
+split_data_idx = 20000
+train_data = norm_keystrokes[:split_data_idx]
+test_data = norm_keystrokes[split_data_idx:]

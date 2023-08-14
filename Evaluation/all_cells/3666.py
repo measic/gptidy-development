@@ -1,3 +1,3 @@
-print("tar[0]:", tar[0][-3:])
+print("inp:", inp)
 print("-" * 20)
-print("emb_tar[0]:", emb_tar[0][-3:])
+print("tf.squeeze(inp_mask):", tf.squeeze(inp_mask))

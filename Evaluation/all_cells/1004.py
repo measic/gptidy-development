@@ -1,6 +1,4 @@
-test_year = 2018
+X_season = feature_copy[model_features]
 
-# scale the feature data corresponding to the 2018 tournament
-feature_copy = feature_data[feature_data['season_t'] == test_year].copy()
-
-feature_copy.head()
+y_season = tourney_comp_ratings[tourney_comp_ratings['season_t']== test_year]['game_result']
+X_season.shape

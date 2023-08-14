@@ -1,5 +1,5 @@
-with warnings.catch_warnings():
-    warnings.simplefilter('ignore')
-    
-    draw_graphs(multi_graphs, 'Multi-connected')
-    draw_graphs(singly_graphs, 'Singly-connected')
+# Test and training set
+train = pd.read_csv('train.csv')
+test = pd.read_csv('test.csv')
+# Combine into one dataset for the purposes of cleaning, and make sure that index continues
+data_full = pd.concat([train, test], keys = ['train', 'test'])#ignore_index = True)

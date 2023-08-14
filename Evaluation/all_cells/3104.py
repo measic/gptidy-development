@@ -1,2 +1,1 @@
-plt.imshow(test_black)
-plt.show();
+stern_images = stern_light()

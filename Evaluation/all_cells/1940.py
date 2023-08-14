@@ -1,34 +1,24 @@
-def get_wide_deep():
-    # define column types
-    is_male,mother_age,plurality,gestation_weeks = \
-        [\
-            tf.feature_column.categorical_column_with_vocabulary_list('is_male', 
-                        ['True', 'False', 'Unknown']),
-            tf.feature_column.numeric_column('mother_age'),
-            tf.feature_column.categorical_column_with_vocabulary_list('plurality',
-                        ['Single(1)', 'Twins(2)', 'Triplets(3)',
-                         'Quadruplets(4)', 'Quintuplets(5)','Multiple(2+)']),
-            tf.feature_column.numeric_column('gestation_weeks')
-        ]
+from tensorflow.contrib.learn.python.learn.utils import saved_model_export_utils
+from tensorflow.contrib.learn.python.learn import learn_runner
 
-    # discretize
-    age_buckets = tf.feature_column.bucketized_column(mother_age, 
-                        boundaries=np.arange(15,45,1).tolist())
-    gestation_buckets = tf.feature_column.bucketized_column(gestation_weeks, 
-                        boundaries=np.arange(17,47,1).tolist())
-      
-    # sparse columns are wide 
-    wide = [is_male,
-            plurality,
-            age_buckets,
-            gestation_buckets]
+PATTERN = "00001-of-"  # process only one of the shards, for testing purposes
+
+def train_and_evaluate(output_dir):
+    wide, deep = get_wide_deep()
+    estimator = tf.estimator.DNNLinearCombinedRegressor(
+                         model_dir=output_dir,
+                         linear_feature_columns=wide,
+                         dnn_feature_columns=deep,
+                         dnn_hidden_units=[64, 32])
+    train_spec=tf.estimator.TrainSpec(
+                         input_fn=read_dataset('train', PATTERN),
+                         max_steps=TRAIN_STEPS)
+    exporter = tf.estimator.FinalExporter('exporter',serving_input_fn)
+    eval_spec=tf.estimator.EvalSpec(
+                         input_fn=read_dataset('eval', PATTERN),
+                         steps=None,
+                         exporters=exporter)
+    tf.estimator.train_and_evaluate(estimator, train_spec, eval_spec)
     
-    # feature cross all the wide columns and embed into a lower dimension
-    crossed = tf.feature_column.crossed_column(wide, hash_bucket_size=20000)
-    embed = tf.feature_column.embedding_column(crossed, 3)
-    
-    # continuous columns are deep
-    deep = [mother_age,
-            gestation_weeks,
-            embed]
-    return wide, deep
+shutil.rmtree('babyweight_trained', ignore_errors=True) # start fresh each time
+train_and_evaluate('babyweight_trained')

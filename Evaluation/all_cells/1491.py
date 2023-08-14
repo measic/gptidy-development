@@ -1,6 +1,4 @@
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
-import numpy as np
-img=mpimg.imread('GoogleTrends.png')
-plt.figure(figsize = (50,50))
-plt.imshow(img)
+# lets take a look at our time series
+plt.plot(dataset)
+plt.xlabel('time period')
+plt.ylabel('normalized series value')

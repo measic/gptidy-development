@@ -1,11 +1,14 @@
-try:
-    university_canton_dict = json.loads(open('university_canton_dict.json').read())
-except FileNotFoundError:
-    print('The dictionary for universities has not been saved yet. Let''s create a new dictionary.')
-    university_canton_dict = {}
-    
-try:
-    institution_canton_dict = json.loads(open('institution_canton_dict.json').read())
-except FileNotFoundError:
-    print('The dictionary for institutions has not been saved yet. Let''s create a new dictionary.')
-    institution_canton_dict = {}
+# set root logger level
+root_logger = logging.getLogger()
+root_logger.setLevel(logging.DEBUG)
+
+# setup custom logger
+logger = logging.getLogger(__name__)
+handler = logging.FileHandler('geolocation.log')
+
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+
+# log
+logger.info('This file is used to debug the next code part related to geolocation of universities/institutions')

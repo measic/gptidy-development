@@ -1,6 +1,7 @@
-# # Univariate Density Plots
+logsPath = '../data/logs'
+geoLiteIPDBPath = '../data/GeoLite2-City_20181009/GeoLite2-City.mmdb'
 
-# # names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
-# # data = pandas.read_csv(url, names=names)
-# boston_clean.plot(kind='density', subplots=True, layout=(6,3), sharex=False)
-# plt.show()
+#Create a myLogReader object
+myLogReader = mlr.log()
+#Open Reader
+myLogReader.openReader(geoLiteIPDBPath)

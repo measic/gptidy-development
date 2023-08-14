@@ -1,2 +1,1 @@
-#Set index to time
-Pixel = Pixel.set_index('time')
+Pixel['LSOA'] = 'E01017182'

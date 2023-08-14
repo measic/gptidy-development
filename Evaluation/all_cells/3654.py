@@ -1,6 +1,4 @@
-en_batch, zh_batch = next(iter(train_dataset))
-print("英文索引序列的 batch")
-print(en_batch)
-print('-' * 20)
-print("中文索引序列的 batch")
-print(zh_batch)
+#ignore
+# 設定 global label size 
+# ref: https://stackoverflow.com/questions/12444716/how-do-i-set-the-figure-title-and-axes-labels-font-size-in-matplotlib
+plt.rcParams.update({'axes.labelsize': '20'})

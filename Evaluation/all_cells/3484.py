@@ -1,2 +1,2 @@
-for x in range(-3,3):
-    print(x),
+for key, value in params.items():
+    print(key + " = " + str(value))

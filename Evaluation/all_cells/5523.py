@@ -1,1 +1,1 @@
-twitter_archive.head(10)
+twitter_archive.info()

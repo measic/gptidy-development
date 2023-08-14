@@ -1,3 +1,5 @@
+IGNORE_TYPES = 'W292,E901,E902,W605,W503'
+
 import subprocess
 
 def unpack_gpt(gpt_results):

@@ -1,6 +1,8 @@
-def delta_in_pool(simulations):
-    if isinstance(simulations, int):
-        simulations = [simulations] 
-    arguments = ['call', 100., 100., .5, 0.01, 0., .35]
-    reduce(lambda x,y : x.extend(y), [simulations, arguments])
-    return MonteCarlo(*simulations).delta
+plt.figure(num=None, figsize=(18, 9))
+plt.style.use('ggplot')
+processors = [float(i) for i in results.keys()]
+times = [float(i) for i in results.values()]
+plt.bar(processors, times, align='center', alpha=0.3, color = 'black')
+plt.title('Efficiency Graph of Multiprocessing for MonteCarlo')
+plt.xlabel('Number of Processors')
+plt.ylabel('Time (in seconds) to compute 1e7 simulations');

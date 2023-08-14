@@ -1,7 +1,18 @@
-figsize(12.5, 3)
-p_trace = burned_trace["freq_cheating"]
-plt.hist(p_trace, histtype="stepfilled", normed=True, alpha=0.85, bins=30, 
-         label="posterior distribution", color="#348ABD")
-plt.vlines([.05, .35], [0, 0], [5, 5], alpha=0.2)
-plt.xlim(0, 1)
-plt.legend();
+figsize(12.5, 3.5)
+np.set_printoptions(precision=3, suppress=True)
+challenger_data = np.genfromtxt("data/challenger_data.csv", skip_header=1,
+                                usecols=[1, 2], missing_values="NA",
+                                delimiter=",")
+#drop the NA values
+challenger_data = challenger_data[~np.isnan(challenger_data[:, 1])]
+
+#plot it, as a function of tempature (the first column)
+print("Temp (F), O-Ring failure?")
+print(challenger_data)
+
+plt.scatter(challenger_data[:, 0], challenger_data[:, 1], s=75, color="k",
+            alpha=0.5)
+plt.yticks([0, 1])
+plt.ylabel("Damage Incident?")
+plt.xlabel("Outside temperature (Fahrenheit)")
+plt.title("Defects of the Space Shuttle O-Rings vs temperature");

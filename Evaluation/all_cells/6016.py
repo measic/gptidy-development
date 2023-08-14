@@ -1,9 +1,11 @@
-plot_regression = function(score, df){
-    df$score = score
-    ggplot(df) + geom_point(aes(x,y)) +
-                 geom_line(aes(x,score), color = 'red', size = 1) +
-                 ggtitle('Regression of X vs. Y')
+resids_qq = function(df, score, bins = 10){
+    options(repr.plot.width=4, repr.plot.height=3.5) # Set the initial plot area dimensions
+    df$resids = df$y - score
+    ggplot() + 
+    geom_qq(data = df, aes(sample = resids)) + 
+    stat_qq_line(data = df, aes(sample = resids)) +
+    ylab('Quantiles of residuals') + xlab('Quantiles of standard Normal') +
+    ggtitle('QQ plot of residual values')
 }
 
-score = predict(lin_mod, newdata = test)
-plot_regression(score, test)
+resids_qq(test, score)

@@ -1,10 +1,11 @@
-influnet = getInflunet()
-influnet
-
-
-
-x = wiki2.index[wiki2.index.year == 2010]
-y = wiki2[wiki2.index.year == 2010]
-    y2 = df2.loc[2010:][:len(x)]
-
-comparePlots([influnet, wiki_influenza], [2010]) #needs to be in the right format
+def comparePlots(elems, years):
+    '''
+    ta
+    :param elems: list of dataframes that we  want to compare
+    :param years: list of years that we want to anlayze
+    :return: None (prompts the plot)
+    '''
+    for year in years:
+        for elem in elems:
+            plt.plot(x, y2/y2.max())
+            plt.plot(x,y/y.max())

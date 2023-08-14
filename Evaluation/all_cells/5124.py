@@ -1,1 +1,1 @@
-train.skew()
+test.skew()

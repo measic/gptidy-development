@@ -1,2 +1,7 @@
-### print out the first 1000 characters of the raw text to get a sense of what we need to throw out
-text[:2000]
+### TODO: implement cleaned_text in my_answers.py
+from my_answers import cleaned_text
+
+text = cleaned_text(text)
+
+# shorten any extra dead space created above
+text = text.replace('  ',' ')

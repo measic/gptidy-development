@@ -1,1 +1,1 @@
-cigar.flatten().string
+from BITS.seq.consed import ConsedRunner

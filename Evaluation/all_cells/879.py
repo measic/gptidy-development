@@ -1,1 +1,2 @@
-df_aantal_zwolle.plot.bar(figsize=(8,5.0),title='Aantal MBO Afgestudeerden Regio Zwolle')
+# Zorg ervoor dat de kwalificatie naam uniek wordt weergegeven #BK
+df['KWALIFICATIE NAAM'].unique()

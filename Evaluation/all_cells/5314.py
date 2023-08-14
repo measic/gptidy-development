@@ -1,4 +1,8 @@
-num_points = 400
+# instalamos un paquete de Julia para poder obtener los datos
+Pkg.add("MAT") 
+using MAT
 
-tsne = TSNE(perplexity=30, n_components=2, init='pca', n_iter=5000)
-two_d_embeddings = tsne.fit_transform(final_embeddings[1:num_points+1, :])
+# obtenemos los datos que necesitamos
+iris = matread("iris.mat")
+caracteristicas = iris["meas"]
+especies = iris["species"];

@@ -1,5 +1,7 @@
-data_pts = []
-for e in data_pre:
-    data_pts.append(np.where(e == 0))
-data_pts = np.array(data_pts)
-data_pts.shape
+# Show points
+fig = plt.figure(figsize=(15, 10))
+for i in range(9):
+    plt.subplot(3,3,i+1)
+    plt.scatter(X[i][:,0], X[i][:,1], s=100, marker='.')
+    plt.xticks([])
+    plt.yticks([])

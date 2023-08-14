@@ -1,1 +1,1 @@
-ls
+drive.mount('./gd')

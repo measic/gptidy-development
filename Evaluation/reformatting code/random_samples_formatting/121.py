@@ -1,34 +1,27 @@
-accuracies = []
-
-ch = chance[0, :, -1].mean(axis=-1)
-da = deep_all[key][:, -1] / ch
-la = linear_all[key][:, -1] / ch
-
-for ii in range(4):
-    for jj in range(10):
-        accuracies.append({'subject':ii, 'accuracy':da[ii, jj],
-                           'complexity': 3, 'model': 2})
-        accuracies.append({'subject':ii, 'accuracy':la[ii, jj],
-                           'complexity': 3, 'model': 1})
-    
-ch = chance[1, :, -1].mean(axis=-1)
-da = other_deep_accuracy['c'][:, -1] / ch
-la = other_linear_accuracy['c'][:, -1] / ch
-for ii in range(4):
-    for jj in range(10):
-        accuracies.append({'subject':ii, 'accuracy':da[ii, jj],
-                           'complexity': 2, 'model': 2})
-        accuracies.append({'subject':ii, 'accuracy':la[ii, jj],
-                           'complexity': 2, 'model': 1})
-
-for ii, t in enumerate(['v', 'p', 'm']):
-    ch = chance[ii+2, :, -1].mean(axis=-1)
-    da = other_deep_accuracy[t][:, -1] / ch
-    la = other_linear_accuracy[t][:, -1] / ch
-    for ii in range(4):
-        for jj in range(10):
-            accuracies.append({'subject':ii, 'accuracy':da[ii, jj],
-                               'complexity': 1, 'model': 2})
-            accuracies.append({'subject':ii, 'accuracy':la[ii, jj],
-                               'complexity': 1, 'model': 1})
-df = pd.DataFrame.from_dict(accuracies)
+corpora = []
+for name in name_corpus:
+    try:
+        os.stat(corpus_path+name)
+        with open(corpus_path+name, 'rb') as f:
+            corpora.append(pickle.load(f))
+    except FileNotFoundError:
+        # int to string
+        with open(corpus_path+'kor_'+name, 'rb') as f:
+            corpus = pickle.load(f)
+        corpus = [[str(pid) for pid in line] for line in corpus]
+        with open(corpus_path+'kor_'+name,'wb') as f:
+            pickle.dump(corpus, f)
+        with open(corpus_path+'eng_'+name, 'rb') as f:
+            corpus = pickle.load(f)
+        corpus = [[str(pid) for pid in line] for line in corpus]
+        with open(corpus_path+'eng_'+name,'wb') as f:
+            pickle.dump(corpus, f)
+        # 한글&영문 corpus 병합
+        with open(corpus_path+'kor_'+name, 'rb') as f:
+            kor = pickle.load(f)
+        with open(corpus_path+'eng_'+name, 'rb') as f:
+            eng = pickle.load(f)
+        merged = kor+eng
+        with open(corpus_path+name, 'wb') as f:
+            pickle.dump(merged, f)
+        corpora.append(merged)

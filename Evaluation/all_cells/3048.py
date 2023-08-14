@@ -1,10 +1,9 @@
-def make_input_fn(df, num_epochs):
-  return tf.estimator.inputs.pandas_input_fn(
-    x = df,
-    y = df[LABEL],
-    batch_size = 128,
-    num_epochs = num_epochs,
-    shuffle = True,
-    queue_capacity = 1000,
-    num_threads = 1
-  )
+tf.logging.set_verbosity(tf.logging.INFO)
+
+OUTDIR = 'taxi_trained'
+shutil.rmtree(OUTDIR, ignore_errors = True) # start fresh each time
+
+model = tf.estimator.LinearRegressor(
+      feature_columns = make_feature_cols(), model_dir = OUTDIR)
+
+model.train(input_fn = make_input_fn(df_train, num_epochs = 10))

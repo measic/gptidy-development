@@ -1,1 +1,1 @@
-np.unique(np.array(boxgtimg.getdata()))
+hex(0)

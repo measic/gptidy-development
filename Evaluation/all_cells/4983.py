@@ -1,18 +1,38 @@
-from graph import make_subplots, trace_values, plot_figure
+X = Variable(name='X', num_states=2)
+X_prior = Factor(name='p(X)',
+                 f=np.array([0.95, 0.05]),
+                 neighbours=[X])
 
-def function_values_trace(list_of_terms, x_values):
-    function_values = list(map(lambda x: output_at(list_of_terms, x),x_values))
-    return trace_values(x_values, function_values, mode = 'lines')
-    
-def derivative_values_trace(list_of_terms, x_values, delta_x):
-    derivative_values = list(map(lambda x: derivative_of(list_of_terms, x, delta_x), x_values))
-    return trace_values(x_values, derivative_values, mode = 'lines')
-
-def function_and_derivative_trace(list_of_terms, x_values, delta_x):
-    traced_function = function_values_trace(list_of_terms, x_values)
-    traced_derivative = derivative_values_trace(list_of_terms, x_values, delta_x)
-    return make_subplots([traced_function], [traced_derivative])
-
-four_x_plus_fifteen_function_and_derivative = function_and_derivative_trace(four_x_plus_fifteen, list(range(0, 7)), 1)
-
-plot_figure(four_x_plus_fifteen_function_and_derivative)
+# Please stick to the naming convention used below, otherwise the test functionality throughout the lab won't work
+Z = Variable(name='Z', num_states=2)
+Z_prior = Factor(name='p(Z)',
+                 f=np.array([0.8, 0.2]),
+                 neighbours=[Z])
+                 
+Y = Variable(name='Y', num_states=2)
+f_Y_cond = [
+    [ #Y = 0
+        [ # X = 0
+          0.9999, # Z = 0
+          0.3     # Z = 1
+        ],
+        [ # X = 1
+          0.1,  # Z = 0
+          0.01  # Z = 1
+        ]
+    ],
+    [  #Y = 1
+        [ # X = 0
+          0.0001, # Z = 0
+          0.7     # Z = 1
+        ],
+        [ # X = 1
+          0.9,  # Z = 0
+          0.99  # Z = 1
+        ]
+    ]
+]
+Y_cond = Factor(name='p(Y |X, Z)',
+                 f=np.array(f_Y_cond),
+                 neighbours=[Y, X, Z])
+                                 

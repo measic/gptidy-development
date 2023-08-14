@@ -28,11 +28,11 @@ with graph.as_default():
         state = forget_gate * state + input_gate * tf.tanh(update)
         output_gate = tf.sigmoid(tf.matmul(i, ox) + tf.matmul(o, om) + ob)
         return (output_gate * tf.tanh(state), state)
-    variable_def = list()
+    train_data = list()
     for _ in range(num_unrollings + 1):
-        variable_def.append(tf.placeholder(tf.float32, shape=[batch_size, vocabulary_size]))
-    train_inputs = variable_def[:num_unrollings]
-    train_labels = variable_def[1:]
+        train_data.append(tf.placeholder(tf.float32, shape=[batch_size, vocabulary_size]))
+    train_inputs = train_data[:num_unrollings]
+    train_labels = train_data[1:]
     outputs = list()
     output = saved_output
     state = saved_state
@@ -48,7 +48,7 @@ with graph.as_default():
     gradients, v = zip(*optimizer.compute_gradients(loss))
     gradients, _ = tf.clip_by_global_norm(gradients, 1.25)
     optimizer = optimizer.apply_gradients(zip(gradients, v), global_step=global_step)
-    train_prediction = tf.nn.softmax(logits)
+    variable_def = tf.nn.softmax(logits)
     sample_input = tf.placeholder(tf.float32, shape=[1, vocabulary_size])
     saved_sample_output = tf.Variable(tf.zeros([1, num_nodes]))
     saved_sample_state = tf.Variable(tf.zeros([1, num_nodes]))

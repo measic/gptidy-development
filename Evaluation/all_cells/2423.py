@@ -1,1 +1,2 @@
-from BITS.seq.align import EdlibRunner
+alignment = r.align("ACGTTTAGAT", "AGGTTCGAGAT")
+alignment

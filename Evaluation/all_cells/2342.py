@@ -1,3 +1,2 @@
-%load_ext autoreload
-%autoreload 2
-%matplotlib inline
+BASE = path.join(path.dirname(attitude.__file__),'..','js-frontend')
+DATA = path.join(BASE,"ui-test/data")

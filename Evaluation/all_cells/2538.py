@@ -1,3 +1,2 @@
-n = math.sqrt(76)
-RTstderror = RTgrpstd / n
-RTstderror
+ACCgrpstd = pd.Series.std(sub_ACCmeans,level=1)
+ACCgrpstd

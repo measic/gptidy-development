@@ -1,2 +1,6 @@
-missed_predictions = get_missed_predictions(tourney_comp_ratings, model_features, numeric_model_features, 
-                                            prediction_probabilities, X_test, y_test, y_pred)
+CMSpileUpMonitor = 'CMSpileUpMonitor.png'
+averagePileUp_multCollisionFrac = 'averagePileUp_multCollisionFrac.png'
+numberOfEventsRun262274_eventAccepted = 'numberOfEventsRun262274_eventAccepted.png'
+removedFractionRun262274_ilterEfficiency = 'removedFractionRun262274_ilterEfficiency.png'
+
+Image(filename = pathname + CMSpileUpMonitor)

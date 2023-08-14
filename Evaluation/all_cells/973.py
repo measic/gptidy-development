@@ -1,4 +1,3 @@
-# The season field in the summary data corresponds to the starting year of the season (e.g. 2000 for 2000-2001 season)
-summary_data = file_utils.read_summary_team_data(summary_team_file)
-teams = file_utils.read_team_meta_data(team_meta_data_file)
-summary_data.head()
+# The season in the tournamnet data corresponds to the year the tournament occurs (e.g. 2003 for season 2002-2003)
+tourney_data = file_utils.read_tournament_results(tournament_data_file,start_tournament)
+tourney_data.describe()

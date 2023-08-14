@@ -1,1 +1,3 @@
-"x" not in "Hello World"
+b = 3
+b *= 3
+print(b)

@@ -1,3 +1,2 @@
-# Don't change this cell
-from datascience import *
-%matplotlib inline
+top_1970 = ...
+top_1970

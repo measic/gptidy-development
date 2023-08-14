@@ -1,1 +1,3 @@
-tree = DecisionTreeClassifier(max_depth=3, random_state=17).fit(X_train, y_train)
+%load_ext autoreload
+%autoreload 2
+%matplotlib inline

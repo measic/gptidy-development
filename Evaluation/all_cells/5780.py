@@ -1,3 +1,3 @@
-# generate predictions for training
-train_predict = model.predict(X_train)
-test_predict = model.predict(X_test)
+# read in the text, transforming everything to lower case
+text = open('datasets/holmes.txt').read().lower()
+print('our original text has ' + str(len(text)) + ' characters')

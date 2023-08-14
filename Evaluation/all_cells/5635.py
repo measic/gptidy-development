@@ -1,1 +1,1 @@
-c.ra.deg[0], c.dec.deg[0]
+m = sfdmap.SFDMap()

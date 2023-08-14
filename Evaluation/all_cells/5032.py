@@ -1,1 +1,2 @@
-titles and titles[0]
+def regression_formula(x):
+    pass

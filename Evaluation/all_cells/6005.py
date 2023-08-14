@@ -1,1 +1,1 @@
-qgrid.show_grid(df.doc_sent, export_mode=True)
+qgrid.show_grid(df.valence_arousal, export_mode=True)

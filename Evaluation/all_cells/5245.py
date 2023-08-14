@@ -1,2 +1,3 @@
-for op in (X, y, accuracy, training_op):
-    tf.add_to_collection("my_important_ops", op)
+with tf.Session() as sess:
+    saver.restore(sess, "./my_model_final.ckpt")
+    # 모델 훈련 계속하기...

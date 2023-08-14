@@ -1,33 +1,54 @@
-plot_change_column <- function(CR_change, num_tests=3, variable, var_label, 
-                               hline= 0, plot_min_pct=0.01, plot_max_pct= 0.99,
-                              legend_position= "right"){
-    #-------------- Set color for plot ------------------------------
-    cbPalette <- c("#009E73","#0072B2", "#E69F00",   "#D55E00", "#CC79A7","#F0E442","#56B4E9",  "#999999")
-    fill_colors = makeTransparent(cbPalette)
-    #-------------------------------------------------------------------------
-    # Plot settings:
-    # compute the upper and lower bound of y-axis to be 20% and 80% quantile of the upper and lower bound
-    min_val = quantile(CR_change[, variable], plot_min_pct )
-    max_val = max(CR_change[, variable])  
+from matplotlib.ticker import MultipleLocator
 
-    # -------------- plot the first group -------------- 
-    data =  CR_change[CR_change[,'Test_group'] == 1, ] 
-    plot(  data[,'Day'],  data[, variable] ,type = "l", lwd = 3, col= cbPalette[1], lty=1 , ylim = c(min_val, max_val) ,
-        main = paste0("Trend of ", var_label, " Over Time"), 
-        xlab = var_label , ylab= 'Percent')
- 
-    # -------------- plot the other groups-------------- 
-    for (k in 2:num_tests){
-    data =  CR_change[CR_change[,'Test_group'] == k, ] 
-        lines(  data[,'Day'],  data[, variable] ,type = "l", lwd = 3, col= cbPalette[k], lty=k+1   )
-        }
-    abline(h= hline)
+# filters = ["BessellV"]
+filters = ["LSST_g"]
+
+alpha = 1.0
+xminorticks = 10
+
+pcc.utils.setup_plot_defaults()
+
+fig = plt.figure(figsize=[8, 4])
+fig.subplots_adjust(left = 0.1, bottom = 0.13, top = 0.93,
+                right = 0.91, hspace=0, wspace = 0)
+## Label the axes
+xaxis_label_string = r'$\textnormal{Time, MJD (days)}$'
+yaxis_label_string = r'$\textnormal{Flux, erg s}^{-1}\textnormal{\AA}^{-1}\textnormal{cm}^{-2}$'
+
+ax1 = fig.add_subplot(111)
+axes_list = [ax1]
+
+for filter_key in filters:
+    plot_label_string = r'$\rm{' + sn.phot.data_filters["BessellV"].filter_name.replace('_', '\\_') + '}$'
+    plot_label_string_fake = r'$\rm{' + sn_fake.phot.data_filters[filter_key].filter_name.replace('_', '\\_') + ', simulated}$'
+
+    ax1.errorbar(sn.phot.data["BessellV"]['MJD'], sn.phot.data["BessellV"]['flux'],
+                 yerr = sn.phot.data["BessellV"]['flux_err'],
+                 capsize = 0, fmt = 'x', color = sn.phot.data_filters["BessellV"]._plot_colour,
+                 label = plot_label_string, ecolor = pcc.hex['batman'], mec = pcc.hex["batman"],
+                 alpha = alpha)
+    ax1.fill_between(sn.lcfit.data["BessellV"]['MJD'], sn.lcfit.data["BessellV"]['flux_upper'], sn.lcfit.data["BessellV"]['flux_lower'],
+                     color = pcc.hex["batman"],
+                     alpha = 0.8, zorder = 0)
     
-    #------------------add legend to the plot -----------------
-    legend_list = c()
-    for (k in 1:num_tests){ legend_list = c(legend_list,  paste0("Test ", k) )}
-    legend( legend_position , legend= legend_list, 
-       col=c(  cbPalette[1:k]), lty=1:(k+1), cex=0.8, title="Test group")
+    ax1.errorbar(sn_fake.phot.data[filter_key]['MJD'], sn_fake.phot.data[filter_key]['flux'],
+             yerr = sn_fake.phot.data[filter_key]['flux_err'],
+#              capsize = 0, fmt = 'o', color = sn_fake.phot.data_filters[filter_key]._plot_colour,
+             capsize = 0, fmt = 'o', color = pcc.hex['LSST_g'],
+             label = plot_label_string_fake, ecolor = pcc.hex['batman'], mec = pcc.hex["batman"],
+             alpha = alpha)
+    
+xminorLocator = MultipleLocator(xminorticks)
+ax1.spines['top'].set_visible(True)
+ax1.xaxis.set_minor_locator(xminorLocator)
 
-    #-------------------------------------------------------------------------
-}
+plot_legend = ax1.legend(loc = 'upper right', scatterpoints = 1, markerfirst = False,
+                  numpoints = 1, frameon = False, bbox_to_anchor=(1., 1.),
+                  fontsize = 12.)
+
+ax1.set_ylabel(yaxis_label_string)
+ax1.set_xlabel(xaxis_label_string)
+print(ax1.get_xlim())
+outpath = "/Users/berto/projects/LSST/cadence/SN2007uy_consistency_check_BessellV_LSSTg"
+
+# fig.savefig(outpath + ".png", format = 'png', dpi=500)

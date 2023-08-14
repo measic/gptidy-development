@@ -1,9 +1,3 @@
-fig, axes = plt.subplots(10, 1, figsize=(14, 34))
-
-for ax, country in zip(axes, top_10_list):
-    data = df[df['Country'] == country]
-    sns.countplot(data=data, x='TimeFullyProductive', palette='Paired', ax=ax, order=data['TimeFullyProductive'].value_counts().index)
-    ax.set_title('Productivity time in {}'.format(country), fontsize=16)
-    #plt.xticks(rotation='vertical')
-    sns.despine(left=True)
-plt.subplots_adjust(hspace=.6)
+top10_df = df.where(df['Country'].isin(top_10_list))
+plot_heatmap(top10_df, 'AssessJob1')    
+plt.title('Importance of Industry to assess potential job', fontsize=18)

@@ -1,16 +1,17 @@
-import pymc3 as pm
-figsize(12, 4)
+# Set up the pymc3 model. Again assume Uniform priors for p_A and p_B.
+with pm.Model() as model:
+    p_A = pm.Uniform("p_A", 0, 1)
+    p_B = pm.Uniform("p_B", 0, 1)
+    
+    # Define the deterministic delta function. This is our unknown of interest.
+    delta = pm.Deterministic("delta", p_A - p_B)
 
-#these two quantities are unknown to us.
-true_p_A = 0.05
-true_p_B = 0.04
+    
+    # Set of observations, in this case we have two observation datasets.
+    obs_A = pm.Bernoulli("obs_A", p_A, observed=observations_A)
+    obs_B = pm.Bernoulli("obs_B", p_B, observed=observations_B)
 
-#notice the unequal sample sizes -- no problem in Bayesian analysis.
-N_A = 1500
-N_B = 750
-
-#generate some observations
-observations_A = stats.bernoulli.rvs(true_p_A, size=N_A)
-observations_B = stats.bernoulli.rvs(true_p_B, size=N_B)
-print("Obs from Site A: ", observations_A[:30], "...")
-print("Obs from Site B: ", observations_B[:30], "...")
+    # To be explained in chapter 3.
+    step = pm.Metropolis()
+    trace = pm.sample(20000, step=step)
+    burned_trace=trace[1000:]

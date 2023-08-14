@@ -1,1 +1,1 @@
-test.test_optimize_theta(optimize_theta, kernel)
+util.draw_predictive_probabilities(f_bar, x_new, x, y)

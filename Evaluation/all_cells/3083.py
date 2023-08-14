@@ -1,5 +1,15 @@
-plt.bar(['knn', 'dt'], [knn_mae, dt_mae])
-plt.title('Comparing Mean Absolute Error')
-plt.xlabel('algorithm')
-plt.ylabel('M.A.E')
-plt.show()
+import numpy as np
+import nestle
+import math
+
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+
+import corner
+
+from scipy.integrate import quad
+
+from nsdmd import model 
+from nsdmd import io
+
+import pandas as pd

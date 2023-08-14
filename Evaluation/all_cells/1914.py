@@ -1,26 +1,12 @@
-load_factors_of_interest = np.linspace(0.1, 0.8, 8)
-capacity = 3e4
-num_items_to_insert = 500
-num_runs = 30
-timings_cuckoo = defaultdict(list)
-timings_bloom = defaultdict(list)
+plt.fill_between(load_factors_emp, cuckoo_times_array[:,0], cuckoo_times_array[:,2], alpha=0.2)
+plt.plot(load_factors_emp, cuckoo_times_array[:,1], "-go", label="Cuckoo Filter")
 
-for load in tqdm(load_factors_of_interest, "current run"):
-    for run in tqdm(range(num_runs)):
-        c_filt, _ = return_cuckoo_filter_with_specified_load_factor(int(capacity),\
-                                                                                 finger_print_size=2, load_factor=load)
-        b_filt, _ = return_bloom_filter_with_specified_load_factor(int(capacity), percent_to_fill=load)
-        
-        start = time.time()
-        for item_to_insert in range(num_items_to_insert):
-            item = "".join(random.sample(string.ascii_lowercase, 12))
-            c_filt.add(item)
-        dt_cuckoo = time.time() - start
-        timings_cuckoo[load].append(dt_cuckoo)
-        
-        start = time.time()
-        for item_to_insert in range(num_items_to_insert):
-            item = "".join(random.sample(string.ascii_lowercase, 12))
-            b_filt.add(item)
-        dt_bloom = time.time() - start
-        timings_bloom[load].append(dt_bloom)
+plt.fill_between(load_factors_emp, bloom_times_array[:,0], bloom_times_array[:,2], alpha=0.2)
+plt.plot(load_factors_emp, bloom_times_array[:,1], "-ro", label="Counting Bloom Filter")
+
+
+plt.ylabel("Time (seconds)")
+plt.xlabel("Filter Occupancy")
+plt.xlim([0, 1])
+plt.legend()
+plt.savefig('images/load_factor.png', bbox_inches='tight')

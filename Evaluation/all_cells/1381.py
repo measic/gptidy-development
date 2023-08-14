@@ -1,2 +1,2 @@
-D = np.array([[3],[1],[6],[5]]) #create a 4x1 matrix
-print(D)
+#this produces an indexing error
+#print(E[3][4])

@@ -1,58 +1,46 @@
-#######################################################################
-# Copyright (C)                                                       #
-# 2016 Shangtong Zhang(zhangshangtong.cpp@gmail.com)                  #
-# 2016 Kenta Shimada(hyperkentakun@gmail.com)                         #
-# Permission given to modify the code as long as you keep this        #
-# declaration at the top                                              #
-#######################################################################
+def value_iteration(V_init, PI_init, world_size, states, actions, nextState, gamma, epsilon=1e-4):
 
-def create_gridworld(world_size, terminal_states):
-    """
-    world_size: height and width of the squared-shape gridworld
-    return
-        actions: list of str, possible actions
-        states: list of coordinate tuples representing all non-terminal states
-        nextState: list of list of dict, index 3 times to return the next state coordinate tuple
-    """
+    # The reward is always -1
+    R = -1
+    
+    #1. INITIALIZATION
+    V_k = copy.deepcopy(V_init)
+    PI = copy.deepcopy(PI_init)
+    idx_to_a = {0:'L', 1:'U', 2:'R', 3:'D'}
+        
+    # 2. POLICY EVALUATION (makes only 1 sweep before taking the max over the actions)
+    k = 0
+    V_kplus1 = copy.deepcopy(V_k)
+    delta = epsilon + 1
+    Q = np.zeros((world_size, world_size, 4), dtype=np.float)
+    while delta > epsilon:
 
-    # left, up, right, down
-    actions = ['L', 'U', 'R', 'D']
+        # Only one sweep of evaluation before taking the max
+        delta = 0
+        for i, j in states:
+            # Now evaluates the value function for each state for every possible action (not just with respect to current policy)
+            for a_idx in range(4): # actions
 
-    # Next
-    nextState = []
-    for i in range(0, world_size):
-        nextState.append([])
-        for j in range(0, world_size):
-            # Creates a dictionnary that
-            next = dict()
-            if i == 0:
-                next['U'] = (i, j)
-            else:
-                next['U'] = (i - 1, j)
+                # Again the next state is fully defined by the chosen action (there is no uncertainty on the transition)
+                a = idx_to_a[a_idx]
+                newPosition = nextState[i][j][a]
+                P = 1.
 
-            if i == world_size - 1:
-                next['D'] = (i, j)
-            else:
-                next['D'] = (i + 1, j)
+                # Update rule
+                Q[i,j,a_idx] = P * (R + gamma * V_k[newPosition[0], newPosition[1]])
 
-            if j == 0:
-                next['L'] = (i, j)
-            else:
-                next['L'] = (i, j - 1)
+            # This step replaces the poilicy improvement step
+            V_kplus1[i,j] = np.max(Q[i,j,:])
 
-            if j == world_size - 1:
-                next['R'] = (i, j)
-            else:
-                next['R'] = (i, j + 1)
+            # Keeps biggest difference seen so far
+            delta = np.max([delta, np.abs(V_kplus1[i,j] - V_k[i,j])])
 
-            nextState[i].append(next)
-            
-    states = []
-    for i in range(0, world_size):
-        for j in range(0, world_size):
-            if (i,j) in terminal_states:
-                continue
-            else:
-                states.append((i, j))
-                
-    return actions, states, nextState
+        # Updates our current estimate
+        V_k = copy.deepcopy(V_kplus1)
+        k += 1
+        
+    # Updates the policy to be greedy with respect to the value function
+    for i, j in states:
+        PI[i,j] = np.argmax(Q[i,j,:])
+    
+    return V_k, k, PI 

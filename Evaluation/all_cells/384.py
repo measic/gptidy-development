@@ -1,16 +1,8 @@
-unique_hotels_names = most_checkins["Hotel Name"].unique()
-unique_checkins =  most_checkins["Checkin Date"].unique()
-unique_discount_code =  [1,2,3,4]
+# finding minimum  discount price outa  hotel name - checking date - discount code group and fixing data
+most_checkins["Discount Price"]= most_checkins.groupby(['Hotel Name','Checkin Date','Discount Code'])["Discount Price"].transform('min')
+most_checkins.drop_duplicates(subset=["Hotel Name","Checkin Date","Discount Code"], inplace=True)
+most_checkins.sort_values(by=["Hotel Name","Checkin Date","Discount Code"],ascending=True,inplace=True)
+most_checkins['Discount Price'].replace(sys.maxsize, -1, inplace=True)
 
-#creating default data - all combination : checking -hotel - discount code
-import itertools
-import sys
-combs = []
-for x in unique_hotels_names:
-    for y in unique_checkins:
-        for z in unique_discount_code:
-            combs.append([x, y,z,sys.maxsize])
-
-# converting the default data to data frame and appending to existing
-new_df =  DataFrame.from_records(combs,columns=["Hotel Name","Checkin Date","Discount Code","Discount Price"])
-most_checkins = most_checkins.append(new_df)
+# taking only needed data
+checkin_hotel_discount = most_checkins[["Hotel Name","Checkin Date","Discount Code","Discount Price"]].reset_index()

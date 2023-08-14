@@ -1,3 +1,5 @@
-feature_columns = numeric_features  + ['season_t', 'top_conf_t', 'top_conf_o']
-feature_data = tourney_comp_ratings[feature_columns].copy()
-feature_data.head()
+y=tourney_comp_ratings[tourney_comp_ratings['season_t']<= stop_tournament]['game_result']
+X= X.drop(columns=['season_t'])
+
+feature_list = list(X)
+feature_list

@@ -1,7 +1,6 @@
-df['JobSatisfaction'].value_counts()
-sat = df[np.logical_or(np.logical_or(df['JobSatisfaction'] == 'Moderately satisfied', df['JobSatisfaction'] == 'Extremely satisfied'), df['JobSatisfaction'] == 'Slightly satisfied')]
+plt.figure(figsize=(14, 12))
+df_top10 = df.where(df['Country'].isin(top_10_list))
 
-plt.figure(figsize=(14, 8))
-sns.countplot(data=sat, x='Country', hue='JobSatisfaction', palette='Paired', order=sat['Country'].value_counts()[:10].index)
+sns.boxplot(data=df_top10, x='ConvertedSalary', y='Country', palette='Paired')
+plt.title('Salary Distribution in the Top 10 Countries', fontsize=16)
 sns.despine(left=True)
-plt.xticks(rotation='vertical')

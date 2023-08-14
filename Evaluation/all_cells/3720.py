@@ -1,29 +1,16 @@
-#ignore
-print("""
+# 要被翻譯的英文句子
+sentence = "China, India, and others have enjoyed continuing economic growth."
 
-Saving checkpoint for epoch 1 at nmt/checkpoints/4layers_128d_8heads_512dff_20train_perc/ckpt-1
-Epoch 1 Loss 5.2072 Accuracy 0.0179
-Time taken for 1 epoch: 206.54558181762695 secs
+# 取得預測的中文索引序列
+predicted_seq, _ = evaluate(sentence)
 
-Saving checkpoint for epoch 2 at nmt/checkpoints/4layers_128d_8heads_512dff_20train_perc/ckpt-2
-Epoch 2 Loss 4.2652 Accuracy 0.0560
-Time taken for 1 epoch: 68.48831677436829 secs
+# 過濾掉 <start> & <end> tokens 並用中文的 subword tokenizer 幫我們將索引序列還原回中文句子
+target_vocab_size = subword_encoder_zh.vocab_size
+predicted_seq_without_bos_eos = [idx for idx in predicted_seq if idx < target_vocab_size]
+predicted_sentence = subword_encoder_zh.decode(predicted_seq_without_bos_eos)
 
-Saving checkpoint for epoch 3 at nmt/checkpoints/4layers_128d_8heads_512dff_20train_perc/ckpt-3
-Epoch 3 Loss 3.7987 Accuracy 0.0910
-Time taken for 1 epoch: 68.41022562980652 secs
-
-
-...
-
-
-Saving checkpoint for epoch 29 at nmt/checkpoints/4layers_128d_8heads_512dff_20train_perc/ckpt-29
-Epoch 29 Loss 1.2693 Accuracy 0.3929
-Time taken for 1 epoch: 69.18679404258728 secs
-
-Saving checkpoint for epoch 30 at nmt/checkpoints/4layers_128d_8heads_512dff_20train_perc/ckpt-30
-Epoch 30 Loss 1.2426 Accuracy 0.3965
-Time taken for 1 epoch: 68.7313539981842 secs
-
-
-""")
+print("sentence:", sentence)
+print("-" * 20)
+print("predicted_seq:", predicted_seq)
+print("-" * 20)
+print("predicted_sentence:", predicted_sentence)

@@ -1,2 +1,4 @@
-X = np.vstack((brick.ravel(), ball.ravel()))
-y = np.array([0, 1])
+X = np.hstack((X, np.ones((X.shape[0], 1))))
+
+#Initialize Weights to zero:
+w = np.zeros(X.shape[1])

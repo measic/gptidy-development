@@ -1,2 +1,2 @@
-#Labels
-y = np.array([1, 0, 1, 0, 1, 0])
+#Careful, just run this once!
+X = np.hstack((X, np.ones((X.shape[0], 1))))

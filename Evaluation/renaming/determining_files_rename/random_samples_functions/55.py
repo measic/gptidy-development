@@ -33,7 +33,7 @@ def region_of_interest(img, vertices):
     masked_image = cv2.bitwise_and(img, mask)
     return masked_image
 
-def function_def(img, lines, color=[255, 0, 0], thickness=10):
+def draw_lines(img, lines, color=[255, 0, 0], thickness=10):
     """
     NOTE: this is the function you might want to use as a starting point once you want to 
     average/extrapolate the line segments you detect to map out the full
@@ -101,7 +101,7 @@ def averaging_lines(lines):
     y2_avg = y2_sum / lines_size
     return (x1_avg, y1_avg, x2_avg, y2_avg)
 
-def hough_lines(img, rho, theta, threshold, min_line_len, max_line_gap):
+def function_def(img, rho, theta, threshold, min_line_len, max_line_gap):
     """
     `img` should be the output of a Canny transform.
         
@@ -109,7 +109,7 @@ def hough_lines(img, rho, theta, threshold, min_line_len, max_line_gap):
     """
     lines = cv2.HoughLinesP(img, rho, theta, threshold, np.array([]), minLineLength=min_line_len, maxLineGap=max_line_gap)
     line_img = np.zeros((img.shape[0], img.shape[1], 3), dtype=np.uint8)
-    function_def(line_img, lines)
+    draw_lines(line_img, lines)
     return line_img
 
 def weighted_img(img, initial_img, α=0.8, β=1.0, λ=0.0):

@@ -1,66 +1,29 @@
-# This cell makes sure that you have all the necessary libraries installed
+# 1.1.2 Compute gradient of log p(t|x;w,b) wrt w and b
+# for numerical stability : https://docs.scipy.org/doc/scipy-0.19.0/reference/generated/scipy.misc.logsumexp.html
+from scipy.special import logsumexp 
+import numpy as np
 
-import sys
-import platform
-from importlib.util import find_spec, module_from_spec
+def one_hot(a, num_classes):
+    return np.eye(num_classes)[a.reshape(-1)]
 
-def check_newer_version(version_inst, version_nec):
-    version_inst_split = version_inst.split('.')
-    version_nec_split = version_nec.split('.')
-    for i in range(min(len(version_inst_split), len(version_nec_split))):
-        if int(version_nec_split[i]) > int(version_inst_split[i]):
-            return False
-        elif int(version_nec_split[i]) < int(version_inst_split[i]):
-            return True
-    return True
-        
+def logprob(x, w, b):
+    ln_q = np.matmul(x, w) + b     
+    ln_Z = logsumexp(ln_q)     
+   
+    ln_p = ln_q - ln_Z
+    return ln_q, ln_Z, ln_p   
+
+def logreg_gradient(x, t, w, b):
+    num_classes = len(b)
     
-module_list = [('jupyter', '1.0.0'), 
-               ('matplotlib', '2.0.2'), 
-               ('numpy', '1.13.1'), 
-               ('python', '3.6.2'), 
-               ('sklearn', '0.19.0'), 
-               ('scipy', '0.19.1'), 
-               ('nb_conda', '2.2.1')]
-
-packages_correct = True
-packages_errors = []
-
-for module_name, version in module_list:
-    if module_name == 'scikit-learn':
-        module_name = 'sklearn'
-    if module_name == 'pyyaml':
-        module_name = 'yaml'
-    if 'python' in module_name:
-        python_version = platform.python_version()
-        if not check_newer_version(python_version, version):
-            packages_correct = False
-            error = f'Update {module_name} to version {version}. Current version is {python_version}.'
-            packages_errors.append(error) 
-            print(error)
-    else:
-        spec = find_spec(module_name)
-        if spec is None:
-            packages_correct = False
-            error = f'Install {module_name} with version {version} or newer, it is required for this assignment!'
-            packages_errors.append(error) 
-            print(error)
-        else:
-            x =__import__(module_name)
-            if hasattr(x, '__version__') and not check_newer_version(x.__version__, version):
-                packages_correct = False
-                error = f'Update {module_name} to version {version}. Current version is {x.__version__}.'
-                packages_errors.append(error) 
-                print(error)
-
-try:
-    from google.colab import drive
-    packages_correct = False
-    error = """Please, don't use google colab!
-It will make it much more complicated for us to check your homework as it merges all the cells into one."""
-    packages_errors.append(error) 
-    print(error)
-except:
-    pass
-
-packages_errors = '\n'.join(packages_errors)
+    ln_q, ln_Z, ln_p = logprob(x, w, b)
+    t_oh = one_hot(t, num_classes)
+    
+    delta = t_oh - np.exp(ln_q)/np.exp(ln_Z)   #
+    
+    dL_db = delta
+    dL_dw = np.matmul(x.T, delta)
+    logp = ln_p
+    
+    # here the statement contains logp[:,t] where logp is meant as a matrix of shape 1x10
+    return logp[:,t].squeeze(), dL_dw, dL_db.squeeze()

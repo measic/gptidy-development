@@ -1,10 +1,20 @@
-with tf.Session() as sess:
-    saver.restore(sess, "./my_model_final.ckpt")
+fig, axes = plt.subplots(nrows=2, ncols=1, figsize=(8,8))
 
-    for epoch in range(n_epochs):
-        for X_batch, y_batch in shuffle_batch(X_train, y_train, batch_size):
-            sess.run(training_op, feed_dict={X: X_batch, y: y_batch})
-        accuracy_val = accuracy.eval(feed_dict={X: X_valid, y: y_valid})
-        print(epoch, "검증 세트 정확도:", accuracy_val)
+dfBabies.loc[dfBabies["smoke"]==0].hist(column="weight", ax=axes[0], facecolor="steelblue", edgecolor="white")                                                   
+axes[0].set_title("Baby Weight of Non-Smokers", fontsize=20)
+axes[0].set_xlabel("Baby Weight (in ounces)", fontsize=16)
+axes[0].set_ylabel("Frequency", fontsize=16)
+axes[0].set_axisbelow(True)
 
-    save_path = saver.save(sess, "./my_new_model_final.ckpt")    
+
+dfBabies.loc[dfBabies["smoke"]==1].hist(column="weight", ax=axes[1], facecolor="darkseagreen", edgecolor="white")
+axes[1].set_title("Baby Weight of Smokers", fontsize=20)
+axes[1].set_xlabel("Baby Weight (in ounces)", fontsize=16)
+axes[1].set_ylabel("Frequency", fontsize=16)
+axes[1].set_axisbelow(True)
+
+# Set  axis limits to match
+axes[0].set_xlim([30,180])
+axes[1].set_xlim([30,180]);
+
+fig.subplots_adjust(hspace=.5)

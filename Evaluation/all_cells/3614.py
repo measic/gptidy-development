@@ -1,5 +1,4 @@
-import sys
-sys.path.append('/mnt/c/Users/Jesse/Desktop/glucose')
-sys.path.append('/mnt/c/Users/Jesse/Desktop/glucose/src')
-sys.path.append('/mnt/c/Users/Jesse/Desktop/glucose/src/policies')
-sys.path.append('/mnt/c/Users/Jesse/Desktop/glucose/src/policies/bellman_backup')
+env = Glucose(horizon=30)
+gamma = 0.9
+number_of_value_iterations = 1
+number_of_replicates = 30

@@ -1,1 +1,1 @@
-abs(-5)
+check('tests/q311.py')

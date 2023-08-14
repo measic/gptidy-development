@@ -1,2 +1,3 @@
-# set difference
-print(set1 - set2)
+# append a new item to an existing set
+set1 = set1 | {100}
+print(set1)

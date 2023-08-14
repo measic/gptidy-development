@@ -1,5 +1,3 @@
-'''View head and tail of the raw data'''
+'''Read data and verify data types'''
 
-!head -n 4 data/nuclides-half-lives.dat
-print('')
-!tail -n 4 data/nuclides-half-lives.dat
+df = read_table('data/nuclides-half-lives.dat')

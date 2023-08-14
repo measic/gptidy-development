@@ -1,6 +1,4 @@
-summary_team_file = '../Data/sr_summaries_kaggle_id_no_opp_2018.csv'
-team_meta_data_file = '../Data/D1_teams.csv'
-tournament_data_file = '../Data/tournament_results_2018.csv'
-rankings_data_file = '../Data/massey_seasons_with_id.csv'
-
-feature_dictionary = utils.Feature_Dictionary()
+# The season field in the summary data corresponds to the starting year of the season (e.g. 2000 for 2000-2001 season)
+summary_data = file_utils.read_summary_team_data(summary_team_file)
+teams = file_utils.read_team_meta_data(team_meta_data_file)
+summary_data.head()

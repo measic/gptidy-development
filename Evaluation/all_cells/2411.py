@@ -1,1 +1,1 @@
-from BITS.clustering.seq import ClusteringSeq
+c.calc_dist_mat()

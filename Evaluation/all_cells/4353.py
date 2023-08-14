@@ -1,3 +1,1 @@
-import platform
-
-platform.platform()
+!cat /proc/cpuinfo

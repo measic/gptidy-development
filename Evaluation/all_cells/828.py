@@ -1,5 +1,6 @@
-A = np.array([[10, 2, 4],
-              [4, 15, 6],
-              [7, 8, 20]])
-
-print( np.linalg.norm(np.eye(len(b)) - np.linalg.inv(np.triu(A)) @ A) )
+A = np.array([[54, 14, -11, 2], 
+              [14, 50, -4, 29],
+              [-11, -4, 55, 22],
+              [2, 29, 22, 95]]
+            )
+b = np.array([1, 1, 1, 1])

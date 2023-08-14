@@ -1,1 +1,1 @@
-cigar.string
+cigar.alignment_len

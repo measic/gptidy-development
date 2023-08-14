@@ -1,93 +1,53 @@
-import itertools
 import numpy as np
-from operator import itemgetter
-import matplotlib.pyplot as plt
-from scipy.spatial import ConvexHull
-from scipy.spatial import distance
 
-def sample_to_ndarray(sample):
-    points = []
-    
-    for point in sample:
-        points.append(point[0])
-        points.append(point[1])
-    
-    return np.array(points)
+# v1 . v2 = |v1| |v2| cos(a)
+# <=> a = cos-1( (v1.v2) / |v1||v2| )
 
+# 5 degrees tolerance is fine!
 
-def render_sample(index):
-    df = pd.DataFrame(samples[index], columns=['x', 'y'])
-    print(df)
-    fig = df.plot.scatter(x='x', y='y', color='red', figsize=(15,15))
+def debug_vectors(v1, v2):
+    print("v1: {0}, v2: {1}".format(v1, v2))
+    print("Angle: {0}".format(v_angle(v1, v2)))
+    print("Perpendicular: {0}". format(v_perpendicular(v1, v2, 4)))
+    print("Parallel: {0}".format(v_parallel(v1, v2, 3)))
+    print("Same Orientation: {0}".format(v_same_orientation(v1, v2)))
+    print("Dot product: {0}\n".format(np.dot(v1, v2)))
 
-    fig.set_xlim([0, 2000])
-    fig.set_ylim([0, 2000])
+def debug_all_samples(): 
+    for sample in samples[0x10] + samples[0x80]:
+        va = np.array(sample[1])
+        vb = np.array(sample[0])
+        o = np.array(sample[3])
+        s = np.array(sample[2])
 
-    plt.gca().set_aspect('equal', adjustable='box')
-    plt.ylabel('some numbers')
+        v1 = (va - o) / np.linalg.norm((va - o))
+        v2 = (vb - o) / np.linalg.norm((vb - o))
 
-    plt.show()
+        debug_vectors(v1, v2)
 
-def convex_hull(sample):
-    # convert points of sample to ndarray
-    points = np.asarray(sample)
-    
-    # find the convex hull
-    hull = ConvexHull(points)    
-   
-    plt.figure(num=None, figsize=(18, 16), dpi=320, facecolor='w', edgecolor='r')
-    
-    plt.xlim([0,2000]) 
-    plt.ylim([0,2000]) 
-
-    # plot the original points
-    plt.plot(points[:, 0], points[:, 1], 'o')
-
-    # plot the convex hull around it
-    for simplex in hull.simplices:
-        plt.plot(points[simplex, 0], points[simplex, 1], 'r')
-
-    # adjustment to coordinate system
-    plt.gca().set_aspect('equal', adjustable='box')
-    
-    # display that crap
-    plt.show()
-
-
-def get_distances_for_sample(sample):
-    oy = sample[0]
-    ox = sample[1]
-    tc = sample[2] # part of the code
-    origin = sample[3] # origin
-
-    return[distance.euclidean(origin, ox), distance.euclidean(origin, oy),distance.euclidean(ox, oy),distance.euclidean(tc, origin) ]
-    
-
-def get_statistics_for_sampleset(sampleset):
-    dst_origin_ox = []
-    dst_origin_oy = []
-    dst_ox_oy = []
-    dst_origin_tc = []
-
-    for i in range(0,9): 
-        sample = samples[0b10000000][i]
-        distances = get_distances_for_sample(sample)
+# vy (1486,68)
+# vx (1638,213)
+# s  (1581,119)
+# o  (1628,69)
         
-        dst_origin_ox.append(distances[0])
-        dst_origin_oy.append(distances[1])
-        dst_ox_oy.append(distances[2])
-        dst_origin_tc.append(distances[3])
-
-    print("dst(origin,x): mean({0}), max({1}, min({2}))".format(np.mean(dst_origin_ox), np.max(dst_origin_ox), np.min(dst_origin_ox)))
-    print("dst(origin,y): mean({0}), max({1}, min({2}))".format(np.mean(dst_origin_oy), np.max(dst_origin_oy), np.min(dst_origin_oy)))
-    print("dst(ox,oy): mean({0}), max({1}, min({2}))".format(np.mean(dst_ox_oy), np.max(dst_ox_oy), np.min(dst_ox_oy)))
-    print("dst(origin,tc): mean({0}), max({1}, min({2}))".format(np.mean(dst_origin_tc), np.max(dst_origin_tc), np.min(dst_origin_tc)))
-
     
-sample = samples[0x10][3]
-om = get_orientation_marks(sample)
-print(norm(om, sample[2]))
+debug_all_samples()
 
-convex_hull(sample)
-#get_statistics_for_sampleset(samples[0x80])
 
+va = np.array([1638, 213]) 
+vb = np.array([1486, 68]) 
+o = np.array([1628, 69])
+
+real_origin = np.array([0, 0])
+translate = real_origin - o
+
+ot = o + translate
+
+vat = (va + translate)
+vbt = (vb + translate)
+
+debug_vectors(va - o, vb - o)
+debug_vectors(vat, vbt)
+
+print("va: {0}, vb: {1}".format(va,vb))
+print("vat: {0}, vbt: {1}".format(vat,vbt))

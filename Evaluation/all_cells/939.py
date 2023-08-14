@@ -1,7 +1,2 @@
-# Invert transform
-inverted=list()
-for i in range(len(differenced)):
-    value=inverse_difference(series, differenced[i],len(series)-i)
-    inverted.append(value)
-inverted=pd.Series(inverted)  
-print(inverted.head())
+X=X.reshape(len(X),1) #Reshaping the input arrays into 1 by len(x) matrix
+X

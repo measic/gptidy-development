@@ -1,1 +1,1 @@
-np.unique(pred_f_tr, return_counts=True)
+print(ps_svm.best_params)

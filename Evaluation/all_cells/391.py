@@ -1,10 +1,18 @@
-# Python libraries
-import os
-from IPython.core.display import Image, display
+# cluster parameters
+nclusters = 6
+dimensions = 2
+covariance = [20, 10]
+minRange = 0
+maxRange = 100
+npoints = 100
+    
+dataset = create_data(nclusters, dimensions, covariance, npoints, minrange=minRange, maxrange=maxRange,
+                      random_flip=False, nonlinearities = True)
 
-# Custom libraries
-from density_tree.decision_tree_create import *
-from density_tree.create_data import *
-from density_tree.helpers import *
-from density_tree.plots import *
-from density_tree.random_forest import *
+clusters = np.asarray(data_to_clusters(dataset))
+
+fig, ax = plt.subplots(1, 1)
+fig.set_size_inches(8,6)
+plot_data(clusters, "", ax, n_clusters=nclusters, minrange=minRange, maxrange=maxRange, covariance=0)
+plt.savefig("../Figures/labelled-data.pdf", bbox_inches='tight', pad_inches=0)
+plt.show()

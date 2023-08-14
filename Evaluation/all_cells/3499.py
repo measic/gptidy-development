@@ -1,1 +1,1 @@
-square(4)
+powers(3)

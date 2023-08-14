@@ -1,3 +1,2 @@
-#matrix subtraction
-K = J - E
-print(K)
+#element-wise division
+print(K/L) 

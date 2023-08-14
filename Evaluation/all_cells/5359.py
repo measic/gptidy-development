@@ -1,19 +1,7 @@
-lm = Model(name='lp_telephone_production')
-desk = lm.continuous_var(name='desk')
-cell = lm.continuous_var(name='cell')
-# write constraints
-# constraint #1: desk production is greater than 100
-lm.add_constraint(desk >= 100)
-
-# constraint #2: cell production is greater than 100
-lm.add_constraint(cell >= 100)
-
-# constraint #3: assembly time limit
-ct_assembly = lm.add_constraint( 0.2 * desk + 0.4 * cell <= 401)
-
-# constraint #4: painting time limit
-ct_painting = lm.add_constraint( 0.5 * desk + 0.4 * cell <= 492)
-lm.maximize(12.4 * desk + 20.2 * cell)
-
-ls = lm.solve()
-lm.print_solution()
+bbm = Model(name='b&b')
+x, y, z = bbm.integer_var_list(3, name=['x', 'y', 'z'])
+bbm.maximize(x + y + 2*z)
+bbm.add_constraint(7*x + 2*y + 3*z <= 36)
+bbm.add_constraint(5*x + 4*y + 7*z <= 42)
+bbm.add_constraint(2*x + 3*y + 5*z <= 28)
+bbm.solve(log_output=True);

@@ -28,10 +28,10 @@ def region_of_interest(img, vertices):
     mask = np.zeros_like(img)
     if len(img.shape) > 2:
         channel_count = img.shape[2]
-        variable_def = (255,) * channel_count
+        ignore_mask_color = (255,) * channel_count
     else:
-        variable_def = 255
-    cv2.fillPoly(mask, vertices, variable_def)
+        ignore_mask_color = 255
+    cv2.fillPoly(mask, vertices, ignore_mask_color)
     masked_image = cv2.bitwise_and(img, mask)
     return masked_image
 
@@ -83,7 +83,7 @@ def draw_lines_roi(img, lines, vertices, color=[255, 0, 0], thickness=2):
     right_x1 = []
     right_x2 = []
     left_count = 0
-    right_count = 0
+    variable_def = 0
     for line in lines:
         for x1, y1, x2, y2 in line:
             m = (y2 - y1) / (x2 - x1)
@@ -91,7 +91,7 @@ def draw_lines_roi(img, lines, vertices, color=[255, 0, 0], thickness=2):
                 fit = np.polyfit([x1, x2], [y1, y2], 1)
                 right_x1.append(np.int(np.float(y_min - fit[1]) / np.float(fit[0])))
                 right_x2.append(np.int(np.float(y_max - fit[1]) / np.float(fit[0])))
-                right_count += 1
+                variable_def += 1
             if (m < -0.3) & (m > -7):
                 fit = np.polyfit([x1, x2], [y1, y2], 1)
                 left_x1.append(np.int(np.float(y_min - fit[1]) / np.float(fit[0])))
@@ -105,7 +105,7 @@ def draw_lines_roi(img, lines, vertices, color=[255, 0, 0], thickness=2):
                 leftline = [(left_line_x1, y_min, left_line_x2, y_max)]
         else:
             leftline = [(left_line_x1, y_min, left_line_x2, y_max)]
-    if right_count > 0:
+    if variable_def > 0:
         right_line_x1 = np.int(np.nanmedian(right_x1))
         right_line_x2 = np.int(np.nanmedian(right_x2))
         if rightline[0][2] != 0:

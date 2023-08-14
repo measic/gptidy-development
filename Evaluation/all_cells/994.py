@@ -1,1 +1,3 @@
-model_stats = eliminate_features_logistic_regression(logreg, X_copy,y)
+model_features =model_stats[cross_hash]['labels']
+
+print(model_features)

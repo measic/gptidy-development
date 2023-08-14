@@ -1,1 +1,1 @@
-saver = tf.train.Saver()
+print("Menor custo obtido durante o treino: {}".format(min(losses)))

@@ -1,3 +1,10 @@
-img_61060 = plt.imread(test_path + "61060_1/pdi_heat.jpg")
-plt.figure(figsize = (15,15))
-plt.imshow(img_61060);
+import plotly as py
+import plotly.graph_objs as go
+
+import numpy as np
+import datetime as dt
+import os.path
+import xlrd
+import pandas as pd
+
+py.offline.init_notebook_mode(connected=True)

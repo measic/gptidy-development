@@ -1,1 +1,1 @@
-twitter_archive_clean.to_csv('twitter_archive_master.csv')
+df.drop(['Unnamed: 0'], axis=1)

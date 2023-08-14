@@ -1,1 +1,16 @@
-sns.heatmap(treino_dropna.corr(), annot = True)
+colunasTeste=[
+    'PassageiroId',
+    'Idade',
+    'FaixaEtaria',
+    'Classe',
+    'PortoEmbarqueNum',
+    'ParentesIrmao',
+    'ParentesFilhos',
+    'SexoNum',
+    'SaudacaoNum',
+    'PassagemPreco',
+    'FamiliaQtde',
+    'EstaSozinho',
+    'TemCabine',
+    'FamiliaQtde'
+]

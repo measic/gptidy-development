@@ -1,3 +1,2 @@
-(loss, score_vgg16_seq) = VGG16Seq.evaluate(arr_X_test, arr_y_test, verbose=True)
-
-score_vgg16_seq
+oP7_DataBreed.show()
+oP7_DataBreed.show_breed_name()

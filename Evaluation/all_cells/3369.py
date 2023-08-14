@@ -1,1 +1,1 @@
-%run ../python/misc.py
+df_vs.head()

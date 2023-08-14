@@ -1,1 +1,2 @@
-cy.selectedNodes
+node = cy.getSelectedNodes()[0]
+print(node)

@@ -1,4 +1,14 @@
-import gensim, logging
+Xe = []
+for s in train_sents:
+        mat = sent2embedding(s)
+        Xe.append(mat)
+Xee = np.vstack(Xe)
+finalX = np.concatanate(X,Xee)
 
-model_path = 'GoogleNews-vectors-negative300.bin'
-model = gensim.models.Word2Vec.load_word2vec_format(model_path, binary=True)
+
+Xet = []
+for s in test_sents:
+        mat = sent2embedding(s)
+        Xet.append(mat)
+Xeet = np.vstack(Xet)
+finalXt = np.concatanate(Xt,Xeet)

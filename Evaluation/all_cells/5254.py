@@ -1,18 +1,20 @@
-reuse_vars = tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES,
-                               scope="hidden[123]") # 정규표현식
-restore_saver = tf.train.Saver(reuse_vars) # 1-3층 복원
+original_w = [[1., 2., 3.], [4., 5., 6.]] # 다른 프레임워크로부터 가중치를 로드
+original_b = [7., 8., 9.]                 # 다른 프레임워크로부터 편향을 로드
+
+X = tf.placeholder(tf.float32, shape=(None, n_inputs), name="X")
+hidden1 = tf.layers.dense(X, n_hidden1, activation=tf.nn.relu, name="hidden1")
+# [...] 모델의 나머지 부분을 구성
+
+# hidden1 변수의 할당 노드에 대한 핸들을 구합니다
+graph = tf.get_default_graph()
+assign_kernel = graph.get_operation_by_name("hidden1/kernel/Assign")
+assign_bias = graph.get_operation_by_name("hidden1/bias/Assign")
+init_kernel = assign_kernel.inputs[1]
+init_bias = assign_bias.inputs[1]
 
 init = tf.global_variables_initializer()
-saver = tf.train.Saver()
 
 with tf.Session() as sess:
-    init.run()
-    restore_saver.restore(sess, "./my_model_final.ckpt")
-
-    for epoch in range(n_epochs):                                        # 책에는 없음
-        for X_batch, y_batch in shuffle_batch(X_train, y_train, batch_size): # 책에는 없음
-            sess.run(training_op, feed_dict={X: X_batch, y: y_batch})    # 책에는 없음
-        accuracy_val = accuracy.eval(feed_dict={X: X_valid, y: y_valid}) # 책에는 없음
-        print(epoch, "검증 세트 정확도:", accuracy_val)                      # 책에는 없음
-
-    save_path = saver.save(sess, "./my_new_model_final.ckpt")
+    sess.run(init, feed_dict={init_kernel: original_w, init_bias: original_b})
+    # [...] 새 작업에 모델을 훈련시킵니다
+    print(hidden1.eval(feed_dict={X: [[10.0, 11.0]]}))  # 책에는 없음

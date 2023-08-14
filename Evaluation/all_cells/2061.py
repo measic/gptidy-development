@@ -1,4 +1,4 @@
-plt.plot(df_per_day_train.index, df_per_day_train, label='Train')
-plt.plot(df_per_day_test.index, df_per_day_test, label='Test')
-plt.plot(predictions.index, predictions, label='ARIMA(1,0,4)')
+plt.plot(df_per_day_train1.index, df_per_day_train1, label='Train')
+plt.plot(df_per_day_test1.index, df_per_day_test1, label='Test')
+plt.plot(pred1.index, pred1, label='Holt-Winters1')
 plt.legend(loc='best')

@@ -1,16 +1,20 @@
-means = X_train.mean(axis=0, keepdims=True)
-stds = X_train.std(axis=0, keepdims=True) + 1e-10
-X_val_scaled = (X_valid - means) / stds
+barwidth = 0.75; 
+fig, ax = plt.subplots(figsize=(9, 7));
+rects1 = ax.bar(0.5,SkyPresence.mean(),barwidth,color=sns.xkcd_rgb['green'],yerr=SkyPresenceSEM,ecolor='k',error_kw=dict(lw=3));
+rects2 = ax.bar(1.5,ColorScheme.mean(),barwidth,color=(0.3,0.9,0.3),yerr=ColorSchemeSEM,ecolor='k',error_kw=dict(lw=3));
+rects3 = ax.bar(2.5,TreeFreq.mean(),barwidth,color=(0.15,1,0.15),yerr=TreeFreqSEM,ecolor='k',error_kw=dict(lw=3));
+rects4 = ax.bar(4,ImageType.mean(),barwidth,yerr=ImageTypeSEM,ecolor='k',edgecolor=sns.xkcd_rgb['green'],linewidth = 2,facecolor='none', error_kw=dict(lw=3));
+rects5 = ax.bar(5,FeatureType.mean(),barwidth,yerr=FeatureTypeSEM,ecolor='k',edgecolor=(0.3,0.9,0.3),linewidth = 2,facecolor='none', error_kw=dict(lw=3));
+rects6 = ax.bar(6,LightType.mean(),barwidth,yerr=LightTypeSEM,ecolor='k',edgecolor=(0.15,1,0.15),linewidth = 2, facecolor='none',error_kw=dict(lw=3));
+sns.set(context='notebook', style='white', font='Myriad Pro', font_scale=2, color_codes=False, rc=None);
+ax.set_ylim(0,100);
+ax.set_xlim(0,7.5);
+ax.set_xticklabels(('SP','CS','TF','IT','FT','LT'));
+ax.set_xticks([0.5 + barwidth/2, 1.5 + barwidth/2, 2.5 + barwidth/2, 4 + barwidth/2, 5 + barwidth/2, 6 + barwidth/2]);
+ax.set_yticks(np.arange(0, 101, 10));
+plt.title('Q2: Rate the Frequency at Which These Perceptual Categories\nPredicted an Easy/Hard Color-Word Trial', fontsize=18,fontweight="bold")
+plt.ylabel('<-- Less Likely      More Likely -->', fontsize=17,fontweight="bold")
+plt.xlabel('S-C Phase                 S-CT Phase', fontsize=17,fontweight="bold")
+sns.despine();
 
-with tf.Session() as sess:
-    init.run()
-    for epoch in range(n_epochs):
-        for X_batch, y_batch in shuffle_batch(X_train, y_train, batch_size):
-            X_batch_scaled = (X_batch - means) / stds
-            sess.run(training_op, feed_dict={X: X_batch_scaled, y: y_batch})
-        if epoch % 5 == 0:
-            acc_batch = accuracy.eval(feed_dict={X: X_batch_scaled, y: y_batch})
-            acc_valid = accuracy.eval(feed_dict={X: X_val_scaled, y: y_valid})
-            print(epoch, "배치 데이터 정확도:", acc_batch, "검증 세트 정확도:", acc_valid)
-
-    save_path = saver.save(sess, "./my_model_final_selu.ckpt")
+plt.show()

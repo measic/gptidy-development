@@ -1,1 +1,3 @@
-melted_stats.head()
+!pip install selenium
+!pip install folium
+!pip install pykml

@@ -1,1 +1,1 @@
-np.sum(y_pred == y_pred_extra_trees) / len(y_pred)
+rnd_clf.feature_importances_

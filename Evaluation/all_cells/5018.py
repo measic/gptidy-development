@@ -1,14 +1,20 @@
-### Test test test: partiallY observed
-nodes = [X_prior, X, Z_prior, Z, Y_cond, Y]
+nodes = [ST, F, C, W, f_I, f_ST, f_F, f_C, f_W, I, B, f_B, S, f_S]
 for n in nodes:
     n.reset()
     
-X_prior.pending.add(X)
-Z_prior.pending.add(Z)
-Y.pending.add(Y_cond)
+C.pending.add(f_C)
+W.pending.add(f_W)
+f_I.pending.add(I)
+f_S.pending.add(S)
+ST.pending.add(f_ST)
+F.pending.add(f_F)
 
-Z.set_observed(1)
+sum_product(nodes)
 
-max_sum(nodes)
-
-assert np.allclose(Y.unnormalized_log_marginal(), [-2.86470401, -2.01740615])
+print("I", I.marginal())
+print("S", S.marginal())
+print("ST", ST.marginal())
+print("F", F.marginal())
+print("B", B.marginal())
+print("C", C.marginal())
+print("W", W.marginal())

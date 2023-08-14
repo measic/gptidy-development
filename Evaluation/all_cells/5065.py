@@ -1,3 +1,1 @@
-### Importando as libs
-import pandas as pd
-import numpy as np
+test_csv.head(2)

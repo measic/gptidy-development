@@ -1,3 +1,3 @@
-'''Read data and verify data types'''
+'''Create nuclides dictionary from data frame'''
 
-df = read_table('data/nuclides-half-lives.dat')
+nuclides = get_nuclides( df )

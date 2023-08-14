@@ -1,8 +1,2 @@
-#Run this cell multiple times to iterate through perceptron algorithm.
-w = update_nueron(w, X[i, :], y[i])
-
-#plot decision boundary and examples
-plot_decision_boundary(X, y, w, i)
-
-#Increment counter, startover when we reach the end of examples
-i = (i+1)%X.shape[0] 
+sys.path.append('../util')
+from synthetic import make_synthetic_ball, make_synthetic_brick, make_random_balls, make_random_bricks

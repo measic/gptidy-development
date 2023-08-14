@@ -1,2 +1,1 @@
-plt.imshow(stern_images[33].reshape(255, 255, 3))
-plt.show();
+stbd_broad_images_gt_50m = broad_greater_than_50_meters_starboard()

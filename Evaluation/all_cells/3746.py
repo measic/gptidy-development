@@ -1,14 +1,24 @@
-if use_toy_data:
-    input_fn = 'toy_input.txt'
-    with open(input_fn, 'w') as f:
-        f.write('a b c\td e f d e f\n')
-        f.write('d e f\ta b c a b c\n')
-else:
-    DATA_DIR = '../../data/'
-    input_fn = 'instrumental.full.train'
-    input_fn = os.path.join(DATA_DIR, input_fn)
-    if not os.path.exists(input_fn):
-        import urllib
-        u = urllib.request.URLopener()
-        u.retrieve(
-            "http://sandbox.mokk.bme.hu/~judit/resources/instrumental.full.train", input_fn)
+class Config(object):
+    default_fn = os.path.join(
+        PROJECT_DIR, "config", "seq2seq", "default.yaml"
+    )
+    
+    @staticmethod
+    def load_defaults(fn=default_fn):
+        with open(fn) as f:
+            return yaml.load(f)
+    
+    @classmethod
+    def from_yaml(cls, fn):
+        params = yaml.load(fn)
+        return cls(**params)
+    
+    def __init__(self, **kwargs):
+        defaults = Config.load_defaults()
+        for param, val in defaults.items():
+            setattr(self, param, val)
+        for param, val in kwargs.items():
+            setattr(self, param, val)
+        
+config = Config(src_maxlen=30, tgt_maxlen=33)
+dataset = Dataset(input_fn, config)

@@ -1,11 +1,3 @@
-treino.loc[treino['Cabine'].notnull(),'TemCabine'] = 1
-treino.loc[treino['Cabine']=='SEM_CABINE','TemCabine'] = 0
-
-treino_dropna.loc[treino_dropna['Cabine'].notnull(),'TemCabine'] = 1
-treino_dropna.loc[treino_dropna['Cabine']=='SEM_CABINE','TemCabine'] = 0
-
-teste.loc[teste['Cabine'].notnull(),'TemCabine'] = 1
-teste.loc[teste['Cabine']=='SEM_CABINE','TemCabine'] = 0
-
-uniao.loc[uniao['Cabine'].notnull(),'TemCabine'] = 1
-uniao.loc[uniao['Cabine']=='SEM_CABINE','TemCabine'] = 0
+colunasNumericasIdade=['Classe','Idade','FaixaEtaria','ParentesIrmao','ParentesFilhos','SaudacaoNum','PassagemPreco','SexoNum','PortoEmbarqueNum','FamiliaQtde','EstaSozinho','TemCabine']
+x = pd.DataFrame(treino_dropna,columns=colunasNumericasIdade).values
+y = treino_dropna['Idade'].astype('float32')

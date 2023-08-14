@@ -1,4 +1,4 @@
-## Sort the grid models by AUC
-sorted_final_grid = final_grid.get_grid(sort_by='auc',decreasing=True)
-
-print sorted_final_grid
+params_list = []
+for key, value in best_model.params.iteritems():
+    params_list.append(str(key)+" = "+str(value['actual']))
+params_list

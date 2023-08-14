@@ -1,7 +1,5 @@
-# KPIs
-fracs = df_secs.frac
-variance = mdl.sum(float(dfv[sec1][sec2]) * fracs[sec1] * fracs[sec2] for sec1 in securities for sec2 in securities)
-mdl.add_kpi(variance, 'Variance')
-
-# finally the objective
-mdl.minimize(variance)
+all_fracs = {}
+for row in df_secs.itertuples():
+    pct = 100 * row.frac.solution_value
+    all_fracs[row[0]] = pct
+    print('-- fraction allocated in: {0:<12}: {1:.2f}%'.format(row[0], pct))

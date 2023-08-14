@@ -1,1 +1,1 @@
-cluster_assignment==0
+data[cluster_assignment==0]

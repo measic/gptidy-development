@@ -1,1 +1,1 @@
-data = pd.read_csv("../data/prices.csv")
+data.symbol.unique()[:50]

@@ -1,1 +1,1 @@
-preprocessor(df.loc[0, 'review'][-50:])
+df['review'] = df['review'].apply(preprocessor)

@@ -1,11 +1,2 @@
-import p5_util
-if True:
-    VGG16Seq = p5_util.object_load('./data/VGG16Seq_sgd.dump')
-    VGG16Seq.summary()
-
-import p5_util
-import P7_DataBreed
-if False :
-    oP7_DataBreed = p5_util.object_load('./data/oP7_DataBreed.dump')
-    oP7_DataBreed.show()
-    oP7_DataBreed.breed_show()
+print(arr_X_train.shape)
+history = VGG16Seq.fit(arr_X_train, arr_y_train, epochs=50, batch_size=90,verbose=1,validation_data=(arr_X_test, arr_y_test))

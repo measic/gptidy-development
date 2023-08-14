@@ -378,7 +378,6 @@ https://raw.githubusercontent.com/Areej32/project-1/775b283e8606e4942ae7937f9522
 https://raw.githubusercontent.com/Areej32/project-1/775b283e8606e4942ae7937f9522cd5f74c6c4f1/Clean%20Data/Models.ipynb
 https://raw.githubusercontent.com/Areej32/project-1/775b283e8606e4942ae7937f9522cd5f74c6c4f1/Clean%20Data/Models.ipynb
 https://raw.githubusercontent.com/Areej32/project-1/775b283e8606e4942ae7937f9522cd5f74c6c4f1/Clean%20Data/Models.ipynb
-https://raw.githubusercontent.com/Areej32/project-1/775b283e8606e4942ae7937f9522cd5f74c6c4f1/Clean%20Data/Models.ipynb
 https://raw.githubusercontent.com/roei60/Data-Science-Hotels/9bed0b5800e31b47da4455f604eb8349f093f0a5/Clustering.ipynb
 https://raw.githubusercontent.com/roei60/Data-Science-Hotels/9bed0b5800e31b47da4455f604eb8349f093f0a5/Clustering.ipynb
 https://raw.githubusercontent.com/roei60/Data-Science-Hotels/9bed0b5800e31b47da4455f604eb8349f093f0a5/Clustering.ipynb
@@ -500,7 +499,6 @@ https://raw.githubusercontent.com/qzlvyh/dlab-berkeley-python-fundamentals/7c19e
 https://raw.githubusercontent.com/qzlvyh/dlab-berkeley-python-fundamentals/7c19e2ea79267ca9f01937053841b5f6a6c19466/Day_1/05_Strings.ipynb
 https://raw.githubusercontent.com/qzlvyh/dlab-berkeley-python-fundamentals/7c19e2ea79267ca9f01937053841b5f6a6c19466/Day_1/05_Strings.ipynb
 https://raw.githubusercontent.com/qzlvyh/dlab-berkeley-python-fundamentals/7c19e2ea79267ca9f01937053841b5f6a6c19466/Day_1/05_Strings.ipynb
-https://raw.githubusercontent.com/annafeit/optimizing-the-french-keyboard/48848751b14b5a390a59e8f45642668bc26cccda/Define%20scenario%20and%20optimize.ipynb
 https://raw.githubusercontent.com/annafeit/optimizing-the-french-keyboard/48848751b14b5a390a59e8f45642668bc26cccda/Define%20scenario%20and%20optimize.ipynb
 https://raw.githubusercontent.com/annafeit/optimizing-the-french-keyboard/48848751b14b5a390a59e8f45642668bc26cccda/Define%20scenario%20and%20optimize.ipynb
 https://raw.githubusercontent.com/annafeit/optimizing-the-french-keyboard/48848751b14b5a390a59e8f45642668bc26cccda/Define%20scenario%20and%20optimize.ipynb
@@ -5578,7 +5576,6 @@ https://raw.githubusercontent.com/beaku/fastai/13a76a919ded63e6db38a82e9cd498f49
 https://raw.githubusercontent.com/beaku/fastai/13a76a919ded63e6db38a82e9cd498f49b531216/docs_src/index.ipynb
 https://raw.githubusercontent.com/beaku/fastai/13a76a919ded63e6db38a82e9cd498f49b531216/docs_src/index.ipynb
 https://raw.githubusercontent.com/beaku/fastai/13a76a919ded63e6db38a82e9cd498f49b531216/docs_src/index.ipynb
-https://raw.githubusercontent.com/RobFirth/pycoco/1c9be662b6dd67f8be5423568bb3ecbff2979492/notebooks/CoCo_SN2007uy_Test.ipynb
 https://raw.githubusercontent.com/RobFirth/pycoco/1c9be662b6dd67f8be5423568bb3ecbff2979492/notebooks/CoCo_SN2007uy_Test.ipynb
 https://raw.githubusercontent.com/RobFirth/pycoco/1c9be662b6dd67f8be5423568bb3ecbff2979492/notebooks/CoCo_SN2007uy_Test.ipynb
 https://raw.githubusercontent.com/RobFirth/pycoco/1c9be662b6dd67f8be5423568bb3ecbff2979492/notebooks/CoCo_SN2007uy_Test.ipynb

@@ -1,1 +1,3 @@
-!rm -fr bc-1.07.1 bc-1.07.1.tar.gz
+%load_ext autoreload
+%autoreload 2
+%matplotlib widget

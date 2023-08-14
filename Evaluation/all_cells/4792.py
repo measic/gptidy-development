@@ -1,19 +1,41 @@
 import zipfile
 from urllib import request
+import os, sys
 
-path_set5 = r"https://github.com/titu1994/Super-Resolution-using-Generative-Adversarial-Networks/releases/download/v0.1/Set5.zip"
-filename="Set5"
+path_coco = r"http://images.cocodataset.org/zips/train2014.zip"
+filename="train2014"
 def _progress(count, block_size, total_size):
             sys.stdout.write('\rDownloading %s %.2f%%' % (filename,
                 float(count * block_size) / float(total_size) * 100.0))
             sys.stdout.flush()
 
-if not os.path.exists("tests/set5/set5"):
-    print("Downloading Set5 images")
-    filehandler, _ = request.urlretrieve(path_set5, reporthook=_progress)
+if not os.path.exists("tests\coco"):
+    print("Downloading Coco images")
+    filehandler, _ = request.urlretrieve(path_coco, reporthook=_progress)
     zf = zipfile.ZipFile(filehandler)
+    uncompress_size = sum((file.file_size for file in zf.infolist()))
+
+    extracted_size = 0
     print()
     print("Extracting images")
+
+    for file in zf.infolist():
+        extracted_size += file.file_size
+        sys.stdout.write('\rExtracting %.2f%%' % (float(extracted_size * 100/uncompress_size)))
+        sys.stdout.flush()
+        zf.extract(file, "tests/coco")
+
+    os.rename("tests/coco/train2014", "tests/coco/images")
+
+    filename="annotations"
+    path_cocoann = r"http://images.cocodataset.org/annotations/annotations_trainval2014.zip"
+
+    print("\nDownloading Coco annotations")
+    filehandler, _ = request.urlretrieve(path_cocoann, reporthook=_progress)
+
+    zf = zipfile.ZipFile(filehandler)
+    print()
+    print("Extracting annotations")
     uncompress_size = sum((file.file_size for file in zf.infolist()))
 
     extracted_size = 0
@@ -22,7 +44,6 @@ if not os.path.exists("tests/set5/set5"):
         extracted_size += file.file_size
         sys.stdout.write('\rExtracting %.2f%%' % (float(extracted_size * 100/uncompress_size)))
         sys.stdout.flush()
-        zf.extract(file, "tests/set5")
-    
+        zf.extract(file, "tests/coco")
 print()
-print("Set5 is all set!!")
+print("Coco is all set!!")

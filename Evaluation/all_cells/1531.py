@@ -1,1 +1,1 @@
-After2009 = subset.sel(time=slice('2009', '2016'))
+monthly_data = After2009.resample('M', dim='time', how='mean', keep_attrs=True)

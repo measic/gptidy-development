@@ -1,25 +1,6 @@
-def gauss_seidel(A, b, x0):
-    """ 
-    Implements the Gauss-Seidel method with a over-relaxation parameter
-    """
-    ## tolerance level for stopping rule
-    tol = 1e-8
-    eps = 1
-    ## iteration counter and max number of iterations
-    it = 0
-    maxit = 100
-    
-    ## initialize x
-    x = x0
-    Q = np.triu(A)
-    Q_inv = np.linalg.inv(Q)
-    
-    while eps > tol and it < maxit:
-        it += 1 
-        x_new = Q_inv @ b + ( np.eye(len(b)) - Q_inv @ A) @ x
-    
-        eps = np.linalg.norm(x_new - x)
-        
-        x = x_new
-        
-    return x        
+# Determine if the predictions are correct
+is_correct_prediction = tf.equal(tf.argmax(prediction, 1), tf.argmax(labels, 1))
+# Calculate the accuracy of the predictions
+accuracy = tf.reduce_mean(tf.cast(is_correct_prediction, tf.float32))
+
+print('Accuracy function created.')

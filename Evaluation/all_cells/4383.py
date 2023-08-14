@@ -1,1 +1,1 @@
-### TODO: Train the model.
+### TODO: Calculate classification accuracy on the test dataset.

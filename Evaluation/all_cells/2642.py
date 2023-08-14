@@ -1,9 +1,22 @@
-def sortDataFiles(bankdata):
+def getIntervalDates(bankdata):
+    minDate = ''
+    maxDate = ''
+    first = True
+    
     for accountType in ACCOUNTTYPES:
-        for bankname in bankdata[accountType]:
-            if "movements" in bankdata[accountType][bankname]:
-                (bankdata[accountType][bankname]["date"], bankdata[accountType][bankname]["balance"], bankdata[accountType][bankname]["movements"]) = zip(*sorted(zip(bankdata[accountType][bankname]["date"], bankdata[accountType][bankname]["balance"], bankdata[accountType][bankname]["movements"])))
-            else:
-                (bankdata[accountType][bankname]["date"], bankdata[accountType][bankname]["balance"]) = zip(*sorted(zip(bankdata[accountType][bankname]["date"], bankdata[accountType][bankname]["balance"])))
+        for bank in bankdata[accountType]:
+            dates = np.array(bankdata[accountType][bank]['date'])
             
-    return bankdata
+            if first:
+                minDate = dates.min()
+                maxDate = dates.max()
+                
+                first = False
+            else:
+                if minDate > dates.min():
+                    minDate = dates.min()
+
+                if maxDate < dates.max():
+                    maxDate = dates.max()
+
+    return (minDate, maxDate)

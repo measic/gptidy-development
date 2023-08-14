@@ -1,1 +1,1 @@
-!pip install --upgrade setuptools
+!easy_install -U NeoBase

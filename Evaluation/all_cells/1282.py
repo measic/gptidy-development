@@ -1,9 +1,13 @@
-#create summary table for all region aggregate 
-grouped_region_stats = region_stats.groupby(['region']).mean()
-region_mean = grouped_region_stats.drop(columns=["school_id"])
-region_mean['earnings_cost_ratio'] = region_mean['earnings6years']/region_mean['tuition_in_state']
+x_axis = [x for x in range(1,9)]
+y_axis = mean_df_clean["earnings_cost_ratio"]
 
+plt.plot(x_axis, y_axis, 'go--', linewidth=2, markersize=8, color='blue', label="Earning-Cost Ratio")
 
-#drop region 0 and 9
-mean_df_clean = region_mean.drop([0,9])
-mean_df_clean
+plt.title("Earnings/Cost ratio per region ($)")
+plt.xlabel("Region")
+plt.ylabel("Earnings/Cost Ratio")
+plt.grid()
+plt.legend(title=[""])
+plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+#save fig
+#plt.savefig("Plots/Earnings-CostRatioPerRegion.png")

@@ -1,4 +1,4 @@
-def function_def(src_dir, dest_dir):
+def resize_images(src_dir, dest_dir):
     if not os.path.isdir(src_dir):
         raise Exception(src_dir + ' is not a directory')
     if not os.path.exists(dest_dir):
@@ -8,9 +8,9 @@ def function_def(src_dir, dest_dir):
     for image in raw_images - dest_images:
         if DEBUG:
             print('Resizing ' + image)
-        resize_image(image, src_dir, dest_dir)
+        function_def(image, src_dir, dest_dir)
 
-def resize_image(image_file, src_dir, dest_dir):
+def function_def(image_file, src_dir, dest_dir):
     in_file = os.path.join(src_dir, image_file)
     with open(in_file, 'r+b') as fd_img:
         with Image.open(fd_img) as img:
@@ -31,4 +31,4 @@ for subdir in subdirs:
                 path = os.path.join(source_dir, f)
                 if os.path.isfile(path):
                     shutil.copy(path, dest_dir)
-    function_def(os.path.join(image_dir, subdir), dest_dir)
+    resize_images(os.path.join(image_dir, subdir), dest_dir)

@@ -1,7 +1,2 @@
-import numpy as np
-import pandas as pd
-from asl_data import AslDb
-
-
-asl = AslDb() # initializes the database
-asl.df.head() # displays the first five rows of the asl database, indexed by video and frame
+asl.df['grnd-ry'] = asl.df['right-y'] - asl.df['nose-y']
+asl.df.head()  # the new feature 'grnd-ry' is now in the frames dictionary

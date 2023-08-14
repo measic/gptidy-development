@@ -1,8 +1,4 @@
-for n in range(1,nt):
-    rn = rho.copy()
-    
-    for j in range(1,nx):
-        v = (vmax*(1-rho/rhomax))*(5/18)
-        f1 = v * rho
-        rho[1:]=rn[1:]-dt/dx*(f1[1:]-f1[0:-1])
-        rho[0] = 20
+gbrt_slow = GradientBoostingRegressor(max_depth=2, n_estimators=29, learning_rate=0.1, random_state=42)
+gbrt_slow.fit(X, y)
+y_pred = gbrt_slow.predict(X)
+gbrt_slow.loss_(y, y_pred) #MSE

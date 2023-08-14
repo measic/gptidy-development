@@ -1,39 +1,29 @@
 reset_graph()
 
-n_inputs = 28 * 28  # MNIST
-n_hidden1 = 300
-n_hidden2 = 50
-n_hidden3 = 50
-n_hidden4 = 50
-n_outputs = 10
+n_hidden4 = 20  # 새 층
+n_outputs = 10  # 새 층
 
-X = tf.placeholder(tf.float32, shape=(None, n_inputs), name="X")
-y = tf.placeholder(tf.int32, shape=(None), name="y")
+saver = tf.train.import_meta_graph("./my_model_final.ckpt.meta")
 
-with tf.name_scope("dnn"):
-    hidden1 = tf.layers.dense(X, n_hidden1, activation=tf.nn.relu, name="hidden1")
-    hidden2 = tf.layers.dense(hidden1, n_hidden2, activation=tf.nn.relu, name="hidden2")
-    hidden3 = tf.layers.dense(hidden2, n_hidden3, activation=tf.nn.relu, name="hidden3")
-    hidden4 = tf.layers.dense(hidden3, n_hidden4, activation=tf.nn.relu, name="hidden4")
-    hidden5 = tf.layers.dense(hidden4, n_hidden5, activation=tf.nn.relu, name="hidden5")
-    logits = tf.layers.dense(hidden5, n_outputs, name="outputs")
+X = tf.get_default_graph().get_tensor_by_name("X:0")
+y = tf.get_default_graph().get_tensor_by_name("y:0")
 
-with tf.name_scope("loss"):
-    xentropy = tf.nn.sparse_softmax_cross_entropy_with_logits(labels=y, logits=logits)
+hidden3 = tf.get_default_graph().get_tensor_by_name("dnn/hidden3/Relu:0")
+
+new_hidden4 = tf.layers.dense(hidden3, n_hidden4, activation=tf.nn.relu, name="new_hidden4")
+new_logits = tf.layers.dense(new_hidden4, n_outputs, name="new_outputs")
+
+with tf.name_scope("new_loss"):
+    xentropy = tf.nn.sparse_softmax_cross_entropy_with_logits(labels=y, logits=new_logits)
     loss = tf.reduce_mean(xentropy, name="loss")
 
-with tf.name_scope("eval"):
-    correct = tf.nn.in_top_k(logits, y, 1)
+with tf.name_scope("new_eval"):
+    correct = tf.nn.in_top_k(new_logits, y, 1)
     accuracy = tf.reduce_mean(tf.cast(correct, tf.float32), name="accuracy")
 
-learning_rate = 0.01
-threshold = 1.0
-
-optimizer = tf.train.GradientDescentOptimizer(learning_rate)
-grads_and_vars = optimizer.compute_gradients(loss)
-capped_gvs = [(tf.clip_by_value(grad, -threshold, threshold), var)
-              for grad, var in grads_and_vars]
-training_op = optimizer.apply_gradients(capped_gvs)
+with tf.name_scope("new_train"):
+    optimizer = tf.train.GradientDescentOptimizer(learning_rate)
+    training_op = optimizer.minimize(loss)
 
 init = tf.global_variables_initializer()
-saver = tf.train.Saver()
+new_saver = tf.train.Saver()

@@ -1,1 +1,1 @@
-twitter_archive.tail()
+twitter_archive.describe()

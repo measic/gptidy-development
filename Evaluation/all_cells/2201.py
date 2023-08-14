@@ -1,1 +1,1 @@
-character(IsotypicComponent(W1, 3))
+v.steenrod_op(0, 2)

@@ -1,1 +1,2 @@
-cy.getResponse()
+cy.status = ""
+print(cy.getSelectedNodes())

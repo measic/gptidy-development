@@ -1,6 +1,12 @@
-# reshape probas to (n_patches, patch_size, patch_size)
-probas_patches_df = np.reshape(probas_df, np.shape(data_test.gt_patches))
+# metrics
+y_scores = -probas_df
 
-# transformations
-probas_patches_df -= np.nanmin(probas_patches_df)
-probas_patches_df /= np.nanmax(probas_patches_df)
+# PR
+precision_df, recall_df, _ = metrics.precision_recall_curve(y_true, y_scores)
+pr_auc_df = metrics.auc(recall_df, precision_df)
+
+# ROC
+fpr_df, tpr_df, _ = metrics.roc_curve(y_true, y_scores)
+auroc_df = metrics.roc_auc_score(y_true, y_scores)
+
+print("AUROC: %.2f, PR AUC: %.2f" % (auroc_df, pr_auc_df))

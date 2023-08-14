@@ -1,42 +1,23 @@
-from IPython.display import clear_output
-
-def save_annotations(adict):
-    timestamp = datetime.datetime.today().strftime('%Y%m%d%H%M')
-    filename = 'annotations_' + timestamp + '.csv'
-    print(filename)
-    with open(os.path.join('.', filename), 'w', newline='') as out:
-        writer = csv.writer(out)
-        for key, value in adict.items():
-            line = [key, *value]
-            writer.writerow(line)
-
-def create_anottations(lista, save=True):
-    """Use dumb walk heuristic to create anottations
-    Args: 
-    
-        lista: list of images
-        save: if true, save on current directory a csv <annottations_timestamp.csv>
-    
-    Returns: 
-        
-        a dict with name of image: (xleft, ytop, xright, ytop) coordinates
-    """
+# 8 Pipeline 
+def estimate_anottation_correct(img, coords, line_width=2, threshold=0.8):
+    """Make histograms of boundaries to estimate annotation error
+    (if boundaries are blank, high chance of dumb walk failure)"""
+    total = 0
     cont = 0
-    result = {}
-    for img in lista:
-        try:
-            result[img] = find_conteiner(img)
-        except ValueError:
-            pass
-        cont += 1
-        if cont % 100 == 0:
-            clear_output()
-            print('...', cont, '...')
-    if save:
-        save_annotations(result)
-    return result
-    
-def draw_anottation():
-    """Create red boxes on images for visual annotations checking
-    Will have to save RGB images inside of 'L' greyscale"""
-    pass
+    xleft, ytop, xright, ybottom = [int(c) for c in coords]
+    leftside = img[ytop:ybottom, xleft:xleft + line_width - 1]
+    rightside = img[ytop:ybottom, xright - line_width:xright]
+    topside = img[ytop:ytop + line_width - 1, xleft:xright]
+    bottomside = img[ybottom - line_width:ybottom, xleft:xright]
+    total = leftside.sum() + rightside.sum() #+ topside.sum() + bottomside.sum()
+    cont = leftside.size + rightside.size #+ topside.size + bottomside.size
+    """for y in range(ytop, ybottom):
+        for x in range(xleft, xright):
+            total += img[y, xleft:xleft + line_width].sum()  # Left side
+            total += img[y, xright - line_width:xright].sum()  # Right side
+            total += img[ytop:ytop + line_width, x].sum()  # Top side
+            total += img[ybottom - line_width:ybottom, x].sum()  # Bottom side
+            cont +=1
+    """
+    percent_black =  total / cont 
+    return int(percent_black)

@@ -1,1 +1,2 @@
-m3.add_zipcodes(['98109', '98121', '98040'])
+added_zipcodes = m4.add_zipcodes('98%03d' % i for i in range(100))
+print(added_zipcodes)

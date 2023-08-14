@@ -1,1 +1,1 @@
-y_test.head(10)
+y_pred = y_prob.idxmax(axis=1)

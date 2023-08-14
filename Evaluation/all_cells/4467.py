@@ -1,1 +1,2 @@
-np.column_stack(([1,2], [3,4], [5,6]))
+xgbc = XGBClassifier()
+xgbc.fit(X_train, y_train)

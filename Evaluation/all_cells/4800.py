@@ -1,14 +1,27 @@
-# Path to MS COCO dataset
-coco_path = r"tests/coco"
+import matplotlib.pyplot as plt
+%matplotlib inline
+import json
+import numpy as np
 
+with open("pretrain losses - srgan.json") as f:
+    data = json.load(f)
 
-#Base Network manager for the SRGAN model
+print("Pretrain loss: Loaded SRGAN JSON.")
 
-#Width / Height = 32 to reduce the memory requirement for the discriminator.
+# plot the generator loss values
+print("Generator loss")
+plt.plot(data['generator_loss'])
+plt.show()
 
-#Batch size = 1 is slower, but uses the least amount of gpu memory, and also acts as
-#Instance Normalization (batch norm with 1 input image) which speeds up training slightly.
+print("Mean gan loss :", np.mean(data['generator_loss']))
+print("Std gan loss : ", np.std(data['generator_loss']))
+print("Min gan loss : ", np.min(data['generator_loss']))
 
-srgan_network = SRGANNetwork(img_width=32, img_height=32, batch_size=1)
-srgan_network.build_srgan_model()
-srgan_network.srgan_model_.summary()
+# plot the PSNR loss values
+print("PSNR loss")
+plt.plot(data['val_psnr'])
+plt.show()
+
+print("Mean psnr loss :", np.mean(data['val_psnr']))
+print("Std psnr loss : ", np.std(data['val_psnr']))
+print("Min psnr loss : ", np.min(data['val_psnr']))

@@ -1,19 +1,16 @@
-from prettytable import PrettyTable
-from prettytable import ALL
+from image_aq.utils.pascal_voc_io import PascalVocWriter
 
-Lx=PrettyTable(["nTrk","dz(cm)"])
-Lx.padding_width = 1
-Lx.hrules = ALL
+def gera_voc(file):
+    foldername, filename = os.path.split(file)
+    img = imageio.imread(file)
+    imgSize = img.shape
+    print(foldername, filename, imgSize)
+    voc_writer = PascalVocWriter(foldername, filename, imgSize)
+    coords = find_conteiner(file)
+    voc_writer.addBndBox(*coords, 'cc', '')
+    voc_writer.save(file[:-4]+'.xml')
 
-#LnTrk = ["0-2","3","4","5","6-8","9","10","11-12","13","14-19","20-30","30+"]
-#Ldz = ["N/A","4.8","1.9","1.2","0.8","0.6","0.5","0.4","0.3","0.2","0.1","0.0"]
-
-TnTrk = ["0-1","2","3","4","5","6","7","8-10","11-13","14-22","22+","N/A"]
-Tdz = ["N/A","4.0","1.5","1.0","0.6","0.5","0.4","0.3","0.2","0.1","0.0","N/A"]
-
-Space = ["","","","","","","","","","","",""]
-
-for num in range(len(TnTrk)):
-	Lx.add_row([ TnTrk[num], Tdz[num]])
-
-print Lx
+file = lista[0]
+print(file)
+gera_voc(file)
+glob.glob(foldername+'/*')

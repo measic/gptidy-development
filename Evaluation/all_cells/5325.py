@@ -1,17 +1,22 @@
-# Tenemos 45 datos por cada clase, entonces seleccionaremos aleatoriamente 6 ileras de características (~15%) para  probar el algoritmo al final.
+### 1. tu código aquí para substraer el promedio global a todos los datos ###
+# obtenemos las características globales promedio
+x_prom = 
 
-using StatsBase
-# aleatorizamos los números en el rango del 1 al 45
-vino_1_aleat = sample(1:45, 45, replace = false)
-# aleatorizamos los números en el rango del 46 al 90
-vino_2_aleat = sample(46:90, 45, replace = false)
-# aleatorizamos los números en el rango del 91 al 135
-vino_3_aleat = sample(91:135, 45, replace = false)
+# extraemos las caracteristicas globales promedio de nuestros datos
+x_entren = 
 
-# separamos los datos que nos servirán para entrenar
-x_entren = [caracteristicas[vino_1_aleat[1:39],:]; caracteristicas[vino_2_aleat[1:39],:]; caracteristicas[vino_3_aleat[1:39],:]]
-y_entren = [tipo_de_vino[vino_1_aleat[1:39]]; tipo_de_vino[vino_2_aleat[1:39]]; tipo_de_vino[vino_3_aleat[1:39]]]
+### 2. tu código aquí para encontrar las características promedio para cada tipo de vino ###
+prom_1 = 
+prom_2 = 
+prom_3 = 
 
-# separamos los datos que nos servirán para probar el algoritmo
-x_prueba = [caracteristicas[vino_1_aleat[40:end],:]; caracteristicas[vino_2_aleat[40:end],:]; caracteristicas[vino_3_aleat[40:end],:]]
-y_prueba = [tipo_de_vino[vino_1_aleat[40:end]]; tipo_de_vino[vino_2_aleat[40:end]]; tipo_de_vino[vino_3_aleat[40:end]]];
+# el siguiente código va a graficar los datos y las características promedio
+scatter3D(x_entren[1:39,1],x_entren[1:39,2],x_entren[1:39,3], alpha = 0.25, color="b")
+scatter3D(prom_1[1,1],prom_1[1,2],prom_1[1,3], s = 100, color="b")
+scatter3D(x_entren[40:78,1],x_entren[40:78,2],x_entren[40:78,3], alpha = 0.25, color="r")
+scatter3D(prom_2[1,1],prom_2[1,2],prom_2[1,3], s = 100, color="r")
+scatter3D(x_entren[79:end,1],x_entren[79:end,2],x_entren[79:end,3], alpha = 0.25, color="g")
+scatter3D(prom_3[1,1],prom_3[1,2],prom_3[1,3], s = 100,color="g")
+xlabel("Contenido de Alcohol")
+ylabel("Contenido de Flavonoides")
+zlabel("Densidad Optica Relativa")

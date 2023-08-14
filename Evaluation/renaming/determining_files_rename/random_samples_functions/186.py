@@ -1,4 +1,4 @@
-def rbg_to_hls(img):
+def function_def(img):
     """ 
     Takes an RGB image and converts it to HLS.
     Returns the converted image (3 channels)
@@ -15,7 +15,7 @@ def merge_channels(images):
     merged = weighted_img(merged, images[2], α=1.0, β=0.5, λ=0.0)
     return merged
 
-def function_def(image, k_size=3, vertex_ratio_h=0.45, vertex_ratio_v=0.6, low_thresh=50, high_thresh=200, L2gradient=False, rho=2, theta=1 * np.pi / 180.0, min_votes=15, min_line_len=40, max_line_gap=20, angle=3 * np.pi / 16, angle_thresh=np.pi / 16, debug=False):
+def lane_detection_ppline_3_channels(image, k_size=3, vertex_ratio_h=0.45, vertex_ratio_v=0.6, low_thresh=50, high_thresh=200, L2gradient=False, rho=2, theta=1 * np.pi / 180.0, min_votes=15, min_line_len=40, max_line_gap=20, angle=3 * np.pi / 16, angle_thresh=np.pi / 16, debug=False):
     """
     Takes an image and parameters and applies the lane detection pipeline.
     Returns an image combining the original and the extended lines detected
@@ -32,7 +32,7 @@ def function_def(image, k_size=3, vertex_ratio_h=0.45, vertex_ratio_v=0.6, low_t
     if debug:
         plt.subplot(5, 3, 2)
         plt.imshow(blur)
-    hls = rbg_to_hls(blur)
+    hls = function_def(blur)
     if debug:
         plt.subplot(5, 3, 3)
         plt.imshow(hls)
@@ -71,5 +71,5 @@ def function_def(image, k_size=3, vertex_ratio_h=0.45, vertex_ratio_v=0.6, low_t
     return combined
 
 def process_image_3_channels(image, k_size=3, vertex_ratio_h=0.45, vertex_ratio_v=0.6, low_thresh=50, high_thresh=200, L2gradient=False, rho=2, theta=1 * np.pi / 180.0, min_votes=15, min_line_len=40, max_line_gap=20, angle=3 * np.pi / 16, angle_thresh=np.pi / 16, debug=False):
-    result = function_def(image, k_size=k_size, low_thresh=low_thresh, high_thresh=high_thresh, L2gradient=L2gradient, rho=rho, theta=theta, min_votes=min_votes, min_line_len=min_line_len, max_line_gap=max_line_gap, angle=angle, angle_thresh=angle_threshold, debug=debug)
+    result = lane_detection_ppline_3_channels(image, k_size=k_size, low_thresh=low_thresh, high_thresh=high_thresh, L2gradient=L2gradient, rho=rho, theta=theta, min_votes=min_votes, min_line_len=min_line_len, max_line_gap=max_line_gap, angle=angle, angle_thresh=angle_threshold, debug=debug)
     return result

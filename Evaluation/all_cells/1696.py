@@ -1,2 +1,2 @@
-plot_heatmap(top10_df, 'AssessJob8')    
-plt.title('Importance of Opportunities for professional development', fontsize=18)
+plot_heatmap(top10_df, 'AssessJob10')    
+plt.title('Importance of How widely used or impactful the product or service', fontsize=18)

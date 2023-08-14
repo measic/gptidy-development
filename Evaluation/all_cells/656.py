@@ -1,3 +1,4 @@
-# Reindex the dataframe to make the match with cantons
-p3_grant_export_data_reindex = p3_grant_export_data.reset_index(drop=True)
-p3_grant_export_data_reindex
+try:
+    p3_grant_cantons.to_csv('P3_Cantons.csv', encoding='utf-8')
+except PermissionError:
+    print("Couldn't access to the file. Maybe close Excel and try again :)")

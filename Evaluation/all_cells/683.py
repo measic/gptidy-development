@@ -1,4 +1,3 @@
-plt.plot(Sigma)
-plt.scatter(np.arange(31), Sigma)
-plt.title("Valores Singulares do Dataset de Keystrokes")
-plt.show()
+reduced_keystrokes = U @ reduced_sigma
+print(reduced_keystrokes)
+print(reduced_keystrokes.shape)

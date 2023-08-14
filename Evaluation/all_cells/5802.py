@@ -1,10 +1,19 @@
-### A simple way to write output to file
-f = open('my_test_output.txt', 'w')              # create an output file to write too
-f.write('this is only a test ' + '\n')           # print some output text
-x = 2
-f.write('the value of x is ' + str(x) + '\n')    # record a variable value
-f.close()     
+# Load pickled data
+import pickle
 
-# print out the contents of my_test_output.txt
-f = open('my_test_output.txt', 'r')              # create an output file to write too
-f.read()
+# TODO: Fill this in based on where you saved the training and testing data
+
+training_file = "../traffic-signs-data/train.p"
+validation_file="../traffic-signs-data/valid.p"
+testing_file = "../traffic-signs-data/test.p"
+
+with open(training_file, mode='rb') as f:
+    train = pickle.load(f)
+with open(validation_file, mode='rb') as f:
+    valid = pickle.load(f)
+with open(testing_file, mode='rb') as f:
+    test = pickle.load(f)
+    
+X_train, y_train = train['features'], train['labels']
+X_valid, y_valid = valid['features'], valid['labels']
+X_test, y_test = test['features'], test['labels']

@@ -1,4 +1,3 @@
-B=1
-del B
-#The next statement to display B causes an error because B is no longer defined.
-#print(B)
+#this will clear the user-defined variables, when using JN. I've commented it out because it stops execution 
+#  of the following lines.
+# %reset

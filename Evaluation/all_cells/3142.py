@@ -1,3 +1,9 @@
-'''Read data'''
+'''Importing the mendeleev package'''
 
-cfpy_az_df = read_table('data/u-235-cfpy-AZ-thermal.dat')
+try:
+    import mendeleev  # creates the `name` mendeleev
+except ImportError:
+    print('Installing the "mendeleev" package...')
+    print('')
+    !pip install mendeleev
+    import mendeleev

@@ -1,4 +1,6 @@
-import pandas as pd
+from sklearn.feature_extraction.text import CountVectorizer
 
-df = pd.read_csv('movie_data.csv', encoding='utf-8')
-df.head(3)
+count = CountVectorizer(stop_words='english',
+                        max_df=.1,
+                        max_features=5000)
+X = count.fit_transform(df['review'].values)

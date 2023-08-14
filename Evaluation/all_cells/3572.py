@@ -1,3 +1,3 @@
-temp = dw_obj.water_body_indicator_df[wb].dropna(subset = ['DIN', 'REFERENCE_VALUE']).copy(deep = True)
-temp['ek'] = np.divide(temp.REFERENCE_VALUE,temp.DIN)
-temp
+#dw_obj.tolerance_settings.get_value(variable = 'MIN_NR_YEARS', type_area = '22')
+#dw_obj.tolerance_settings.get_min_nr_years(type_area = '22')
+#dw_obj.mapping_objects['water_body'].keys()

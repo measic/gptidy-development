@@ -1,2 +1,3 @@
-# build random forest
-root_nodes = random_forest_build(dataset, 1000, .3, n_jobs=-1)
+# evaluate labels of original dataset using RF
+dataset_test = dataset[:, :2]
+dataset_eval = random_forest_traverse(dataset_test, root_nodes)

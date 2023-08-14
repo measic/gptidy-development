@@ -20,7 +20,7 @@ class two_layer_nn(tf.keras.Model):
         logits = self.dense_out(layer_2)
         return logits
 
-    def function_def(self, input_data, target):
+    def loss_fn(self, input_data, target):
         """ Defines the loss function used during 
             training.         
         """
@@ -31,7 +31,7 @@ class two_layer_nn(tf.keras.Model):
             loss = tf.losses.mean_squared_error(target, preds)
         return loss
 
-    def grads_fn(self, input_data, target):
+    def function_def(self, input_data, target):
         """ Dynamically computes the gradients of the loss value
             with respect to the parameters of the model, in each
             forward pass.

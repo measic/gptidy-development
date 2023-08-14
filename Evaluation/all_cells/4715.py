@@ -1,13 +1,7 @@
-path = os.getcwd()
+# remove class
+n_classes = 9
+classes_to_keep = np.asarray([x for x in range(1, n_classes)])
 
-# data without overlap
-print("loading data")
-data_train = ZurichLoader(path, 'train')
-data_val = ZurichLoader(path, 'val')
-data_test = ZurichLoader(path, 'test')
-
-print("loading data with overlap")
-# data with overlap, for prediction
-data_train_overlap = ZurichLoader(path, 'train', stride=32, inherit_loader=data_train)
-data_val_overlap = ZurichLoader(path, 'val', stride=32, inherit_loader=data_val)
-data_test_overlap = ZurichLoader(path, 'test', stride=32, inherit_loader=data_test)
+names_keep = np.asarray(names)
+names_keep = names_keep.tolist()
+print("classes to keep: " + str(names_keep))

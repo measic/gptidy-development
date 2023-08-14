@@ -1,2 +1,2 @@
-### Teste
-test.isnull().sum()
+### Treino 
+train.describe()

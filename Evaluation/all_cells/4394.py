@@ -1,10 +1,13 @@
-plt.figure(figsize=(8, 3.5))
-plt.plot(cumulative_heads_ratio)
-plt.plot([0, 10000], [0.51, 0.51], "k--", linewidth=2, label="51%")
-plt.plot([0, 10000], [0.5, 0.5], "k-", label="50%")
-plt.xlabel("Number of coin tosses")
-plt.ylabel("Heads ratio")
-plt.legend(loc="lower right")
-plt.axis([0, 10000, 0.42, 0.63])
-save_fig("law_of_large_numbers_plot")
-plt.show()
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import VotingClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+
+log_clf = LogisticRegression(random_state=42)
+rnd_clf = RandomForestClassifier(random_state=42)
+svm_clf = SVC(random_state=42)
+
+voting_clf = VotingClassifier(
+    estimators=[('lr', log_clf), ('rf', rnd_clf), ('svc', svm_clf)],
+    voting='hard')
+voting_clf.fit(X_train, y_train)

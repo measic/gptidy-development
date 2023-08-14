@@ -1,2 +1,2 @@
 ### Resposta: Não
-train.groupby(['Sobreviventes','Classe']).size()
+print_full(train.groupby(['Nome']).size())

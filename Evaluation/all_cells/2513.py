@@ -1,1 +1,1 @@
-data = pd.read_csv('../data/Injector_Median100k.csv')
+correlation.update_bivariate_relevancies(runs=5)

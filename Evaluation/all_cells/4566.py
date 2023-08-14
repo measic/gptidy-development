@@ -1,3 +1,2 @@
-# Overwrite an already existing key
-my_dictionary['var1'] = 100
-print(my_dictionary)
+# how do I erase a key? let's look at some dictionary methods...
+dir(my_dictionary)

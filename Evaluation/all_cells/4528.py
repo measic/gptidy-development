@@ -1,5 +1,2 @@
-HTML("""
-<video width="960" height="540" controls>
-  <source src="{0}">
-</video>
-""".format(challenge_output))
+# can we change an element in greeting?
+greeting[0] = "h"

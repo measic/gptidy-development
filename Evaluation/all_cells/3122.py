@@ -1,2 +1,1 @@
-plt.imshow(port_broad_lt_50m_images[60].reshape(255, 255, 3))
-plt.show();
+bow_lights_lt_50_images = bow_lights_lt_50m()

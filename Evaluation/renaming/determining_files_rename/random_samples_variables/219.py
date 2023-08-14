@@ -1,5 +1,5 @@
-variable_def = 2
-pca = decomp.PCA(n_components=variable_def)
+ncomponents = 2
+pca = decomp.PCA(n_components=ncomponents)
 raw_pca = pca.fit(np.array(x_train.iloc[:, first_egemaps_feature:]).astype(np.float))
 x_pca = raw_pca.transform(x_train.iloc[:, first_egemaps_feature:])
 groups = x_train['pos']
@@ -16,8 +16,8 @@ pc1 = x_pca[:, 0]
 pc2 = x_pca[:, 1]
 p = ax.scatter(pc1, pc2, c=posIDs, cmap=colormap, s=10)
 cb = plt.colorbar(p)
-loc = np.arange(0, max(posIDs), max(posIDs) / float(len(group_values)))
-cb.set_ticks(loc)
+variable_def = np.arange(0, max(posIDs), max(posIDs) / float(len(group_values)))
+cb.set_ticks(variable_def)
 cb.set_ticklabels(group_values)
 for label, x, y in zip(labels, pc1, pc2):
     if y == np.amax(y) or x == np.amax(x):

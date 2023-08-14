@@ -1,6 +1,2 @@
-statement1 = False 
-
-if statement1:
-    print("printed if statement1 is True")
-    
-    print("still inside the if block")
+for x in [1,2,3]:
+    print(x),

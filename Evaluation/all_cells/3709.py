@@ -1,3 +1,3 @@
-print("predictions:", predictions)
-print("-" * 20)
-print(tf.reduce_sum(predictions, axis=-1))
+train_loss = tf.keras.metrics.Mean(name='train_loss')
+train_accuracy = tf.keras.metrics.SparseCategoricalAccuracy(
+    name='train_accuracy')

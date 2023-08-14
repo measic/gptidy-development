@@ -1,3 +1,4 @@
-l.remove("A")
+point = (10, 20)
 
-print(l)
+print(type(point))
+print(point)

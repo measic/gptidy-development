@@ -1,2 +1,3 @@
-canton_longname_series = pd.Series(canton_longname_table, name='Canton Longname')
-canton_longname_series.size
+# Reindex the dataframe to make the match with cantons
+p3_grant_export_data_reindex = p3_grant_export_data.reset_index(drop=True)
+p3_grant_export_data_reindex

@@ -1,27 +1,12 @@
-### Load the images and plot them here.
+### Run the predictions here and use the model to output the prediction for each image.
+### Make sure to pre-process the images with the same pre-processing pipeline used earlier.
 ### Feel free to use as many code cells as needed.
-import glob
-import matplotlib.image as mpimg
-import csv
-import matplotlib.pyplot as plt
-import numpy as np
-import cv2 as cv
-import random
-from sklearn.utils import shuffle
-import tensorflow as tf
+my_labels = [16, 33, 11, 38, 35, 17]
 
-fig, axs = plt.subplots(2,3, figsize=(10, 6))
-fig.subplots_adjust(hspace = .2, wspace=.001)
-axs = axs.ravel()
-
-my_images = []
-
-for i, img in enumerate(glob.glob('./my-signs/*.png')):
-    image = cv.imread(img)
-    axs[i].axis('off')
-    axs[i].imshow(cv.cvtColor(image, cv.COLOR_BGR2RGB))
-    image = cv.resize(image, (32,32))
-    my_images.append(image)
-
-my_images = np.asarray(my_images)
-print(my_images.shape)
+with tf.Session() as sess:
+    sess.run(tf.global_variables_initializer())
+    saver = tf.train.import_meta_graph('./lenet.meta')
+    saver.restore(sess, "./lenet")
+    my_images_normalized = [normalize(rgb2gray(img)) for img in my_images]
+    my_accuracy = evaluate(my_images_normalized, my_labels)
+    print("Test Set Accuracy = {:.3f}".format(my_accuracy))

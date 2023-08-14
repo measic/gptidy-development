@@ -1,1 +1,1 @@
-correlation.update_bivariate_relevancies(runs=5)
+%timeit correlation.update_redundancies(k=10, runs=10)

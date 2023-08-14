@@ -1,3 +1,3 @@
-# Create a list
-a_list = [1, 2, 3, 'hi', True, (1 + 3j), 9.9, ['another list!']]
+# let's change an element!
+a_list[0] = 'bye'
 print(a_list)

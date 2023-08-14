@@ -1,15 +1,40 @@
-formula = "accuracy ~ C(subject, Treatment(0)) + C(complexity, Treatment(3)) * C(model, Treatment(1))"
-lm = ols(formula, df)
-fit = lm.fit()
-qqplot(fit.resid)
-print(fit.summary())
-print('\nThe accuracy of the classifier depends on the subject, ' +
-      'model type (deep network versus logistic regression), ' +
-      'and task complexity (CV versus consonant versus {vowel, location, degree}) ' +
-      '(ANOVA with subject, model type, task complexity, and model-task complexity interaction, ' +
-      'f-value: {}, p: {}). '.format(fit.fvalue, fit.f_pvalue) +
-      'Within this ANOVA, all treatment coefficients were significant ' +
-      'at p<.001 with Subject 1, CV task, and logistic regression as the reference treatment.')
-for table in fit.summary().tables:
-    print(table.as_latex_tabular())
-plt.show()
+dcv_acc = deep_all[fracs[-1]][:, 2] * 100.
+lcv_acc = linear_all[fracs[-1]][:, 2] * 100.
+cv_chance = chance[0, :, -1].mean(axis=-1) * 100.
+dcv_cc = np.zeros(4)
+dcv_ncc = np.zeros(4)
+lcv_cc = np.zeros(4)
+lcv_ncc = np.zeros(4)
+
+dc_acc = other_deep_accuracy['c'][:, 2] * 100.
+lc_acc = other_linear_accuracy['c'][:, 2] * 100.
+c_chance = chance[1, :, -1].mean(axis=-1) * 100.
+dc_cc = np.zeros(4)
+dc_ncc = np.zeros(4)
+lc_cc = np.zeros(4)
+lc_ncc = np.zeros(4)
+
+dv_acc = other_deep_accuracy['v'][:, 2] * 100.
+lv_acc = other_linear_accuracy['v'][:, 2] * 100.
+v_chance = chance[2, :, -1].mean(axis=-1) * 100.
+dv_cc = np.zeros(4)
+dv_ncc = np.zeros(4)
+lv_cc = np.zeros(4)
+lv_ncc = np.zeros(4)
+
+for ii, s in enumerate(subjects):
+    print(deep_cv_mats[s].shape)
+    dcv_cc[ii] = accuracy.channel_capacity(deep_cv_mats[s].mean(axis=0))
+    dcv_ncc[ii] = accuracy.naive_channel_capacity(dcv_acc[ii].mean()/100., deep_cv_mats[s].shape[-1]+1)
+    lcv_cc[ii] = accuracy.channel_capacity(linear_cv_mats[s].mean(axis=0))
+    lcv_ncc[ii] = accuracy.naive_channel_capacity(lcv_acc[ii].mean()/100., linear_cv_mats[s].shape[-1]+1)
+    
+    dc_cc[ii] = accuracy.channel_capacity(deep_c_mats[s].mean(axis=0))
+    dc_ncc[ii] = accuracy.naive_channel_capacity(dc_acc[ii].mean()/100., deep_c_mats[s].shape[-1]+1)
+    lc_cc[ii] = accuracy.channel_capacity(linear_c_mats[s].mean(axis=0))
+    lc_ncc[ii] = accuracy.naive_channel_capacity(lc_acc[ii].mean()/100., linear_c_mats[s].shape[-1]+1)
+    
+    dv_cc[ii] = accuracy.channel_capacity(deep_v_mats[s].mean(axis=0))
+    dv_ncc[ii] = accuracy.naive_channel_capacity(dv_acc[ii].mean()/100., deep_v_mats[s].shape[-1]+1)
+    lv_cc[ii] = accuracy.channel_capacity(linear_v_mats[s].mean(axis=0))
+    lv_ncc[ii] = accuracy.naive_channel_capacity(lv_acc[ii].mean()/100., linear_v_mats[s].shape[-1]+1)

@@ -1,1 +1,1 @@
-img_predictions.info()
+tweet_info.head()

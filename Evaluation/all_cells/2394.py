@@ -1,2 +1,5 @@
-K = 50
-N = sunspot_df.shape[0]
+with model:
+    step = pm.Metropolis()
+    trace_ = pm.sample(100000, step=step, random_seed=SEED)
+    
+trace = trace_[50000::50]

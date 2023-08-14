@@ -1,1 +1,1 @@
-np.sum(np.square([y - y_pred])) / len(y)
+gbrt_slow.predict([[0.2]])

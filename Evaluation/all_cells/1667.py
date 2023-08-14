@@ -1,11 +1,21 @@
-#Create the augmented input vector containing [angle1,..,angle6, vel1,..,vel6, acc1,..,acc6, psi] for all timesteps.
+# This Python 3 environment comes with many helpful analytics libraries installed
+# It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python
+# For example, here's several helpful packages to load in 
 
-aug_feature_dim = 25
-aug_input = np.ndarray((len(traj_data_synced),aug_feature_dim))
+import numpy as np # linear algebra
+import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 
-for i in range(len(traj_data_synced)):
-    aug_input[i] = np.concatenate((traj_data_synced[i], vel_synced[i], acc_synced[i], psi_synced[i], temp_lin_int[i]), axis=None)
+import matplotlib.pyplot as plt
+import seaborn as sns
+sns.set_style('whitegrid')
+sns.set_palette('Paired')
 
-with open(data_path + '/augmented_input.pickle', 'wb') as file:
-    pickle.dump(aug_input, file)
-    file.close()
+# Input data files are available in the "../input/" directory.
+# For example, running this (by clicking run or pressing Shift+Enter) will list the files in the input directory
+
+import os
+from os.path import join
+print(os.listdir("./"))
+path = "./"
+
+# Any results you write to the current directory are saved as output.

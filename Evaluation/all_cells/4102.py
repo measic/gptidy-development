@@ -1,2 +1,7 @@
-total_energy_prop = acnsim.proportion_of_energy_delivered(sim)
-print('Proportion of requested energy delivered: {0}'.format(total_energy_prop))
+# Plotting aggregate current
+agg_current = acnsim.aggregate_current(sim)
+plt.plot(agg_current)
+plt.xlabel('Time (periods)')
+plt.ylabel('Current (A)')
+plt.title('Total Aggregate Current')
+plt.show()

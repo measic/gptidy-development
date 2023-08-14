@@ -1,6 +1,1 @@
-logreg = LogisticRegression(solver='liblinear')
-
-result = logreg.fit(X_train,y_train)
-
-print("Coeffs ",logreg.coef_)
-print("Intercept ", logreg.intercept_)
+y_pred = logreg.predict(X_test)

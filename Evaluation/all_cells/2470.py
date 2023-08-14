@@ -1,1 +1,2 @@
-from BITS.util.scheduler import Scheduler
+script = "echo something"
+s.submit(script, "out")

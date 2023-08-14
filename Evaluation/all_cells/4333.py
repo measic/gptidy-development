@@ -1,1 +1,1 @@
-a = pd.read_csv('https://raw.githubusercontent.com/RayleighKim/Example_datasets/master/ade_sales.csv')
+print('이 셀을 기준으로 위에 2개 아래에 2개 생성하시오')

@@ -1,11 +1,28 @@
-tar_padding_mask = create_padding_mask(tar)
-look_ahead_mask = create_look_ahead_mask(tar.shape[-1])
-combined_mask = tf.maximum(tar_padding_mask, look_ahead_mask)
+# 以下直接參考 TensorFlow 官方 tutorial 
+def get_angles(pos, i, d_model):
+  angle_rates = 1 / np.power(10000, (2 * (i//2)) / np.float32(d_model))
+  return pos * angle_rates
 
-print("tar:", tar)
-print("-" * 20)
-print("tar_padding_mask:", tar_padding_mask)
-print("-" * 20)
-print("look_ahead_mask:", look_ahead_mask)
-print("-" * 20)
-print("combined_mask:", combined_mask)
+def positional_encoding(position, d_model):
+  angle_rads = get_angles(np.arange(position)[:, np.newaxis],
+                          np.arange(d_model)[np.newaxis, :],
+                          d_model)
+  
+  # apply sin to even indices in the array; 2i
+  sines = np.sin(angle_rads[:, 0::2])
+  
+  # apply cos to odd indices in the array; 2i+1
+  cosines = np.cos(angle_rads[:, 1::2])
+  
+  pos_encoding = np.concatenate([sines, cosines], axis=-1)
+  
+  pos_encoding = pos_encoding[np.newaxis, ...]
+    
+  return tf.cast(pos_encoding, dtype=tf.float32)
+
+
+seq_len = 50
+d_model = 512
+
+pos_encoding = positional_encoding(seq_len, d_model)
+pos_encoding

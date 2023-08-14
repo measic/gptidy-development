@@ -1,1 +1,4 @@
-ids_zero_morethan1_count_in_last_three_week_and_two_week = [i for i in ids_zero_morethan1_count_in_last_three_week if i not in ids_zero_morethan1_count_in_last_three_week_but_no_zero_in_last_two_week]
+ids_stable_period_1_2_3 = []
+ids_stable_period_1_2_3.extend(ids_stable_period_1)
+ids_stable_period_1_2_3.extend(ids_stable_period_2)
+ids_stable_period_1_2_3.extend(ids_stable_period_3)

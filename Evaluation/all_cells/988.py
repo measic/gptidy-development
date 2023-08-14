@@ -1,1 +1,1 @@
-utils.display_important_features(logreg.coef_[0], X_train,1)
+utils.display_confusion_matrix(y_test, y_pred)

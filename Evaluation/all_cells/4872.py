@@ -1,16 +1,8 @@
-# Import libraries necessary for this project
-import numpy as np
-import pandas as pd
-import renders as rs
-from IPython.display import display # Allows the use of display() for DataFrames
+# TODO: Select three indices of your choice you wish to sample from the dataset
+indices = [1, 271, 413]
 
-# Show matplotlib plots inline (nicely formatted in the notebook)
-%matplotlib inline
-
-# Load the wholesale customers dataset
-try:
-    data = pd.read_csv("customers.csv")
-    data.drop(['Region', 'Channel'], axis = 1, inplace = True)
-    print "Wholesale customers dataset has {} samples with {} features each.".format(*data.shape)
-except:
-    print "Dataset could not be loaded. Is the dataset missing?"
+# Create a DataFrame of the chosen samples
+samples = pd.DataFrame(data.loc[indices], columns = data.keys()).reset_index(drop = True)
+samples.index = indices
+print "Chosen samples of wholesale customers dataset:"
+display(samples)

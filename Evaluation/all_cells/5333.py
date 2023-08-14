@@ -1,6 +1,3 @@
-using MAT
+### Separa los datos que servirán para entrenar y para probar tus algoritmos ###
 
-# obtenemos los datos que necesitamos
-mnist = matread("mnist.mat")
-caracteristicas = mnist["cars"]
-clase_de_digito = mnist["desc"];
+### Substrae las características globales ###

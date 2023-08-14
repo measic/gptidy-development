@@ -10,7 +10,7 @@ def highlight_column_matches(data, column='', color='yellow'):
         is_mixed = data == data[column]
         return pd.DataFrame(np.where(is_mixed, attr, ''), index=data.index, columns=data.columns)
 
-def function_def(csv_filename, columns=['total_reward'], **kwargs):
+def plot_stats(csv_filename, columns=['total_reward'], **kwargs):
     """Plot specified columns from CSV file."""
     df_stats = pd.read_csv(csv_filename)
     df_stats[columns].plot(**kwargs)
@@ -26,7 +26,7 @@ def save_mlp_layers(hidden_layers, output_layers):
         np.save(os.path.join(vsig.out_dir, 'valid_hidden_layer_' + i + '_output'), layer)
     np.save(os.path.join(vsig.out_dir, 'valid_output_layer'), output_layers)
 
-def glance_at_tensor(tensor):
+def function_def(tensor):
     if len(tensor.shape) == 3:
         print(tensor[:10, 0, 0])
         print(tensor[0, :10, 0])

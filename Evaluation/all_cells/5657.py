@@ -1,11 +1,9 @@
-def replace_unknown(sequence):
-    """Return a copy of the input sequence where each unknown word is replaced
-    by the literal string value 'nan'. Pomegranate will ignore these values
-    during computation.
-    """
-    return [w if w in data.training_set.vocab else 'nan' for w in sequence]
+mfc_training_acc = accuracy(data.training_set.X, data.training_set.Y, mfc_model)
+print("training accuracy mfc_model: {:.2f}%".format(100 * mfc_training_acc))
 
-def simplify_decoding(X, model):
-    """X should be a 1-D sequence of observations for the model to predict"""
-    _, state_path = model.viterbi(replace_unknown(X))
-    return [state[1].name for state in state_path[1:-1]]  # do not show the start/end state predictions
+mfc_testing_acc = accuracy(data.testing_set.X, data.testing_set.Y, mfc_model)
+print("testing accuracy mfc_model: {:.2f}%".format(100 * mfc_testing_acc))
+
+assert mfc_training_acc >= 0.955, "Uh oh. Your MFC accuracy on the training set doesn't look right."
+assert mfc_testing_acc >= 0.925, "Uh oh. Your MFC accuracy on the testing set doesn't look right."
+HTML('<div class="alert alert-block alert-success">Your MFC tagger accuracy looks correct!</div>')

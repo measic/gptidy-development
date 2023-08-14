@@ -1,40 +1,9 @@
-# Haringey
-# find steady state based on 2012 data
-
-cov_2012 = 0.267007002375
-adpc_2012 = 0.0346976493046
-[incsol, scrsol] = fsolve(
-    lambda x: [test_diag_fun(x)[0] - cov_2012, test_diag_fun(x)[1] - adpc_2012], 
-    [0.09, 0.25] 
-    )
-
-U_2012 = U_fun(
-    incsol*p_asymp, sc + scrsol*p_true_pos, incsol*(1-p_asymp), scrsol*p_true_pos + att_symp*p_true_pos
-    )
-A_2012 = A_fun(
-    incsol*p_asymp, sc + scrsol*p_true_pos, incsol*(1-p_asymp), scrsol*p_true_pos + att_symp*p_true_pos
-    )
-S_2012 = S_fun(
-    incsol*p_asymp, sc + scrsol*p_true_pos, incsol*(1-p_asymp), scrsol*p_true_pos + att_symp*p_true_pos
-    )
-
-
-# find incidence and screening based on 2013 data
-cov_2013 = 0.190544970144
-adpc_2013 = 0.0184872060681
-[incsol, scrsol] = fsolve(
-    lambda x: [test_diag_fun(x)[0] - cov_2013, test_diag_fun(x)[1] - adpc_2013], 
-    [0.09, 0.25] 
-    )
-
-# solve, 2012-2013
-inc = incsol
-scr = scrsol
-parms = \
-    [incsol*p_asymp, sc + scrsol*p_true_pos, incsol*(1-p_asymp), scrsol*p_true_pos + att_symp*p_true_pos]
-
-sol_haringey = odeint(dydt, 
-       [U_2012,A_2012,S_2012], 
-       linspace(0,10,1000), 
-       args = (parms,)
-      )
+# plot solutions
+plt.plot(linspace(2012,2013,1000), sol_n_lincs[:,1]+sol_n_lincs[:,2], label='N. Lincs')
+plt.plot(linspace(2012,2013,1000), sol_haringey[:,1]+sol_haringey[:,2], label = 'Haringey')
+plt.plot(linspace(2012,2013,1000), sol_dudley[:,1]+sol_dudley[:,2], label = 'Dudley')
+plt.ylim(0,0.05)
+plt.xlim(2012,2013)
+plt.ylabel('Prevalence')
+plt.xticks([2012,2013], ['2012','2013'])
+plt.legend()

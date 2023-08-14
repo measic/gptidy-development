@@ -1,1 +1,1 @@
-m.add_zipcode('98109')
+#m.disable_heatmap()

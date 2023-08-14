@@ -1,55 +1,15 @@
-reload(accuracy)
-reload(slope)
-plt.close()
-f = plt.figure(figsize=(5, 4))
-
-le = .1
-re = .02
-te = .1
-be = .075
-h_gap = .1
-v_gap = .2
-
-cv_w = .3
-big_h = (1. - te - be)
-little_h = (1. - te - be - v_gap) / 2.
-w = (1. - le - cv_w - h_gap - h_gap - re) / 2.
-
-p_m_y = be + little_h + v_gap
-ax_p = f.add_axes([le, p_m_y, w, little_h])
-ax_m = f.add_axes([le + w + h_gap, p_m_y, w, little_h])
-
-ax_v = f.add_axes([le, be, w, little_h])
-ax_c = f.add_axes([le + w + h_gap, be, w, little_h])
-
-ax_cv = f.add_axes([1. - re - cv_w, be, cv_w, big_h])
-
-key = fracs[-1]
-
-accuracy.plot_cv_accuracy(subjects, deep_all[key], linear_all[key], chance[0, :, -1], ax_cv, legend=True,
-                          show_significance=True)
-
-accuracy.plot_cv_accuracy(subjects, other_deep_accuracy['c'], other_linear_accuracy['c'],
-                          chance[1, :, -1], ax_c, 'Consonant', False, ymax=cmax)
-accuracy.plot_cv_accuracy(subjects, other_deep_accuracy['v'], other_linear_accuracy['v'],
-                          chance[2, :, -1], ax_v, 'Vowel', False, ymax=vmax)
-
-accuracy.plot_cv_accuracy(subjects, other_deep_accuracy['p'], other_linear_accuracy['p'],
-                          chance[3, :, -1], ax_p, 'Constriction\nLocation', False, ymax=vmax)
-accuracy.plot_cv_accuracy(subjects, other_deep_accuracy['m'], other_linear_accuracy['m'],
-                          chance[4, :, -1], ax_m, 'Constriction\nDegree', False, ymax=vmax)
-
-x0 = le - .05
-y0 = p_m_y + little_h + .02
-x1 = le + w + h_gap - .05
-y1 = be + little_h + .02
-x2 = 1. - re - cv_w - .05
-
-f.text(x0, y0, 'A', **letter_fontstyle)
-f.text(x1, y0, 'B', **letter_fontstyle)
-f.text(x0, y1, 'C', **letter_fontstyle)
-f.text(x1, y1, 'D', **letter_fontstyle)
-f.text(x2, y0, 'E', **letter_fontstyle)
-
-plt.savefig(os.path.join(os.environ['HOME'], 'Downloads/accuracy.eps'), dpi=300)
-plt.savefig(os.path.join(os.environ['HOME'], 'Downloads/accuracy.png'), dpi=300)
+formula = "accuracy ~ C(subject, Treatment(0)) + C(complexity, Treatment(3)) * C(model, Treatment(1))"
+lm = ols(formula, df)
+fit = lm.fit()
+qqplot(fit.resid)
+print(fit.summary())
+print('\nThe accuracy of the classifier depends on the subject, ' +
+      'model type (deep network versus logistic regression), ' +
+      'and task complexity (CV versus consonant versus {vowel, location, degree}) ' +
+      '(ANOVA with subject, model type, task complexity, and model-task complexity interaction, ' +
+      'f-value: {}, p: {}). '.format(fit.fvalue, fit.f_pvalue) +
+      'Within this ANOVA, all treatment coefficients were significant ' +
+      'at p<.001 with Subject 1, CV task, and logistic regression as the reference treatment.')
+for table in fit.summary().tables:
+    print(table.as_latex_tabular())
+plt.show()

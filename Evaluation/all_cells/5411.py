@@ -1,3 +1,6 @@
-index = rand_img_indices[7]
-print(index)
-print(X_train[index].shape)
+### Define your architecture here.
+### Feel free to use as many code cells as needed.
+
+EPOCHS = 20
+BATCH_SIZE = 150
+rate = 0.002

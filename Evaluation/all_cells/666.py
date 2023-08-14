@@ -1,6 +1,3 @@
-movies = movies.set_index('Reviewers')
-revavg = movies.mean(axis=1).round(decimals=0)
-
-movieavg = movies.mean().round(decimals=0)
-
-revavg
+movies_tp = movies.T
+moviesnormal = (movies_tp - movies_tp.min()) / (movies_tp.max() - movies_tp.min())
+moviesnormal

@@ -1,1 +1,1 @@
-full_name.upper()
+print(full_name)

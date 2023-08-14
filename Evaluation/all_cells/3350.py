@@ -1,19 +1,27 @@
-# Display training progress by printing a single dot for each completed epoch
-class PrintDot(keras.callbacks.Callback):
-    def on_epoch_end(self, epoch, logs):
-        if epoch % 100 == 0: 
-            print('')
-        print('.', end='')
+def plot_history(history, label=None):
+    hist = pd.DataFrame(history.history)
+    hist['epoch'] = history.epoch
 
-EPOCHS = 8000
+    plt.figure()
+    plt.xlabel('Epoch')
+    plt.ylabel('Mean Abs Error')
+    plt.plot(hist['epoch'], hist['mean_absolute_error'],
+           label='Train Error')
+    plt.plot(hist['epoch'], hist['val_mean_absolute_error'],
+           label = 'Val Error')
+    plt.legend()
+    if label is not None:
+        plt.title(label)
 
-histories = {}
-
-for l in labels:
-    print(f"Training {l} model....")
-    histories[l] = models[l].fit(
-        normed_train_data, train_labels[l],
-        epochs=EPOCHS, validation_split = 0.2, verbose=0,
-        callbacks=[early_stop, PrintDot()]
-    )
-    print("\n")
+    plt.figure()
+    plt.xlabel('Epoch')
+    plt.ylabel('Mean Square Error')
+    plt.plot(hist['epoch'], hist['mean_squared_error'],
+           label='Train Error')
+    plt.plot(hist['epoch'], hist['val_mean_squared_error'],
+           label = 'Val Error')
+    plt.legend()
+    if label is not None:
+        plt.title(label)
+    plt.savefig(f"{label}_train.pdf")
+    plt.show()

@@ -1,4 +1,4 @@
 n = 5
-A = np.array([i**j for i in range(1,n+1) for j in range(0, n)] )
-A.shape = (n, n)
-print(A)
+x, A = vm(n)
+print("For n = {}, x = {}".format(n, x) )
+print("For n = {}, the condition number is {}".format(n, np.linalg.cond(A)))

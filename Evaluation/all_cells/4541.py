@@ -1,3 +1,2 @@
-# NOTE: this also works for strings
-my_string = 'Monty Python'
-my_string[::-1]
+# Methods of a list object
+dir(a_list)

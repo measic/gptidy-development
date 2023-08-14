@@ -1,1 +1,1 @@
-from BITS.util.interval import intvl_len
+from BITS.util.interval import subtract_intvl

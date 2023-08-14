@@ -1,18 +1,11 @@
-# Import libraries necessary for this project
-import numpy as np
-import pandas as pd
-from sklearn.cross_validation import ShuffleSplit
+# TODO: Import 'r2_score'
 
-# Import supplementary visualizations code visuals.py
-import visuals as vs
-
-# Pretty display for notebooks
-%matplotlib inline
-
-# Load the Boston housing dataset
-data = pd.read_csv('housing.csv')
-prices = data['MEDV']
-features = data.drop('MEDV', axis = 1)
+def performance_metric(y_true, y_predict):
+    """ Calculates and returns the performance score between 
+        true and predicted values based on the metric chosen. """
     
-# Success
-print "Boston housing dataset has {} data points with {} variables each.".format(*data.shape)
+    # TODO: Calculate the performance score between 'y_true' and 'y_predict'
+    score = None
+    
+    # Return the score
+    return score

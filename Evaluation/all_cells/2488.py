@@ -1,11 +1,6 @@
-fig = plt.figure(figsize=(8,6))
-fig.subplots_adjust(left=None, bottom=None, right=None, top=None,
-                    wspace=0.25, hspace=0.25)
-ax = fig.add_subplot(1, 1, 1)
-ax.plot(x, mfusghead[0, 0, :], linewidth=0.75, color='blue', label='MODFLOW-USG')
-ax.fill_between(x, y1=botm[1, 0, :], y2=-5, color='0.5', alpha=0.5)
-leg = ax.legend(loc='upper right')
-leg.draw_frame(False)
-ax.set_xlabel('Horizontal distance, in m')
-ax.set_ylabel('Head, in m')
-ax.set_ylim(-5,25);
+texnames = 'H^+ OH^- NH_4^+ NH_3 H_2O'.split()
+n = len(texnames)
+NH3_idx = texnames.index('NH_3')
+NH3_varied = np.logspace(-7, 0)
+c0 = 1e-7, 1e-7, 1e-7, 1, 55
+K = Kw, Ka = 10**-14/55, 10**-9.24

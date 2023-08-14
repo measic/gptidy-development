@@ -1,8 +1,14 @@
-rows, cols = 10, 6
-fig, axes = plt.subplots(figsize=(7,12), nrows=rows, ncols=cols, sharex=True, sharey=True)
+import pandas as pd
+import numpy as np
+import os
+try:
+    import arcpy
+except ImportError:
+    pass
 
-for sample, ax_row in zip(samples[::int(len(samples)/rows)], axes):
-    for img, ax in zip(sample[::int(len(sample)/cols)], ax_row):
-        ax.imshow(img.reshape((28,28)), cmap='Greys_r')
-        ax.xaxis.set_visible(False)
-        ax.yaxis.set_visible(False)
+OVERWRITE = True
+PATH = os.path.join('.', 'data')
+
+# TODO: There's some data that is inclued as a sort of separate table with the .xlsx file, that we are just throwing away at present
+# TODO: Handle combined precincts
+# TODO: Delete superfluous fields from derived_data.gdb/blocks

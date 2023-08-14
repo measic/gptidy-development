@@ -1,5 +1,3 @@
-# LIBRARIES
-import pandas as pd
-from google.colab import drive
-from GeoBases import GeoBase
-import re
+# GLOBAL VARIABLES
+BOOKINGS = '/content/gdrive/My Drive/Colab Notebooks/bookings.csv'
+GEO_O = GeoBase(data='ori_por', verbose=False)

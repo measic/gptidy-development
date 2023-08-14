@@ -1,7 +1,6 @@
-for model_name, model in [('linux_lstm', model_lstm), ('linux_gru', model_gru)]:
-    print("MODEL: ", model_name)
-    y_true, y_pred = validate_hypothesis(model, LinearRegression(), hypothesis_inlinecounter,
-                                         train_len=95, test_len=1,
-                                         save_hyp='plots/{}_hyp_inlinecounter.png'.format(model_name),
-                                         save_diag='plots/{}_diag_inlinecounter.png'.format(model_name),
-                                         save_resp='plots/{}_resp_inlinecounter.png'.format(model_name))
+# model = torch.load('models/simple.model').cuda()
+# print('Perplexity:', 2**np.mean([test_model(model, 'data/tiny-shakespeare/test.txt') for _ in range(1)]))
+model_lstm = torch.load('models/shake_2x128_lstm_3000').cuda()
+print('Perplexity:', 2**np.mean([test_model(model_lstm, 'data/tiny-shakespeare/test.txt') for _ in range(1)]))
+model_gru = torch.load('models/shake_2x128_gru_3000').cuda()
+print('Perplexity:', 2**np.mean([test_model(model_gru, 'data/tiny-shakespeare/test.txt') for _ in range(1)]))

@@ -1,36 +1,22 @@
-import time
-import os
-import importlib
+#GANDeconv_t9900_h100_train3_ep48.critic5
+#GANDeconv_t9900_h100_train3_ep45
+#GANDeconv_t9900_h100_train3_ep21
+#GANDeconv_t9900_h100_train3_ep45
+filename='GANDeconv_t9900_h100_train3_ep45' #'GANDeconvolution_t2000_h100_ep20.c5'
+hidden_dim = 100
+G,D,train_hist = GAN_CelebA.loadCheckpoint(filename,hidden_dim,use_cuda=use_cuda)
+epoch_num=len(train_hist['D_losses'])
+GAN_CelebA.show_result(G,D,epoch_num, hidden_dim, show=True,save=True, path='figures/'+filename+'.pdf', use_cuda=use_cuda)
 
-# path = 'C:/Users/lingyu.yue/Documents/Xiao_Fan/GAN'
-path="/Users/louis/Google Drive/M.Sc-DIRO-UdeM/IFT6135-Apprentissage de représentations/assignment4/"
-if os.path.isdir(path):
-    os.chdir(path)
-else:
-    os.chdir("./")
-print(os.getcwd())
+plt.plot(range(0,epoch_num),train_hist['D_losses'],label='D_loss')
+plt.plot(range(0,epoch_num),train_hist['G_losses'],label='G_loss')
+# plt.plot(range(0,epoch_num),train_hist['Inc_score'],linestyle='--',label='Inc_score')
+plt.xlabel('Epochs')
+plt.ylabel('Loss')
+plt.title('Deconvolution GAN, total time:'+str(int(train_hist['total_ptime'][-1]/60))+'minutes')
+plt.legend()
+plt.savefig('figures/'+filename+'_Loss.pdf')
+plt.show()
 
-import matplotlib.pyplot as plt
-from scipy.misc import imresize
-import torch
-from torch.autograd import Variable
-import torch.nn.functional as F
-import torch.nn as nn
-import torch.optim as optim
-import numpy as np
-import random
-from torchvision.utils import save_image
-import torchvision.transforms as transforms
-import torchvision.datasets as datasets
-from PIL import Image
-import itertools
-import inception_score 
-import GAN_CelebA
-#from GAN_train import loadCheckpoint,generator,generator_Upsampling,discriminator,show_result
-importlib.reload(GAN_CelebA)
-importlib.reload(inception_score)
-
-use_cuda = torch.cuda.is_available()
-torch.manual_seed(999)
-if torch.cuda.is_available():
-    torch.cuda.manual_seed_all(999)
+#test_z = torch.randn(10000,100,1,1)
+#inception_score(test_z, G, D, batch_size=128, cuda=use_cuda, resize=False, splits=10)

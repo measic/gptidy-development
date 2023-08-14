@@ -1,3 +1,9 @@
-train_sents = list(nltk.corpus.conll2002.iob_sents('esp.train'))
-test_sents = list(nltk.corpus.conll2002.iob_sents('esp.testb'))
-test_sentsa = list(nltk.corpus.conll2002.iob_sents('esp.testa'))
+%%time
+
+X_train = []
+for s in train_sents:
+    X_train.extend(sent2features(s))
+    
+y_train = []
+for s in train_sents:
+    y_train.extend(sent2labels(s))

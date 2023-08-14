@@ -1,2 +1,5 @@
-train_labels = recordings[:split_data_idx,0]
-test_labels = recordings[split_data_idx:,0]
+plt.figure(figsize=(8,8))
+for user in users:
+    plt.plot(test_loss[user])
+plt.title("Custo por época")
+plt.show()

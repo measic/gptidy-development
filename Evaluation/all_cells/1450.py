@@ -1,3 +1,8 @@
-#Here is the pythonic (faster) alternative.
-mdat = np.array([np.mean(data[cat==i+1]) for i in range(0,3)])
-print(mdat)
+x = 1
+y = -5
+while x==1:
+    y +=1
+    print(y)
+    if y > 1:
+        x = 2
+        

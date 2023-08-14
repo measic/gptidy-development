@@ -1,2 +1,3 @@
-# !tensorboard --logdir=log-directory/20161231-214458
-print("Visualize loss and accuracy by epoch below:")
+# Find the best accuracy for the parameters:
+idx = acc.groupby(['Group'])['Acc_valid'].transform(max) == acc['Acc_valid']
+best_acc = acc[idx]

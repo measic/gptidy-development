@@ -1,8 +1,11 @@
-figsize(12.5, 2.5)
+figsize(12.5, 5)
 
-prob_31 = logistic(31, beta_samples, alpha_samples)
+simulations = trace["bernoulli_sim"]
+print(simulations.shape)
 
-plt.xlim(0.995, 1)
-plt.hist(prob_31, bins=1000, normed=True, histtype='stepfilled')
-plt.title("Posterior distribution of probability of defect, given $t = 31$")
-plt.xlabel("probability of defect occurring in O-ring");
+plt.title("Simulated dataset using posterior parameters")
+figsize(12.5, 6)
+for i in range(4):
+    ax = plt.subplot(4, 1, i+1)
+    plt.scatter(temperature, simulations[1000*i, :], color="k",
+                s=50, alpha=0.6)

@@ -1,10 +1,8 @@
-bloom_times = []
-cuckoo_times = []
+import datetime
 
-for size in tqdm(capacities):
-    
-    __, c_time, num_inserted = insert_and_time_filter_cuckoo_filter(int(size))
-    cuckoo_times.append(c_time)
-    
-    __,b_time =  insert_and_time_filter_bloom_filter(num_inserted)
-    bloom_times.append(b_time)
+def eta(start, n, total):
+    now = datetime.datetime.now()
+    diff = now - start
+    secs = (total-n) * 1.0 * diff.seconds / (n+1) # +1 to avoid zero division.
+    ends = now + datetime.timedelta(seconds=secs)
+    return ends.strftime("%H:%M:%S")

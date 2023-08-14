@@ -1,28 +1,28 @@
-def FDM(f, a, b, N, u_bc):
-# Solving -u''=f in (a, b) by Finite Difference Method 
-# Dirichlet boundary conditions at two ending points
-# Van-Dang Nguyen 2019  
-  xd= np.linspace(a, b, num=N)
-  # Grid size
-  h=xd[1]-xd[0]
-  ones=np.ones(N)
+import sympy as sp
+import numpy as np
+from scipy.sparse import spdiags
+import matplotlib.pyplot as plt
+from scipy.sparse.linalg import spsolve
 
-  # Create left-hand side digonal matrix [1 -2 1]
-  data = -1/(h*h)*np.array([ones,-2*ones,ones])
-  diags = np.array([-1, 0, 1])
-  A=spdiags(data, diags, N, N,format="csr").toarray()
-   
-  # Boundary conditions for the left-hand side 
-  A[0,:] = 0; # zero out row 0 corresponding to x=a.
-  A[0,0]=1
-  A[N-1,:]=0; # zero out row N-1 corresponding to x=b.
-  A[N-1,N-1]=1
-  
-  # Boundary conditions for the right-hand side  
-  lam_f = sp.lambdify(x, f, modules=['numpy'])
-  rhs = lam_f(xd); # rhs = source 
-  rhs[0], rhs[N-1]=u_bc(xd[0]), u_bc(xd[N-1]) # Dirichlet values
-  
-  ## solving the linear system
-  u= spsolve(A, rhs, permc_spec=None, use_umfpack=True)
-  return xd, u
+x = sp.Symbol('x') # global variable
+
+
+# N discrete points of [a, b]
+a, b, N = -5.0, 5.0, 10; 
+
+# Compute the source based on a given exact solution
+x = sp.Symbol('x')
+ue = sp.sin(x)+ sp.cos(x)
+
+f = -sp.diff(ue, x, 2);
+lam_ue = sp.lambdify(x, ue, modules=['numpy'])
+      
+xd, u_fem = FEM(f, a, b, N, lam_ue)  
+
+xd, u_fdm = FDM(f, a, b, N, lam_ue)  
+
+xe = np.linspace(a, b, 100)
+ue_fine = lam_ue(xe)
+
+plt.plot(xe, ue_fine,'-',xd, u_fem,'--o',xd, u_fdm,'-.s')
+plt.gca().legend(('Exact','FEM','FDM'))

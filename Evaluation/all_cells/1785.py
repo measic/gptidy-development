@@ -1,15 +1,12 @@
-import pickle, os
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
-%matplotlib inline
+with open(os.path.join(os.environ['HOME'], 'plots_ff/model/data/frac_results_avg_ff.pkl'), 'rb') as f:
+    deep_all, linear_all = pickle.load(f, encoding='latin1')
 
-from cv_paper_plots import accuracy, slope, analysis
+d = np.load(os.path.join(os.environ['HOME'], 'plots/ds/data/dataset_chance.npz'))
+chance = d['chance_data']
+training_size = d['training_size']
+fracs = sorted(deep_all.keys())
 
-from cv_paper_plots.style import letter_fontstyle, subject_labels
+output = 'plots_ff/model/data/{}_{}_hg{}_model_output.pkl'
 
-from importlib import reload
-
-import scipy.stats as stats
-from statsmodels.formula.api import ols
-from statsmodels.graphics.gofplots import qqplot
+vmax = 3.
+cmax = 12.

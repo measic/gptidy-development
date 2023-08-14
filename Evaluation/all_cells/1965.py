@@ -1,6 +1,11 @@
-# Save the model as a pickle file
+# Note: Use an alpha of .01 when creating the model for this activity
+from sklearn.linear_model import Lasso
 
-import pickle
-from sklearn.externals import joblib
+lasso = Lasso(alpha=.01).fit(X_train_5K, y_train_5K)
 
-joblib.dump(model_5K, 'model_5K.pkl')
+predictions = lasso.predict(X_test_5K)
+
+MSE = mean_squared_error(y_test_5K, predictions_5K)
+r2 = lasso.score(X_test_5K, y_test_5K)
+
+print(f"MSE: {MSE}, R2: {r2}")

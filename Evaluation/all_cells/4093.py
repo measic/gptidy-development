@@ -1,7 +1,7 @@
-plt.plot(bet_removal_evolution, label='Removiendo segun mayor Betweenness')
-plt.plot(degree_removal_evolution, label='Removiendo segun mayor grado')
-plt.legend(loc='best')
-plt.xlabel('Cantidad de nodos removidos')
-plt.ylabel('Grado promedio')
-plt.title("Grado promedio a medida que removemos nodos")
-plt.show()
+import pytz
+from datetime import datetime
+
+import matplotlib.pyplot as plt
+
+from acnportal import acnsim
+from acnportal import algorithms

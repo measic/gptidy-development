@@ -1,8 +1,4 @@
-%matplotlib inline
-from numpy import *
-import matplotlib.pyplot as plt
-
-inc = linspace(0, 0.5, 101) # incidence
+inc = linspace(0, 0.1, 101) # incidence - different range
 scr = linspace(0, 0.5, 101) # screening
 inc,scr = meshgrid(inc, scr)
 

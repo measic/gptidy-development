@@ -1,2 +1,2 @@
-fig = phrase_sent_scatter(df.phrase_sent)
-py.iplot(fig, filename="phrase_sent")
+fig = doc_sent_plot(df.doc_sent)
+py.iplot(fig, filename="doc_sent")

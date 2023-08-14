@@ -1,5 +1,5 @@
-from asl_utils import test_std_tryit
-# TODO Create a dataframe named `df_std` with standard deviations grouped by speaker
+# TODO add features for polar coordinate values where the nose is the origin
+# Name these 'polar-rr', 'polar-rtheta', 'polar-lr', and 'polar-ltheta'
+# Note that 'polar-rr' and 'polar-rtheta' refer to the radius and angle
 
-# test the code
-test_std_tryit(df_std)
+features_polar = ['polar-rr', 'polar-rtheta', 'polar-lr', 'polar-ltheta']

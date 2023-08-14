@@ -1,2 +1,1 @@
-top_1970 = ...
-top_1970
+top_1970.barh('Row Labels')

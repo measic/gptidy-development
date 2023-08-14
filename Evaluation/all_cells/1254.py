@@ -1,2 +1,2 @@
-print("-----QDA-----")
-print("The accuracy of QDA is", qda_acc)
+list1 = pd.read_csv('listings.csv')
+list2 = pd.read_csv('listings2.csv')

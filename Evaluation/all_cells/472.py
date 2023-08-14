@@ -1,1 +1,1 @@
-X_train_norm.head()
+X_test_norm.head()

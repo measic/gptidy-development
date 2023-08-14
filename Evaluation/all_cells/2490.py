@@ -1,6 +1,15 @@
-texnames = 'H^+ OH^- NH_4^+ NH_3 H_2O'.split()
-n = len(texnames)
-NH3_idx = texnames.index('NH_3')
-NH3_varied = np.logspace(-7, 0)
-c0 = 1e-7, 1e-7, 1e-7, 1, 55
-K = Kw, Ka = 10**-14/55, 10**-9.24
+prod = lambda x: reduce(mul, x)
+
+def get_f(x, params, backend, lnK):
+    init_concs = params[:n]
+    eq_constants = params[n:]
+    le = linear_exprs(preserv, x, linear_exprs(preserv, init_concs), rref=True)
+    if lnK:
+        return le + [
+            sum(backend.log(xi)*p for xi, p in zip(x, coeffs)) - backend.log(K) 
+            for coeffs, K in zip(stoichs, eq_constants)
+        ]
+    else:
+        return le + [
+            prod(xi**p for xi, p in zip(x, coeffs)) - K for coeffs, K in zip(stoichs, eq_constants)
+        ]

@@ -1,3 +1,4 @@
+import theano.tensor as tt
 with model:
-    first_coin_flips = pm.Bernoulli("first_flips", 0.5, shape=N, testval=np.random.binomial(1, 0.5, N))
-print(first_coin_flips.tag.test_value)
+    val = first_coin_flips*true_answers + (1 - first_coin_flips)*second_coin_flips
+    observed_proportion = pm.Deterministic("observed_proportion", tt.sum(val)/float(N))

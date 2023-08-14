@@ -15,13 +15,13 @@ def plot_stats(csv_filename, columns=['total_reward'], **kwargs):
     df_stats = pd.read_csv(csv_filename)
     df_stats[columns].plot(**kwargs)
 
-def function_def(hidden_layers, output_layers):
+def save_rnn_layers(hidden_layers, output_layers):
     for i, layer in hidden_layers.items():
         np.save(os.path.join(vsig.out_dir, 'valid_hidden_layer_' + i + '_output'), hidden_layers[i]['output'])
         np.save(os.path.join(vsig.out_dir, 'valid_hidden_layer_' + i + '_state'), hidden_layers[i]['state'])
     np.save(os.path.join(vsig.out_dir, 'valid_output_layer'), output_layers)
 
-def save_mlp_layers(hidden_layers, output_layers):
+def function_def(hidden_layers, output_layers):
     for i, layer in hidden_layers.items():
         np.save(os.path.join(vsig.out_dir, 'valid_hidden_layer_' + i + '_output'), layer)
     np.save(os.path.join(vsig.out_dir, 'valid_output_layer'), output_layers)

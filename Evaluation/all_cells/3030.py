@@ -1,3 +1,11 @@
-y_hat = new_model.predict(x_test, batch_size=msig.n_samples)
-for i in range(len(x_test)):
-    print('Expected', y_test[i], 'Predicted', y_hat[i])
+import datalab.bigquery as bq
+import seaborn as sns
+import pandas as pd
+import numpy as np
+import os
+import shutil
+import tensorflow as tf
+import matplotlib.pyplot as plt
+import warnings
+warnings.filterwarnings('ignore')
+warnings.simplefilter(action='ignore', category=FutureWarning)

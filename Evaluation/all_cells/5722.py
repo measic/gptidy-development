@@ -1,19 +1,10 @@
-# Load pickled data
-import pickle
-import csv
+unique, counts = np.unique(y_train, return_counts=True)
+unique_test, counts_test = np.unique(y_test, return_counts=True)
 
-# TODO: fill this in based on where you saved the training and testing data
-training_file = 'traffic-signs-data/train.p'
-testing_file = 'traffic-signs-data/test.p'
-
-with open(training_file, mode='rb') as f:
-    train = pickle.load(f)
-with open(testing_file, mode='rb') as f:
-    test = pickle.load(f)
- 
-with open('signnames.csv', mode='r') as infile:
-    reader = csv.reader(infile)
-    signnames = {rows[0]:rows[1] for rows in reader}
-
-X_train, y_train = train['features'], train['labels']
-X_test, y_test = test['features'], test['labels']
+#print(dict(zip(unique, counts)))
+plt.hist(y_train, color = 'b', label = 'train', normed = True, bins=range(n_classes+1))
+plt.hist(y_test, color = 'r', alpha = 0.5, label = 'test', normed = True, bins=range(n_classes+1))
+plt.title('Distribution of the number of images per class \n for train and test set')
+plt.xlabel('Class')
+plt.ylabel('Percentage of images')
+plt.show()

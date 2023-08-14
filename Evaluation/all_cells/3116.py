@@ -1,2 +1,1 @@
-plt.imshow(bow_images_gt_50m[120].reshape(255, 255, 3))
-plt.show();
+stbd_broad_lt_50m_images = broad_less_than_50_meters_starboard()

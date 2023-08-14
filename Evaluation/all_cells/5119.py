@@ -1,2 +1,2 @@
-modeloExtraTreesClassifier = ExtraTreesClassifier()
-modeloExtraTreesClassifier.fit(x,y)
+### Random Forest
+from sklearn.ensemble import RandomForestClassifier

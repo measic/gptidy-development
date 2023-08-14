@@ -1,6 +1,3 @@
-# print out training and testing errors
-training_error = model.evaluate(X_train, y_train, verbose=0)
-print('training error = ' + str(training_error))
-
-testing_error = model.evaluate(X_test, y_test, verbose=0)
-print('testing error = ' + str(testing_error))
+# read in the text, transforming everything to lower case
+text = open('datasets/holmes.txt').read().lower()
+print('our original text has ' + str(len(text)) + ' characters')

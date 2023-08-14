@@ -1,2 +1,2 @@
-#Select the data for 2009 onwards
-After2009 = PM25.sel(time=slice('2009', '2016'))
+#Select monthly mean PM2.5 data for the LSOA
+ts = monthly_data.isel(x=1103, y=1045).load()

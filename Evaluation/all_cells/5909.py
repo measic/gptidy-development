@@ -1,21 +1,35 @@
-logp = []
-for x, t in zip(x_valid, t_valid):
-    _, _, logp_valid = logprob(x, w, b)
-    logp.append(logp_valid[t])
+# Write training code here:
+# Plot the conditional loglikelihoods for the train and validation dataset after every epoch.
+# Plot the weights of the first layer.
 
-data = list(zip(logp, x_valid, t_valid))
-data.sort(key=lambda tup: tup[0])
+def mlp_test(x_train, t_train, x_valid, t_valid):
+    epochs = 10
+    lrs = [1e-2, 1e-3, 1e-4]
 
-# hardest 8 digits
-xs = np.array([d[1] for d in data[:8]])
-ts = np.array([d[2] for d in data[:8]])
+    Vs = [[],[],[]]
+    logp_train = [[],[],[]]
+    logp_valid = [[],[],[]]
+    
+    for i, lr in enumerate(lrs):
+        W, b, V, a = init_params(28*28, 10, 20) 
+        # Calculate log prob before training
+        logp_t = eval_mean_logp(x_train, t_train, W, b, V, a)
+        logp_v = eval_mean_logp(x_valid, t_valid, W, b, V, a)
+        logp_train[i].append(logp_t)
+        logp_valid[i].append(logp_v)
+        Vs[i].append(V)
+        
+        print(f'lr: {lr}')
+        for epoch in range(1,epochs+1):
+            print(f'epoch: {epoch}', end='\r')
+            logp_t, W, b, V, a = mlp_sgd_iter(x_train, t_train, W, b ,V, a, lr)
+            logp_v = eval_mean_logp(x_valid, t_valid, W, b, V, a)
+            
+            Vs[i].append(V)
+            logp_train[i].append(logp_t)
+            logp_valid[i].append(logp_v)
+            
+    return logp_train, logp_valid, Vs 
 
-plt.suptitle('8 hardest digitis', y = 1.05)
-plot_digits(xs, num_cols=4, targets=ts)
 
-# easiest 8 digits
-xs = np.array([d[1] for d in data[-8:]])
-ts = np.array([d[2] for d in data[-8:]])
-
-plt.suptitle('8 easiest digitis', y = 1.05)
-plot_digits(xs, num_cols=4, targets=ts)
+logp_train, logp_valid, Vs = mlp_test(x_train, t_train, x_valid, t_valid)

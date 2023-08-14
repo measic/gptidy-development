@@ -1,1 +1,1 @@
-stats.ttest_1samp(posttest.Q3_SC_ForcedChoicePerformance,2)
+stats.ttest_rel(posttest.Q3_SC_ForcedChoicePerformance, posttest.Q3_SCT_ForcedChoicePerformance)

@@ -1,10 +1,10 @@
-def plot_incomesExpenses(bankdata):
-    data = buildIncomesExpenses(bankdata)
-    layout = go.Layout(
-      xaxis = dict(title = 'Date'),
-      yaxis = dict(title = 'Amount (' + CURRENCY + ')'),
-      barmode = 'relative',
-      title = 'Incomes and expenses'
-    )
-    fig = go.Figure(data=data, layout=layout)
-    py.offline.iplot(fig, filename='barmode-relative')
+bankdata = loadDataFiles() # Load files
+(minDate, maxDate) = getIntervalDates(bankdata) # Get dates interval
+bankdata = fillEmpty(bankdata, maxDate) # Fill missing data with the same value
+
+#plot_general(bankdata, minDate, maxDate)
+#plot_piggy(bankdata)
+plot_super_view(bankdata, minDate, maxDate)
+#plot_profit(bankdata)
+#plot_incomesExpenses(bankdata)
+plot_incomesExpensesProfits(bankdata)

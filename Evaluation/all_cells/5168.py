@@ -1,6 +1,7 @@
-from sklearn.ensemble import RandomForestRegressor
-regr = RandomForestRegressor(max_depth=4, random_state=0)
-regr.fit(x,y)
-### Quanto maior o score, maior a importância do atributo
-print(colunasNumericasIdade)
-print(regr.feature_importances_)
+### Os dados de treino e teste são semelhantes nos outliers das idades, não tem necessidade de remover.
+sns.boxplot(
+    data = treino,
+    x='Sobreviventes',
+    hue='Sobreviventes',
+    y='Idade',
+    orient = "v", notch=False, palette="Set2",fliersize=5)

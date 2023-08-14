@@ -1,2 +1,1 @@
-X,y=train[0:-1], train[-1]
-X
+X.shape[0]

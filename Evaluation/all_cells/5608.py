@@ -1,2 +1,3 @@
-# mjd_to_sim
-mjd_to_sim = mjd_to_sim - (mjd_to_sim[0] - 54450)
+p = pcc.classes.PhotometryClass()
+
+p.load_table(pcc.utils.simulate_out_to_ap_table(mjd_to_sim, flux, flux_err, filters_to_sim))

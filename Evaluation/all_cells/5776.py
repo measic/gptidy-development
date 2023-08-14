@@ -1,3 +1,2 @@
-# window the data using your windowing function
-window_size = 7
-X,y = window_transform_series(series = dataset,window_size = window_size)
+# run your model!
+model.fit(X_train, y_train, epochs=1000, batch_size=50, verbose=0)

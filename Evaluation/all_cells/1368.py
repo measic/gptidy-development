@@ -1,2 +1,2 @@
-#the same but differently formatted info from help(<function>)
-help(len)
+print(A+A)
+print(B)

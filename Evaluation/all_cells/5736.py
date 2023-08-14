@@ -1,15 +1,26 @@
-def reformat(dataset, labels):
-  dataset = dataset.reshape(
-    (-1, image_size, image_size, num_channels)).astype(np.float32)
+# Get standard deviation of the normal distribution we use for weights initialization 
+# of convolution and fully connected layers
 
-  labels = (np.arange(n_classes) == labels[:,None]).astype(np.float32)
-  return dataset, labels
+def get_conv_bounds(input_feature_map, output_feature_map, filter_height, filter_width):
+    fan_in = input_feature_map * filter_height * filter_width 
+    fan_out = output_feature_map * filter_height * filter_width
 
-X_train, y_train = reformat(X_train, y_train)
-X_valid, y_valid = reformat(X_valid, y_valid)
-X_test, y_test = reformat(X_test, y_test)
+    W_bound = np.sqrt(2. / (fan_in + fan_out))
+    
+    return W_bound
 
-y_test_cls = np.argmax(y_test, axis=1)
+def get_fc_bounds(input_feature_map, output_feature_map):
+    W_bound = np.sqrt(2. / (input_feature_map + output_feature_map))
+    return W_bound
 
-print('Features set', X_train.shape, X_valid.shape, X_test.shape)
-print('Labels set', y_train.shape, y_valid.shape, y_test.shape)
+
+def create_conv_weight(input_feature_map, output_feature_map, filter_height, filter_width, weight_name):
+    W_bound = get_conv_bounds(input_feature_map, output_feature_map, filter_height, filter_height)
+    return tf.Variable(tf.truncated_normal(
+            [filter_height, filter_width, input_feature_map, output_feature_map], stddev=W_bound), name=weight_name)
+
+
+def create_fc_weight(input_feature_map, output_feature_map, weight_name):
+    W_bound = get_fc_bounds(input_feature_map, output_feature_map)
+    return tf.Variable(tf.truncated_normal(
+        [input_feature_map, output_feature_map], stddev=W_bound), name=weight_name)

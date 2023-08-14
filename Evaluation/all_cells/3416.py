@@ -1,3 +1,4 @@
-# float
-x = 1.0
-type(x)
+# string
+s = "hello world"
+
+type(s)

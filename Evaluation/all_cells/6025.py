@@ -1,1 +1,1 @@
-lr = 2e-2
+learn = Learner(data, simple_cnn((3, 16, 16, 2)), metrics=[accuracy]).mixup()

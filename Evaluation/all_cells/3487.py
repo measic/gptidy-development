@@ -1,2 +1,3 @@
-for idx, x in enumerate(range(-3,3)):
-    print(idx, x)
+l1 = [x**2 for x in range(0,5)]
+
+print(l1)

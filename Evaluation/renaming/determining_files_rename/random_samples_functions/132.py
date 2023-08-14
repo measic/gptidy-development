@@ -1,6 +1,6 @@
 NUM_IN_CLASS = 800
 
-def random_translate(img):
+def function_def(img):
     rows, cols, ch = img.shape
     x = random.randint(-4, 4)
     y = random.randint(-4, 4)
@@ -28,7 +28,7 @@ def random_transform_img(rand_img, transform_type_n=None):
         1: random_rotate
         2: random_zoom
     """
-    transform_funcs = [random_translate, random_rotate, random_zoom]
+    transform_funcs = [function_def, random_rotate, random_zoom]
     if transform_type_n:
         transform = transform_funcs[transform_type_n]
         return transform(rand_img)
@@ -65,7 +65,7 @@ def augment_by_class(training_data_tuple):
         X_train_by_class.append(new_img)
     return (X_train_by_class, y_train_by_class)
 
-def function_def(augmented_data_by_classes):
+def merge_and_shuffle(augmented_data_by_classes):
     augmented_X_train = []
     augmented_y_train = []
     for augmented_tup in augmented_data_by_classes:
@@ -85,9 +85,9 @@ def augment_data(X_train, y_train):
         augmented_tup = augment_by_class(tup)
         assert len(tup[0]) >= NUM_IN_CLASS, 'Class {0} still has {0} examples'.format(tup[1], len(tup[0]))
         augmented_data_by_classes.append(augmented_tup)
-    return function_def(augmented_data_by_classes)
+    return merge_and_shuffle(augmented_data_by_classes)
 rand_img = random.choice(X_train)
-transformed_img = random_translate(rand_img)
+transformed_img = function_def(rand_img)
 (plt.subplot(121), plt.imshow(rand_img), plt.title('Input'))
 (plt.subplot(122), plt.imshow(transformed_img), plt.title('Output'))
 plt.suptitle('Translation')

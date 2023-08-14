@@ -1,1 +1,1 @@
-from BITS.seq.utils import split_seq
+from interval import interval

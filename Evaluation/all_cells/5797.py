@@ -1,18 +1,22 @@
-### necessary functions from the keras library
-from keras.models import Sequential
-from keras.layers import Dense, Activation, LSTM
-from keras.optimizers import RMSprop
-from keras.utils.data_utils import get_file
-import keras
-import random
+# function that uses trained model to predict a desired number of future characters
+def predict_next_chars(model,input_chars,num_to_predict):     
+    # create output
+    predicted_chars = ''
+    for i in range(num_to_predict):
+        # convert this round's predicted characters to numerical input    
+        x_test = np.zeros((1, window_size, len(chars)))
+        for t, char in enumerate(input_chars):
+            x_test[0, t, chars_to_indices[char]] = 1.
 
-# TODO implement build_part2_RNN in my_answers.py
-from my_answers import build_part2_RNN
+        # make this round's prediction
+        test_predict = model.predict(x_test,verbose = 0)[0]
 
-model = build_part2_RNN(window_size, len(chars))
+        # translate numerical prediction back to characters
+        r = np.argmax(test_predict)                           # predict class of each test input
+        d = indices_to_chars[r] 
 
-# initialize optimizer
-optimizer = keras.optimizers.RMSprop(lr=0.001, rho=0.9, epsilon=1e-08, decay=0.0)
-
-# compile model --> make sure initialized optimizer and callbacks - as defined above - are used
-model.compile(loss='categorical_crossentropy', optimizer=optimizer)
+        # update predicted_chars and input
+        predicted_chars+=d
+        input_chars+=d
+        input_chars = input_chars[1:]
+    return predicted_chars

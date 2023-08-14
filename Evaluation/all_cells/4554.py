@@ -1,2 +1,2 @@
-# Set union
-print(set1 | set2)
+# set difference
+print(set1 - set2)

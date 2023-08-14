@@ -1,5 +1,4 @@
-a = 355.0
-b = 113.0
-c = a / b
-
-c  # pi to 7 digits
+type ℝ = Double
+type ℝ² = V2 ℝ
+type ℝ³ = V3 ℝ
+type ℝ⁴ = V4 ℝ

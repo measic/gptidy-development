@@ -1,14 +1,11 @@
-# TODO: Apply your clustering algorithm of choice to the reduced data 
-clusterer = None
+# TODO: Inverse transform the centers
+log_centers = None
 
-# TODO: Predict the cluster for each data point
-preds = None
+# TODO: Exponentiate the centers
+true_centers = None
 
-# TODO: Find the cluster centers
-centers = None
-
-# TODO: Predict the cluster for each transformed sample data point
-sample_preds = None
-
-# TODO: Calculate the mean silhouette coefficient for the number of clusters chosen
-score = None
+# Display the true centers
+segments = ['Segment {}'.format(i) for i in range(0,len(centers))]
+true_centers = pd.DataFrame(np.round(true_centers), columns = data.keys())
+true_centers.index = segments
+display(true_centers)

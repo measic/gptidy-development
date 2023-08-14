@@ -1,14 +1,15 @@
-for name, df in fixed_names.items():
-    if name == 'Contents':
-        continue
-    df = df[df['PrecinctName'].apply(lambda x: str(x).startswith('Pct '))]
-    df.columns = [to_appropriate_column_name(x.replace('(%)', 'Percent')) for x in df.columns]
-    df.to_csv(os.path.join(PATH, 'derived_data', '{}.csv'.format(name)), encoding='utf-8', index=False)
-    #####
-    agg_methods = {
-    'precincts': 'min',
-    'registration': 'min'
-    }
-    no_agg = ['OBJECTID', 'precinctname', 'reportingtype', 'precinctid', 'turnout_percent']
-    grouped_df = df.groupby('precinctid').agg({x: agg_methods.get(x, 'sum') for x in df.columns if x not in no_agg})
-    grouped_df.to_csv(os.path.join(PATH, 'derived_data', '{}.csv'.format('precinct_summary_' + name)), encoding='utf-8', index=True)
+arcpy.env.workspace = os.path.join(PATH, 'SF_vote_2016.gdb')
+
+NO_TOUCH = ['OBJECTID', 'precinctname', 'reportingtype', 'precinctid']
+FLOAT = ['turnout_percent']
+
+for table in sorted(arcpy.ListTables()):
+    for field in arcpy.ListFields(table):
+        if field.name not in NO_TOUCH:
+            original_name = field.name
+            temp_name = field.name[:5] + '_temp'
+            arcpy.AddField_management(table, temp_name, 'FLOAT' if original_name in FLOAT else 'LONG')
+            arcpy.CalculateField_management(table, temp_name, u'!{}!'.format(original_name), "PYTHON_9.3")
+            arcpy.DeleteField_management(table, original_name)
+            arcpy.AlterField_management(table, temp_name, to_appropriate_column_name(original_name[:31]))
+    print('{} complete'.format(table))

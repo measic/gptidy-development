@@ -1,2 +1,1 @@
-### Teste
-test.describe()
+join.dropna().info()

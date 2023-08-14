@@ -1,11 +1,10 @@
-Sw_inv = np.linalg.inv(Sw)
-I = np.matmul(Sw,Sw_inv)
+## plot the input data and the new set of axes
+ax = plt.gca()
+plot_gmm(initial_guess, X, label=labels, ax=ax)
 
-print('Sw:')
-Sw
+p = -6.0*v2
+v2l = 10.0*v2 
 
-print('Inverted Sw:')
-Sw_inv
-
-print('Identity matrix')
-I
+ax.quiver(p[0],p[1],v2l[0],v2l[1], units = 'xy',scale=1)
+ax.text(v2l[0] + p[0], v2l[1] + p[1], 'y')
+ax.grid()

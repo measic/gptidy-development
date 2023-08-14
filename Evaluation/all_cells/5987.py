@@ -1,10 +1,15 @@
-# Import a supervised learning model that has 'feature_importances_'
+# import packages
+from IPython.display import Markdown, display
+from plotly import plotly as py
+import qgrid
 
-# Train the supervised model on the training set 
-model = clf.fit(X_train, y_train)
-
-# Extract the feature importances
-importances = model.feature_importances_
-
-# Plot
-vs.feature_plot(importances, X_train, y_train)
+# import source scripts
+import context  # build context to modules in other packages
+from data import textfilter
+from data.filemgmt import vectorize_docs
+from generate_df import DataframeGenerator
+from generate_plot import cos_sim_plot, doc_sent_plot, \
+    phrase_sent_plot, phrase_sent_scatter, rel_freq_plot, \
+    valence_arousal_plot, valence_arousal_dims
+from secret import API_KEY, USERNAME
+from settings.artistinfo import LINKIN_PARK_ALBUMS

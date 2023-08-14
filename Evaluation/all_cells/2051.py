@@ -1,4 +1,7 @@
-plt.plot(train1.index, train1, label='Train')
-plt.plot(test1.index, test1, label='Test')
-plt.plot(pred1.index, pred1, label='Holt-Winters1')
-plt.legend(loc='best')
+df_per_day = pd.read_csv("../data/log_data_per_day.csv")
+
+df_per_day = df_per_day.sort_values("date").reset_index()
+
+df_per_day.drop(columns=["Unnamed: 0","index"],axis=1,inplace=True)
+
+df_per_day.head()

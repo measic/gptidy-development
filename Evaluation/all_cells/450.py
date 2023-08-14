@@ -1,1 +1,1 @@
-data_train.shape
+X_test = vectorizer.transform(data_test.values)

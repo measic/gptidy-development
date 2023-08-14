@@ -1,1 +1,1 @@
-y_train_stern = (y_train == 0)
+sgd_clf.predict([black_array.flatten()])

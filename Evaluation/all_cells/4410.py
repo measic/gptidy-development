@@ -1,9 +1,3 @@
-plt.figure(figsize=(11,4))
-plt.subplot(121)
-plot_decision_boundary(tree_clf, X, y)
-plt.title("Decision Tree", fontsize=14)
-plt.subplot(122)
-plot_decision_boundary(bag_clf, X, y)
-plt.title("Decision Trees with Bagging", fontsize=14)
-save_fig("decision_tree_without_and_with_bagging_plot")
-plt.show()
+from sklearn.metrics import accuracy_score
+y_pred = bag_clf.predict(X_test)
+accuracy_score(y_test, y_pred)

@@ -1,7 +1,4 @@
-##  for each row calculate Hill N10
-for i in range(len(data)):
-    swi = 0.0
-    for x in range(len(data.iloc[0]))[4:last]:
-        if data.iloc[i][x] > 0:
-            swi += -(data.iloc[i][x]/sum(data.iloc[i][4:last][data.iloc[i][4:last]>0])) * math.log((data.iloc[i][x]/sum(data.iloc[i][4:last][data.iloc[i][4:last]>0])))
-    data.loc[i,'N10'] = math.exp(swi)/len(data.iloc[i][4:last][data.iloc[i][4:last]>0])
+plt.scatter(X, y);
+plt.xlabel('Input', fontsize=15);
+plt.ylabel('Target', fontsize=15);
+plt.title('Toy regression problem', fontsize=15);

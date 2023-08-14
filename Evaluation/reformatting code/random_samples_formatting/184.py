@@ -1,58 +1,41 @@
-class CustomHyothesis:
-    #A x = B    
-    def createtor(self):
-        aMatrixValueStore=[sum( map(lambda x:x**i,self.xlist)) for i in range(0,(self.degree*2)+1)]
-        bMatrixValueStore =[sum([(item*self.ylist[tv1])for tv1 ,item in enumerate(map(lambda x:x**i,self.xlist))]) for i in range(0,(self.degree)+1)]
-        MatrixA = [aMatrixValueStore[i:(i+self.degree+1)]for i in range(0,self.degree+1)]
-        A = np.matrix(MatrixA)
-        B = np.array(bMatrixValueStore)
-        self.coeff=np.linalg.solve(A,B.T)
-    
-    def fit(self,degree,xlist,ylist):
-        assert(degree>0)
-        assert(len(xlist)==len(ylist))
-        
-        self.degree = degree
-        self.xlist  = xlist
-    
-        self.ylist  = ylist
-        self.createtor()
-    
-    def predict(self,inList):
-        return [sum([self.coeff[j]*(i**j)for j in range(0,self.degree+1)] )for i in inList]       
-        
-# predicting with kfols and checking oerror wof the custom class
-errors =[]
-kFolds =10
-for itration in xrange(1,7):
-    #print "for degree " + str(itration)
-    for s in getListOfFiles('Data/'):
-        data = getListFromAFile("Data/"+s)
-        kf = sklearn.cross_validation.KFold(n=len(data[0]), n_folds=kFolds, shuffle=False,random_state=None)
-        error = 0
-        regression = CustomHyothesis()
-        for train_index, test_index in kf:
-#            print("TRAIN:", train_index, "TEST:", test_index)
-            X_train, X_test =data[0][train_index], data[0][test_index]
-            y_train, y_test = data[1][train_index], data[1][test_index]
-            regression.fit(itration,X_train,y_train)
-            error = error + mean_squared_error(y_test,regression.predict(X_test))
-            #plt.scatter(X_train,regression.predict(X_train),alpha=0.5,color ='r') 
-            #plt.scatter(X_train,y_train,alpha=0.5,color ='b')
-            #plt.show()
-           
-        error = error/kFolds
-        errors.append({'degree':itration,'file':s,'mse':error})
-        createPlots( data[0],data[1],"x-axis -->","y-axis -->",title = str({'degree':itration,'file':s}),plotterRef=regression.predict)    
+class ItemSelector(BaseEstimator, TransformerMixin):
+    """For data grouped by feature, select subset of data at a provided key.
 
-#print errors
-df = pd.DataFrame(errors)
-print df 
+    The data is expected to be stored in a 2D data structure, where the first
+    index is over features and the second is over samples.  i.e.
 
-for s in getListOfFiles('Data/'):
-        data = getListFromAFile("Data/"+s)
-        regression = CustomHyothesis()
-        regression.fit(5,data[0],data[1])
-        #plt.scatter(data[0],regression.predict(data[0]),alpha=0.5,color ='r') 
-        #plt.scatter(data[0],data[1],alpha=0.5,color ='b')
-        #plt.show()
+    >> len(data[key]) == n_samples
+
+    Please note that this is the opposite convention to scikit-learn feature
+    matrixes (where the first index corresponds to sample).
+
+    ItemSelector only requires that the collection implement getitem
+    (data[key]).  Examples include: a dict of lists, 2D numpy array, Pandas
+    DataFrame, numpy record array, etc.
+
+    >> data = {'a': [1, 5, 2, 5, 2, 8],
+               'b': [9, 4, 1, 4, 1, 3]}
+    >> ds = ItemSelector(key='a')
+    >> data['a'] == ds.transform(data)
+
+    ItemSelector is not designed to handle data grouped by sample.  (e.g. a
+    list of dicts).  If your data is structured this way, consider a
+    transformer along the lines of `sklearn.feature_extraction.DictVectorizer`.
+
+    Parameters
+    ----------
+    key : hashable, required
+        The key corresponding to the desired value in a mappable.
+    """
+    def __init__(self, key):
+        self.key = key
+
+    def fit(self, x, y=None):
+        return self
+
+    def transform(self, data_dict):
+        # if self.key == 'playlist_pid': from IPython.core.debugger import set_trace; set_trace()
+        return data_dict[:,[self.key]].astype(np.int64)
+
+    def get_feature_names(self):
+        return [dataset.columns[self.key]]

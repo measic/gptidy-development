@@ -1,7 +1,8 @@
-matrix_1 = np.array([[4,2,1,3,5]])
-matrix_2 = np.array([[4],[2], [1], [3], [5]])
-matrix_3 = np.dot(matrix_1,matrix_2)
-matrices_1 = [matrix_1, matrix_2, matrix_3]
-names_1 = ['matrix_1', 'matrix_2', 'matrix_3']
-
-visulize_multiplication(matrices_1, names_1)
+x = np.array([0,1,2,3,4,5,6,7,8,9])
+visulize_array(x, 'array')
+sliced_array_1 = x[-4:10]
+sliced_array_2 = x[0:-4]
+sliced_array_3 = x[-2:1:-2] # [10-2:1:-2] = [8:1:-2]
+visulize_array(sliced_array_1, 'sliced_array_1')
+visulize_array(sliced_array_2, 'sliced_array_2')
+visulize_array(sliced_array_3, 'sliced_array_3')

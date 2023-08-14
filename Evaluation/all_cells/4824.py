@@ -1,11 +1,14 @@
-tokens = copy.deepcopy(norare_dico)
+#Translate sentences to list of integers
+translate_conv = copy.deepcopy(norare_conv)
 
-
-#Then tokenization of the dictionary
-for i,w in enumerate(norare_dico,1):
-    tokens[w] = i
-
-# Add the 3 artifical words
-tokens["PADD"] = 0
-tokens["START"] = i + 1
-tokens["STOP"] = i + 2
+for i,c in enumerate(norare_conv):
+    for j,s in enumerate(c):
+        
+        words = s.split(" ")
+        new_s = translate(words,tokens,to_token=True)
+            
+        # Add to every sentences START and STOP tokens
+        new_s = [tokens["START"]] + new_s
+        new_s.append(tokens["STOP"])
+        
+        translate_conv[i][j] = new_s

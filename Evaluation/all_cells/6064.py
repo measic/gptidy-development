@@ -1,3 +1,2 @@
-dt = .1
-x = np.array([0., 0.]) 
-kf = pos_vel_filter(x, P=500, R=5, Q=0.1, dt=dt)
+P = np.diag([500., 49.])
+Ms, Ps = run(count=50, R=10, Q=0.01, P=P)

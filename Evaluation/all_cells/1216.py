@@ -1,3 +1,1 @@
-for id in [i for i in ids_no_zero_count_in_last_three_week if i in ids_cos_sim_low_3_wk_other and i in ids_no_stable_period]:
-    for i in range(1,8):
-        shop_info.loc[id,'wave_model_total_'+str(i)] =  shop_info.loc[id,'wave_model1_'+str(i)] 
+shop_info['ratio'] = shop_info.loc[:,'wk_66':'wk_68'].mean(axis = 1) / shop_info.loc[:,'wave_model_total_1':'wave_model_total_7'].mean(axis = 1)

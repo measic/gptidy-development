@@ -16,12 +16,12 @@ with tf.Session(graph=graph) as session:
         if step % 10000 == 0:
             sim = similarity.eval()
             for i in range(valid_size):
-                valid_word = reverse_dictionary[valid_examples[i]]
+                variable_def = reverse_dictionary[valid_examples[i]]
                 top_k = 8
                 nearest = (-sim[i, :]).argsort()[1:top_k + 1]
-                variable_def = 'Nearest to %s:' % valid_word
+                log = 'Nearest to %s:' % variable_def
                 for k in range(top_k):
                     close_word = reverse_dictionary[nearest[k]]
-                    variable_def = '%s %s,' % (variable_def, close_word)
-                print(variable_def)
+                    log = '%s %s,' % (log, close_word)
+                print(log)
     final_embeddings = normalized_embeddings.eval()

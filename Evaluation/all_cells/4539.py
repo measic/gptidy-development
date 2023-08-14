@@ -1,2 +1,3 @@
-# This will give us every other element of the first four
-print(a_list[::2])
+# NOTE: this also works for strings
+my_string = 'Monty Python'
+my_string[::-1]

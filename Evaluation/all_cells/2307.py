@@ -1,1 +1,2 @@
-centers = [np.sort(e, axis=0) for e in centers_kmeans_proj]
+letters_dir = os.path.join(data_dir, 'letters/')
+letters_dir = '../data/letters'

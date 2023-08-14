@@ -1,1 +1,2 @@
-train.head(2)
+### Treino
+train.head(20)

@@ -1,5 +1,3 @@
-from igraph import *
-from datetime import datetime
-
-g = Graph.GRG(30, 0.5)
-g.summary()
+l = g.layout_circle()
+p = plot(g, layout=l, bbox = (300, 300), margin=20)
+p

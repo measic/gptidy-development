@@ -1,1 +1,1 @@
-test_images_np = np.asarray(test_images)
+test_images_np_gray = normalize_and_grayscale(test_images_np)

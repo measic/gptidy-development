@@ -1,35 +1,47 @@
-# Write training code here:
-# Plot the conditional loglikelihoods for the train and validation dataset after every epoch.
-# Plot the weights of the first layer.
+# plot the function and the derivative for the activations sigmoid, tanh and ReLU.
+import numpy as np
+from scipy.special import expit
+n = 100
+xs = np.linspace(-3, 3, n)
+ReLu = np.maximum(xs,0)
+d_ReLu = np.concatenate((np.zeros(int(n/2)), np.ones(int(n/2))))
 
-def mlp_test(x_train, t_train, x_valid, t_valid):
-    epochs = 10
-    lrs = [1e-2, 1e-3, 1e-4]
+tanh = np.tanh(xs)
+d_tanh = 1- tanh**2
 
-    Vs = [[],[],[]]
-    logp_train = [[],[],[]]
-    logp_valid = [[],[],[]]
+sig = expit(xs)
+d_sig = sig*(1- sig)
+
+plt.figure(figsize=(20,5))
+# plot ReLu:
+plt.subplot(1,3, 1)
+plt.plot(xs, ReLu, label = 'ReLu')
+plt.plot(xs, d_ReLu, label = 'd_Relu')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title("ReLu(x) Plot")
+plt.ylim(-1.1, 1.1)
+plt.legend()
+
+# plot tanh:
+plt.subplot(1,3,2)
+plt.plot(xs, tanh, label = 'tanh')
+plt.plot(xs, d_tanh, label = 'd_tanh')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title("tanh(x) Plot")
+plt.ylim(-1.1, 1.1)
+plt.legend()
+
+# plot sigmoid:
+plt.subplot(1,3,3)
+plt.plot(xs, sig, label = 'sigmoid')
+plt.plot(xs, d_sig, label = 'd_sigmoid')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title("Sigmoid(x) Plot")
+plt.ylim(-1.1, 1.1)
+plt.legend()
     
-    for i, lr in enumerate(lrs):
-        W, b, V, a = init_params(28*28, 10, 20) 
-        # Calculate log prob before training
-        logp_t = eval_mean_logp(x_train, t_train, W, b, V, a)
-        logp_v = eval_mean_logp(x_valid, t_valid, W, b, V, a)
-        logp_train[i].append(logp_t)
-        logp_valid[i].append(logp_v)
-        Vs[i].append(V)
-        
-        print(f'lr: {lr}')
-        for epoch in range(1,epochs+1):
-            print(f'epoch: {epoch}', end='\r')
-            logp_t, W, b, V, a = mlp_sgd_iter(x_train, t_train, W, b ,V, a, lr)
-            logp_v = eval_mean_logp(x_valid, t_valid, W, b, V, a)
-            
-            Vs[i].append(V)
-            logp_train[i].append(logp_t)
-            logp_valid[i].append(logp_v)
-            
-    return logp_train, logp_valid, Vs 
-
-
-logp_train, logp_valid, Vs = mlp_test(x_train, t_train, x_valid, t_valid)
+plt.suptitle('Activation functions')
+plt.show()

@@ -1,1 +1,1 @@
-tweet_info.head()
+tweet_info.info()

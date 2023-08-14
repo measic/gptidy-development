@@ -1,6 +1,11 @@
-treino['PortoEmbarqueNum']        = treino['PortoEmbarque'].replace([np.nan,'S','C','Q','NA'],[0,1,2,3,4])
-treino_dropna['PortoEmbarqueNum'] = treino_dropna['PortoEmbarque'].replace([np.nan,'S','C','Q','NA'],[0,1,2,3,4])
-teste['PortoEmbarqueNum']         = teste['PortoEmbarque'].replace([np.nan,'S','C','Q','NA'],[0,1,2,3,4])
-uniao['PortoEmbarqueNum']         = uniao['PortoEmbarque'].replace([np.nan,'S','C','Q','NA'],[0,1,2,3,4])
-uniao_dropna['PortoEmbarqueNum']  = uniao_dropna['PortoEmbarque'].replace([np.nan,'S','C','Q','NA'],[0,1,2,3,4])
-treino.head(2)
+treino.loc[(treino['FamiliaQtde']>0),'EstaSozinho']= 0
+treino.loc[(treino['FamiliaQtde']==0),'EstaSozinho']= 1
+
+treino_dropna.loc[(treino_dropna['FamiliaQtde']>0),'EstaSozinho']= 0
+treino_dropna.loc[(treino_dropna['FamiliaQtde']==0),'EstaSozinho']= 1
+
+teste.loc[(teste['FamiliaQtde']>0),'EstaSozinho']= 0
+teste.loc[(teste['FamiliaQtde']==0),'EstaSozinho']= 1
+
+uniao.loc[(uniao['FamiliaQtde']>0),'EstaSozinho']= 0
+uniao.loc[(uniao['FamiliaQtde']==0),'EstaSozinho']= 1

@@ -1,28 +1,35 @@
-import zipfile
-from urllib import request
+from keras import backend as K
+from keras.models import Model
+from keras.layers import Input, add, concatenate, BatchNormalization, LeakyReLU, Flatten, Dense
+from keras.layers import Conv2D, MaxPooling2D, UpSampling2D
+from keras.optimizers import Adam
+from keras.preprocessing.image import ImageDataGenerator
+from keras.utils.np_utils import to_categorical
+from keras.utils.data_utils import get_file
 
-path_bsd100 = r"https://github.com/titu1994/Super-Resolution-using-Generative-Adversarial-Networks/releases/download/v0.1/bsd100.zip"
-filename="bsd100.zip"
-def _progress(count, block_size, total_size):
-            sys.stdout.write('\rDownloading %s %.2f%%' % (filename,
-                float(count * block_size) / float(total_size) * 100.0))
-            sys.stdout.flush()
+from keras_ops import fit as bypass_fit, smooth_gan_labels
 
-if not os.path.exists("tests/bsd100/bsd100"):
-    print("Downloading BSD100 images")
-    filehandler, _ = request.urlretrieve(path_bsd100, reporthook=_progress)
-    zf = zipfile.ZipFile(filehandler)
-    print()
+from layers import Normalize, Denormalize, SubPixelUpscaling
+from loss import AdversarialLossRegularizer, ContentVGGRegularizer, TVRegularizer, psnr, dummy_loss
 
-    print("Extracting images")
-    uncompress_size = sum((file.file_size for file in zf.infolist()))
+import os
+import time
+import h5py
+import numpy as np
+import json
+from imageio import imwrite as imsave
+from scipy.misc import imresize
+from scipy.ndimage.filters import gaussian_filter
 
-    extracted_size = 0
+TF_WEIGHTS_PATH_NO_TOP = r"https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5"
 
-    for file in zf.infolist():
-        extracted_size += file.file_size
-        sys.stdout.write('\rExtracting %.2f%%' % (float(extracted_size * 100/uncompress_size)))
-        sys.stdout.flush()
-        zf.extract(file, "tests/bsd100")
-print()
-print("BSD100 is all set")
+if not os.path.exists("weights/"):
+    os.makedirs("weights/")
+
+if not os.path.exists("val_images/"):
+    os.makedirs("val_images/")
+
+if K.image_dim_ordering() == "th":
+    channel_axis = 1
+else:
+    channel_axis = -1

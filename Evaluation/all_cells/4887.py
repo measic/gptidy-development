@@ -1,4 +1,5 @@
-# Display sample log-data after applying PCA transformation in two dimensions
-df_display = pd.DataFrame(np.round(pca_samples, 4), columns = ['Dimension 1', 'Dimension 2'])
-df_display.index = log_samples.index
-display(df_display)
+import pandas as pd
+ax = pd.DataFrame(d_score).plot()
+ax.set_xlabel("Number of Clusters")
+ax.set_ylabel("Silhouette Score\n")
+ax.set_title("Performance vs Complexity\n", fontsize = 16);

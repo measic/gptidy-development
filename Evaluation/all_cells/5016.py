@@ -1,13 +1,14 @@
-def max_sum(node_list):
+### Test test test: partiallY observed
+nodes = [X_prior, X, Z_prior, Z, Y_cond, Y]
+for n in nodes:
+    n.reset()
     
-    for n in node_list:
-#         print(n, ':', *list(n.pending))
-        while len(n.pending) > 0:            
-            f = next(iter(n.pending))
-            n.send_ms_msg(f)
-            
-    for n in reversed(node_list):
-        
-        while len(n.pending) > 0:
-            f = next(iter(n.pending))
-            n.send_ms_msg(f)
+X_prior.pending.add(X)
+Z_prior.pending.add(Z)
+Y.pending.add(Y_cond)
+
+Z.set_observed(1)
+
+max_sum(nodes)
+
+assert np.allclose(Y.unnormalized_log_marginal(), [-2.86470401, -2.01740615])

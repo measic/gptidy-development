@@ -1,8 +1,22 @@
-### Train your model here.
-### Calculate and report the accuracy on the training and validation set.
-### Once a final model architecture is selected, 
-### the accuracy on the test set should be calculated and reported as well.
-### Feel free to use as many code cells as needed.
-x = tf.placeholder(tf.float32, (None, 32, 32, 3))
-y = tf.placeholder(tf.int32, (None))
-one_hot_y = tf.one_hot(y, 43)
+with tf.Session() as sess:
+    sess.run(tf.global_variables_initializer())
+    num_examples = len(X_train_normal)
+    
+    print("Training...")
+    print()
+    for i in range(EPOCHS):
+        X_train_normal, y_train = shuffle(X_train_normal, y_train)
+        for offset in range(0, num_examples, BATCH_SIZE):
+            end = offset + BATCH_SIZE
+            batch_x, batch_y = X_train_normal[offset:end], y_train[offset:end]
+            sess.run(training_operation, feed_dict={x: batch_x, y: batch_y})
+            
+        validation_accuracy = evaluate(X_valid_normal, y_valid)
+        training_accuracy = evaluate(X_train_normal, y_train)
+        print("EPOCH {} ...".format(i+1))
+        print("Validation Accuracy = {:.3f}".format(validation_accuracy))
+        print("Training Accuracy = {:.3f}".format(training_accuracy))
+        print()
+        
+    saver.save(sess, './lenet')
+    print("Model saved")

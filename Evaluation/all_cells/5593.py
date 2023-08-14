@@ -1,4 +1,9 @@
-# plt.plot(sn.phot.data["BessellV"]["MJD"], sn.lcfit.spline["BessellV"](sn.phot.data["BessellV"]["MJD"]), label = r"$\textnormal{Spline}$")
-# plt.scatter(sn.phot.data["BessellV"]["MJD"], sn.phot.data["BessellV"]["flux"], label = r"$\textnormal{Photometry}$")
-# plt.plot(sn.lcfit.data["BessellV"]["MJD"], sn.lcfit.data["BessellV"]["flux"], label = r"$\textnormal{Fit}$")
-# plt.legend()
+verbose = False
+# verbose = True
+for i, f in enumerate(filters_to_sim):
+    filters_to_sim[i] = f.replace(b"SDSS", b"LSST").replace(b"BessellV", b"LSST_g")
+#     filters_to_sim[i] = pcc.utils.b(str(f).replace("BessellV", "LSST_g").replace("SDSS_r", "LSST_r")) 
+if verbose:
+    print(mjdmax)
+    print(mjd_to_sim)
+    print(filters_to_sim)

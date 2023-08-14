@@ -1,60 +1,18 @@
-import boto3
-from sagemaker.amazon.amazon_estimator import get_image_uri
-from sagemaker import get_execution_role
+# -*- coding: utf-8 -*-
+import os
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import datetime
+import time
+from matplotlib.ticker import MultipleLocator 
 
-role = get_execution_role()
-training_image = get_image_uri(boto3.Session().region_name, 'xgboost')
+%matplotlib inline
 
-s3_input_train = 's3://{}/{}/train'.format(YOUR_BUCKET_NAME, prefix)
-s3_input_validation ='s3://{}/{}/validate/'.format(YOUR_BUCKET_NAME, prefix)
-     
-training_job_definition = {
-    "AlgorithmSpecification": {
-      "TrainingImage": training_image,
-      "TrainingInputMode": "File"
-    },
-    "InputDataConfig": [
-      {
-        "ChannelName": "train",
-        "CompressionType": "None",
-        "ContentType": "csv",
-        "DataSource": {
-          "S3DataSource": {
-            "S3DataDistributionType": "FullyReplicated",
-            "S3DataType": "S3Prefix",
-            "S3Uri": s3_input_train
-          }
-        }
-      },
-      {
-        "ChannelName": "validation",
-        "CompressionType": "None",
-        "ContentType": "csv",
-        "DataSource": {
-          "S3DataSource": {
-            "S3DataDistributionType": "FullyReplicated",
-            "S3DataType": "S3Prefix",
-            "S3Uri": s3_input_validation
-          }
-        }
-      }
-    ],
-    "OutputDataConfig": {
-      "S3OutputPath": "s3://{}/{}/output".format(YOUR_BUCKET_NAME, prefix)
-    },
-    "ResourceConfig": {
-      "InstanceCount": 1,
-      "InstanceType": "ml.c5.4xlarge",
-      "VolumeSizeInGB": 20
-    },
-    "RoleArn": role,
-    "StaticHyperParameters": {
-      "eval_metric": "rmse",
-      "objective": "reg:linear",
-      "rate_drop": "0.3",
-      "tweedie_variance_power": "1.4"
-    },
-    "StoppingCondition": {
-      "MaxRuntimeInSeconds": 43200
-    }
-}
+path = os.getcwd().split('TianChi_IJCAI-17_footfall_prediction_code')[0]
+
+#shop_info = pd.read_table(path+'dataset/shop_info.txt',names=['shop_id','city_name','location_id','per_pay','score','comment_cnt','shop_level','cate_1_name','cate_2_name','cate_3_name'],header=None,delimiter=',',encoding='utf8',delim_whitespace=False,index_col=False)
+shop_info = pd.read_table(path+'dataset/shop info with count.csv',delimiter=',',encoding='utf8',delim_whitespace=False,index_col=False)
+
+shop_info.index = shop_info['shop_id'].tolist()

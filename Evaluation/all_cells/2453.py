@@ -1,1 +1,1 @@
-split_seq("actacatcgatcgtaactaaacacccctctctacgatagtcgaacgta", width=10)
+from BITS.util.interval import intvl_len

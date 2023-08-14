@@ -1,3 +1,3 @@
-with pm.Model() as model:
-    theta = pm.Exponential("theta", 2.0)
-    data_generator = pm.Poisson("data_generator", theta)
+print("parameter.tag.test_value =", parameter.tag.test_value)
+print("data_generator.tag.test_value =", data_generator.tag.test_value)
+print("data_plus_one.tag.test_value =", data_plus_one.tag.test_value)

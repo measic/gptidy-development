@@ -1,28 +1,27 @@
-import sympy as sp
-import numpy as np
-from scipy.sparse import spdiags
-import matplotlib.pyplot as plt
-from scipy.sparse.linalg import spsolve
-
-x = sp.Symbol('x') # global variable
-
-
-# N discrete points of [a, b]
-a, b, N = -5.0, 5.0, 10; 
-
-# Compute the source based on a given exact solution
-x = sp.Symbol('x')
-ue = sp.sin(x)+ sp.cos(x)
-
-f = -sp.diff(ue, x, 2);
-lam_ue = sp.lambdify(x, ue, modules=['numpy'])
-      
-xd, u_fem = FEM(f, a, b, N, lam_ue)  
-
-xd, u_fdm = FDM(f, a, b, N, lam_ue)  
-
-xe = np.linspace(a, b, 100)
-ue_fine = lam_ue(xe)
-
-plt.plot(xe, ue_fine,'-',xd, u_fem,'--o',xd, u_fdm,'-.s')
-plt.gca().legend(('Exact','FEM','FDM'))
+def friction (vi, vf, F0):
+    """
+    Returns the friction of the bottom plate against blocks moving at a specific velocity
+    
+    Arguments:  vi - initial velocity of the block
+                vf - final velocity of the block
+                F0 - the static friction force
+    
+    Returned: The force due to friction
+    
+    Examples:
+    
+    >>> friction (0, 1, 20)
+    -20.0
+    
+    >>> friction (1, 1, 20)
+    -10.0
+    """
+    # Calculates sign of vi
+    if vi == 0:
+        sign = 1
+        
+    else:
+        sign = vi / abs(vi)
+        
+    force = -((F0) * sign / (1 + abs(vi/vf)))
+    return force

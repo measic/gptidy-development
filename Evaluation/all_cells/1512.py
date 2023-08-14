@@ -1,4 +1,5 @@
-# run your text window-ing function 
-window_size = 100
-step_size = 5
-inputs, outputs = window_transform_text(text,window_size,step_size)
+# print out the number of unique characters in the dataset
+chars = sorted(list(set(text)))
+print ("this corpus has " +  str(len(chars)) + " unique characters")
+print ('and these characters are ')
+print (chars)

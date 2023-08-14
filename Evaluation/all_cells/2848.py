@@ -1,6 +1,3 @@
-for model in ['ridge', 'lasso', 'elastic']:
-    filebasename = 'kaggle_export'
-    timestamp = datetime.today().strftime('%Y%m%d-%H%M%S')
-    filename = filebasename + timestamp + model
-    table = make_export_table(model)
-    table.to_csv(filename, index = False)
+feature_layer_srch_results = dev_gis.content.search(query='title: "Griffith*" AND type: "Feature Service"', 
+                                         max_items=10)
+feature_layer_srch_results

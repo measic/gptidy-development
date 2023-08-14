@@ -1,5 +1,2 @@
-import statsmodels.stats.api as sms
-
-#ValidRTCI
-a = RTanalysis.Valid.mean()
-sms.DescrStatsW(RTanalysis.Valid).tconfint_mean()
+a = RTrunanalysis.loc[RTrunanalysis['Run'] == 0].Valid.mean()
+sms.DescrStatsW(RTrunanalysis.loc[RTrunanalysis['Run'] == 0].Valid).tconfint_mean()

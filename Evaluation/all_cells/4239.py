@@ -1,1 +1,1 @@
-check('tests/q232.py')
+abs(-5)

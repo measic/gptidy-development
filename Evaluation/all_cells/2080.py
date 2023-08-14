@@ -1,13 +1,19 @@
-# In the simulator you can toggle on a grid on the ground for calibration
-# You can also toggle on the rock samples with the 0 (zero) key.  
-# Here's an example of the grid and one of the rocks
-example_grid = '../calibration_images/example_grid1.jpg'
-example_rock = '../calibration_images/example_rock1.jpg'
-grid_img = mpimg.imread(example_grid)
-rock_img = mpimg.imread(example_rock)
+# Identify pixels above the threshold
+# Threshold of RGB > 160 does a nice job of identifying ground pixels only
+def color_thresh(img, rgb_thresh=(160, 160, 160)):
+    # Create an array of zeros same xy size as img, but single channel
+    color_select = np.zeros_like(img[:,:,0])
+    # Require that each pixel be above all three threshold values in RGB
+    # above_thresh will now contain a boolean array with "True"
+    # where threshold was met
+    above_thresh = (img[:,:,0] > rgb_thresh[0]) \
+                & (img[:,:,1] > rgb_thresh[1]) \
+                & (img[:,:,2] > rgb_thresh[2])
+    # Index the array of zeros with the boolean array and set to 1
+    color_select[above_thresh] = 1
+    # Return the binary image
+    return color_select
 
-fig = plt.figure(figsize=(12,3))
-plt.subplot(121)
-plt.imshow(grid_img)
-plt.subplot(122)
-plt.imshow(rock_img)
+threshed = color_thresh(warped)
+plt.imshow(threshed, cmap='gray')
+#scipy.misc.imsave('../output/warped_threshed.jpg', threshed*255)

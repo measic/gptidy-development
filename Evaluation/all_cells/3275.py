@@ -1,12 +1,4 @@
-trials = 1000
-with Timer() as t:
-    for i in range(trials):
-        try:
-            url = fuzzer()
-            result = http_program(url)
-            print("Success!")
-        except ValueError:
-            pass
-
-duration_per_run_in_seconds = t.elapsed_time() / trials
-duration_per_run_in_seconds
+hours_until_success = seconds_until_success / 3600
+days_until_success = hours_until_success / 24
+years_until_success = days_until_success / 365.25
+years_until_success

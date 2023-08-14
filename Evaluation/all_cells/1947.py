@@ -1,3 +1,9 @@
-for pid in TensorBoard.list()['pid']:
-    TensorBoard().stop(pid)
-    print 'Stopped TensorBoard with pid {}'.format(pid)
+%bash
+MODEL_NAME="babyweight"
+MODEL_VERSION="soln"
+MODEL_LOCATION=$(gsutil ls gs://${BUCKET}/babyweight/trained_model/export/exporter/ | tail -1)
+echo "Deleting and deploying $MODEL_NAME $MODEL_VERSION from $MODEL_LOCATION ... this will take a few minutes"
+#gcloud ml-engine versions delete ${MODEL_VERSION} --model ${MODEL_NAME}
+#gcloud ml-engine models delete ${MODEL_NAME}
+gcloud ml-engine models create ${MODEL_NAME} --regions $REGION
+gcloud ml-engine versions create ${MODEL_VERSION} --model ${MODEL_NAME} --origin ${MODEL_LOCATION} --runtime-version 1.4

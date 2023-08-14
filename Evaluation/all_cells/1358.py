@@ -1,2 +1,2 @@
-column_names = ['four', 'two']
-d4[column_names]
+row_names = ['Colorado', 'Utah']
+d4.loc[row_names]

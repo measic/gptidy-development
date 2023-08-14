@@ -1,1 +1,2 @@
-create_reformulation_input(w_p, w_a, w_f, w_e, level_cost, corpus_weights, scenario+"_even")
+keyslots = get_keyslots()
+keyslots

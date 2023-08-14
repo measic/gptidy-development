@@ -1,2 +1,2 @@
-for field in feature_layer.properties['fields']:
-    print(field['name'])
+map1 = dev_gis.map('Los Angeles', 10)
+map1

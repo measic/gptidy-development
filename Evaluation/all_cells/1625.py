@@ -1,8 +1,5 @@
-regression = RocketRegression('rocket_break_v6_enable_multip_stocks.json')
+sessions = pd.read_csv('sessions.csv')
+sessions = sessions.fillna(0)
 
-regression_end='2019-08-30'
-scale=60
-process_num=24
-
-evaluation_df = regression.start_regression(scale,regression_end,process_num)
-evaluation_df.describe()
+# reformat dates
+sessions['date'] = pd.to_datetime(sessions.date)

@@ -1,1 +1,1 @@
-melted_stats['month'] = melted_stats.time.dt.month
+melted_stats['day'] = melted_stats.time.dt.day

@@ -1,1 +1,4 @@
-out_dir = '/home/maddoxw/PycharmProjects/MixSig/out/2018-04-09_04-53-12'
+score = model.evaluate(x_val, y_val, batch_size=batch_size)
+model.reset_states()
+y_hat = model.predict(x_val, batch_size=batch_size)
+model.reset_states()

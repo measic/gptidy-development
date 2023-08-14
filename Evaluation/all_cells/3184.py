@@ -1,3 +1,2 @@
-for number in [1,2,3]:
+for number in range(10):
     print(number)
-  print(number*number)

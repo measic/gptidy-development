@@ -1,12 +1,8 @@
-# TODO: Apply PCA by fitting the good data with only two dimensions
-pca = PCA(n_components=2)
-pca = pca.fit(good_data)
+x = Input(batch_shape=(batch_size, window_size, 1))
+z1 = PLSTM(n_neurons, return_sequences=True, implementation=2)(x)
+z2 = PLSTM(n_neurons, return_sequences=True, implementation=2)(z1)
+z = Dense(n_classes, activation='softmax')(z2)
 
-# TODO: Transform the good data using the PCA fit above
-reduced_data = pca.transform(good_data)
-
-# TODO: Transform the sample log-data using the PCA fit above
-pca_samples = pca.transform(log_samples)
-
-# Create a DataFrame for the reduced data
-reduced_data = pd.DataFrame(reduced_data, columns = ['Dimension 1', 'Dimension 2'])
+model = Model(inputs=[x], outputs=[z])
+model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
+model.summary()

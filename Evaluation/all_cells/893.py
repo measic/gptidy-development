@@ -1,3 +1,1 @@
-# BK
-print(df_zwolle.shape)
-df_zwolle.describe()
+koppeltabel = pd.read_sql_query("SELECT * FROM koppeltabel",engine)

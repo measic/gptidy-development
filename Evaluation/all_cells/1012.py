@@ -1,1 +1,1 @@
-missed_predictions[missed_predictions['game_index']==1024]
+prediction_probabilities[:,1]

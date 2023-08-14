@@ -1,2 +1,7 @@
-visualize_document_clusters(wiki, tf_idf, centroids[25](), cluster_assignment[25](), 25,
-                            map_index_to_word, display_content=False) # turn off text for brevity
+import os, sys, math
+import numpy as np
+from matplotlib import pyplot as plt
+if 'google.colab' in sys.modules: # Colab-only Tensorflow version selector
+  %tensorflow_version 2.x
+import tensorflow as tf
+print("Tensorflow version " + tf.__version__)

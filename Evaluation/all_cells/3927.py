@@ -1,1 +1,1 @@
-cy.getSelectedNodes();
+cy.getResponse()

@@ -1,10 +1,7 @@
-labels = ['focus', 'tiltx', 'tilty', 'transx', 'transy']
+train_dataset = trimmed.sample(frac=0.8, random_state=0)
+test_dataset = trimmed.drop(train_dataset.index)
 
-# assign columns for each wfs so we can use them as features for training
-wfs = trimmed.pop('wfs')
-trimmed['f9'] = ((wfs == 'newf9') | (wfs =='oldf9')) * 1
-trimmed['f5'] = (wfs == 'f5') * 1
-trimmed['mmirs'] = (wfs == 'mmirs') * 1
-trimmed['bino'] = (wfs == 'binospec') * 1
-trimmed = trimmed[(trimmed['hour'] > 0) & (trimmed['hour'] <= 13)]
-trimmed
+train_stats = train_dataset.describe()
+train_stats = train_stats.drop(columns=labels)
+train_stats = train_stats.transpose()
+train_stats

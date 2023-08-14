@@ -1,1 +1,1 @@
-check('tests/q311.py')
+abs(1.21 - 1.688)

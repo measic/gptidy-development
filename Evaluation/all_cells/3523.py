@@ -1,4 +1,8 @@
 try:
-    raise Exception("description of the error")
-except(Exception) as err:
-    print ("Exception:", err)
+    print("test")
+    # generate an error: the variable test is not defined
+    print(test)
+except Exception as e:
+    print("Caught an exception:" + str(e))
+finally:
+    print("This block is executed after the try- and except-block.")

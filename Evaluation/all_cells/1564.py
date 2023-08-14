@@ -1,1 +1,1 @@
-from dateutil.parser import parse
+Pixel[:10]

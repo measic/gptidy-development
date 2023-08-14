@@ -1,3 +1,3 @@
-l[1:3] = ["s", "m"]
+l.remove("A")
 
 print(l)

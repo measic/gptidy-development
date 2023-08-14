@@ -1,18 +1,13 @@
-with open(a_data, 'r') as file:
-    try:
-        data = file.read()
-        file.close()
-    except UnicodeDecodeError:
-        file.close()
-data = data.splitlines()
-data = data[4:len(data)-1] #Text information on first four rows and END on last row
+n_phases   = 3   #Number of phases in measured data
+power_data = np.ndarray((len(Volt_Amp_data),1))
+power_time = np.ndarray((len(Volt_Amp_data),1))
+amp_data   = np.ndarray((len(Volt_Amp_data),n_phases))
+volt_data  = np.ndarray((len(Volt_Amp_data),n_phases))
 
-data_dim = len(data[0].split()[1:])
-
-traj_data = np.ndarray((len(data),data_dim))
-for i, row in enumerate(data):
-    traj_data[i] = np.array([float(n)*np.pi/180 for n in row.split()[1:]])
-
-with open(data_path + '/joint_angle_data.pickle', 'wb') as file:
-    pickle.dump(traj_data, file)
-    file.close()
+for i, sample in enumerate(Volt_Amp_data):
+    power_time[i] = sample[0]
+    volt_data[i]  = np.array([sample[1], sample[2], sample[3]])
+    amp_data[i]   = np.array([sample[4], sample[5], sample[6]])
+    power_data[i] = np.abs(sample[1]*sample[4]) \
+        + np.abs(sample[2]*sample[5]) \
+        + np.abs(sample[3]*sample[6]) 

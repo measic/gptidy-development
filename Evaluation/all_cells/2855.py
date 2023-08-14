@@ -1,1 +1,1 @@
-map1.on_click(create_feature)
+map1.add_layer(feature_layer)

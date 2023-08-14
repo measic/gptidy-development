@@ -1,6 +1,6 @@
 from IPython.display import clear_output
 
-def save_annotations(adict):
+def function_def(adict):
     timestamp = datetime.datetime.today().strftime('%Y%m%d%H%M')
     filename = 'annotations_' + timestamp + '.csv'
     print(filename)
@@ -33,10 +33,10 @@ def create_anottations(lista, save=True):
             clear_output()
             print('...', cont, '...')
     if save:
-        save_annotations(result)
+        function_def(result)
     return result
 
-def function_def():
+def draw_anottation():
     """Create red boxes on images for visual annotations checking
     Will have to save RGB images inside of 'L' greyscale"""
     pass

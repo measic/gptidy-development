@@ -1,2 +1,2 @@
-from google.datalab.ml import TensorBoard
-TensorBoard().start('gs://{}/babyweight/trained_model'.format(BUCKET))
+%bash
+gsutil ls gs://${BUCKET}/babyweight/trained_model/export/exporter

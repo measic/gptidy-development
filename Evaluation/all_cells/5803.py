@@ -1,9 +1,19 @@
-# a small subset of our input/output pairs
-Xlarge = X[:100000,:,:]
-ylarge = y[:100000,:]
+# TODO: Number of training examples
+n_train = len(X_train)
 
-# TODO: fit to our larger dataset
-model.fit(Xlarge, ylarge, batch_size=500, epochs=30, verbose=1)
+# TODO: Number of validation examples
+n_validation = len(X_valid)
 
-# save weights
-model.save_weights('model_weights/best_RNN_large_textdata_weights.hdf5')
+# TODO: Number of testing examples.
+n_test = len(X_test)
+
+# TODO: What's the shape of an traffic sign image?
+image_shape = X_train[0].shape
+
+# TODO: How many unique classes/labels there are in the dataset.
+n_classes = len(set(y_train))
+
+print("Number of training examples =", n_train)
+print("Number of testing examples =", n_test)
+print("Image data shape =", image_shape)
+print("Number of classes =", n_classes)

@@ -1,3 +1,3 @@
-'''Read data'''
+'''Total sum of independent FP yield per 100 fissions'''
 
-cfpy_az_df = read_table('data/u-233-cfpy-AZ-thermal.dat')
+print('Total sum = ',round(sum([fpy.yield_percent for fpy in cfpy_az]),1))

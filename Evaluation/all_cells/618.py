@@ -1,20 +1,13 @@
-print("Total Number of Earthquakes: ", sum(bigOccurences))
+occurenceRegion = bigOccurences[8:15]
+magnitudeRegion = bigMagnitudes[8:15]
 
-plt.figure(figsize = (15,5))
+parameters, covariance = curve_fit(expectedFit, magnitudeRegion, occurenceRegion)
 
-barWidth = 0.4
-plt.subplot(1,2,1)
-plt.bar(bigMagnitudes, bigOccurences, barWidth)
-plt.title("Histogram of Magnitude Occurrences")
-plt.xlabel("Magnitude")
-plt.ylabel("Number of Occurrences")
+fitX = magnitudeRegion
 
-plt.subplot(1,2,2)
+aFit = parameters[0]
+bFit = parameters[1]
 
-plt.semilogy(bigMagnitudes, bigOccurences, "b o", label = "Number of Magnitude Occurences")
-plt.semilogy(fitX, fitY, label = "Fitted Function: $P(M) = 38e^{-0.825M}$")
-plt.title("Logarithmic Correlation Between Magnitude and Number of Occurrences")
-plt.xlabel("Magnitude")
-plt.ylabel("Number of Occurrences")
-plt.legend(loc = "best")
-plt.show()
+fitY = aFit * np.exp(-bFit * magnitudeRegion)
+
+print("A = ", aFit, "b = ", bFit)

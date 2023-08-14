@@ -1,20 +1,16 @@
-print('Loading case data ...')
+def splitData(data, labels):
+    train_data_all, test_data, train_labels_all, test_labels = train_test_split(data, labels,
+                                                               stratify=labels, 
+                                                               test_size=0.25)
 
-#cases_800                    = pd.read_csv("pancancer_case_features_800.csv")
-#cases_1000                   = pd.read_csv("pancancer_case_features_1000.csv")
-#cases_1500                   = pd.read_csv("pancancer_case_features_1500.csv")
-#cases_bestfit_8000           = pd.read_csv("pancancer_case_features_bestfit_8000_topgenes_1000.csv")
-cases_bestfit_10000          = pd.read_csv("pancancer_case_features_bestfit_10000_topgenes_2000.csv")
-cases_bestfit_15000          = pd.read_csv("pancancer_case_features_bestfit_15000_topgenes_3000.csv")
-cases_bestfit_15000_allgenes = pd.read_csv("pancancer_case_features_bestfit_15000_topgenes_None.csv")
-cases_allgenes               = pd.read_csv("pancancer_case_features_all.csv")
-all_data = {
-    #'800':                     getDataAndLabels(cases_800),
-    #'1000':                    getDataAndLabels(cases_1000),
-    #'1500':                    getDataAndLabels(cases_1500),
-    'best_fit_10000':          getDataAndLabels(cases_bestfit_10000),
-    'best_fit_15000':          getDataAndLabels(cases_bestfit_15000),
-    'best_fit_15000_allgenes': getDataAndLabels(cases_bestfit_15000_allgenes),
-    'genes_all':               getDataAndLabels(cases_allgenes)
-}
-print("done.")
+    train_data, dev_data, train_labels, dev_labels = train_test_split(train_data_all, train_labels_all,
+                                                                     stratify=train_labels_all, 
+                                                                     test_size=0.20)
+
+    print("training data:", train_data.shape)
+    print("dev data     :", dev_data.shape)
+    print("test data    :",  test_data.shape)
+    return {'train_data': train_data, 'train_labels': train_labels, 
+            'dev_data':   dev_data,   'dev_labels': dev_labels,
+            'test_data':  test_data,  'test_labels': test_labels}
+

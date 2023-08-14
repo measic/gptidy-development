@@ -1,2 +1,7 @@
-# Display the clustering results based on 'Channel' data
-eda.channel_results(reduced_data, outliers, pca_samples, log_samples.index)
+#changing matplotlib defaults
+%matplotlib inline
+import seaborn as sns
+sns.set_palette("deep", desat=.6)
+sns.set_context(rc={"figure.figsize": (8, 4)})
+sns.set_style("whitegrid")
+sns.set_palette(sns.color_palette("Set2", 10))

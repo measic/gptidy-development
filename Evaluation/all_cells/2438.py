@@ -1,1 +1,1 @@
-r.run(["acgt", "acga", "acgat"])
+!(cat sample.fasta)

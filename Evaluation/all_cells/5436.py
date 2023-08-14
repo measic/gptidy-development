@@ -1,11 +1,17 @@
-# Delete this cell to re-enable tracebacks
-import sys
-ipython = get_ipython()
+from stix2 import TAXIICollectionSource
+from taxii2client import Collection
 
-def hide_traceback(exc_tuple=None, filename=None, tb_offset=None,
-                   exception_only=False, running_compiled_code=False):
-    etype, value, tb = sys.exc_info()
-    value.__cause__ = None  # suppress chained exceptions
-    return ipython._showtraceback(etype, value, ipython.InteractiveTB.get_exception_only(etype, value))
+# establish TAXII2 Collection instance
+collection = Collection("http://127.0.0.1:5000/trustgroup1/collections/91a7b528-80eb-42ed-a74d-c6fbd5a26116/", user="admin", password="Password0")
+# supply the TAXII2 collection to TAXIICollection
+tc_source = TAXIICollectionSource(collection)
 
-#ipython.showtraceback = hide_traceback
+#retrieve STIX objects by id
+stix_obj = tc_source.get("malware--c0931cc6-c75e-47e5-9036-78fabc95d4ec")
+stix_obj_versions = tc_source.all_versions("indicator--6770298f-0fd8-471a-ab8c-1c658a46574e")
+
+#for visual purposes
+print(stix_obj.serialize(pretty=True))
+print("-------")
+for so in stix_obj_versions:
+    print(so.serialize(pretty=True))

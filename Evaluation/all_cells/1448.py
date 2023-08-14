@@ -1,3 +1,3 @@
-#A pythonic way to do this is to use a list comprehension to create the sequence that initializes the array.
-A = np.array([i*2 for i in range(1,5)])
-print(A)
+#Here is the pythonic (faster) alternative.
+mdat = np.array([np.mean(data[cat==i+1]) for i in range(0,3)])
+print(mdat)

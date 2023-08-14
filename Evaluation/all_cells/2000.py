@@ -1,1 +1,1 @@
-boston_clean.columns
+boston_r2

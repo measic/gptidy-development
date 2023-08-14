@@ -1,2 +1,3 @@
-cdat = dat.query('(TypeOfResponse != "APRespITI") & (TypeOfResponse != "APITIResp") & (RT > 200) & (RT < 750) & (Accuracy != 0) & (StimRep != 1)').copy()
-adat = dat.copy()
+sub_RTmeans = cdat.groupby(['subject','TrialType'])['RT'].mean()
+RTgrpmean = pd.Series.mean(sub_RTmeans,level=1)
+RTgrpmean

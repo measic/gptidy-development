@@ -1,22 +1,23 @@
-def run_episode_neural_network(show_renderer=False):    
-    with tf.Session() as sess:
-        init.run()
-        obs = env.reset()
-        obs_pretty = obs.reshape(1, nb_neurons_input)
-        done = False
-        final_score = 0
-        while not done:
-            if show_renderer:
-                env.render()
-            proba_move_to_left = output.eval(feed_dict={X: obs_pretty})        
-            if random.uniform(0, 1) < proba_move_to_left:
-                action = 0  # move to left
-            else:
-                action = 1       
-            obs, reward, done, info = env.step(action) 
-            if done:
-                break
-            final_score += reward
-    env.reset()
-    env.close()
-    return final_score
+print('Selecting only the top 5 predictions and rerunning softmax')
+num_own_examples = len(X2_norm)
+for i in range(num_own_examples):
+    
+    probas = proba[i]
+    names = np.asarray([signnames[str(p)] for p in predicts[1][i]])
+    
+    plt.figure(1)
+
+    plt.subplot(221)
+    plt.imshow(X2[i])
+    plt.axis('off')
+    
+    plt.subplot(222)
+    y_pos = np.arange(len(names))[::-1]
+    plt.barh(y_pos,probas, align='center')
+    plt.yticks(y_pos, names, fontsize=7)
+    plt.xlabel('Probability')
+    plt.title('Top 5 predictions')
+    
+    
+    plt.tight_layout()
+    plt.show()

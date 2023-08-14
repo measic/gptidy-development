@@ -1,1 +1,3 @@
-!python --version
+%%writefile  test.py
+
+print('hello?')

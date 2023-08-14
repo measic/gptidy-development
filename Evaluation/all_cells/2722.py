@@ -1,2 +1,2 @@
-perf_lucky = gbm_lucky.model_performance(valid)
-print perf_lucky.auc()
+## by default, display the grid search results sorted by increasing logloss (since this is a classification task)
+print grid

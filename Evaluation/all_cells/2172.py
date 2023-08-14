@@ -1,9 +1,12 @@
-def vandermonde(gamma, r=0):
-    n = gamma.size()
-    if r == 0:
-        r = 1
-    P = DiagonalPolynomialRing(QQ, n, r, inert=1) 
-    X = P.variables()
-    Theta = P.inert_variables()
-    return matrix([[x**i[1]*theta**i[0] for i in gamma.cells()] 
-                   for x,theta in zip(X[0],Theta[0])]).determinant()
+def merge(dict1, dict2):
+    result = dict1
+    for key, value in dict2.iteritems():
+        if key in result:
+            result[key] += value
+        else:
+            result[key] = value
+    return result
+
+def antisymmetries(mu):
+    mu = Partition(mu)
+    return antisymmetries_of_tableau(mu.initial_tableau())

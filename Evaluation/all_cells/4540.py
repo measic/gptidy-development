@@ -1,2 +1,2 @@
-# This will reverse the list
-print(a_list[::-1])
+# auto-generate a list with the range function
+list(range(0, 15, 3))

@@ -1,1 +1,1 @@
-b = 'pew'
+%matplotlib inline

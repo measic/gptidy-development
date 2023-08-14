@@ -1,2 +1,8 @@
-data_dir = os.path.abspath(os.path.relpath('../data'))
-image_dir = os.path.abspath(os.path.relpath('../doc/images'))
+# show sample images
+fig = plt.figure(figsize=(12, 5))
+for i in range(9):
+    plt.subplot(3,3,i+1)
+    plt.imshow(data[i], cmap='gray', interpolation='none')
+    plt.title("Ground Truth: {}".format(labels[i]))
+    plt.xticks([])
+    plt.yticks([])

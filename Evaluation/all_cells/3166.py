@@ -1,33 +1,6 @@
-'''Function to read the blank-spaced column data into a Pandas data frame (table)'''
+'''Create the FP yield(A,Z) list container'''
 
-def read_table(file_name):
-    '''
-    Read table data into a `pandas` data frame (table).  
-    
-    Parameters
-    ----------
-    file_name: str, required
-        File name and its path relative to this notebook.
-    
-    Returns
-    -------
-    df: pandas.df
-        `Pandas` data frame (table).
+cfpy_az = get_fpy_az( cfpy_az_df )
 
-    Examples
-    --------
-    '''
-    import pandas as pd
-    
-    df = pd.read_csv( file_name,  
-                      skiprows=6,
-                      delim_whitespace=True)
-    
-# to avoid frustrations, set explicitly the data types of each column
-    for c in df.columns: 
-        if c == 'Y(NO-DIM)':
-            continue
-        df = df.astype({c:float},copy=False)
-
-    #print(df.dtypes)
-    return df
+print('Sum of yield values in dictionary container = ',round(sum([fp.yield_percent for fp in cfpy_az]),2))
+print('# of FP nuclides = ', len(cfpy_az))

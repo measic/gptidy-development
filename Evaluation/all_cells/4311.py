@@ -1,3 +1,1 @@
-dfTiFeSurvived = dfTitanic.loc[(dfTitanic["Sex"] == "female") & (dfTitanic["Survived"] == 1)]
-dfTiFeDied = dfTitanic.loc[(dfTitanic["Sex"] == "female") & (dfTitanic["Survived"] == 0)]
-print("Survived Female Mean Age: {0:2.2f}  Median Age: {1:2.2f}\nDied Female Mean Age: {2:2.2f} \t Median Age: {3:2.2f}".format(dfTiFeSurvived["Age"].mean(), dfTiFeSurvived["Age"].median(), dfTiFeDied["Age"].mean(), dfTiFeDied["Age"].median()))
+dfBabies = dfBabyDirt[(dfBabyDirt["bwt"] != 999) & (dfBabyDirt["gestation"] != 999) & (dfBabyDirt["parity"] != 9) & (dfBabyDirt["height"] != 99) & (dfBabyDirt["weight"] != 999) & (dfBabyDirt["smoke"] != 9)]

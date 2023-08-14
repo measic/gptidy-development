@@ -1,2 +1,2 @@
-plt.plot(np.arange(56600, 56800), a2_x[56600:56800])
+plt.plot(np.arange(66316, 68149), a2_x[66316:68149])
 plt.grid()

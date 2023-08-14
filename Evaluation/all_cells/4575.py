@@ -1,9 +1,3 @@
-temperature = float(input('What is the temperature in F? '))
-
-if temperature > 70:
-    print('Wear shorts.') 
-    
-else:
-    print('Wear pants.')
-    
-print("...end of program")
+# a really simple for loop
+for i in [1, 2, 3, 4]:
+    print(i)

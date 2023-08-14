@@ -1,4 +1,6 @@
-with pm.Model() as model:
-    parameter = pm.Exponential("poisson_param", 1.0, testval=0.5)
+import numpy as np
 
-print("\nparameter.tag.test_value =", parameter.tag.test_value)
+n_data_points = 5  # in CH1 we had ~70 data points
+idx = np.arange(n_data_points)
+with model:
+    lambda_ = pm.math.switch(tau >= idx, lambda_1, lambda_2)

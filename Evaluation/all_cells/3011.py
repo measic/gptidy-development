@@ -1,1 +1,1 @@
-importlib.reload(plot_utils);
+plot_utils.plot_prediction_tests(test_dict, os.path.join(msig.out_dir, 'training_snapshots'))

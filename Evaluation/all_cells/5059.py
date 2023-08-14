@@ -1,6 +1,14 @@
-def root_mean_squared_errors(x_values, y_values, regression_lines):
-    errors = []
-    for regression_line in regression_lines:
-        error = root_mean_squared_error(x_values, y_values, regression_line[0], regression_line[1])
-        errors.append([regression_line[0], regression_line[1], round(error, 0)])
-    return errors
+import plotly.graph_objs as go
+
+def trace_rmse(x_values, y_values, regression_lines):
+    errors = root_mean_squared_errors(x_values, y_values, regression_lines)
+    x_values_bar = list(map(lambda error: 'm: ' + str(error[0]) + ' b: ' + str(error[1]), errors))
+    y_values_bar = list(map(lambda error: error[-1], errors))
+    return dict(
+        x=x_values_bar,
+        y=y_values_bar,
+        type='bar'
+    )
+
+
+x_values and y_values and trace_rmse(x_values, y_values, regression_lines)

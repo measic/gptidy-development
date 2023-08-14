@@ -1,4 +1,7 @@
-## "row vector" (1-by-4)
-x = np.array([[1, 2, 3, 4]])
-print(x @ A) 
-# print(A @ x) # this one won't work!
+A = np.array([[2, 0, -1, 2],
+              [4, 2, -1, 4],
+              [2, -2, -2, 3],
+              [-2, 2, 7, -3]])
+
+## compute the determinant of a matrix
+print( np.linalg.det(A) )

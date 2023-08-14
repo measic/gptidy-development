@@ -1,1 +1,1 @@
-tweet_info.tail()
+tweet_info.describe()

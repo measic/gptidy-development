@@ -1,4 +1,1 @@
-for id in shop_info.index.tolist():
-    for i in range(1,15):
-        if shop_info.loc[id,'predict_day_'+str(i)] <0:
-            print 'ERROR'
+shop_info.loc[:,'predict_day_1':'predict_day_14'].to_csv('Prediction (Main model 2).csv',sep=',',index=True,columns=None)

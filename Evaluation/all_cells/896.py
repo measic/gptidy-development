@@ -1,3 +1,1 @@
-renamed = datasource.rename(columns={'PC4_LEERL': 'PC4'})
-output = pd.merge(renamed, koppeltabel, on='PC4', how='inner')
-output.head(10)
+df_totaalprovincie.plot.bar(figsize=(8,5.0),title='Aantal MBO 4 Afgestudeerden per Provincie')

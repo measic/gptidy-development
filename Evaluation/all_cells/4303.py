@@ -1,6 +1,4 @@
-# Display the predictions
-for i, pred in enumerate(sample_preds):
-    print("Sample point", i, "predicted to be in Cluster", pred)
-    
-print(samples)
-    
+import pandas as pd
+import numpy as np
+import matplotlib.pylab as plt
+%matplotlib inline

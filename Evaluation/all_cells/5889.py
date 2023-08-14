@@ -1,2 +1,6 @@
-# row annotations include initial cell growth rates g0, and also g1 and g2
-tmap_anno_gr2.obs
+NAME = "Victor Zuanazzi"
+NAME2 = "David Speck"
+NAME3 = ""
+EMAIL = "victorzuanazzi@gmail.com"
+EMAIL2 = "david.speck@saduras.de"
+EMAIL3 = ""

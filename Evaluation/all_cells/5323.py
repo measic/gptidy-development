@@ -1,18 +1,17 @@
-# escogemos aleatoriamente una ilera en los datos
-ilera_al = rand(1:150,1)
+# Tenemos 45 datos por cada clase, entonces seleccionaremos aleatoriamente 6 ileras de características (~15%) para  probar el algoritmo al final.
 
-# extraemos los datos de esta ilera en una variable nueva
-x_muestra = x[ilera_al,:]
+using StatsBase
+# aleatorizamos los números en el rango del 1 al 45
+vino_1_aleat = sample(1:45, 45, replace = false)
+# aleatorizamos los números en el rango del 46 al 90
+vino_2_aleat = sample(46:90, 45, replace = false)
+# aleatorizamos los números en el rango del 91 al 135
+vino_3_aleat = sample(91:135, 45, replace = false)
 
-# calculamos el producto interno de esta muestra con cada uno de los vectores promedio
-prod_1 = x_muestra*prom_1'
-prod_2 = x_muestra*prom_2'
-prod_3 = x_muestra*prom_3'
+# separamos los datos que nos servirán para entrenar
+x_entren = [caracteristicas[vino_1_aleat[1:39],:]; caracteristicas[vino_2_aleat[1:39],:]; caracteristicas[vino_3_aleat[1:39],:]]
+y_entren = [tipo_de_vino[vino_1_aleat[1:39]]; tipo_de_vino[vino_2_aleat[1:39]]; tipo_de_vino[vino_3_aleat[1:39]]]
 
-# imprimimos los resultados
-print("el producto interno del vector muestra con de los vectores promedio correspondientes a las especies de plantas son: \n")
-print("\n setosa ", prod_1)
-print("\n versicolor ", prod_2)
-print("\n virginica ", prod_3)
-print("\n\ny la especie correcta del vector muestra es: \n")
-print("\n ", especies[ilera_al])
+# separamos los datos que nos servirán para probar el algoritmo
+x_prueba = [caracteristicas[vino_1_aleat[40:end],:]; caracteristicas[vino_2_aleat[40:end],:]; caracteristicas[vino_3_aleat[40:end],:]]
+y_prueba = [tipo_de_vino[vino_1_aleat[40:end]]; tipo_de_vino[vino_2_aleat[40:end]]; tipo_de_vino[vino_3_aleat[40:end]]];

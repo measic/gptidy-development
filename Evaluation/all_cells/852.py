@@ -1,1 +1,1 @@
-plt.hist(np.log10(draws))
+np.std(draws)

@@ -1,1 +1,1 @@
-print len(ids_zero_morethan1_count_in_last_three_week_and_two_week)
+## 先对每周波动做归一化 ：每天的值除以对应的当周的均值

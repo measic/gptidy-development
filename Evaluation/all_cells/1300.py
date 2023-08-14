@@ -1,1 +1,1 @@
-datetime.__file__
+datetime.now()

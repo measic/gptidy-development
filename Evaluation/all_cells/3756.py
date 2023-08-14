@@ -1,18 +1,14 @@
-%%time
+if use_attention is False:
+    all_decoded = []
+    for beam_i in range(beam_width):
+        inputs = []
+        all_decoded.append([])
+        decoded = decode_ids(input_ids, bm_output_ids[:,:,beam_i])
+        for dec in decoded:
+            all_decoded[-1].append(dec[1])
+            inputs.append(dec[0])
 
-def train(epochs, logstep, lr):
-    print("Running {} epochs with learning rate {}".format(epochs, lr))
-    for i in range(epochs):
-        _, s = sess.run([update, merged_summary], feed_dict={learning_rate: lr, max_global_norm: 5.0})
-        l = sess.run(loss)
-        writer.add_summary(s, i)
-        if i % logstep == logstep - 1:
-            print("Iter {}, learning rate {}, loss {}".format(i+1, lr, l))
-            
-print("Start training...")
-if use_toy_data:
-    train(100, 10, .5)
-else:
-    train(350, 50, 1)
-    train(1000, 100, 0.1)
-    train(1000, 100, 0.01)
+    print('\n'.join(
+        '{} ---> {}'.format(inputs[i], ' / '.join(d[i] for d in all_decoded))
+                            for i in range(len(inputs))
+    ))

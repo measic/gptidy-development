@@ -1,4 +1,6 @@
-plt.figure(figsize=(8,8))
-plt.plot(test_acc)
-plt.title("Acurácia por época (Rede Neural)")
-plt.show()
+##  Import required python modules
+import numpy as np
+import matplotlib
+import pandas as pd
+from matplotlib import pyplot as plt
+import math

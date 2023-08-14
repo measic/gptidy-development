@@ -1,12 +1,12 @@
-en_t, zh_t = next(iter(train_examples))
-en_indices, zh_indices = encode(en_t, zh_t)
-print('英文 BOS 的 index：', subword_encoder_en.vocab_size)
-print('英文 EOS 的 index：', subword_encoder_en.vocab_size + 1)
-print('中文 BOS 的 index：', subword_encoder_zh.vocab_size)
-print('中文 EOS 的 index：', subword_encoder_zh.vocab_size + 1)
+def tf_encode(en_t, zh_t):
+  # 在 `tf_encode` 函式裡頭的 `en_t` 與 `zh_t` 都不是 Eager Tensors
+  # 要到 `tf.py_funtion` 裡頭才是
+  # 另外因為索引都是整數，所以使用 `tf.int64`
+  return tf.py_function(encode, [en_t, zh_t], [tf.int64, tf.int64])
 
-print('\n輸入為 2 個 Tensors：')
-pprint((en_t, zh_t))
-print('-' * 15)
-print('輸出為 2 個索引序列：')
-pprint((en_indices, zh_indices))
+# `tmp_dataset` 為說明用資料集，說明完所有重要的 func，
+# 我們會從頭建立一個正式的 `train_dataset`
+tmp_dataset = train_examples.map(tf_encode)
+en_indices, zh_indices = next(iter(tmp_dataset))
+print(en_indices)
+print(zh_indices)

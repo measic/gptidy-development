@@ -1,1 +1,1 @@
-gROOT.ProcessLine('obj0=startGuessSimCalib()')
+gROOT.ProcessLine('obj0->writeStateToDisk("CalibParams_0.txt")')

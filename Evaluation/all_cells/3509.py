@@ -1,6 +1,2 @@
-f1 = lambda x: x**2
-    
-# is equivalent to 
-
-def f2(x):
-    return x**2
+# map is a built-in python function
+list(map(lambda x: x**2, range(-3,4)))

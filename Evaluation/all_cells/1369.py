@@ -1,4 +1,3 @@
-A = 10
-A+A
-B = 5+8
-B
+A = 15
+print('B', B)
+print('A\n', A)

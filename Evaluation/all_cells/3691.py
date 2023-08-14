@@ -1,8 +1,12 @@
-# 建立 Transformer 裡 Encoder / Decoder layer 都有使用到的 Feed Forward 元件
-def point_wise_feed_forward_network(d_model, dff):
-  
-  # 此 FFN 對輸入做兩個線性轉換，中間加了一個 ReLU activation func
-  return tf.keras.Sequential([
-      tf.keras.layers.Dense(dff, activation='relu'),  # (batch_size, seq_len, dff)
-      tf.keras.layers.Dense(d_model)  # (batch_size, seq_len, d_model)
-  ])
+d_model = 4 # FFN 的輸入輸出張量的最後一維皆為 `d_model`
+dff = 6
+
+# 建立一個小 FFN
+small_ffn = point_wise_feed_forward_network(d_model, dff)
+# 懂子詞梗的站出來
+dummy_sentence = tf.constant([[5, 5, 6, 6], 
+                              [5, 5, 6, 6], 
+                              [9, 5, 2, 7], 
+                              [9, 5, 2, 7],
+                              [9, 5, 2, 7]], dtype=tf.float32)
+small_ffn(dummy_sentence)

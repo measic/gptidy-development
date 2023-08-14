@@ -1,25 +1,19 @@
-# HEPROW Inputs:
-heprowPath = "/home/pyne-user/Dropbox/UCB/Research/ETAs/88Inch/Data/Experiments/PHS/33MeVTa_29-31Mar17/Unfold/BeamOnly/HEPROW/"
-
-heprowName = "mik_Det0_1.gru"
-unfanaName = "unf_Det0_1.gru"
-gravelName = "grv_out_Det0_1.flu"
-faltwPHSName = "faltw_Det0_1.phs"
-measPHSName = "Inputs/Det0_stat_100_phs_03.phs"
-mtxName = "MIEKE_Det0_1.MTX"
-heprowBinBounds = "low"
-
-# Meulders - 33 MeV d on Ta
-meuldersPath="/home/pyne-user/Dropbox/UCB/Research/ETAs/88Inch/Data/Experiments/PHS/33MeVTa_29-31Mar17/Unfold/"
-
-meuldersName="Meulders33MeVTaSpectrum_1.txt"
-meuldersBinBounds="up"
-
-# MCNP - 33 MeV d on Ta
-mcnpPath="/home/pyne-user/Dropbox/UCB/Research/ETAs/88Inch/Data/Simulated/PHS/33MeVTa/BeamOnly/Model/NoExtrap_Void_1deg/"
-
-mcnpName="33MeVTaBeamOnly_Det.out"
-mcnpBinBounds="up"
-
-# Output
-outPath="/home/pyne-user/Dropbox/UCB/Research/ETAs/88Inch/Data/Experiments/PHS/33MeVTa_29-31Mar17/Unfold/BeamOnly/HEPROW/"
+# Import PHS data and plot
+faltwPHSData = readFlu(heprowPath+faltwPHSName, delim_whitespace=True, names=['lowE', 'absPHS', 'absSigma'],
+               skiprows=3)
+measPHSData = readFlu(heprowPath+measPHSName, delim_whitespace=True, names=['lowE', 'absPHS', 'absSigma'],
+               skiprows=3)
+faltwPHSHisto = Histogram()
+faltwPHSHisto.build_histo(faltwPHSData['lowE'].tolist(), 
+                         bin_differentiation(faltwPHSData['lowE'].tolist(),
+                                             faltwPHSData['absPHS'].tolist()),
+                       uncert=faltwPHSData['absSigma'].tolist(), edgeLoc=heprowBinBounds,
+                       name='FALTW')
+measPHSHisto = Histogram()
+measPHSHisto.build_histo(measPHSData['lowE'].tolist(), 
+                         bin_differentiation(measPHSData['lowE'].tolist(),
+                                             measPHSData['absPHS'].tolist()),
+                         uncert=measPHSData['absSigma'].tolist(), edgeLoc=heprowBinBounds,
+                         name='Measured')
+faltwPHSHisto.plot(measPHSHisto, logY=True, title='33MeV Deutrons on Ta', xLabel='Light Yield [MeVee]',
+                 yLabel='Counts per MeVee')

@@ -1,1 +1,1 @@
-from sklearn.linear_model import ElasticNetCV
+coef_elastic = pd.Series(model_elastic.coef_, index = X_train.columns)

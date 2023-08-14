@@ -1,10 +1,10 @@
-variable_def = 7001
+num_steps = 7001
 summary_frequency = 100
 with tf.Session(graph=graph) as session:
     tf.global_variables_initializer().run()
     print('Initialized')
     mean_loss = 0
-    for step in range(variable_def):
+    for step in range(num_steps):
         batches = train_batches.next()
         feed_dict = dict()
         for i in range(num_unrollings + 1):
@@ -33,7 +33,7 @@ with tf.Session(graph=graph) as session:
             reset_sample_state.run()
             valid_logprob = 0
             for _ in range(valid_size):
-                b = valid_batches.next()
-                predictions = sample_prediction.eval({sample_input: b[0]})
-                valid_logprob = valid_logprob + logprob(predictions, b[1])
+                variable_def = valid_batches.next()
+                predictions = sample_prediction.eval({sample_input: variable_def[0]})
+                valid_logprob = valid_logprob + logprob(predictions, variable_def[1])
             print('Validation set perplexity: %.2f' % float(np.exp(valid_logprob / valid_size)))

@@ -1,1 +1,1 @@
-test_set5(sr_resnet_test.model, img_width=img_width, img_height=img_height)
+test_bsd100(sr_resnet_test.model, img_width=img_width, img_height=img_height)

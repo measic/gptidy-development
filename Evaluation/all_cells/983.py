@@ -1,5 +1,5 @@
-y=tourney_comp_ratings[tourney_comp_ratings['season_t']<= stop_tournament]['game_result']
-X= X.drop(columns=['season_t'])
+scaler=StandardScaler(copy=True, with_mean=True, with_std=True)
 
-feature_list = list(X)
-feature_list
+scaler.fit(X_train[numeric_features])
+X_train[numeric_features] = scaler.transform(X_train[numeric_features])
+X_test[numeric_features] = scaler.transform(X_test[numeric_features])

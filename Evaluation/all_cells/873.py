@@ -1,1 +1,1 @@
-df['SECTORUNIT SBB'].unique()
+df_totaalSBB.head(10)

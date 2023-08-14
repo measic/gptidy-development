@@ -1,14 +1,32 @@
-# split data into training and testing subsets
-train_features, test_features, train_outcome, test_outcome = train_test_split(
-    modeling_df.drop(['DATE', 'HourlySkyConditions', 'REPORT_TYPE', 'join_time', 'actual_weather_delay', 'avg_delay'], axis=1),
-    modeling_df.avg_delay,
-    test_size=0.20
+# construct pipeline
+pipe_dt = make_pipeline(
+    MinMaxScaler(), # used to normalize data onto a similar scale
+    SelectPercentile(), # used to filter out features that add noise
+    DecisionTreeRegressor()
 )
 
-# Explore sizes of resulting training and testing sets
-print('Training features shape: ' + str(train_features.shape))
-print('Testing features shape: ' + str(test_features.shape))
-print('Training outcomes shape: ' + str(train_outcome.shape))
-print('Testing outcomes shape: ' + str(test_outcome.shape))
+# create the parameter grid for hyperparameter tuning
+param_grid_dt = {
+    'selectpercentile__percentile':range(5, 30, 5), # what upper percentile of features to take
+    'decisiontreeregressor__max_features':["auto", "sqrt", "log2", None], # the number of features to conside when splitting
+    'decisiontreeregressor__max_depth':range(1, 10), # maximum depth of the decision tree
+    'decisiontreeregressor__min_samples_leaf':range(1, 4) # minimum number of samples required to be at a leaf node
+}
 
-print(list(train_features))
+# perform grid search of pipeline
+dt_grid = GridSearchCV(pipe_dt, param_grid_dt)
+
+# use results to create model on training data
+dt_grid.fit(train_features, train_outcome)
+
+# find the best parameters from the grid search
+dt_best_params = dt_grid.best_params_
+
+# find the score of our model on the test data
+dt_grid_score = dt_grid.score(test_features, test_outcome)
+
+# find the mean absolute error of our model on the test data
+dt_mae = mean_absolute_error(dt_grid.predict(test_features), test_outcome)
+
+# find the explained variance score of our model on the test data
+dt_evs = explained_variance_score(dt_grid.predict(test_features), test_outcome)

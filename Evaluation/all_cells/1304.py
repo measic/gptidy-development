@@ -1,1 +1,1 @@
-unicode_string.encode('utf8')
+unicode_string.encode('utf16')

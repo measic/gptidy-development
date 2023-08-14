@@ -1,14 +1,40 @@
-##  for each row calculate 1-Lambda Prime
-for i in range(len(data)):
-    N = 0.0
-    for x in range(len(data.iloc[i]))[4:last]:
-        if data.iloc[i][x] > 0:
-            N += data.iloc[i][x]
+##  define color list
+colors = ['b', 'g', 'r', 'k', 'c', 'm', 'y']
+##  define index for iterating through color list
+index = 0
+##  for each river segment
+for segment in segments:
+    ##  subset df for the current river segment
+    segDF = data.loc[data['RiverSeg'] == segment]
+    segDF = segDF[segDF["lam'"]>0]
+    ## sort based on year
+    segDF = segDF.sort_values('Year')
+    ## define x,y for plotting
+    x = segDF["Year"]
+    y = segDF["1-lam'"]
+    ## change name of y to Riv Seg for legend
+    y.name = segment
+    ##  build graph...
+    ##  plot segment x vs y
+    plt.plot(x,y,colors[index])
+    ##  locate legend
+    plt.legend(loc=(1.05,0.2))
+    ##  advance color index
+    index += 1
+
+##  update title
+plt.title("1-Lambda', " + river + " River Segments")
+##  label x axis
+plt.xlabel('Year')
+##  label y axis
+plt.ylabel("1-Lambda'")
+##  force x axis to integer values, increment by 1 year
+plt.xticks(np.arange(min(x), max(x)+1, 1.0))
+##  rotate year labels 90 degrees
+plt.xticks(rotation=90)    
     
     
-    array = data.iloc[i][4:last]
-    num = 0.0
-    for y in array:
-        num += (y * (y-1))
-    lam = num/(N*(N-1))
-    data.loc[i,"1-lam'"] = 1 - lam
+##  save figure
+plt.savefig(output + "\\" + river + "_1-Lambda'.png", bbox_inches='tight',dpi=300, size=(2000,2000))
+##  display figure
+plt.show()

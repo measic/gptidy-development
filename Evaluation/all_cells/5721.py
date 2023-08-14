@@ -1,17 +1,21 @@
-import numpy as np
-import time
-import pandas as pd
-import matplotlib.pyplot as plt
-import matplotlib.gridspec as gridspec
-import matplotlib.image as mpimg
-import os
-import cv2
-import tensorflow as tf
-import math
-from sklearn import preprocessing as skp
-from sklearn.utils import shuffle
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import confusion_matrix
+y = pd.DataFrame(y_train)
+y.columns = ['class']
+y['index'] = y.index
 
+gb = y.groupby(['class'])
+#print(gb['index'].agg([np.min,np.max]))
 
-%matplotlib inline
+num_image = 5
+for c in range(n_classes):
+    # filter 
+    yf = y[y['class']== c].sample(num_image)
+    idx = (yf['index'])
+    fig = plt.figure()
+    for i in range(num_image):
+        fig.add_subplot(1,num_image,i+1)
+        plt.imshow(X_train[idx][i])
+        plt.text(0,1,signnames[str(c)],color='w',backgroundcolor='r', fontsize=5, weight="bold") 
+        plt.axis('off')
+    plt.tight_layout()
+    plt.show()
+    

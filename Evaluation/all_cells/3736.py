@@ -1,1 +1,2 @@
-ext_pnicer = science_color.pnicer(control=control_color)
+ext_pnicer_discrete = ext_pnicer.discretize()
+ext_pnicer_discrete.extinction

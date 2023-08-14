@@ -1,2 +1,2 @@
-### Teste
-test.dtypes
+### Treino
+train.info()

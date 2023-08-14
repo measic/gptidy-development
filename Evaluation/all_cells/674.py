@@ -1,4 +1,5 @@
-moviesavg_std = moviesstd.mean(axis=1).round(decimals=5)
-useravg_std = moviesstd.mean().round(decimals=5)
-
-useravg_std
+import numpy as np
+import matplotlib.pyplot as plt
+import tensorflow as tf
+import time
+from random import shuffle

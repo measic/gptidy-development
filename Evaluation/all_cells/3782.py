@@ -1,8 +1,10 @@
-
 x = np.array([0,1,2,3,4,5,6,7,8,9])
-visulize_array(x, 'array')
-start_index = 1
-stop_index = 10
-step = 2
-sliced_array = x[start_index:stop_index:step]
-visulize_array(sliced_array, 'sliced_array')
+print(f'x dimmension: {x.ndim}')
+
+visulize_array(x, 'x')
+visulize_array(x[4:6], 'x[4:6]')
+visulize_array(x[4:], 'x[4:]')
+visulize_array(x[:4], 'x[:4]')
+visulize_array(x[:], 'x[:]')
+visulize_array(x[:-1], 'x[:-1]')
+x[4:6] = [11,12]

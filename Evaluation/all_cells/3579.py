@@ -1,1 +1,9 @@
-dw_obj.classification_results[wb]['mean_EQR_by_year']#.dropna(subset = ['mean_ek_value'])
+def get_EK(x):
+    y = x.DIN/x.REFERENCE_VALUE
+    if y > 1:
+        return 1
+    else:
+        return y
+
+df = dw_obj.water_body_indicator_df[wb]
+df['ek_value'] = df.apply(get_EK, axis = 1)

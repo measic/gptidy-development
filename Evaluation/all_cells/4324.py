@@ -1,6 +1,5 @@
-filename = 'gs://sarasmaster/kopari/shopify/products/products_1.json'
-datasetid = 'kopari'
-tablename = 'shopify_products'
-delimitertype = 'NEWLINE_DELIMITED_JSON'
-loadtype = 'WRITE_TRUNCATE'
-loadfiletobigquery(filename, datasetid, tablename, delimitertype, loadtype, None)
+job_config = bigquery.LoadJobConfig()
+job_config.schema = [
+    bigquery.SchemaField('name', 'STRING'),
+    bigquery.SchemaField('post_abbr', 'STRING')
+]

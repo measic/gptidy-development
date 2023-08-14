@@ -1,13 +1,3 @@
-import os
-
-from lstchain.io.lstcontainers import DL1ParametersContainer
-from utils.gammalearn import load_model, load_camera_parameters
-
-from ctapipe.utils import get_dataset_path
-from ctapipe.io import HDF5TableWriter, HDF5TableReader
-from ctapipe.calib import CameraCalibrator
-from ctapipe.io import event_source
-
-from astropy import units
-
-import torch
+if not os.path.isfile('lst_bootcamp_gl_data.tar.gz'):
+    !wget https://gitlab.lapp.in2p3.fr/GammaLearn/GammaLearn/raw/master/share/lst_bootcamp_gl_data.tar.gz
+    !tar xvzf lst_bootcamp_gl_data.tar.gz

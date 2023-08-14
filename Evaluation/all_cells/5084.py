@@ -1,2 +1,2 @@
-### Join
-join.info()
+### Teste
+test.isnull().sum()

@@ -1,4 +1,4 @@
-def function_def(text):
+def hypothesis_inlinecounter(text):
     hyp = np.concatenate([np.linspace(1, -1, len(x) + 1) for x in text.split('\n')])[:-1]
     return hyp
 
@@ -19,5 +19,5 @@ def hypothesis_pos(text, pos_tag):
 def hypothesis_verbs(text):
     return hypothesis_pos(text, 'verb')
 
-def hypothesis_nouns(text):
+def function_def(text):
     return hypothesis_pos(text, 'noun')

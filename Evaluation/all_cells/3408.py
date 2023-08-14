@@ -1,1 +1,2 @@
-math.log(10)
+# variable assignments
+x = 1.0

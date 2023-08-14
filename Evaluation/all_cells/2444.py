@@ -1,1 +1,1 @@
-from BITS.seq.plot import DotPlot
+d = DotPlot(gepard_command, out_dir)

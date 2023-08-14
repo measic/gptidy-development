@@ -1,10 +1,10 @@
-def rover_coords(binary_img):
+def function_def(binary_img):
     ypos, xpos = binary_img.nonzero()
     x_pixel = -(ypos - binary_img.shape[0]).astype(np.float)
     y_pixel = -(xpos - binary_img.shape[1] / 2).astype(np.float)
     return (x_pixel, y_pixel)
 
-def function_def(x_pixel, y_pixel):
+def to_polar_coords(x_pixel, y_pixel):
     dist = np.sqrt(x_pixel ** 2 + y_pixel ** 2)
     angles = np.arctan2(y_pixel, x_pixel)
     return (dist, angles)
@@ -30,8 +30,8 @@ idx = np.random.randint(0, len(img_list) - 1)
 image = mpimg.imread(img_list[idx])
 warped, mask = perspect_transform(image, source, destination)
 threshed = color_thresh(warped)
-xpix, ypix = rover_coords(threshed)
-dist, angles = function_def(xpix, ypix)
+xpix, ypix = function_def(threshed)
+dist, angles = to_polar_coords(xpix, ypix)
 mean_dir = np.mean(angles)
 fig = plt.figure(figsize=(12, 9))
 plt.subplot(221)

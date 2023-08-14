@@ -1,6 +1,13 @@
-import os
-os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+path = os.getcwd()
 
-import tensorflow as tf
-import keras.backend as K
+# data without overlap
+print("loading data")
+data_train = ZurichLoader(path, 'train')
+data_val = ZurichLoader(path, 'val')
+data_test = ZurichLoader(path, 'test')
+
+print("loading data with overlap")
+# data with overlap, for prediction
+data_train_overlap = ZurichLoader(path, 'train', stride=32, inherit_loader=data_train)
+data_val_overlap = ZurichLoader(path, 'val', stride=32, inherit_loader=data_val)
+data_test_overlap = ZurichLoader(path, 'test', stride=32, inherit_loader=data_test)

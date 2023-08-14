@@ -1,18 +1,34 @@
-import folium
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import re
+import tensorflow 
+import keras
+import itertools
 
-# Import the Switzerland map (from the folio pylib notebook)
-topo_geo = r'ch-cantons.topojson.json'
+from sklearn import metrics
+from sklearn.preprocessing import StandardScaler
+from sklearn.feature_extraction import FeatureHasher, DictVectorizer
+from sklearn.pipeline import Pipeline
+from sklearn.pipeline import FeatureUnion
+from sklearn.grid_search import GridSearchCV
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import classification_report
+from sklearn.cross_validation import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.base import BaseEstimator, TransformerMixin
+from bokeh.charts import Bar, output_file, show, output_notebook
+from keras.models import Sequential
+from keras.layers import Dense, Activation
+from sklearn.preprocessing import LabelBinarizer
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.tree import DecisionTreeRegressor
+from IPython.core.display import Image, display
+from sklearn.externals.six import StringIO
+from IPython.display import Image  
+from sklearn import tree
 
-# Import our csv file with all of the values for the amounts of the grants 
-grants_data = pd.read_csv('P3_Cantons_Sum.csv')
-#grants_data['Approved Amount'] = (grants_data['Approved Amount']).astype(int)
+output_notebook()
 
-missing_cantons = pd.Series(['UR','OW','NW','GL','BL','AR','AI','JU'], name='Canton Shortname')
-missing_cantons_zeros = pd.Series([0,0,0,0,0,0,0,0], name='Approved Amount')
-missing_cantons_df = pd.DataFrame([missing_cantons, missing_cantons_zeros]).T
-grants_data_all_cantons = grants_data.append(missing_cantons_df)
-grants_data_all_cantons = grants_data_all_cantons.reset_index(drop=True)
 
-grants_data_all_cantons['Approved Amount'] = grants_data_all_cantons['Approved Amount']/10000000
-
-grants_data_all_cantons
+%matplotlib inline

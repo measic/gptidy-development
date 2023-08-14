@@ -1,1 +1,1 @@
-lights_labels = make_target_label_array()
+from sklearn.model_selection import StratifiedShuffleSplit

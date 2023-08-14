@@ -1,10 +1,8 @@
-tags = (tag for i, (word, tag) in enumerate(data.training_set.stream()))
-words = (word for i, (word, tag) in enumerate(data.training_set.stream()))
-
-d2 = pair_counts(words, tags)
-
-print(d2['time'])
-print(d2['time'].most_common(1))
-print(d2['time'].most_common(1)[0])
-print(d2['time'].most_common(1)[0][0])
-#print(d2.values())
+for key in data.testing_set.keys[:3]:
+    print("Sentence Key: {}\n".format(key))
+    print("Predicted labels:\n-----------------")
+    print(simplify_decoding(data.sentences[key].words, mfc_model))
+    print()
+    print("Actual labels:\n--------------")
+    print(data.sentences[key].tags)
+    print("\n")

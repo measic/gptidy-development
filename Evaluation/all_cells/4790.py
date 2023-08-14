@@ -1,12 +1,28 @@
-def plot(embeddings, labels):
-  assert embeddings.shape[0] >= len(labels), 'More labels than embeddings'
-  pylab.figure(figsize=(15,15))  # in inches
-  for i, label in enumerate(labels):
-    x, y = embeddings[i,:]
-    pylab.scatter(x, y)
-    pylab.annotate(label, xy=(x, y), xytext=(5, 2), textcoords='offset points',
-                   ha='right', va='bottom')
-  pylab.show()
+import zipfile
+from urllib import request
 
-words = [reverse_dictionary[i] for i in range(1, num_points+1)]
-plot(two_d_embeddings, words)
+path_set5 = r"https://github.com/titu1994/Super-Resolution-using-Generative-Adversarial-Networks/releases/download/v0.1/Set5.zip"
+filename="Set5"
+def _progress(count, block_size, total_size):
+            sys.stdout.write('\rDownloading %s %.2f%%' % (filename,
+                float(count * block_size) / float(total_size) * 100.0))
+            sys.stdout.flush()
+
+if not os.path.exists("tests/set5/set5"):
+    print("Downloading Set5 images")
+    filehandler, _ = request.urlretrieve(path_set5, reporthook=_progress)
+    zf = zipfile.ZipFile(filehandler)
+    print()
+    print("Extracting images")
+    uncompress_size = sum((file.file_size for file in zf.infolist()))
+
+    extracted_size = 0
+
+    for file in zf.infolist():
+        extracted_size += file.file_size
+        sys.stdout.write('\rExtracting %.2f%%' % (float(extracted_size * 100/uncompress_size)))
+        sys.stdout.flush()
+        zf.extract(file, "tests/set5")
+    
+print()
+print("Set5 is all set!!")

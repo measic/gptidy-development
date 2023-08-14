@@ -1,1 +1,1 @@
-bicoloring
+nodes_one

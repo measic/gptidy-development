@@ -1,10 +1,11 @@
-# Import sklearn.preprocessing.StandardScaler
-from sklearn.preprocessing import MinMaxScaler
+# Calculate accuracy.
+accuracy = n_greater_50k/n_records
 
-# Initialize a scaler, then apply it to the features
-scaler = MinMaxScaler()
-numerical = ['age', 'education-num', 'capital-gain', 'capital-loss', 'hours-per-week']
-features_raw[numerical] = scaler.fit_transform(data[numerical])
+# Calculate F-score using the formula above for beta = 0.5. Done.
+precision=n_greater_50k/(n_at_most_50k+n_greater_50k)
+recall=n_greater_50k/(n_greater_50k+0)
+beta=0.5
+fscore = (1+beta**2)*precision*recall/((beta**2*precision)+recall)
 
-# Show an example of a record with scaling applied
-display(features_raw.head(n = 1))
+# Print the results 
+print "Naive Predictor: [Accuracy score: {:.4f}, F-score: {:.4f}]".format(accuracy, fscore)

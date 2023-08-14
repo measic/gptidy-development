@@ -1,7 +1,4 @@
-train_dataset = trimmed.sample(frac=0.8, random_state=0)
-test_dataset = trimmed.drop(train_dataset.index)
-
-train_stats = train_dataset.describe()
-train_stats = train_stats.drop(columns=labels)
-train_stats = train_stats.transpose()
-train_stats
+def norm(x):
+    return (x - train_stats['mean']) / train_stats['std']
+normed_train_data = norm(train_dataset)
+normed_test_data = norm(test_dataset)

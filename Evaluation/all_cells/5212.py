@@ -1,2 +1,2 @@
-# from tensorflow.examples.tutorials.mnist import input_data
-# mnist = input_data.read_data_sets("/tmp/data/")
+def elu(z, alpha=1):
+    return np.where(z < 0, alpha * (np.exp(z) - 1), z)

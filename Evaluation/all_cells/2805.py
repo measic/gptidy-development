@@ -1,2 +1,2 @@
-# Check new data types  
-data_types(train)
+# Which predictors are mostly closely correlated with SalePrice?
+corr['SalePrice'].sort_values(ascending = False)

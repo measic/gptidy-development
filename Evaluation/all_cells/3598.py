@@ -1,1 +1,1 @@
-f1_A.exclude_list_filter
+lv_workspace.apply_subset_filter(subset='A') # Not handled properly by the IndexHandler

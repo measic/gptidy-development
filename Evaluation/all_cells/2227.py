@@ -1,1 +1,2 @@
-f(Partition([2,1,1]))
+for mu in Partitions(3):
+    print(latex_output_character(E_mu(mu)))

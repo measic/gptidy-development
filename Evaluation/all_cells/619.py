@@ -1,3 +1,20 @@
-bigOccurences = [ 75, 167, 281, 268, 372, 455, 579, 579, 634, 542, 358, 222, 177, 126, 115,  93, 119, 132,
- 182, 255, 345, 565, 374,  41,   0,   0,   0,   0,   0] # Histogram collected in Big Data Colleciton file
-bigMagnitudes = np.linspace(-7, 7, 29)
+print("Total Number of Earthquakes: ", sum(bigOccurences))
+
+plt.figure(figsize = (15,5))
+
+barWidth = 0.4
+plt.subplot(1,2,1)
+plt.bar(bigMagnitudes, bigOccurences, barWidth)
+plt.title("Histogram of Magnitude Occurrences With Varying Mass")
+plt.xlabel("Magnitude")
+plt.ylabel("Number of Occurrences")
+
+plt.subplot(1,2,2)
+
+plt.semilogy(bigMagnitudes, bigOccurences, "b o", label = "Number of Magnitude Occurences")
+plt.semilogy(fitX, fitY, label = "Fitted Function: $P(M) = 99e^{-0.632 M}$")
+plt.title("Logarithmic Correlation Between Magnitude and Number of Occurrences")
+plt.xlabel("Magnitude")
+plt.ylabel("Number of Occurrences")
+plt.legend(loc = "best")
+plt.show()

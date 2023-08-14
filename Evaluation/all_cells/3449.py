@@ -1,3 +1,3 @@
-s2 = "value1 = %.2f. value2 = %d" % (3.1415, 1.5)
+print("Newlines are indicated by \nAnd tabs by \t.")
 
-print(s2)
+print(r"Newlines are indicated by \nAnd tabs by \t. Printed as rawstring")

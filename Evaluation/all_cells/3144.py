@@ -1,9 +1,3 @@
-'''Importing the mendeleev package'''
+'''Some info on the nuclide data structure just created'''
 
-try:
-    import mendeleev  # creates the `name` mendeleev
-except ImportError:
-    print('Installing the "mendeleev" package...')
-    print('')
-    !pip install mendeleev
-    import mendeleev
+cfpy_az

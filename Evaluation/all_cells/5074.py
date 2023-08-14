@@ -1,2 +1,2 @@
 ### Treino
-train.head(20)
+train.shape

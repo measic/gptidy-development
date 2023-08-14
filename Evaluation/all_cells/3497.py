@@ -1,1 +1,1 @@
-func1("test")
+square(4)

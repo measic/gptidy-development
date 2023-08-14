@@ -1,7 +1,8 @@
-def sigmoid(x, derivative=False):
-    # Definimos o sigmoid e dua derivada na mesma função para facilitar
-    # seu uso.
-    if derivative:
-        s = sigmoid(x)
-        return s * (1-s)
-    return 1/(1 + np.exp(-x))
+def forward_pass(x, W, b):
+    # Calcula a classe baseado em um vetor de pesos e um escalar de víes
+    # Note que nessa função aceitam-se matrizes para W e vetores para b,
+    # afinal estamos trabalhando com batches e não com um exemplo de
+    # cada vez.
+    z = x.dot(W) + b
+    y_ = sigmoid(z)
+    return y_, z

@@ -1,8 +1,10 @@
-data_pre = []
-for e in data:
-    ret, th = cv2.threshold(e, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-    kernel = np.ones((3,3), np.uint8)
-    dilation = cv2.dilate(th, kernel, iterations=1)
-    erosion = cv2.erode(dilation, kernel, iterations=1)
+# TODO: Apply PCA by fitting the good data with the same number of dimensions as features
+from sklearn.decomposition import PCA
+pca = PCA(n_components=6)
+pca.fit(good_data)
 
-    data_pre.append(erosion)
+# TODO: Transform log_samples using the PCA fit above
+pca_samples = pca.transform(log_samples)
+
+# Generate PCA results plot
+pca_results = vs.pca_results(good_data, pca)

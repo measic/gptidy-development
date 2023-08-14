@@ -1,1 +1,1 @@
-full_name[:5]
+full_name[5:]

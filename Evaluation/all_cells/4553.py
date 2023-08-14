@@ -1,2 +1,2 @@
-print(set1)
-print(set2)
+# set intersection
+print(set1 & set2)

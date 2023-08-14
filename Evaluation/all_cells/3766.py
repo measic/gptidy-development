@@ -1,3 +1,2 @@
-if not os.path.isfile('lst_bootcamp_gl_data.tar.gz'):
-    !wget https://gitlab.lapp.in2p3.fr/GammaLearn/GammaLearn/raw/master/share/lst_bootcamp_gl_data.tar.gz
-    !tar xvzf lst_bootcamp_gl_data.tar.gz
+exp_name = 'regression'
+regression_network = load_model(exps_path, exp_name, 100, camera_parameters_path)

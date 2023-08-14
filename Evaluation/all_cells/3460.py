@@ -1,3 +1,7 @@
-nested_list = [1, [2, [3, [4, [5]]]]]
+# convert a string to a list by type casting:
 
-nested_list
+print(s)
+
+s2 = list(s)
+
+s2

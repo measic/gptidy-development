@@ -1,48 +1,41 @@
-def character(S, left_basis=s, right_basis=s, row_symmetry=None):
-    if isinstance(S, dict):
-        return sum(character(V,
-                             left_basis=left_basis, right_basis=right_basis, row_symmetry=row_symmetry) 
-                   for V in S.values())
-    else:
-        basis = S.basis()
-        basis_element = basis.values().pop()[0]
-        P = basis_element.parent()
-        n = P.ncols()
-        r = P.nrows()
+def factorize(f, n):
+    SymmetricFunctions(QQ).s()
+    supp = sorted(f.support())
+    result = {}
+    res = []
+    for mu in Partitions(n):
+        result[mu] = []
+        for (a, b), c in zip(supp, f.coefficients()):
+            if b == mu :
+                result[mu] += [(a,c)]
+    result2 = [(mu,sum(c*s(nu) for (nu,c) in result[mu])) for mu in result.keys()]
+    for a, b in result2:
+        if b!=0:
+            print a
+            show(b)
         
-        charac = 0
-        if row_symmetry != "permutation":
-            q = PolynomialRing(QQ,'q',r).gens()
+def dimension(f, n):
+    supp = sorted(f.support())
+    result = {}
+    res = []
+    for mu in Partitions(n):
+        result[mu] = []
+        for (a, b), c in zip(supp, f.coefficients()):
+            if b == mu :
+                result[mu] += [(a,c)]
+    result2 = [(mu,sum(c*s(nu) for (nu,c) in result[mu]).expand(1, alphabet=['q'])) for mu in result.keys()]
+    q = result2[0][1].parent().gens()[0]
+    return [(tuple(a), b.subs({q:1})) for a,b in result2]
 
-        for nu in Partitions(n):
-            basis_nu = {}
-            charac_nu = 0
-            # Get the nu_isotypic part of the basis
-            for key, value in basis.iteritems():
-                if Partition(key[1]) == nu:
-                    basis_nu[key[0]] = value
-
-            # Use monomials to compute the character
-            if row_symmetry == "permutation":
-                for deg, b in basis_nu.iteritems():
-                    charac_nu += sum(m(Partition(deg)) for p in b)
-                if charac_nu != 0 :
-                    if left_basis == s :
-                        charac_nu = s(charac_nu).restrict_partition_lengths(r,exact=False)
-                    elif left_basis != m :
-                        charac_nu = left_basis(charac_nu)
-
-            # Or use directly the degrees
-            else:
-                for deg, b in basis_nu.iteritems():
-                    charac_nu += sum(prod(q[i]**deg[i] for i in range(0,len(deg))) for p in b)
-                if charac_nu != 0 :
-                    if left_basis == s :
-                        charac_nu = s.from_polynomial(charac_nu).restrict_partition_lengths(r,exact=False)           
-                    else:
-                        charac_nu = left_basis.from_polynomial(charac_nu)
-
-            # Make the tensor product with s[nu]
-            if charac_nu != 0:
-                charac += tensor([charac_nu, right_basis(s(nu))])
-        return charac
+def dimension2(f, n):
+    q,t = QQ['q,t'].gens()
+    supp = sorted(f.support())
+    result = {}
+    res = []
+    for mu in Partitions(n):
+        result[mu] = []
+        for (a, b), c in zip(supp, f.coefficients()):
+            if b == mu :
+                result[mu] += [(a,c)]
+    result2 = [(mu,sum(c*s(nu) for (nu,c) in result[mu]).expand(2, alphabet=[q,t])) for mu in result.keys()]
+    return [(tuple(a), b.subs({q:1,t:1})) for a,b in result2]

@@ -1,8 +1,20 @@
-capacities = [1e3, 3e3, 1e4, 3e4, 1e5, 3e5, 1e6, 3e6]
-bloom_fp = []
-cuckoo_fp = []
+def return_cuckoo_filter_with_specified_load_factor(capacity, finger_print_size=2, load_factor=0.2):
+    c_filter = CuckooFilter(capacity, finger_print_size, bucket_size=2)
+    for i in range(int(capacity*6)):
+        try:
+            item = "".join(random.sample(string.ascii_lowercase, 12))
+            c_filter.add(item)
+        except Exception('CuckooFilter has filled up!'):
+            break
+            
+        if round(c_filter.get_load_factor(), 2) == round(load_factor, 2):
+            return c_filter, c_filter.get_load_factor()
+    raise ValueError
 
-for size in capacities:
-    bfp, cfp = counting_bloom_and_cuckoo_filter_fpr(size, finger_print_size=0.5, bucket_size=4, alpha=0.8)
-    bloom_fp.append(bfp)
-    cuckoo_fp.append(cfp)
+def return_bloom_filter_with_specified_load_factor(capacity, percent_to_fill=0.2):
+    b_filter = CountingBloomFilter(capacity)
+    for i in range(int(percent_to_fill*capacity)):
+        item = "".join(random.sample(string.ascii_lowercase, 12))
+        b_filter.add(item)
+    
+    return b_filter, percent_to_fill

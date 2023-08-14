@@ -1,1 +1,1 @@
-f(Partition([2]))
+f(Partition([2,1,1]))

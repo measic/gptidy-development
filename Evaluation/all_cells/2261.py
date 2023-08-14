@@ -1,1 +1,1 @@
-data[cluster_assignment==1]
+data[cluster_assignment==0].mean(axis=0)

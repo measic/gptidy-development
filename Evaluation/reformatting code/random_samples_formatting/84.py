@@ -1,2 +1,4 @@
-all_df = pd.concat([old_df, f18_df], verify_integrity=True, ignore_index=True, sort=True)
-all_df.head()
+# Numpy arrays to tensors
+X = tf.constant(X)
+y = tf.constant(y)
+y = tf.reshape(y, [-1,1]) # change from row vector to column vector

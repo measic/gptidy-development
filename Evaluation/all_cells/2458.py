@@ -1,1 +1,2 @@
-subtract_intvl(interval([1, 5], [8, 10]), interval([2, 3], [5, 9]))
+obj = (1, 4, 9)
+save_pickle(obj, "sample.pkl")

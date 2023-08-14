@@ -1,9 +1,14 @@
-def fillna_double_12(x):
-    if pd.to_datetime(x['start_day']).date() < pd.to_datetime('2015-12-12').date():  
-        if x['2015-12-05']>0 and x['2015-12-19']>0 :
-            return int(x['2015-12-05'] + x['2015-12-19'] /2.0 +0.5)
-        elif x['2015-12-05']>0: return x['2015-12-05']
-        elif x['2015-12-19']>0: return x['2015-12-19']
-        else: return 0
-    return 0
-shop_info['2015-12-12'] = shop_info.apply(lambda x:fillna_double_12(x),axis=1)
+
+#  占个格子 &&  cal avg sales count each day
+total_day = pd.to_datetime('2016-11-01').date()-pd.to_datetime('2015-07-01').date() 
+total_day = total_day.days
+total_week = total_day / 7  # 69个
+start_day = pd.to_datetime('2016-11-01').date() - datetime.timedelta(total_week*7)
+#print start_day
+for week_number in range(total_week): # 0~68
+    start_day_of_week = start_day +  datetime.timedelta(week_number*7) 
+    end_day_of_week = start_day_of_week + datetime.timedelta(6)
+    start_day_of_week =   start_day_of_week.strftime("%Y-%m-%d")
+    end_day_of_week = end_day_of_week.strftime("%Y-%m-%d")
+    print start_day_of_week,end_day_of_week
+    shop_info['wk_'+str(week_number)] = shop_info.loc[:,start_day_of_week:end_day_of_week].mean(axis=1)

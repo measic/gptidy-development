@@ -1,22 +1,23 @@
-# visualize 2
-stickwidth = 4
+import sympy as sym
+from sympy import *
+A, U, S = symbols("A U S")
+alpha_UA, alpha_AU, alpha_US, alpha_SU  = symbols("alpha_UA alpha_AU alpha_US alpha_SU")
 
-for i in range(17):
-    for n in range(len(subset)):
-        index = subset[n][np.array(limbSeq[i])-1]
-        if -1 in index:
-            continue
-        cur_canvas = canvas.copy()
-        Y = candidate[index.astype(int), 0]
-        X = candidate[index.astype(int), 1]
-        mX = np.mean(X)
-        mY = np.mean(Y)
-        length = ((X[0] - X[1]) ** 2 + (Y[0] - Y[1]) ** 2) ** 0.5
-        angle = math.degrees(math.atan2(X[0] - X[1], Y[0] - Y[1]))
-        polygon = cv.ellipse2Poly((int(mY),int(mX)), (int(length/2), stickwidth), int(angle), 0, 360, 1)
-        cv.fillConvexPoly(cur_canvas, polygon, colors[i])
-        canvas = cv.addWeighted(canvas, 0.4, cur_canvas, 0.6, 0)
-        
-plt.imshow(canvas[:,:,[2,1,0]])
-fig = matplotlib.pyplot.gcf()
-fig.set_size_inches(12, 12)
+model_dyn = [
+    alpha_UA*U - alpha_AU*A,
+    alpha_AU*A + alpha_SU*S - (alpha_UA + alpha_US)*U,
+    alpha_US*U - alpha_SU*S,
+    A + U + S - 1 # this equation sets the total population size to 1
+    ]
+
+# steady-state solution
+sol_dyn = solve(model_dyn, A, U, S)
+
+# functions for calculating the proportion of the population in each compartment at 
+# steady state, given transition rates between compartments
+dyn_fun = lambdify((alpha_UA, alpha_AU, alpha_US, alpha_SU), sol_dyn[A] + sol_dyn[S])
+U_fun = lambdify((alpha_UA, alpha_AU, alpha_US, alpha_SU), sol_dyn[U])
+A_fun = lambdify((alpha_UA, alpha_AU, alpha_US, alpha_SU), sol_dyn[A])
+S_fun = lambdify((alpha_UA, alpha_AU, alpha_US, alpha_SU), sol_dyn[S])
+
+sol_dyn

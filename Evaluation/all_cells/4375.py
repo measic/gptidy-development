@@ -1,1 +1,1 @@
-VGG16_model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
+VGG16_model.load_weights('saved_models/weights.best.VGG16.hdf5')

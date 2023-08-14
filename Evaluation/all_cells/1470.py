@@ -1,2 +1,2 @@
-#show one cell at row1 column 3. (0,2 in base 0 indexing)
-print(stimuli.iloc[0][2])
+#this syntax is used to get the sub-array where the value is 'cat'
+print(animals[animals=='cat'])

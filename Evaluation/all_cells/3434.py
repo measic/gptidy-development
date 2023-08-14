@@ -1,3 +1,2 @@
-b = 3
-b *= 3
-print(b)
+# length of the string: number of characters in string
+len(s)

@@ -1,3 +1,2 @@
-# read in the text, transforming everything to lower case
-text = open('datasets/holmes.txt').read().lower()
-print('our original text has ' + str(len(text)) + ' characters')
+### print out the first 1000 characters of the raw text to get a sense of what we need to throw out
+text[:1000]

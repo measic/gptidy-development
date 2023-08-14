@@ -1,6 +1,6 @@
-X = np.array([[0, 0],
-              [1, 2]])
+A = np.array([[1, 1],
+              [2, 1]])
+b = np.array([3, 4])
 
-print(np.linalg.det(X))
-print(np.linalg.matrix_rank(X)) 
-print(np.linalg.matrix_rank(X.T))
+## solve system Ax = b using the inverse
+print( np.linalg.inv(A) @ b )

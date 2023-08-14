@@ -1,12 +1,8 @@
-plt.fill_between(load_factors_emp, cuckoo_times_array[:,0], cuckoo_times_array[:,2], alpha=0.2)
-plt.plot(load_factors_emp, cuckoo_times_array[:,1], "-go", label="Cuckoo Filter")
-
-plt.fill_between(load_factors_emp, bloom_times_array[:,0], bloom_times_array[:,2], alpha=0.2)
-plt.plot(load_factors_emp, bloom_times_array[:,1], "-ro", label="Counting Bloom Filter")
-
-
-plt.ylabel("Time (seconds)")
-plt.xlabel("Filter Occupancy")
-plt.xlim([0, 1])
-plt.legend()
-plt.savefig('images/load_factor.png', bbox_inches='tight')
+def insert_and_time_filter_bloom_filter(capacity, percent_fill=0.9):
+    num_inserted = 0
+    b_filter = CountingBloomFilter(capacity)
+    now = time.time()
+    for i in range(int(percent_fill*capacity)):
+        b_filter.add(str(i))
+    elapsed_insertion = time.time() - now
+    return b_filter, elapsed_insertion

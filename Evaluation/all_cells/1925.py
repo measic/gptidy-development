@@ -1,4 +1,3 @@
-# change these to try this notebook out
-BUCKET = 'cloud-training-demos-ml'
-PROJECT = 'cloud-training-demos'
-REGION = 'us-central1'
+%bash
+gcloud config set project $PROJECT
+gcloud config set compute/region $REGION

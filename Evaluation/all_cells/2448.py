@@ -1,1 +1,1 @@
-from BITS.seq.utils import revcomp
+from BITS.seq.utils import compress_homopolymer

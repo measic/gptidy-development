@@ -1,1 +1,1 @@
-print('\n'.join([str(k)+':'+str(v) for k, v in ADPagent.U.items()]))
+TDagent = PassiveTDAgent(policy, sequential_decision_environment, alpha = lambda n: 60./(59+n))

@@ -1,1 +1,1 @@
-help(mymodule)
+mymodule.my_function() 

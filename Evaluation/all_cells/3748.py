@@ -1,24 +1,22 @@
-class Config(object):
-    default_fn = os.path.join(
-        PROJECT_DIR, "config", "seq2seq", "default.yaml"
-    )
+with tf.variable_scope("encoder"):
     
-    @staticmethod
-    def load_defaults(fn=default_fn):
-        with open(fn) as f:
-            return yaml.load(f)
+    if use_bidirectional_encoder:
+        fw_cell = tf.nn.rnn_cell.BasicLSTMCell(cell_size)
+        fw_cell = tf.contrib.rnn.DropoutWrapper(fw_cell, input_keep_prob=0.8)
+        bw_cell = tf.nn.rnn_cell.BasicLSTMCell(cell_size)
+        bw_cell = tf.contrib.rnn.DropoutWrapper(bw_cell, input_keep_prob=0.8)
+
+        o, e = tf.nn.bidirectional_dynamic_rnn(
+            fw_cell, bw_cell, embedding_input, dtype='float32', sequence_length=dataset.src_size,
+            time_major=is_time_major)
+        encoder_outputs = tf.concat(o, -1)
+        encoder_state = e
     
-    @classmethod
-    def from_yaml(cls, fn):
-        params = yaml.load(fn)
-        return cls(**params)
+    else:
+        fw_cell = tf.nn.rnn_cell.BasicLSTMCell(cell_size)
+        fw_cell = tf.contrib.rnn.DropoutWrapper(fw_cell, input_keep_prob=0.8)
+        o, e = tf.nn.dynamic_rnn(fw_cell, embedding_input, dtype='float32',
+                                 sequence_length=dataset.src_size, time_major=is_time_major)
+        encoder_outputs = o
+        encoder_state = e
     
-    def __init__(self, **kwargs):
-        defaults = Config.load_defaults()
-        for param, val in defaults.items():
-            setattr(self, param, val)
-        for param, val in kwargs.items():
-            setattr(self, param, val)
-        
-config = Config(src_maxlen=30, tgt_maxlen=33)
-dataset = Dataset(input_fn, config)

@@ -1,18 +1,17 @@
-figsize(12.5, 3.5)
-np.set_printoptions(precision=3, suppress=True)
-challenger_data = np.genfromtxt("data/challenger_data.csv", skip_header=1,
-                                usecols=[1, 2], missing_values="NA",
-                                delimiter=",")
-#drop the NA values
-challenger_data = challenger_data[~np.isnan(challenger_data[:, 1])]
+def logistic(x, beta, alpha=0):
+    return 1.0 / (1.0 + np.exp(np.dot(beta, x) + alpha))
 
-#plot it, as a function of tempature (the first column)
-print("Temp (F), O-Ring failure?")
-print(challenger_data)
+x = np.linspace(-4, 4, 100)
 
-plt.scatter(challenger_data[:, 0], challenger_data[:, 1], s=75, color="k",
-            alpha=0.5)
-plt.yticks([0, 1])
-plt.ylabel("Damage Incident?")
-plt.xlabel("Outside temperature (Fahrenheit)")
-plt.title("Defects of the Space Shuttle O-Rings vs temperature");
+plt.plot(x, logistic(x, 1), label=r"$\beta = 1$", ls="--", lw=1)
+plt.plot(x, logistic(x, 3), label=r"$\beta = 3$", ls="--", lw=1)
+plt.plot(x, logistic(x, -5), label=r"$\beta = -5$", ls="--", lw=1)
+
+plt.plot(x, logistic(x, 1, 1), label=r"$\beta = 1, \alpha = 1$",
+         color="#348ABD")
+plt.plot(x, logistic(x, 3, -2), label=r"$\beta = 3, \alpha = -2$",
+         color="#A60628")
+plt.plot(x, logistic(x, -5, 7), label=r"$\beta = -5, \alpha = 7$",
+         color="#7A68A6")
+
+plt.legend(loc="lower left");

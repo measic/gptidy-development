@@ -2,8 +2,11 @@
 # get an appropriately sized chunk of characters from the text
 start_inds = []
 
-# load in weights
-model.load_weights('model_weights/best_RNN_small_textdata_weights.hdf5')
+# save output
+f = open('text_gen_output/RNN_large_textdata_output.txt', 'w')  # create an output file to write too
+
+# load weights
+model.load_weights('model_weights/best_RNN_large_textdata_weights.hdf5')
 for s in start_inds:
     start_index = s
     input_chars = text[start_index: start_index + window_size]
@@ -12,10 +15,16 @@ for s in start_inds:
     predict_input = predict_next_chars(model,input_chars,num_to_predict = 100)
 
     # print out input characters
-    print('------------------')
+    line = '-------------------' + '\n'
+    print(line)
+    f.write(line)
+
     input_line = 'input chars = ' + '\n' +  input_chars + '"' + '\n'
     print(input_line)
+    f.write(input_line)
 
     # print out predicted characters
-    line = 'predicted chars = ' + '\n' +  predict_input + '"' + '\n'
-    print(line)
+    predict_line = 'predicted chars = ' + '\n' +  predict_input + '"' + '\n'
+    print(predict_line)
+    f.write(predict_line)
+f.close()

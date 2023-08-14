@@ -1,1 +1,1 @@
-np.shape(act_train*.1)
+ps_df.best_params

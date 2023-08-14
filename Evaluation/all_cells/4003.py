@@ -1,2 +1,6 @@
-mm = m *** m
-mm $ mm \$ (V3 1 2 3,V3 4 5 6)
+h :: ℝ³ +> ℝ³
+h =       ex.<V3  1   1 (-1)
+      ^+^ ey.<V3  1 (-2)  2
+      ^+^ ez.<V3(-1)  2   3
+
+mapM_ print $ eigen h

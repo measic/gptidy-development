@@ -1,2 +1,1 @@
-A = np.random.uniform(0,5,(5000,5000))
-b = np.random.uniform(0,5,5000)
+%timeit -r1 -n1 np.linalg.inv(A) @ b

@@ -1,1 +1,1 @@
-lv_workspace.get_data_filter_info(step=1, subset='A') 
+f0.include_list_filter

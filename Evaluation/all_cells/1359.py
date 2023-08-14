@@ -1,1 +1,1 @@
-d4.loc['Colorado']
+d4

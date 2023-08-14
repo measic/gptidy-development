@@ -1,1 +1,1 @@
-y_values and y_values[0] # 26.0
+titles and titles[0]

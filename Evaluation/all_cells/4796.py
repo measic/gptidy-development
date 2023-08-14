@@ -1,80 +1,101 @@
-class VGGNetwork:
-    '''
-    Helper class to load VGG and its weights to the FastNet model
-    '''
+class GenerativeNetwork:
 
-    def __init__(self, img_width=384, img_height=384, vgg_weight=1.0):
-        self.img_height = img_height
+    def __init__(self, img_width=96, img_height=96, batch_size=16, num_upscales=2, small_model=False,
+                 content_weight=1, tv_weight=2e5, gen_channels=64):
         self.img_width = img_width
-        self.vgg_weight = vgg_weight
+        self.img_height = img_height
+        self.batch_size = batch_size
+        self.small_model = small_model
+        self.num_scales = num_upscales
 
-        self.vgg_layers = None
+        self.content_weight = content_weight
+        self.tv_weight = tv_weight
 
-    def append_vgg_network(self, x_in, true_X_input, pre_train=False):
+        self.filters = gen_channels
+        self.mode = 2
+        self.init = 'glorot_uniform'
 
-        # Append the initial inputs to the outputs of the SRResNet
-        x = concatenate([x_in, true_X_input], axis=0)
+        self.sr_res_layers = None
+        self.sr_weights_path = "weights/SRGAN.h5"
 
-        # Normalize the inputs via custom VGG Normalization layer
-        x = Normalize(name="normalize_vgg")(x)
+        self.output_func = None
 
-        # Begin adding the VGG layers
-        x = Conv2D(64, (3, 3), activation='relu', padding='same', name='vgg_conv1_1')(x)
+    def create_sr_model(self, ip):
 
-        x = Conv2D(64, (3, 3), activation='relu', padding='same', name='vgg_conv1_2')(x)
-        x = MaxPooling2D((2, 2), strides=(2, 2), name='vgg_maxpool1')(x)
+        x = Conv2D(self.filters, (5, 5), activation='linear', padding='same', name='sr_res_conv1',
+                          kernel_initializer=self.init)(ip)
+        x = BatchNormalization(axis=channel_axis, name='sr_res_bn_1')(x)
+        x = LeakyReLU(alpha=0.25, name='sr_res_lr1')(x)
 
-        x = Conv2D(128, (3, 3), activation='relu', padding='same', name='vgg_conv2_1')(x)
+        x = Conv2D(self.filters, (5, 5), activation='linear', padding='same', name='sr_res_conv2', kernel_initializer="glorot_uniform")(x)
+        x = BatchNormalization(axis=channel_axis, name='sr_res_bn_2')(x)
+        x = LeakyReLU(alpha=0.25, name='sr_res_lr2')(x)
 
-        vgg_regularizer2 = ContentVGGRegularizer(weight=self.vgg_weight)
-        x = Conv2D(128, (3, 3), activation='relu', padding='same',
-                              activity_regularizer=vgg_regularizer2, name='vgg_conv2_2')(x)
+        num_residual = 5 if self.small_model else 15
+
+        for i in range(num_residual):
+            x = self._residual_block(x, i + 1)
+
+        for scale in range(self.num_scales):
+            x = self._upscale_block(x, scale + 1)
+    
+        scale = 2 ** self.num_scales
+        tv_regularizer = TVRegularizer(img_width=self.img_width * scale, img_height=self.img_height * scale,
+                                       weight=self.tv_weight) #self.tv_weight)
         
-        x = MaxPooling2D((2, 2), strides=(2, 2), name='vgg_maxpool2')(x)
+        x = Conv2D(3, (5, 5), activation='tanh', padding='same', activity_regularizer=tv_regularizer, 
+                   name='sr_res_conv_final', kernel_initializer=self.init)(x)
+        
+        x = Denormalize(name='sr_res_conv_denorm')(x)
+        return x
 
-        x = Conv2D(256, (3, 3), activation='relu', padding='same', name='vgg_conv3_1')(x)
-        x = Conv2D(256, (3, 3), activation='relu', padding='same', name='vgg_conv3_2')(x)
+    def _residual_block(self, ip, id):
+        init = ip
 
-        x = Conv2D(256, (3, 3), activation='relu', padding='same', name='vgg_conv3_3')(x)
-        x = MaxPooling2D((2, 2), strides=(2, 2), name='vgg_maxpool3')(x)
+        x = Conv2D(self.filters, (3, 3), activation='linear', padding='same', name='sr_res_conv_' + str(id) + '_1',
+                          kernel_initializer=self.init)(ip)
+        x = BatchNormalization(axis=channel_axis, name='sr_res_bn_' + str(id) + '_1')(x)
+        x = LeakyReLU(alpha=0.25, name="sr_res_activation_" + str(id) + "_1")(x)
 
-        x = Conv2D(512, (3, 3), activation='relu', padding='same', name='vgg_conv4_1')(x)
-        x = Conv2D(512, (3, 3), activation='relu', padding='same', name='vgg_conv4_2')(x)
+        x = Conv2D(self.filters, (3, 3), activation='linear', padding='same', name='sr_res_conv_' + str(id) + '_2',
+                          kernel_initializer=self.init)(x)
+        x = BatchNormalization(axis=channel_axis, name='sr_res_bn_' + str(id) + '_2')(x)
 
-        x = Conv2D(512, (3, 3), activation='relu', padding='same', name='vgg_conv4_3')(x)
-        x = MaxPooling2D((2, 2), strides=(2, 2), name='vgg_maxpool4')(x)
+        m = add([x, init],name="sr_res_merge_" + str(id))
 
-        x = Conv2D(512, (3, 3), activation='relu', padding='same', name='vgg_conv5_1')(x)
-        x = Conv2D(512, (3, 3), activation='relu', padding='same', name='vgg_conv5_2')(x)
+        return m
 
-        x = Conv2D(512, (3, 3), activation='relu', padding='same', name='vgg_conv5_3')(x)
-        x = MaxPooling2D((2, 2), strides=(2, 2), name='vgg_maxpool5')(x)
+    def _upscale_block(self, ip, id):
+        '''
+        As per suggestion from http://distill.pub/2016/deconv-checkerboard/, I am swapping out
+        SubPixelConvolution to simple Nearest Neighbour Upsampling
+        '''
+        init = ip
+        
+        x = Conv2D(128, (3, 3), activation="linear", padding='same', name='sr_res_upconv1_%d' % id,
+                          kernel_initializer=self.init)(init)
+        x = LeakyReLU(alpha=0.25, name='sr_res_up_lr_%d_1_1' % id)(x)
+        x = UpSampling2D(name='sr_res_upscale_%d' % id)(x)
+        #x = SubPixelUpscaling(r=2, channels=32)(x)
+        x = Conv2D(128, (3, 3), activation="linear", padding='same', name='sr_res_filter1_%d' % id,
+                          kernel_initializer=self.init)(x)
+        x = LeakyReLU(alpha=0.3, name='sr_res_up_lr_%d_1_2' % id)(x)
 
         return x
 
-    def load_vgg_weight(self, model):
-        # Loading VGG 16 weights
-        if K.image_dim_ordering() == "th":
-            weights = get_file('vgg16_weights_th_dim_ordering_th_kernels_notop.h5', THEANO_WEIGHTS_PATH_NO_TOP,
-                                   cache_subdir='models')
-        else:
-            weights = get_file('vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5', TF_WEIGHTS_PATH_NO_TOP,
-                                   cache_subdir='models')
-        f = h5py.File(weights)
+    def set_trainable(self, model, value=True):
+        if self.sr_res_layers is None:
+            self.sr_res_layers = [layer for layer in model.layers
+                                    if 'sr_res_' in layer.name]
 
-        layer_names = [name for name in f.attrs['layer_names']]
+        for layer in self.sr_res_layers:
+            layer.trainable = value
 
-        if self.vgg_layers is None:
-            self.vgg_layers = [layer for layer in model.layers
-                               if 'vgg_' in layer.name]
+    def get_generator_output(self, input_img, srgan_model):
+        if self.output_func is None:
+            gen_output_layer = [layer for layer in srgan_model.layers
+                                if layer.name == "sr_res_conv_denorm"][0]
+            self.output_func = K.function([srgan_model.layers[0].input],
+                                          [gen_output_layer.output])
 
-        for i, layer in enumerate(self.vgg_layers):
-            g = f[layer_names[i]]
-            weights = [g[name] for name in g.attrs['weight_names']]
-            layer.set_weights(weights)
-
-        # Freeze all VGG layers
-        for layer in self.vgg_layers:
-            layer.trainable = False
-
-        return model
+        return self.output_func([input_img])

@@ -7,12 +7,12 @@ def compute_fitness(solution):
         The genetic algorithm will favor road trips that have shorter
         total distances traveled.
     """
-    solution_fitness = 0.0
+    variable_def = 0.0
     for index in range(len(solution)):
         waypoint1 = solution[index - 1]
         waypoint2 = solution[index]
-        solution_fitness += waypoint_distances[frozenset([waypoint1, waypoint2])]
-    return solution_fitness
+        variable_def += waypoint_distances[frozenset([waypoint1, waypoint2])]
+    return variable_def
 
 def generate_random_agent():
     """
@@ -69,7 +69,7 @@ def run_genetic_algorithm(generations=5000, population_size=100):
         
         `generations` and `population_size` must be a multiple of 10.
     """
-    variable_def = int(population_size / 10.0)
+    population_subset_size = int(population_size / 10.0)
     generations_10pct = int(generations / 10.0)
     population = generate_random_population(population_size)
     for generation in range(generations):
@@ -79,7 +79,7 @@ def run_genetic_algorithm(generations=5000, population_size=100):
                 continue
             population_fitness[agent_genome] = compute_fitness(agent_genome)
         new_population = []
-        for rank, agent_genome in enumerate(sorted(population_fitness, key=population_fitness.get)[:variable_def]):
+        for rank, agent_genome in enumerate(sorted(population_fitness, key=population_fitness.get)[:population_subset_size]):
             if (generation % generations_10pct == 0 or generation == generations - 1) and rank == 0:
                 print('Generation %d best: %d | Unique genomes: %d' % (generation, population_fitness[agent_genome], len(population_fitness)))
                 print(agent_genome)

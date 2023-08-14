@@ -1,3 +1,3 @@
-model_features =model_stats[cross_hash]['labels']
-
-print(model_features)
+# dropped features
+dropped_features = list(set(feature_list) - set(model_features))
+dropped_features

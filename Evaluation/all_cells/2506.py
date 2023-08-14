@@ -1,29 +1,24 @@
-# Define gradient operator for imaging
-from devito import TimeFunction, Operator, Eq, solve
-from examples.seismic import PointSource
+# Run imaging loop over shots
+from devito import Function
 
-def ImagingOperator(model, image):
-    # Define the wavefield with the size of the model and the time dimension
+# Create image symbol and instantiate the previously defined imaging operator
+image = Function(name='image', grid=model.grid)
+op_imaging = ImagingOperator(model, image)
+
+for i in range(nshots):
+    print('Imaging source %d out of %d' % (i+1, nshots))
+    
+    # Update source location
+    geometry.src_positions[0, :] = source_locations[i, :]
+
+    # Generate synthetic data from true model
+    true_d, _, _ = solver.forward(vp=model.vp)
+    
+    # Compute smooth data and full forward wavefield u0
+    smooth_d, u0, _ = solver.forward(vp=model0.vp, save=True)
+    
+    # Compute gradient from the data residual  
     v = TimeFunction(name='v', grid=model.grid, time_order=2, space_order=4)
-
-    u = TimeFunction(name='u', grid=model.grid, time_order=2, space_order=4,
-                     save=geometry.nt)
-    
-    # Define the wave equation, but with a negated damping term
-    eqn = model.m * v.dt2 - v.laplace + model.damp * v.dt.T
-
-    # Use `solve` to rearrange the equation into a stencil expression
-    stencil = Eq(v.backward, solve(eqn, v.backward))
-    
-    # Define residual injection at the location of the forward receivers
-    dt = model.critical_dt
-    residual = PointSource(name='residual', grid=model.grid,
-                           time_range=geometry.time_axis,
-                           coordinates=geometry.rec_positions)    
-    res_term = residual.inject(field=v.backward, expr=residual * dt**2 / model.m)
-
-    # Correlate u and v for the current time step and add it to the image
-    image_update = Eq(image, image - u * v)
-
-    return Operator([stencil] + res_term + [image_update],
-                    subs=model.spacing_map)
+    residual = smooth_d.data - true_d.data
+    op_imaging(u=u0, v=v, vp=model0.vp, dt=model0.critical_dt, 
+               residual=residual)

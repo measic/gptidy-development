@@ -1,6 +1,6 @@
-stoichs = [[1, 1, 0, 0, -1], [1, 0, -1, 1, 0]]  # our 2 equilibria
-H = [1, 1, 4, 3, 2]
-N = [0, 0, 1, 1, 0]
-O = [0, 1, 0, 0, 1]
-q = [1, -1, 1, 0, 0]  # charge
-preserv = [H, N, O, q]
+neqsys = SymbolicSys.from_callback(
+    partial(get_f, lnK=False), n, n+len(K),
+    latex_names=[r'\mathrm{[%s]}' % nam for nam in texnames],
+    latex_param_names=[r'\mathrm{[%s]_0}' % nam for nam in texnames] + [r'K_{\rm w}', r'K_{\rm a}(\mathrm{NH_4^+})']
+)
+neqsys

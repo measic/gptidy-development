@@ -1,32 +1,46 @@
-for i in range(len(multiplier)):
-    scale = multiplier[i]
-    imageToTest = cv.resize(oriImg, (0,0), fx=scale, fy=scale, interpolation=cv.INTER_CUBIC)
+param={}
+param['octave'] = 3
+param['use_gpu'] = 1
+param['starting_range'] = 0.8
+param['ending_range'] = 2
+param['scale_search'] = [0.5, 1, 1.5, 2]
+param['thre1'] = 0.1
+param['thre2'] = 0.05
+param['thre3'] = 0.5
+param['mid_num'] = 4
+param['min_num'] = 10
+param['crop_ratio'] = 2.5
+param['bbox_ratio'] = 0.25
+param['GPUdeviceNumber'] = 3
+
+import scipy
+print heatmap_avg.shape
+
+#plt.imshow(heatmap_avg[:,:,2])
+from scipy.ndimage.filters import gaussian_filter
+all_peaks = []
+peak_counter = 0
+
+for part in range(19-1):
+    x_list = []
+    y_list = []
+    map_ori = heatmap_avg[:,:,part]
+    map = gaussian_filter(map_ori, sigma=3)
     
-    imageToTest_padded, pad = padRightDownCorner(imageToTest, 8, 128)
+    map_left = np.zeros(map.shape)
+    map_left[1:,:] = map[:-1,:]
+    map_right = np.zeros(map.shape)
+    map_right[:-1,:] = map[1:,:]
+    map_up = np.zeros(map.shape)
+    map_up[:,1:] = map[:,:-1]
+    map_down = np.zeros(map.shape)
+    map_down[:,:-1] = map[:,1:]
     
-    transposeImage = np.transpose(np.float32(imageToTest_padded[:,:,:]), (2,0,1))/256 - 0.5
-    #print transposeImage.shape
-    testimage = transposeImage
-    cmodel = mx.mod.Module(symbol=sym, label_names=[])
-    cmodel.bind(data_shapes=[('data', (1,3,
-                                   testimage.shape[1],testimage.shape[2]))])
-    cmodel.init_params(arg_params=arg_params, aux_params=aux_params)
-    onedata = DataBatch(mx.nd.array([testimage[:,:,:]]), 0)
-    
-    cmodel.forward(onedata)
-    result=cmodel.get_outputs()
-    
-    paf = np.moveaxis(result[0].asnumpy()[0], 0, -1)
-    paf = cv.resize(paf, (0,0), fx=model['stride'], fy=model['stride'], interpolation=cv.INTER_CUBIC)
-    paf = paf[:imageToTest_padded.shape[0]-pad[2], :imageToTest_padded.shape[1]-pad[3], :]
-    paf = cv.resize(paf, (oriImg.shape[1], oriImg.shape[0]), interpolation=cv.INTER_CUBIC)
-    print paf.shape
-        
-    paf_avg = paf_avg + paf / len(multiplier)
-    
-    
-    f = plt.figure(i)
-    plt.imshow(oriImg[:,:,[2,1,0]])
-    plt.imshow(paf[:,:,16], alpha=.5)
-    f.show()
-    print(paf.shape)
+    peaks_binary = np.logical_and.reduce((map>=map_left, map>=map_right, map>=map_up, map>=map_down, map > param['thre1']))
+    peaks = zip(np.nonzero(peaks_binary)[1], np.nonzero(peaks_binary)[0]) # note reverse
+    peaks_with_score = [x + (map_ori[x[1],x[0]],) for x in peaks]
+    id = range(peak_counter, peak_counter + len(peaks))
+    peaks_with_score_and_id = [peaks_with_score[i] + (id[i],) for i in range(len(id))]
+
+    all_peaks.append(peaks_with_score_and_id)
+    peak_counter += len(peaks)

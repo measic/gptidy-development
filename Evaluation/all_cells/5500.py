@@ -1,1 +1,1 @@
-type(sig.parameters) #映射代理
+params['x'].annotation

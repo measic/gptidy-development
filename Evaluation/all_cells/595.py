@@ -1,18 +1,20 @@
-# Read in Meulders data and normalize
-meuldersData = pd.read_table(meuldersPath+meuldersName, delim_whitespace=True, 
-                             names=['upE', 'absFlux'])
-meuldersData['absFlux'] = bin_differentiation(meuldersData['upE'],meuldersData['absFlux'],
-                                             edgeLoc=meuldersBinBounds)
-meuldersData['pdfFlux'] = normAUBC(meuldersData['absFlux'])
+# Log
+heprowHisto.plot(meuldersHisto, logY=True, title='33MeV Deutrons on Ta Spectra',
+                 xLabel='Energy [MeV]', yLabel='Neutron PDF',
+                 savePath=outPath+'33MeVTa_pdf_log_1')
+heprowNormHisto.plot(meuldersNormHisto, logY=True, title='33MeV Deutrons on Ta Spectra',
+                 xLabel='Energy [MeV]', yLabel='Neutron Flux [n/MeV/uC/sr]',
+                 savePath=outPath+'33MeVTa_norm_log_1')
+heprowHisto.plot(logY=True, xLabel='Energy [MeV]', yLabel='Neutron Flux [n/MeV/uC/sr]',
+                 savePath=outPath+'33MeVTa', legend=False)
+#heprowCovErrorHisto.plot(heprowErrorHisto, nsdErrorHisto, logY=True, 
+#                         title='16MeV Deutrons on Ta Spectra Errors',
+#                         xLabel='Energy [MeV]', yLabel='Relative Error')
 
-# Build pdf histogram object
-meuldersHisto=Histogram()
-meuldersHisto.build_histo(meuldersData['upE'].tolist(), meuldersData['pdfFlux'].tolist(), 
-                         edgeLoc=meuldersBinBounds, name='Meulders')
-
-# Build norm histogram object
-meuldersNormHisto=Histogram()
-meuldersNormHisto.build_histo(meuldersData['upE'].tolist(), meuldersData['absFlux'].tolist(), 
-                         edgeLoc=meuldersBinBounds, name='Meulders')
-meuldersNormHisto.plot(logY=True, title='33MeV Deutrons on Ta', xLabel='Energy [MeV]',
-                 yLabel='Neutron Intensity [n/MeV/uC/sr]')
+# Linear
+heprowHisto.plot(meuldersHisto, title='33MeV Deutrons on Ta Spectra',
+                 xLabel='Energy [MeV]', yLabel='Neutron PDF',
+                 savePath=outPath+'33MeVTa_pdf_lin_1')
+heprowNormHisto.plot(meuldersNormHisto, title='33MeV Deutrons on Ta Spectra',
+                 xLabel='Energy [MeV]', yLabel='Neutron Intensity [n/MeV/uC/sr]',
+                 savePath=outPath+'33MeVTa_norm_lin_1')

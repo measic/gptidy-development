@@ -1,7 +1,7 @@
-# do the list comprehension explicitly
-result = []
-for i in range(1, 101):
-    if i % 3 == 0:
-        result.append(i)
-        
-print(result)
+# Define a to be a simple list
+a = [1, 2, 3]
+# Assign a to be equal to b 
+b = a
+
+print(a)
+print(b)

@@ -1,4 +1,4 @@
-batch_size = 128
+variable_def = 128
 embedding_size = 128
 skip_window = 1
 num_skips = 2
@@ -8,8 +8,8 @@ valid_examples = np.array(random.sample(range(valid_window), valid_size))
 num_sampled = 64
 graph = tf.Graph()
 with graph.as_default(), tf.device('/cpu:0'):
-    train_dataset = tf.placeholder(tf.int32, shape=[batch_size])
-    train_labels = tf.placeholder(tf.int32, shape=[batch_size, 1])
+    train_dataset = tf.placeholder(tf.int32, shape=[variable_def])
+    train_labels = tf.placeholder(tf.int32, shape=[variable_def, 1])
     valid_dataset = tf.constant(valid_examples, dtype=tf.int32)
     embeddings = tf.Variable(tf.random_uniform([vocabulary_size, embedding_size], -1.0, 1.0))
     softmax_weights = tf.Variable(tf.truncated_normal([vocabulary_size, embedding_size], stddev=1.0 / math.sqrt(embedding_size)))
@@ -20,4 +20,4 @@ with graph.as_default(), tf.device('/cpu:0'):
     norm = tf.sqrt(tf.reduce_sum(tf.square(embeddings), 1, keep_dims=True))
     normalized_embeddings = embeddings / norm
     valid_embeddings = tf.nn.embedding_lookup(normalized_embeddings, valid_dataset)
-    variable_def = tf.matmul(valid_embeddings, tf.transpose(normalized_embeddings))
+    similarity = tf.matmul(valid_embeddings, tf.transpose(normalized_embeddings))

@@ -1,1 +1,1 @@
-df_gme.plot.bar(figsize=(20,8.0),title='Aantal MBO 4 Afgestudeerden - Aangrenzend Secundair')
+df_sector.plot.bar(figsize=(20,8.0),title='Aantal MBO 4 Afgestudeerden - per MBO Sector')

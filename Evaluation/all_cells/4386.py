@@ -1,2 +1,3 @@
-### TODO: Write a function that takes a path to an image as input
-### and returns the dog breed that is predicted by the model.
+## TODO: Execute your algorithm from Step 6 on
+## at least 6 images on your computer.
+## Feel free to use as many code cells as needed.

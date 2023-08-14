@@ -1,1 +1,1 @@
-test.test_GPC(GPC, kernel)
+test.test_optimize_theta(optimize_theta, kernel)

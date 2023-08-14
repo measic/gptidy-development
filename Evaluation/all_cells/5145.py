@@ -1,1 +1,1 @@
-uniao.loc[(uniao['PassagemPreco'].isnull())]
+uniao.loc[(uniao['PassagemPreco']==0.0)]

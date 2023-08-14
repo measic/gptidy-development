@@ -1,3 +1,2 @@
-# Alter elements of a
-a[0] = 100
-print(a)
+# What are some kinds of errors we can raise?
+1 / 0

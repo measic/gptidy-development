@@ -1,8 +1,8 @@
-### TODO: Obtain bottleneck features from another pre-trained CNN.
+from keras.models import Sequential
+from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout, Activation
+from keras.layers.advanced_activations import LeakyReLU
+from keras.layers.pooling import GlobalAveragePooling2D
 
-INCEPTION_BNECK = 'bottleneck_features/DogInceptionV3Data.npz'
+from keras.callbacks import ModelCheckpoint  
+from keras.preprocessing.image import ImageDataGenerator
 
-bottleneck_features = np.load(INCEPTION_BNECK)
-train_incp_bn = bottleneck_features['train']
-valid_incp_bn = bottleneck_features['valid']
-test_incp_bn  = bottleneck_features['test']

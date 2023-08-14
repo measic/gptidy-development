@@ -1,6 +1,6 @@
-variable_def = '/home/pyne-user/Dropbox/UCB/Research/ETAs/88Inch/Data/Experiments/PHS/33MeVTa_29-31Mar17/Unfold/BeamOnly/HEPROW/'
+heprowPath = '/home/pyne-user/Dropbox/UCB/Research/ETAs/88Inch/Data/Experiments/PHS/33MeVTa_29-31Mar17/Unfold/BeamOnly/HEPROW/'
 heprowName = 'mik_Det0_1.gru'
-unfanaName = 'unf_Det0_1.gru'
+variable_def = 'unf_Det0_1.gru'
 gravelName = 'grv_out_Det0_1.flu'
 faltwPHSName = 'faltw_Det0_1.phs'
 measPHSName = 'Inputs/Det0_stat_100_phs_03.phs'

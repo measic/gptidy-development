@@ -1,2 +1,5 @@
-colsums = tmap_anno_gr2.X.sum(axis=0);
-plt.hist(colsums)
+%pylab inline
+plt.rcParams["figure.figsize"] = [9,5]
+
+import time
+start = time.time()

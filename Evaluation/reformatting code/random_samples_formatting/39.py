@@ -1,2 +1,3 @@
-#here the : means "every row" because it is before the comma, and 1 indexes the 2nd column.
-print(E[:,1])
+# round lat-long to 7 decimal points (to prevent fluky floating point .000000000001 stuff) to reduce js data file size
+df_combined['lat'] = df_combined['lat'].round(7)
+df_combined['lon'] = df_combined['lon'].round(7)

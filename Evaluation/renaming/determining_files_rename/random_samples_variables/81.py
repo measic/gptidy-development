@@ -4,17 +4,17 @@ from importlib.util import find_spec, module_from_spec
 
 def check_newer_version(version_inst, version_nec):
     version_inst_split = version_inst.split('.')
-    version_nec_split = version_nec.split('.')
-    for i in range(min(len(version_inst_split), len(version_nec_split))):
-        if int(version_nec_split[i]) > int(version_inst_split[i]):
+    variable_def = version_nec.split('.')
+    for i in range(min(len(version_inst_split), len(variable_def))):
+        if int(variable_def[i]) > int(version_inst_split[i]):
             return False
-        elif int(version_nec_split[i]) < int(version_inst_split[i]):
+        elif int(variable_def[i]) < int(version_inst_split[i]):
             return True
     return True
-variable_def = [('jupyter', '1.0.0'), ('matplotlib', '2.0.2'), ('numpy', '1.13.1'), ('python', '3.6.2'), ('sklearn', '0.19.0'), ('scipy', '0.19.1'), ('nb_conda', '2.2.1')]
+module_list = [('jupyter', '1.0.0'), ('matplotlib', '2.0.2'), ('numpy', '1.13.1'), ('python', '3.6.2'), ('sklearn', '0.19.0'), ('scipy', '0.19.1'), ('nb_conda', '2.2.1')]
 packages_correct = True
 packages_errors = []
-for module_name, version in variable_def:
+for module_name, version in module_list:
     if module_name == 'scikit-learn':
         module_name = 'sklearn'
     if module_name == 'pyyaml':

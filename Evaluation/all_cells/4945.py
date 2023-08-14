@@ -1,20 +1,10 @@
-import scipy.stats as stats
-
-nor = stats.norm
-x = np.linspace(-8, 7, 150)
-mu = (-2, 0, 3)
-tau = (.7, 1, 2.8)
-colors = ["#348ABD", "#A60628", "#7A68A6"]
-parameters = zip(mu, tau, colors)
-
-for _mu, _tau, _color in parameters:
-    plt.plot(x, nor.pdf(x, _mu, scale=1./_tau),
-             label="$\mu = %d,\;\\tau = %.1f$" % (_mu, _tau), color=_color)
-    plt.fill_between(x, nor.pdf(x, _mu, scale=1./_tau), color=_color,
-                     alpha=.33)
-
-plt.legend(loc="upper right")
-plt.xlabel("$x$")
-plt.ylabel("density function at $x$")
-plt.title("Probability distribution of three different Normal random \
-variables");
+# connect the probabilities in `p` with our observations through a
+# Bernoulli random variable.
+with model:
+    observed = pm.Bernoulli("bernoulli_obs", p, observed=D)
+    
+    # Mysterious code to be explained in Chapter 3
+    start = pm.find_MAP()
+    step = pm.Metropolis()
+    trace = pm.sample(120000, step=step, start=start)
+    burned_trace = trace[100000::2]

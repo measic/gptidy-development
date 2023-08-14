@@ -1,1 +1,1 @@
-!easy_install -U setuptools
+!easy_install --user -U GeoBases3K

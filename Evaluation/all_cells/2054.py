@@ -1,9 +1,3 @@
-df_per_day["client-ip-unique-count-MEAN"] =df_per_day["client-ip-unique-count"].mean()
-
-
-df_per_day["AE"]=np.abs(
-    df_per_day["client-ip-unique-count"]- 
-    df_per_day["client-ip-unique-count-MEAN"]
-)
-
-print("Mean Absolute Error: ",df_per_day.AE.mean())
+plt.plot(df_per_day.index,df_per_day['client-ip-unique-count'],label="Unique IP")
+plt.plot(df_per_day.index,df_per_day['cs-username-unique-count'],label="Unique User")
+plt.legend()

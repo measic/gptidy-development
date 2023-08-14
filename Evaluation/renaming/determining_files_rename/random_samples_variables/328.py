@@ -3,6 +3,6 @@ with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
     saver = tf.train.import_meta_graph('./lenet.meta')
     saver.restore(sess, './lenet')
-    variable_def = [normalize(rgb2gray(img)) for img in my_images]
-    my_accuracy = evaluate(variable_def, my_labels)
-    print('Test Set Accuracy = {:.3f}'.format(my_accuracy))
+    my_images_normalized = [normalize(rgb2gray(img)) for img in my_images]
+    variable_def = evaluate(my_images_normalized, my_labels)
+    print('Test Set Accuracy = {:.3f}'.format(variable_def))

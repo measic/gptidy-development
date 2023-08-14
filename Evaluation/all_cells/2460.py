@@ -1,2 +1,1 @@
-obj = (1, 4, 9)
-save_pickle(obj, "sample.pkl")
+from BITS.util.log import print_log

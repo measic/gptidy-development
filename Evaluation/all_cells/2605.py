@@ -1,6 +1,8 @@
-T = 1000  # number of samples
-with tf.name_scope("posterior"):
-    qpi = Empirical(tf.get_variable("qpi/params", [T, K],initializer=tf.constant_initializer(1.0/K)))
-    qmu = Empirical(tf.get_variable("qmu/params", [T, K, D],initializer=tf.zeros_initializer()))
-    qsigma = Empirical(tf.get_variable("qsigma/params", [T, K, D],initializer=tf.ones_initializer()))
-    qz = Empirical(tf.get_variable("qz/params", [T, N],initializer=tf.zeros_initializer(),dtype=tf.int32))
+%%time
+M = 300 # posterior samples
+mu_sample, sigmasq_sample, pi_sample = qmu.sample(M), qsigma.sample(M), qpi.sample(M)
+x_post = Normal(loc=tf.ones([N, 1, 1, 1]) * mu_sample, scale=tf.ones([N, 1, 1, 1]) * tf.sqrt(sigmasq_sample))
+x_broadcasted = tf.cast(tf.tile(tf.reshape(X, [N, 1, 1, D]), [1, M, K, 1]), dtype=tf.float32)
+log_liks = tf.reduce_mean(tf.reduce_sum(x_post.log_prob(x_broadcasted), 3), 1)
+clusters = tf.argmax(log_liks, 1).eval()
+posterior_mu = qmu.params.eval().mean(axis=0)

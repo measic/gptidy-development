@@ -1,13 +1,13 @@
-variable_def = ['b', 'g', 'r', 'k', 'c', 'm', 'y']
+colors = ['b', 'g', 'r', 'k', 'c', 'm', 'y']
 index = 0
 for segment in segments:
-    segDF = data.loc[data['RiverSeg'] == segment]
-    segDF = segDF[segDF["lam'"] > 0]
-    segDF = segDF.sort_values('Year')
-    x = segDF['Year']
-    y = segDF["N10'"]
+    variable_def = data.loc[data['RiverSeg'] == segment]
+    variable_def = variable_def[variable_def["lam'"] > 0]
+    variable_def = variable_def.sort_values('Year')
+    x = variable_def['Year']
+    y = variable_def["N10'"]
     y.name = segment
-    plt.plot(x, y, variable_def[index])
+    plt.plot(x, y, colors[index])
     plt.legend(loc=(1.05, 0.2))
     index += 1
 plt.title("Hill N10', " + river + ' River Segments')

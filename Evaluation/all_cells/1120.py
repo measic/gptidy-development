@@ -1,1 +1,1 @@
-# events = epoch.events[:,-1]
+# labels = [x for x in events if x == 133 or x == 134]

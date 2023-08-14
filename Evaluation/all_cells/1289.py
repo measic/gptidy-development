@@ -1,8 +1,5 @@
-#aggregate mean value for plotting
-df0_10k_grouped = df0_10k_edit9.groupby(['region']).mean()
+#test group by region
+table10k = df0_10k_grouped.drop(['tuition_in_state','earnings6years',
+                                 'earnings10years','earnings_cost_ratio','earnings_growth_y6_y10'], axis = 1)
 
-df10_18k_grouped = df10_18k_edit.groupby(['region']).mean()
-
-df18_32_grouped = df18_32.groupby(['region']).mean()
-
-df32_grouped = df32.groupby(['region']).mean()
+table10k.rename(columns={'weighted_growth_to_tuition':'Worth-It Ratio'})

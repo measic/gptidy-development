@@ -1,1 +1,2 @@
-flor.Experiment("risecamp_demo").__exit__()
+#Run the experiment
+report.pull("first_pull")

@@ -1,1 +1,1 @@
-df.shape
+print(count.vocabulary_)

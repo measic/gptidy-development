@@ -1,18 +1,12 @@
-timings_cuckoo_2 = sorted(timings_cuckoo.items()) #redundant variable, but doing this to make sure this cell can be rerun
-timings_bloom_2 = sorted(timings_bloom.items())
-
-load_factors_emp = []
-cuckoo_times_array = []
-bloom_times_array = []
-
-for key, times in timings_cuckoo_2:
-    load_factors_emp.append(key)
-    current_y = [np.percentile(times, p) for p in (25, 50, 75)]
-    cuckoo_times_array.append(current_y)
-    
-for key, times in timings_bloom_2:
-    current_y = [np.percentile(times, p) for p in (25, 50, 75)]
-    bloom_times_array.append(current_y)
-    
-cuckoo_times_array = np.asarray(cuckoo_times_array)
-bloom_times_array = np.asarray(bloom_times_array)
+def insert_and_time_filter_cuckoo_filter(capacity, percent_fill=0.9):
+    num_inserted = 0
+    c_filter = CuckooFilter(capacity, 2)
+    now = time.time()
+    for i in range(int(percent_fill*capacity)):
+        try:
+            c_filter.insert(str(i))
+            num_inserted += 1
+        except Exception("CuckooFilter has filled up!"):
+            break
+    elapsed_insertion = time.time() - now
+    return c_filter, elapsed_insertion, num_inserted

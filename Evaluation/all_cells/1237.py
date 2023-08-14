@@ -1,14 +1,7 @@
-#### Given parameters
-mean1 = np.array([1,1])
-mean2 = np.array([-1,-1])
-cov1 = np.array([[3,2],[2,3]])
-cov2 = np.array([[2,-1],[-1,2]])
+#-------------Part 2----------------
 
-#### Generating dataset and spliting dataset
-c1 = Data_set(mean1,cov1)
-c1 = c1.multivariate_normal(200)
-c1 = c1.split_data()
-# c1.train, c1.test
-c2 = Data_set(mean2,cov2)
-c2 = c2.multivariate_normal(200)
-c2 = c2.split_data()
+# Overall mean & covariance
+train_data = np.vstack((c1.train, c2.train))
+test_data  = np.vstack((c1.test, c2.test))
+# mu_est     = [np.mean(train_data[:,0]),np.mean(train_data[:,1])]
+cov_est    = np.cov(test_data.T)   # Transopose data to get correct covariance

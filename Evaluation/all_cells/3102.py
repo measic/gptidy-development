@@ -1,1 +1,2 @@
-raveled = np.ravel(test_black)
+plt.imshow(test_black)
+plt.show();

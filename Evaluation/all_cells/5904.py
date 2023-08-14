@@ -1,8 +1,7 @@
-# Sanity check:
-np.random.seed(1243)
-w = np.zeros((28*28, 10))
-b = np.zeros(10)
-    
-logp_train, W, b = sgd_iter(x_train[:5], t_train[:5], w, b)
-
-
+## TO BE REMOVED!
+scores = []
+for x, t in zip(x_valid, t_valid):
+    _, _, logp_valid = logprob(x, w, b)
+    pred = np.argmax(logp_valid)
+    scores.append(1 if pred == t else 0)
+print(mean(scores))

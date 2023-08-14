@@ -1,2 +1,2 @@
-x2, variable_def, x4 = powers(3)
-print(variable_def)
+variable_def, x3, x4 = powers(3)
+print(x3)

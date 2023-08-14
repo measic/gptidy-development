@@ -1,4 +1,6 @@
-print(bigquery.WriteDisposition.WRITE_TRUNCATE)
-print(bigquery.WriteDisposition.WRITE_APPEND)
-print(bigquery.SourceFormat.NEWLINE_DELIMITED_JSON)
-print(bigquery.SourceFormat.CSV)
+filename = 'gs://sarasmaster/kopari/shopify/products/products_1.json'
+datasetid = 'kopari'
+tablename = 'shopify_products'
+delimitertype = 'NEWLINE_DELIMITED_JSON'
+loadtype = 'WRITE_TRUNCATE'
+loadfiletobigquery(filename, datasetid, tablename, delimitertype, loadtype, None)

@@ -1,10 +1,17 @@
-## plot the input data and the new set of axes
-ax = plt.gca()
-plot_gmm(initial_guess, X, label=labels, ax=ax)
+Sigma1_hat =  S1/(N1 - 1)
 
-p = -6.0*v2
-v2l = 10.0*v2 
+print('Class: 1')
 
-ax.quiver(p[0],p[1],v2l[0],v2l[1], units = 'xy',scale=1)
-ax.text(v2l[0] + p[0], v2l[1] + p[1], 'y')
-ax.grid()
+print(' Covariance matrix estimation Sigma_1: ')
+Sigma1_hat
+print(' Covariance matrix expected Sigma_1:')
+Sigma1
+
+Sigma2_hat = S2/(N2 - 1)
+
+print('Class: 2')
+print(' Covariance matrix estimation Sigma_2:')
+Sigma2_hat
+
+print(' Covariance matrix expected Sigma_2:')
+Sigma2

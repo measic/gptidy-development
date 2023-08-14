@@ -1,71 +1,24 @@
-from IPython.display import display
-from IPython.display import HTML
-from ipywidgets import interact
-import ipywidgets as widgets
+samples = {}
 
-#import matplotlib.pyplot as plt
-#import numpy as np
-#import nbinteract as nbi
+samples[0x1] = [[(360,483),(523,620),(366,631),(413,488)]]
 
-# funciones necesarias
-
-# esta es la funcion de cuota mensual total
-def get_cuota_mensual_total(p, i, n):
-    num = p * i * (i+1)**n
-    den = (i+1)**n - 1
-    return num/den
-
-# esta es la funcion de deuda capital en el mes t
-def get_deuda_capital(p, i, n, t):
-    coef = (((1+i)**t) - 1) / (((1+i)**n) - 1)
-    return p * ( 1 - coef )
-
-# esta funcion muestra la evolucion mes a mes del credito
-def mostrar_evolucion_credito(P, I, N):
+"""valid samples for touchcode 0x80"""
+samples[0x80] = [[(1643,614),(1450,649),(1555,663),(1568,731)],
+           [(577,629),(379,577),(471,631),(453,701)],
+           [(1486,68),(1638,213), (1581,119),(1628,69)],
+           [(1676,651),(1530,799),(1619,750),(1675,791)],
+           [(176,469), (320,324),(225,373),(175,324)],            
+           [(725,544),(860,697),(819,599),(869,557)],
+           [(346,509),(494,368),(399,415),(346,367)],
+           [(769,593),(750,792),(793,695),(865,701)],
+            [(269,202),(477,205),(375,164),(382,93)]]
     
-    p = P
-    i = I / 12.0 * 0.01
-    n = N * 12
-    
-    # calculo cuota mensual total
-    cuota_total = get_cuota_mensual_total(p, i, n)
-    print("Tu cuota mensual es de AR$ " + str(cuota_total) + "\n")
+"""valid samples for touchcode 0x10"""
+samples[0x10] = [[(552,647),(363,572),(467,578),(423,707)],
+                 [(382,429),(464,244),(452,345),(325,294)],
+                [(1533,244),(1540,447), (1500,346),(1641,334)],
+                [(199,589),(405,620),(302,637),(320,505)]]
 
-    cuota_capital = []
-    cuota_interes = []
-    deuda_capital = []
-    t_array = []
-    print("Este es tu listado de cuotas por mes: \n")
-    print("MES \t CAPITAL \t INTERESES \t CAPITAL ADEUDADO")
-
-    for t in range(1, n+1):    
-
-        t_array.append(t)
-        cuota_capital.append(get_deuda_capital(p, i, n, t-1) - get_deuda_capital(p, i, n, t))
-        cuota_interes.append(cuota_total - cuota_capital[t-1])
-        deuda_capital.append(get_deuda_capital(p, i, n, t))
-
-        print(str(t) + "         " + \
-              str('%.2f'%(cuota_capital[t-1])) + "         " + \
-              str('%.2f'%(cuota_interes[t-1])) + "         " + \
-              str('%.2f'%(deuda_capital[t-1]))
-             )
-
-#meses = np.linspace(1, 20*12, 20*12)
-#def get_mes(N):
- #   return np.linspace(1, N, N)
-
-def get_cuota_mensual_total_2(xs):
-    print("hi")
-    p=1000000
-    i=0.14
-    out = []
-    for n in xs:
-        #print(n)
-        num = p * i * (i+1)**n
-        den = (i+1)**n - 1
-        out.append(num/den)
-    return out
-
-#nbinteract --spec BrunoAlvarez89/PrestamoBanco/master prestamo_banco.ipynb
-#nbi.line(get_mes, get_cuota_mensual_total_2, N=(1, 240))
+"""invalid samples (touchcode -1)"""
+samples[-1] = [[(303,152), (379,577),(368,171),(368,285)],
+           [(1473,235),(1417,328),(1563,340),(1624,263)]]

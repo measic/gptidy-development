@@ -1,4 +1,21 @@
-# idea for the code and visualization provided by the mentor in the review
+from sklearn.cluster import KMeans
+from sklearn.metrics import silhouette_score
 
-# Produce a scatter matrix for pca reduced data
-pd.scatter_matrix(reduced_data, alpha = 0.8, figsize = (9,5), diagonal = 'kde');
+n_clusters = 2
+
+# TODO: Apply your clustering algorithm of choice to the reduced data 
+clusterer = KMeans(n_clusters=n_clusters, random_state=10)
+clusterer = clusterer.fit(reduced_data)
+
+# TODO: Predict the cluster for each data point
+preds = clusterer.predict(reduced_data)
+
+# TODO: Find the cluster centers
+centers = clusterer.cluster_centers_
+
+# TODO: Predict the cluster for each transformed sample data point
+sample_preds = clusterer.predict(pca_samples)
+
+# TODO: Calculate the mean silhouette coefficient for the number of clusters chosen
+score = silhouette_score(reduced_data, preds)
+print("{} => {}".format(n_clusters, score))

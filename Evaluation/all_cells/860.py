@@ -1,7 +1,9 @@
-r_i = data1["semi_major_axis"]
-m_i = data1["mass"]
-#the multiplications between columns:
-rm_i = r_i.multiply(m_i)
-data1 = data1.assign(CM_i=rm_i.values) #New colimn in DataFrame with CM value, per each planet in the system. 
-p_system = data1.groupby("star_name")
-#p_system.count()
+from sklearn.mixture import GMM
+import matplotlib.pyplot as plt
+
+gmm = GMM(2, covariance_type='full', random_state=0)
+A=data1[["total_mass","center_of_Mass"]]
+gmm.fit(A.values)
+cluster_label = gmm.predict(A.values)
+A.values[:, 0]
+plt.scatter(A.values[:, 0], A.values[:, 1], c=cluster_label);

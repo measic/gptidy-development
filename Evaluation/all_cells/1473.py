@@ -1,9 +1,5 @@
-#extract a column from dataframe df3
-nums = df3['y']
-print(nums)
-print(type(nums))
-#convert to a numpy array
-realnums = np.array(nums)
-print('After conversion')
-print(type(realnums))
-print(realnums)
+# append the second record to the first
+word_data2 = ['lots','more','stuff']
+pic_data2 = pic_data
+data_dic2 = {'word':word_data2, 'pic':pic_data2, 'subjectname':'Jane Bloggs', 'subjectage':18 }
+print(data_dic2)

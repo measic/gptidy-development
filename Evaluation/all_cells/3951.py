@@ -1,2 +1,1 @@
-# Run me
-from florfunctions import traintest_split
+ex = flor.Experiment('risecamp_demo').__enter__()

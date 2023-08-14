@@ -1,12 +1,16 @@
-clip_all_weights = tf.get_collection("max_norm")
+url = 'http://mattmahoney.net/dc/'
 
-with tf.Session() as sess:
-    init.run()
-    for epoch in range(n_epochs):
-        for X_batch, y_batch in shuffle_batch(X_train, y_train, batch_size):
-            sess.run(training_op, feed_dict={X: X_batch, y: y_batch})
-            sess.run(clip_all_weights)
-        accuracy_val = accuracy.eval(feed_dict={X: X_valid, y: y_valid}) # 책에는 없음
-        print(epoch, "검증 세트 정확도:", accuracy_val)                      # 책에는 없음
+def maybe_download(filename, expected_bytes):
+  """Download a file if not present, and make sure it's the right size."""
+  if not os.path.exists(filename):
+    filename, _ = urlretrieve(url + filename, filename)
+  statinfo = os.stat(filename)
+  if statinfo.st_size == expected_bytes:
+    print('Found and verified %s' % filename)
+  else:
+    print(statinfo.st_size)
+    raise Exception(
+      'Failed to verify ' + filename + '. Can you get to it with a browser?')
+  return filename
 
-    save_path = saver.save(sess, "./my_model_final.ckpt")                # 책에는 없음
+filename = maybe_download('text8.zip', 31344016)

@@ -1,2 +1,4 @@
-## solving the system with A as a sparse matrix
-%timeit -r1 -n1 spsolve(A, b)
+## check if both give the same result
+x = spsolve(A, b)
+x_ = np.linalg.solve(A_, b)
+np.allclose(x, x_)

@@ -1,3 +1,3 @@
-# tuples are also objects, and have attached methods
-# this one counts the number of times an element occurs
-my_tuple.count(5)
+# Create overlapping sets
+set1 = set([1,2,3,4,5])
+set2 = set([4,5,6,7,8])

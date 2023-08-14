@@ -1,5 +1,5 @@
-with model:
-    # To Be Explained in Chapter 3!
-    step = pm.Metropolis()
-    trace = pm.sample(25000, step=step)
-    burned_trace = trace[2500:]
+N = 10
+x = np.ones(N, dtype=object)
+with pm.Model() as model:
+    for i in range(0, N):
+        x[i] = pm.Exponential('x_%i' % i, (i+1.0)**2)

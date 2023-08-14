@@ -1,5 +1,1 @@
-data = np.array([[1., 2., 0.],
-                 [0., 0., 0.],
-                 [2., 2., 0.]])
-centroids = np.array([[0.5, 0.5, 0.],
-                      [0., -0.5, 0.]])
+cluster_assignment==1

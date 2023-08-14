@@ -1,1 +1,1 @@
-top.groupby('breed')['rating'].describe()
+df.rating.value_counts()

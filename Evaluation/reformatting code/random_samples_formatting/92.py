@@ -1,10 +1,8 @@
-## Example
-A = np.array([[1, 0, 0],
-              [4, 5, 0],
-              [7, 8, 9]])
+from keras.models import Sequential
+from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout, Activation
+from keras.layers.advanced_activations import LeakyReLU
+from keras.layers.pooling import GlobalAveragePooling2D
 
-b = np.array([1, 2, 3]) 
+from keras.callbacks import ModelCheckpoint  
+from keras.preprocessing.image import ImageDataGenerator
 
-## solve system
-x = forward_sub(A, b)
-print( x )

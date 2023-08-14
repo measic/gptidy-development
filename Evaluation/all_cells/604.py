@@ -1,59 +1,51 @@
-def blockMotionVaryingMasses (t, blockPositions, vBlock, i, blockNum, kp, kc, mass, F0, v0, vf):
+def countQuakes (earthquakes, blockNum, timeStep):
     """
-    Returns the differential equation that models the motion of the blocks
+    Produces a list of each earthquake and its magnitude
     
-    Arguments:  t - time
-                blockPositions - the positions of the blocks
-                vBlock - the velocity of the block
-                i - the index of the current block
+    Arguments:  earthquakes - the array containing all earthquake data
                 blockNum - the number of blocks
-                kp - spring constant of leaf springs
-                kc - spring constant of springs between blocks
-                mass - masses of individual blocks
-                F0 - the static friction force
-                v0 - initial velocity of top plate
-                vf - the friction coefficient
+                i - the block index to be examined
                 
-    Returned: The differential equation modeling the motion of the individual blocks
+    Returned: a list containing the magnitude of each earthquake
+    """    
+    quakes = []
+    time = []
+    count = 0
+    quakeNum = -1
+    dvOld = 0
     
-    Examples:
-    
-    >>> blockMotion (0, (0, 1, 2, 3, 4), 0, 2, 5, 0, 0, 1, 0, 1, 20)
-    array([ 0.,  0.])
-    
-    """
-    # Sets position and velocity of the block
-    xi = blockPositions[i] - i
-    vi = vBlock
-    mi = mass[i]
-    
-    # Block motion for the first block, connected to a block one distance unit away
-    if i == 0:
-        xiP = blockPositions[i + 1] - (i + 1)
-        springForce = kc*(xiP - xi) + kp * (v0 * t - xi)
-    
-    # Block motion for the last block, connected to a block one distance unit away
-    elif i == blockNum - 1:
-        xiM = blockPositions[i - 1] - (i - 1)
-        springForce = kc*(xiM - xi) + kp * (v0 * t - xi)
-   
-    # Block motion for all the middle blocks, connected to their neighbors
-    else:
-        xiM = blockPositions[i - 1] - (i - 1)
-        xiP = blockPositions[i + 1] - (i + 1)
-        springForce = kc*(xiP + xiM - 2 * xi) + kp * (v0 * t - xi)
-    
-    frictionForce = friction (vi, vf, F0)
-    
-    # If spring force is large enough to overpower friction, change velocity
-    if abs(springForce) <= abs(frictionForce):
-        dv = -vi
-        vi = 0
-        dx = vi
-    
-    else: 
-        totalForce = (springForce + frictionForce) / mi
-        dx = vi
-        dv = totalForce
+    # Repeats for each row of earthquakes
+    while count < len(earthquakes):
         
-    return np.array([dx, dv], float)
+        # Determines if any of the blocks are moving
+        dv = 0
+        for i in range (0, blockNum):
+            if dv < earthquakes[count, blockNum + i + 1]:
+                dv = earthquakes[count, blockNum + i + 1]
+        
+        # If any of the blocks are accelerating add an earthquake
+        if dv > dvOld:
+            quakeNum += 1
+            quakes.append(0)
+            time.append(earthquakes[count, 0])
+            
+            # Add the motion from all the blocks until the earthquake stops
+            earthquakeLength = 0
+            while dv > 0.0001 and count < len(earthquakes) - 1 and earthquakeLength < 200:
+
+                for i in range (0, blockNum):
+                    quakes[quakeNum] += earthquakes[count, blockNum + i + 1] * timeStep
+
+                # Incriments count and recalculates dv
+                count += 1            
+                dv = 0
+                for i in range (0, blockNum):
+                    if dv < earthquakes[count, blockNum + i + 1]:
+                        dv = earthquakes[count, blockNum + i + 1]
+                earthquakeLength += 1
+    
+        else:
+            count += 1
+        dvOld = dv
+        
+    return time, quakes

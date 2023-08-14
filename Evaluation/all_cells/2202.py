@@ -1,2 +1,3 @@
-x00, x01, x02 = v.parent().variables()[0]
-v.symmetric_derivative((1,))
+op_pol = polarization_operators(2, max_deg=v.degree())
+W2 = PolarizedSpace(IsotypicComponent(W1, 3), op_pol)
+character(W2)

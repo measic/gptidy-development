@@ -1,14 +1,14 @@
-# Fill in gaps in unique column with nunique method
+unique_datatypes = list(merged["data_type"].unique())
 
-for index in range(merged.shape[0]):
+print("Unique datatypes in this dataset are: {}".format(unique_datatypes))
+
+if "float64" in unique_datatypes or "int64" in unique_datatypes:
     
-    unique_value = merged.loc[index, "unique"]
+    round_values = True
+    rounded_places = 4
     
-    if numpy.isnan(unique_value):
+    for column in ["mean", "std", "min", "25%", "50%", "75%", "max"]:
         
-        feature_name = merged.loc[index, "index"]
-        
-        
-        number_of_uniques = data[feature_name].nunique()
-        merged.loc[index, "unique"] = number_of_uniques
-        print("Feature {} unique values being calculated and adjusted to {}".format(feature_name, number_of_uniques))
+        merged[column] = merged[column].astype(float).round(rounded_places)
+else:
+    round_values = False

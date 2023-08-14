@@ -1,1 +1,1 @@
-model.compile(optimizer='rmsprop', loss='categorical_crossentropy', metrics=['accuracy'])
+model.load_weights('saved_models/weights.best.from_scratch.hdf5')

@@ -1,21 +1,6 @@
-# Store list of features relevant to dictionary
-merged_attributes = list(merged.columns)
-merged_attributes.remove("index")
-
-# Iterate through merged records
-for index in range(merged.shape[0]):
+with open(exportpath + "profile.json", "w") as fileobj:
+    # for errors I want to attempt to convert the value to a float before str using
+    # the function defined above
+    json.dump(profile_dict, fileobj, default = convert_invalid_values)
     
-    # Store column name
-    column = merged.loc[index, "index"]
-    
-    # Create empty list, to store sub dictionaries in
-    profile_dict[column] = []
-    
-    # For each attribute in merged_attributes list do this
-    for attr in merged_attributes:
-        
-        # Locate the value of the attribuet for a given record
-        value = merged.loc[index, attr]
-        
-        # Append dictionary to list within main dictionary
-        profile_dict[column].append({attr: value})
+fileobj.close()

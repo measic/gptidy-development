@@ -1,4 +1,12 @@
-### set up data for modeling
-X_5K = boston_clean[['Bib','Age','Official Time Duration', 'F', 'M', 'Temp (F)']]
-y_5K = boston_clean['5K Duration'].values.reshape(-1, 1)
-print(X_5K.shape, y_5K.shape)
+# from sklearn.preprocessing import StandardScaler
+
+
+# X_scaler = StandardScaler().fit(X_train)
+# y_scaler = StandardScaler().fit(y_train)
+
+### Transform the training and testing data using the your `StandardScaler` models created above
+
+# X_train_scaled = X_scaler.transform(X_train)
+# X_test_scaled = X_scaler.transform(X_test)
+# y_train_scaled = y_scaler.transform(y_train)
+# y_test_scaled = y_scaler.transform(y_test)

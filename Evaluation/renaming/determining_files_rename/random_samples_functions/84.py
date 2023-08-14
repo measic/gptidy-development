@@ -43,14 +43,14 @@ def scale(train, test):
     test_scaled = scaler.transform(test)
     return (scaler, train_scaled, test_scaled)
 
-def function_def(scaler, X, value):
+def invert_scale(scaler, X, value):
     new_row = [x for x in X] + [value]
     array = numpy.array(new_row)
     array = array.reshape(1, len(array))
     inverted = scaler.inverse_transform(array)
     return inverted[0, -1]
 
-def fit_lstm(train, batch_size, nb_epoch, neurons):
+def function_def(train, batch_size, nb_epoch, neurons):
     X, y = (train[:, 0:-1], train[:, -1])
     X = X.reshape(X.shape[0], 1, X.shape[1])
     model = Sequential()
@@ -73,14 +73,14 @@ supervised = timeseries_to_supervised(diff_values, 1)
 supervised_values = supervised.values
 train, test = (supervised_values[0:-12], supervised_values[-12:])
 scaler, train_scaled, test_scaled = scale(train, test)
-lstm_model = fit_lstm(train_scaled, 1, 3000, 4)
+lstm_model = function_def(train_scaled, 1, 3000, 4)
 train_reshaped = train_scaled[:, 0].reshape(len(train_scaled), 1, 1)
 lstm_model.predict(train_reshaped, batch_size=1)
 predictions = list()
 for i in range(len(test_scaled)):
     X, y = (test_scaled[i, 0:-1], test_scaled[i, -1])
     yhat = forecast_lstm(lstm_model, 1, X)
-    yhat = function_def(scaler, X, yhat)
+    yhat = invert_scale(scaler, X, yhat)
     yhat = inverse_difference(raw_values, yhat, len(test_scaled) + 1 - i)
     predictions.append(yhat)
     expected = raw_values[len(train) + i + 1]

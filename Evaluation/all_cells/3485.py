@@ -1,2 +1,2 @@
-for word in ["scientific", "computing", "with", "python"]:
-    print(word)
+for idx, x in enumerate(range(-3,3)):
+    print(idx, x)

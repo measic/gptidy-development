@@ -1,21 +1,19 @@
-#@title MIT License
-#
-# Copyright (c) 2017 François Chollet
-#
-# Permission is hereby granted, free of charge, to any person obtaining a
-# copy of this software and associated documentation files (the "Software"),
-# to deal in the Software without restriction, including without limitation
-# the rights to use, copy, modify, merge, publish, distribute, sublicense,
-# and/or sell copies of the Software, and to permit persons to whom the
-# Software is furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+class getMovieByGendre(object):
+    def __init__(self):
+        self.site = 'http://www.imdb.com/search/title?' 
+        
+    def gendre(self,type_movie):
+
+        #type_movie could be  Action,Adventure,Animation,Biography,Comedy,Crime,Documentary,
+        #Drama,Family,Fantasy,Film-Noir,History,Horror,Music,Musical,Mystery,Romance,Sci-Fi,
+        #Short,Sport,Thriller,War,Western
+        
+        reference_list = []
+        for i in range(0,2):
+            link = self.site + 'genres=' + type_movie + '&page='+ str(i)
+            html = requests.get(link)
+            soup = BeautifulSoup(html.text,"html.parser")   
+            for reference in soup.find_all("div", {"class": "lister-item-image float-left"}):
+                reference_list.append(reference.find('img',alt = True).get('data-tconst'))
+            return reference_list 
+        

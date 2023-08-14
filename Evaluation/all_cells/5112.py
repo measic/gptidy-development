@@ -1,2 +1,2 @@
-### Resposta: Não
-train.groupby(['Sobreviventes','Classe','Sexo']).size()
+### pearson
+train.corr(method='pearson')

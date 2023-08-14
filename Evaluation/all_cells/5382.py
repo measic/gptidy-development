@@ -1,2 +1,2 @@
-# Load the 'sim_no-learning' log file from the initial simulation results
-vs.plot_trials('sim_no-learning.csv')
+# Load the 'sim_improved-learning' file from the improved Q-Learning simulation
+vs.plot_trials('sim_improved-learning.csv')

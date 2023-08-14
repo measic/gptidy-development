@@ -1,24 +1,20 @@
-#ignore
-def decode(batch, lang="en"):
-  if lang == 'en':
-    tokenizer = subword_encoder_en
-  else:
-    tokenizer = subword_encoder_zh
+# Plot graph density for each threshold. 
+thresh_array = []
+density_distr = []
 
-  result = []
-  for e0 in range(batch.shape[0]):
-    idx_sequence = batch[e0].numpy()
-    sentence = []
-    for idx in idx_sequence:
-      if idx == 0:
-        token = '<pad>'
-      elif idx == tokenizer.vocab_size:
-        token = '<start>'
-      elif idx == tokenizer.vocab_size + 1:
-        token = '<end>'
-      else:
-        token = tokenizer.decode([idx])
-      sentence.append(token)
-    result.append(sentence)
+for i in np.arange(0.1, 1, 0.1):
+    density_array = []
+    for j in range(1, int(num_examples/5)):
+        corr_mat = corr_tensor[j*5, :, :].copy()
+        corr_mat[(corr_mat > -1*i) & (corr_mat < i)] = 0
+        G, density = make_graph(corr_mat, nodes, 'signed')
+        
+        density_array.append(density)
     
-  return np.array(result)
+    density_distr.append(density_array)
+
+plt.boxplot(density_distr)
+plt.ylabel("Graph Density")
+plt.xlabel("Correlation Threshold (10^-1)")
+plt.title("Density vs Threshold")
+plt.show()

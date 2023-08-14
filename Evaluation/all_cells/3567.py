@@ -1,1 +1,1 @@
-w.get_step_object(step = 3, subset = subset_uuid).indicator_objects[indicator].get_ref_value_type(water_body = wb)
+dw_obj.set_water_body_indicator_df(water_body = wb)

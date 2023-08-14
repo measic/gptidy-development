@@ -1,6 +1,5 @@
-import pandas as pd
-import numpy as np
-from os import listdir
-import matplotlib.pyplot as plt
-from scipy.stats import pearsonr 
-import seaborn as sb
+model = sm.tsa.ARIMA(df_per_day_train,(1,0,4)).fit()
+
+predictions = model.predict(300,302,dynamic=True)
+
+predictions

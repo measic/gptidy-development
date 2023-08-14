@@ -1,13 +1,6 @@
-plt.figure(figsize=(12,12))
-
-plt.subplot(2, 2, 1)
-rv_plot(theta, omega, 8000, 9000, title='knee flexion (up single stair)')
-
-plt.subplot(2, 2, 2)
-rv_plot(theta, omega, 22000, 23000, title='knee flexion (down single stair)')
-
-plt.subplot(2, 2, 3)
-rv_plot(theta, omega, 56000, 58000, title='knee flexion (up double stair)')
-
-plt.subplot(2, 2, 4)
-rv_plot(theta, omega, 66000, 68000, title='knee flexion (down double stair)')
+a1_x = np.array(df['a1_x']/10000)[1500:]
+a1_y = np.array(df['a1_y']/10000)[1500:]
+a1_z = np.array(df['a1_z']/10000)[1500:]
+a2_x = np.array(df['a2_x']/10000)[1500:]
+a2_y = np.array(df['a2_y']/10000)[1500:]
+a2_z = np.array(df['a2_z']/10000)[1500:]

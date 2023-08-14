@@ -1,10 +1,15 @@
-gbrt_slow = GradientBoostingRegressor(max_depth=2, n_estimators=20, learning_rate=0.1, random_state=42, warm_start=True)
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error
 
-gbrt_slow.fit(X, y)
-y_pred = gbrt_slow.predict(X)
-print(gbrt_slow.loss_(y, y_pred))
+X_train, X_val, y_train, y_val = train_test_split(X, y, random_state=49)
 
-gbrt_slow.fit(X, y)
-y_pred = gbrt_slow.predict(X)
+gbrt = GradientBoostingRegressor(max_depth=2, n_estimators=120, random_state=42)
+gbrt.fit(X_train, y_train)
 
-print(gbrt_slow.loss_(y, y_pred))
+errors = [mean_squared_error(y_val, y_pred)
+          for y_pred in gbrt.staged_predict(X_val)]
+bst_n_estimators = np.argmin(errors)
+
+gbrt_best = GradientBoostingRegressor(max_depth=2,n_estimators=bst_n_estimators, random_state=42)
+gbrt_best.fit(X_train, y_train)

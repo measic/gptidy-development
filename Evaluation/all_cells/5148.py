@@ -1,3 +1,2 @@
-### Sim alguns.
-passageiros=uniao.loc[(uniao['Cabine']=='SEM_CABINE') & (uniao['Idade']>=50.5) & (uniao['PortoEmbarque']=='S') & (uniao['Classe']==3) & (uniao['Sexo']=='male')]
-passageiros
+uniao.loc[(uniao['PassagemPreco'].isnull()),'PassagemPreco']= passageirosMedia
+teste.loc[(teste['PassagemPreco'].isnull()),'PassagemPreco']= passageirosMedia

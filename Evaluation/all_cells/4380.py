@@ -1,1 +1,1 @@
-### TODO: Obtain bottleneck features from another pre-trained CNN.
+### TODO: Compile the model.

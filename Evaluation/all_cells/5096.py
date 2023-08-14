@@ -1,1 +1,2 @@
-train.groupby('Sobreviventes').size()
+### Resposta: Não
+train.groupby(['Sobreviventes','PortoEmbarque']).size()

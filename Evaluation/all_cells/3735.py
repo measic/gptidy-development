@@ -1,1 +1,1 @@
-science.plot_sources_kde(bandwidth=15/60)
+ext_nicer = science.nicer(control=control)

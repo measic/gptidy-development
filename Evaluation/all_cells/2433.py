@@ -1,1 +1,1 @@
-cigar.reverse()
+cigar.flatten().unflatten().string

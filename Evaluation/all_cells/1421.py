@@ -1,2 +1,3 @@
-#These indices can be used to extract the array from A meeting condition D (same result as above)
-print(A[F])
+#the parentheses are for clarity only. Which cats are type 2?
+cat2 = (cat == 2)
+print(cat2)

@@ -1,2 +1,1 @@
-cy = newcyjsWidget()
-cy
+cy.getResponse()

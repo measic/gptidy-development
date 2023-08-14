@@ -1,19 +1,16 @@
-# Load pickled data
-import pickle
+### Preprocess the data here. It is required to normalize the data. Other preprocessing steps could include 
+### converting to grayscale, etc.
+### Feel free to use as many code cells as needed.
+import tensorflow as tf
+import numpy as np
+from sklearn.utils import shuffle
+# import cv2
 
-# TODO: Fill this in based on where you saved the training and testing data
+# for img in X_train:
+#     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+X_train_normal = np.array(X_train/255 - 0.5)
+X_valid_normal = np.array(X_valid/255 - 0.5)
+X_test_normal = np.array(X_test/255 - 0.5)
 
-training_file = "../traffic-signs-data/train.p"
-validation_file="../traffic-signs-data/valid.p"
-testing_file = "../traffic-signs-data/test.p"
-
-with open(training_file, mode='rb') as f:
-    train = pickle.load(f)
-with open(validation_file, mode='rb') as f:
-    valid = pickle.load(f)
-with open(testing_file, mode='rb') as f:
-    test = pickle.load(f)
-    
-X_train, y_train = train['features'], train['labels']
-X_valid, y_valid = valid['features'], valid['labels']
-X_test, y_test = test['features'], test['labels']
+EPOCHS = 15
+BATCH_SIZE = 128

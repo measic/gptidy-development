@@ -1,1 +1,1 @@
-sn.plot_lc(multiplot=False)
+sn.plot_mangledspec()

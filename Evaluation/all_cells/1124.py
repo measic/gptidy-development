@@ -1,3 +1,1 @@
-# df = pd.DataFrame(data = results)
-# df['labels'] = events
-# df.head()
+# normed_X = normalize(X)

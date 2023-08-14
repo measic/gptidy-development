@@ -1,6 +1,2 @@
-df = pd.read_csv('data.csv',
-                 header=None,
-                 names=['year', 'journal', 'media', 'authors', 'paper_name'],
-                 usecols=['authors'])
-
-# print df
+print "Numero de nodos: " + str(coauthor_graph.number_of_nodes())
+print "Numero de aristas: " + str(coauthor_graph.number_of_edges())

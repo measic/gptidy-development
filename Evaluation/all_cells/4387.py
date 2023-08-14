@@ -1,2 +1,3 @@
-### TODO: Write your algorithm.
-### Feel free to use as many code cells as needed.
+import numpy as np
+def nCr(n, r):
+    return np.math.factorial(n)//(np.math.factorial(r) * np.math.factorial(n-r))

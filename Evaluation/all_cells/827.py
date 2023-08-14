@@ -1,1 +1,3 @@
-print( np.linalg.norm(np.eye(len(b)) - np.linalg.inv(np.triu(A)) @ A) )
+x0 = np.array([1, 1, 1]) 
+b = np.array([1, 2, 3]) 
+print( gauss_seidel(A, b, x0) )

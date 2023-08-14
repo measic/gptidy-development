@@ -1,1 +1,1 @@
-sig.parameters #提取参数
+params=sig.parameters

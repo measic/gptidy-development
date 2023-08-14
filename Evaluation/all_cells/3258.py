@@ -1,7 +1,16 @@
-plt.figure(figsize=(20, 60))
-for i in range(1, 97):
-    plt.subplot(24, 4, i)
-    plt.imshow(imgs[i][0], cmap='gray')
-    bbox = bboxes[i]
-    plt.gca().add_patch(matplotlib.patches.Rectangle((bbox[0], bbox[1]), bbox[2], bbox[3], ec='r', fc='none'))
-    plt.annotate(imgs[i][1], (0, 0))
+from image_aq.utils.pascal_voc_io import PascalVocWriter
+
+def gera_voc(file):
+    foldername, filename = os.path.split(file)
+    img = imageio.imread(file)
+    imgSize = img.shape
+    print(foldername, filename, imgSize)
+    voc_writer = PascalVocWriter(foldername, filename, imgSize)
+    coords = find_conteiner(file)
+    voc_writer.addBndBox(*coords, 'cc', '')
+    voc_writer.save(file[:-4]+'.xml')
+
+file = lista[0]
+print(file)
+gera_voc(file)
+glob.glob(foldername+'/*')

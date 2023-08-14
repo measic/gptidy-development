@@ -1,4 +1,2 @@
-[1 + 2, 
- 1 - 2,
- 1 * 2,
- 1 % 2]
+# Note! The power operator in python isn't ^, but **
+2 ** 2

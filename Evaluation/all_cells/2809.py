@@ -1,3 +1,15 @@
-# Let's log-tranform this: 
-sales_prices_log = np.log1p(sales_price)
-graph = sns.distplot(sales_prices_log)
+# Let's look at the plots of the important features identified above with SalePrice
+fig, axs = plt.subplots(ncols=3, nrows=4, figsize = (20,10))
+sns.regplot(x='OverallQual', y='SalePrice', data=data_full, ax=axs[0,0])
+sns.regplot(x='GrLivArea', y='SalePrice', data=data_full, ax=axs[0,1])
+sns.regplot(x='GarageCars',y='SalePrice', data=data_full, ax=axs[0,2])
+sns.regplot(x='GarageArea',y='SalePrice', data=data_full, ax=axs[1,0])
+sns.regplot(x='TotalBsmtSF',y='SalePrice', data=data_full, ax=axs[1,1])
+sns.regplot(x='FirstFlrSF',y='SalePrice', data=data_full, ax=axs[1,2])
+sns.regplot(x='FullBath',y='SalePrice', data=data_full, ax=axs[2,0])
+sns.regplot(x='TotRmsAbvGrd',y='SalePrice', data=data_full, ax=axs[2,1])
+sns.regplot(x='YearBuilt',y='SalePrice', data=data_full, ax=axs[2,2])
+sns.regplot(x='MasVnrArea',y='SalePrice', data=data_full, ax=axs[3,0])
+sns.regplot(x='Fireplaces',y='SalePrice', data=data_full, ax=axs[3,1])
+sns.regplot(x='BsmtFinSF1',y='SalePrice', data=data_full, ax=axs[3,2])
+fig.tight_layout()

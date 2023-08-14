@@ -1,3 +1,9 @@
-PROJECT = 'rostlab-181304'    # CHANGE THIS
-BUCKET = 'rostlab-181304-ml' # REPLACE WITH YOUR BUCKET NAME. Use a regional bucket in the region you selected.
-REGION = 'us-central1' # Choose an available region for Cloud MLE from https://cloud.google.com/ml-engine/docs/regions.
+%%bash
+## ensure gcloud is up to date
+gcloud components update
+
+gcloud config set project $PROJECT
+gcloud config set compute/region $REGION
+
+## ensure we predict locally with our current Python environment
+gcloud config set ml_engine/local_python `which python`

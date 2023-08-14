@@ -1,2 +1,1 @@
-mtot=(data4.mass).sum()
-com=(data4.mass*data4.semi_major_axis).sum()/mtot
+np.sqrt((dcmdmi**2*data4.mass_error_min**2+dcmdri**2*data4.semi_major_axis_error_min**2).sum())

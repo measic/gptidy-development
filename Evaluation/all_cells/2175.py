@@ -1,40 +1,29 @@
-def IsotypicComponent(S, arg, use_antisymmetry=False):
-    if isinstance(arg, Partition):
-        list_partitions = [arg]
-    elif isinstance(arg, Integer):
-        list_partitions = Partitions(arg)
-    else : 
-        print("Error: arg should be a partition or an integer.")
-    
-    basis = S.basis()
-    result = {}
-    P1 = basis.values().pop()[0].parent()
-    for nu in list_partitions:
-        result_nu = {}
-        if use_antisymmetry == True:
-            antisymmetries = antisymmetries_of_tableau(nu.initial_tableau())
-            P2 = DiagonalAntisymmetricPolynomialRing(P1._R, P1.ncols(), P1.nrows(), 
-                                                 P1.ninert(), antisymmetries)
-        for deg, value in basis.iteritems():
-            if use_antisymmetry:
-                gen = []
-                for p in value:
-                    temp = apply_young_idempotent(P2(p), nu)
-                    if temp != 0: 
-                        gen += [temp]
-            else:
-                gen = []
-                for p in value:
-                    temp = apply_young_idempotent(p, nu)
-                    if temp != 0:
-                        gen += [temp]
-            if gen != []:
-                result_nu[(deg, tuple(nu))] = Subspace(gen, {}).basis()[0]
-        if result_nu != {}:
-            result[nu] = Subspace(result_nu, operators={})
-                
-    if len(result.keys()) == 1:
-        key = result.keys()[0]
-        return result[key]
+def PolarizedSpace(S, operators, add_degrees=add_degrees_isotypic):
+    if isinstance(S, dict):
+        return {key : PolarizedSpace(value, operators, add_degrees=add_degrees)
+                for key, value in S.iteritems()}
     else:
-        return result
+        basis = S.basis()
+        basis_element = basis.values().pop()[0]
+        P1 = basis_element.parent()
+        r = len(op_pol.keys().pop())
+        row_symmetry = op_pol.values().pop()[0].kwds['row_symmetry']
+        if row_symmetry == "permutation":
+            add_degrees = add_degrees_symmetric
+        D = cartesian_product([ZZ for i in range(r)])
+        generators = {}
+
+        if isinstance(P1, DiagonalAntisymmetricPolynomialRing):
+            P2 = DiagonalAntisymmetricPolynomialRing(P1._R, P1.ncols(), r , P1.ninert(), P1.antisymmetries())
+            for key, value in basis.iteritems():
+                d = (D((key[0][0] if i==0 else 0 for i in range(0,r))), key[1])
+                generators[d] = tuple(reduce_antisymmetric_normal(P2(b), 
+                                                      b.parent().ncols(), 
+                                                      b.parent().nrows()+b.parent().ninert(), 
+                                                      b.antisymmetries()) for b in value)
+        else :
+            P2 = DiagonalPolynomialRing(P1._R, P1.ncols(), r , P1.ninert())
+            for key, value in basis.iteritems():
+                d = (D((key[0][0] if i==0 else 0 for i in range(0,r))), key[1])
+                generators[d] = tuple(P2(b) for b in value)
+        return Subspace(generators, operators, add_degrees=add_degrees)

@@ -1,2 +1,7 @@
-# Test cell; please do not change!
-check('tests/q22.py')
+# t, the duration of the fall in the experiment, in seconds.
+# Fill this in.
+time = ...
+
+# The estimated distance the hammer actually fell, in meters.
+# Fill this in.
+estimated_distance_m = ...

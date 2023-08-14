@@ -5,18 +5,18 @@ with tf.Session(graph=graph) as session:
     print('Initialized')
     mean_loss = 0
     for step in range(num_steps):
-        variable_def = train_batches.next()
-        feed_dict = dict()
+        batches = train_batches.next()
+        variable_def = dict()
         for i in range(num_unrollings + 1):
-            feed_dict[train_data[i]] = variable_def[i]
-        _, l, predictions, lr = session.run([optimizer, loss, train_prediction, learning_rate], feed_dict=feed_dict)
+            variable_def[train_data[i]] = batches[i]
+        _, l, predictions, lr = session.run([optimizer, loss, train_prediction, learning_rate], feed_dict=variable_def)
         mean_loss += l
         if step % summary_frequency == 0:
             if step > 0:
                 mean_loss = mean_loss / summary_frequency
             print('Average loss at step %d: %f learning rate: %f' % (step, mean_loss, lr))
             mean_loss = 0
-            labels = np.concatenate(list(variable_def)[1:])
+            labels = np.concatenate(list(batches)[1:])
             print('Minibatch perplexity: %.2f' % float(np.exp(logprob(predictions, labels))))
             if step % (summary_frequency * 10) == 0:
                 print('=' * 80)

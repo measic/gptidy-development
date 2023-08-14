@@ -1,38 +1,20 @@
-# TODO: Import 'GridSearchCV', 'make_scorer', and any other necessary libraries
-from sklearn.model_selection import GridSearchCV
-from sklearn.metrics import make_scorer, fbeta_score
+# Import functionality for cloning a model
+from sklearn.base import clone
 
-# TODO: Initialize the classifier
-clf = LogisticRegression(random_state=42, n_jobs=-1)
+# Reduce the feature space
+X_train_reduced = X_train[X_train.columns.values[(np.argsort(importances)[::-1])[:5]]]
+X_test_reduced = X_test[X_test.columns.values[(np.argsort(importances)[::-1])[:5]]]
 
-# TODO: Create the parameters list you wish to tune, using a dictionary if needed.
-# HINT: parameters = {'parameter_1': [value1, value2], 'parameter_2': [value1, value2]}
-parameters = {
-    'tol': [0.0001, 0.001, 0.01, 0.1],
-    'C': [0.01, 0.1, 1.0, 5.0, 10.0, 20.0, 50.0, 100.0, 200.0],
-    'solver': ['newton-cg', 'lbfgs', 'liblinear', 'sag', 'saga']
-}
+# Train on the "best" model found from grid search earlier
+clf = (clone(best_clf)).fit(X_train_reduced, y_train)
 
-# TODO: Make an fbeta_score scoring object using make_scorer()
-scorer = make_scorer(fbeta_score, beta=0.5)
+# Make new predictions
+reduced_predictions = clf.predict(X_test_reduced)
 
-# TODO: Perform grid search on the classifier using 'scorer' as the scoring method using GridSearchCV()
-grid_obj = GridSearchCV(clf, parameters, scoring=scorer, n_jobs=-1)
-
-# TODO: Fit the grid search object to the training data and find the optimal parameters using fit()
-grid_fit = grid_obj.fit(X_train, y_train)
-
-# Get the estimator
-best_clf = grid_fit.best_estimator_
-
-# Make predictions using the unoptimized and model
-predictions = (clf.fit(X_train, y_train)).predict(X_test)
-best_predictions = best_clf.predict(X_test)
-
-# Report the before-and-afterscores
-print("Unoptimized model\n------")
-print("Accuracy score on testing data: {:.4f}".format(accuracy_score(y_test, predictions)))
-print("F-score on testing data: {:.4f}".format(fbeta_score(y_test, predictions, beta = 0.5)))
-print("\nOptimized Model\n------")
-print("Final accuracy score on the testing data: {:.4f}".format(accuracy_score(y_test, best_predictions)))
-print("Final F-score on the testing data: {:.4f}".format(fbeta_score(y_test, best_predictions, beta = 0.5)))
+# Report scores from the final model using both versions of data
+print("Final Model trained on full data\n------")
+print("Accuracy on testing data: {:.4f}".format(accuracy_score(y_test, best_predictions)))
+print("F-score on testing data: {:.4f}".format(fbeta_score(y_test, best_predictions, beta = 0.5)))
+print("\nFinal Model trained on reduced data\n------")
+print("Accuracy on testing data: {:.4f}".format(accuracy_score(y_test, reduced_predictions)))
+print("F-score on testing data: {:.4f}".format(fbeta_score(y_test, reduced_predictions, beta = 0.5)))

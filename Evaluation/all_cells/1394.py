@@ -1,3 +1,3 @@
-#store 4th row of A in C
-C=A[3,:]
-print(C)
+#extract columns 1 to 3 of D, for all rows.
+E=D[:,[0,1,2]]
+print(E)

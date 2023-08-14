@@ -1,3 +1,3 @@
-from asl_test_model_selectors import TestSelectors
-suite = unittest.TestLoader().loadTestsFromModule(TestSelectors())
-unittest.TextTestRunner().run(suite)
+test_set = asl.build_test(features_ground)
+print("Number of test set items: {}".format(test_set.num_items))
+print("Number of test set sentences: {}".format(len(test_set.sentences_index)))

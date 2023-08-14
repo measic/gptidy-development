@@ -1,1 +1,9 @@
-# escribe tu código aquí para obtener el desempeño de tu red neuronal con los datos prueba
+import sys
+try:
+    import cplex
+except:
+    if hasattr(sys, 'real_prefix'):
+        #we are in a virtual env.
+        !pip install cplex
+    else:
+        !pip install --user cplex

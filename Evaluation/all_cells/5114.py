@@ -1,2 +1,2 @@
-### pearson
-train.corr(method='pearson')
+### spearman
+train.corr(method = 'spearman')

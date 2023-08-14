@@ -1,1 +1,1 @@
-test.test_regression_ouptimize_theta(regression_optimize_theta, kernel)
+util.temperature_example(regression_GP, regression_optimize_theta, kernel, [1, 1])

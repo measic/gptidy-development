@@ -1,4 +1,2 @@
-try:
-    p3_grant_cantons.to_csv('P3_Cantons.csv', encoding='utf-8')
-except PermissionError:
-    print("Couldn't access to the file. Maybe close Excel and try again :)")
+# The pickle format seems convenients to works with in Python, we're going to use it for transfering data to another notebook
+p3_grant_cantons.to_pickle('P3_Cantons.pickle')

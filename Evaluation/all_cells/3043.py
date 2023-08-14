@@ -1,1 +1,1 @@
-df_valid.describe()
+!head -10 data/taxi-train.csv

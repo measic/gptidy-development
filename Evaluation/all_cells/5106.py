@@ -1,3 +1,1 @@
-### Resposta: Sim
-mesma_cabine=train.groupby(['Sobreviventes','Cabine']).size()
-mesma_cabine
+print_full(train.groupby(['Sobreviventes','Idade']).size())

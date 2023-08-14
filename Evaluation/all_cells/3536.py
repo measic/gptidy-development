@@ -1,7 +1,18 @@
-with open('demographics.txt','r') as f:
-
-    datatxt = [i.splitlines() for i in f.readlines()]
-    datatxt = [i[0].split('\t') for i in datatxt]
-
-for line in datatxt:
-    print(line)
+import pandas as pd
+import numpy as np
+import json
+import timeit
+import time
+import core
+import importlib
+importlib.reload(core)
+import logging
+importlib.reload(core) 
+try:
+    logging.shutdown()
+    importlib.reload(logging)
+except:
+    pass
+from event_handler import EventHandler
+print(core.__file__)
+pd.__version__

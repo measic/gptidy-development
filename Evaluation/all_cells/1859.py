@@ -1,5 +1,4 @@
-# TODO add features for polar coordinate values where the nose is the origin
-# Name these 'polar-rr', 'polar-rtheta', 'polar-lr', and 'polar-ltheta'
-# Note that 'polar-rr' and 'polar-rtheta' refer to the radius and angle
+# TODO add features of your own design, which may be a combination of the above or something else
+# Name these whatever you would like
 
-features_polar = ['polar-rr', 'polar-rtheta', 'polar-lr', 'polar-ltheta']
+# TODO define a list named 'features_custom' for building the training set

@@ -1,1 +1,1 @@
-data2.head()
+number=(data3["star_name"].value_counts()).to_frame()

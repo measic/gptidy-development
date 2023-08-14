@@ -1,3 +1,2 @@
-'''Total sum of independent FP yield per 100 fissions'''
-
-print('Total sum = ',round(sum([fpy.yield_percent for fpy in cfpy_az]),1))
+'''Function to plot a 3-D surface plot or a 2D surface plot'''
+# to do

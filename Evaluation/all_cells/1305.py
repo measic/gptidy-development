@@ -1,1 +1,1 @@
-unicode_string.encode('cp949')
+unicode_string.encode('utf32')

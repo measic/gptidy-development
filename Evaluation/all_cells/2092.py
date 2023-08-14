@@ -1,4 +1,4 @@
-if not os.path.isdir('aclImdb'):
+import numpy as np
 
-    with tarfile.open(target, 'r:gz') as tar:
-        tar.extractall()
+np.random.seed(0)
+df = df.reindex(np.random.permutation(df.index))

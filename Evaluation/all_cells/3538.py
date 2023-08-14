@@ -1,18 +1,6 @@
-import pandas as pd
-import numpy as np
-import json
-import timeit
-import time
-import core
-import importlib
-importlib.reload(core)
-import logging
-importlib.reload(core) 
-try:
-    logging.shutdown()
-    importlib.reload(logging)
-except:
-    pass
-from event_handler import EventHandler
-print(core.__file__)
-pd.__version__
+print(root_directory)
+paths = {'user_id': user_id, 
+         'workspace_directory': root_directory + '/workspaces', 
+         'resource_directory': root_directory + '/resources', 
+         'log_directory': 'D:/github' + '/log', 
+         'test_data_directory': 'D:/github' + '/test_data'}

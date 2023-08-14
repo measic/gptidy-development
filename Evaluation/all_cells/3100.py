@@ -1,2 +1,1 @@
-plt.imshow(black_array)
-plt.show();
+raveled = np.ravel(test_black)

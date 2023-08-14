@@ -1,6 +1,6 @@
-checkpointer = ModelCheckpoint(filepath='saved_models/weights.best.VGG16.hdf5', 
-                               verbose=1, save_best_only=True)
+# get index of predicted dog breed for each image in test set
+VGG16_predictions = [np.argmax(VGG16_model.predict(np.expand_dims(feature, axis=0))) for feature in test_VGG16]
 
-VGG16_model.fit(train_VGG16, train_targets, 
-          validation_data=(valid_VGG16, valid_targets),
-          epochs=20, batch_size=20, callbacks=[checkpointer], verbose=1)
+# report test accuracy
+test_accuracy = 100*np.sum(np.array(VGG16_predictions)==np.argmax(test_targets, axis=1))/len(VGG16_predictions)
+print('Test accuracy: %.4f%%' % test_accuracy)

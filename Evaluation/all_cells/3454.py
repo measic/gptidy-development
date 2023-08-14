@@ -1,1 +1,4 @@
-print("This {verb} a {noun}.".format(noun = "test", verb = "is"))
+l = [1,2,3,4]
+
+print(type(l))
+print(l)

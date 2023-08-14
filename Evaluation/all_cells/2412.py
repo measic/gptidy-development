@@ -1,2 +1,1 @@
-data = ["acacag", "acacgg", "aaaaaacgg"]
-c = ClusteringSeq(data)
+c.plot_dist_mat()

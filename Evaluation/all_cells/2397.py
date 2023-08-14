@@ -1,1 +1,1 @@
-pm.traceplot(trace, varnames=['alpha']);
+x_plot = np.arange(250)

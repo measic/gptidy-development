@@ -1,1 +1,1 @@
-from Fuzzer import ProgramRunner
+outcomes[:3]

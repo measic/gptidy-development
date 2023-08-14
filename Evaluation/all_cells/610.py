@@ -1,7 +1,21 @@
-# Sets up new array for plotting
-earthquakePlot = np.copy(earthquake)
+plt.figure(figsize = (15,5))
 
-# Normalizes block positions relative to their equilibrium positions
-for n in range(1, blockNum + 1):
-    for m in range(0, maxTimeSteps):
-        earthquakePlot[m,n] += -n + 1
+# Plots all of the block positions on the same plot
+plt.subplot(121)
+for i in range (1, blockNum + 1):
+    plt.plot(earthquakePlot[:, 0], earthquakePlot[:, i])
+plt.xlabel("Time")
+plt.ylabel("Block Position")
+plt.title("Position of Block Over Time: Zoomed in View")
+plt.xlim(470,550)
+plt.ylim(3.6,4.8)
+
+# Plots all of the block velocities on the same plot
+plt.subplot(122)
+for i in range (0, blockNum):
+    plt.semilogy(earthquakePlot[:,0], earthquakePlot[:, blockNum + i + 1])
+plt.xlabel("Time")
+plt.ylabel("Block Velocity")
+plt.title("Velocity of Block Over Time")
+plt.xlim(470,550)
+plt.ylim(0.0001,10)

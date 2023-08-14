@@ -1,2 +1,1 @@
-x_values = None
-y_values = None
+y_values and y_values[0] # 26.0

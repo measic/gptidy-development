@@ -1,1 +1,1 @@
-test_dataset.loc[3125]
+m.evaluate(normed_test_data, test_labels['tiltx'])

@@ -1,4 +1,6 @@
-ic = [1] # Initial condition
-times = np.arange(0, 10, .1) # Times
-orbit = odeint(ode, ic, times)
-orbit2 = odeint(ode, [-10], times) # a second orbit
+#importing some useful packages
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+import numpy as np
+import cv2
+%matplotlib inline

@@ -1,14 +1,14 @@
 X, Annotations = marconi['Soccer']
 camera = 3
 frame = 79
-fig = plt.figure(figsize=(16, 8))
-ax = fig.add_subplot(111)
+variable_def = plt.figure(figsize=(16, 8))
+ax = variable_def.add_subplot(111)
 im = X[camera, frame]
 ax.imshow(im)
 Annotations_for_cam = Annotations[camera]
-variable_def = Annotations_for_cam[frame]
+Annot_on_frame_cam = Annotations_for_cam[frame]
 COLORS = ['red', 'yellow']
-for i, ((tl, br), joints) in enumerate(variable_def):
+for i, ((tl, br), joints) in enumerate(Annot_on_frame_cam):
     head_x, head_y = utils.tl_br_to_plt_plot(tl[1], tl[0], br[1], br[0])
     ax.plot(head_x, head_y, color=COLORS[i])
     for jx, jy, visible in joints:

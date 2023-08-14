@@ -1,4 +1,5 @@
-plt.plot(f/3e10, y_lm - y_lm_36, label='LM 3.2$-$LM 3.6')
-plt.ylabel('Radiance')
-plt.xlabel('Wavenumber')
-l = plt.legend()
+import pandas as pd, numpy as np, matplotlib.pyplot as plt, json, math, random
+from datetime import datetime as dt
+from mpl_toolkits.basemap import Basemap
+from IPython.display import IFrame
+%matplotlib inline

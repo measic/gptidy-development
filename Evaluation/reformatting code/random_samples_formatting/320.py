@@ -1,12 +1,4 @@
-job_assesement = [
-    'AssessJob1', 'AssessJob2', 'AssessJob3', 'AssessJob4', 'AssessJob5', 
-    'AssessJob6','AssessJob7', 'AssessJob8', 'AssessJob9', 'AssessJob10'
-]
-ff = top10_df.groupby('Country').mean()[job_assesement].reset_index()
-ff_p = ff.pivot_table(columns='Country')
-plt.figure(figsize=(14, 8))
-for country in top_10_list:
-    plt.plot(ff_p[country], label=country)
-plt.legend()
-sns.despine(left=True)
-plt.title('Job assessement comparaison by country', fontsize=21)
+#to create a non-numeric array (eg. all strings) use the DataFrame
+# this is the case where the columns of the array have no titles
+stimuli = pd.DataFrame([['dog','cat','horse','rat'],['car','train','hammer','van']])
+print(stimuli)

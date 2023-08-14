@@ -1,4 +1,4 @@
-plt.plot(df_per_day_train1.index, df_per_day_train1, label='Train')
-plt.plot(df_per_day_test1.index, df_per_day_test1, label='Test')
-plt.plot(pred1.index, pred1, label='Holt-Winters1')
+plt.plot(df_per_day_train2.index, df_per_day_train2, label='Train')
+plt.plot(df_per_day_test2.index, df_per_day_test2, label='Test')
+plt.plot(pred2.index, pred2, label='Holt-Winters2')
 plt.legend(loc='best')

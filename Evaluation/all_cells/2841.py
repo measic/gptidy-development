@@ -1,1 +1,1 @@
-coef_elastic = pd.Series(model_elastic.coef_, index = X_train.columns)
+plot_residuals(model_elastic, X_train, y)

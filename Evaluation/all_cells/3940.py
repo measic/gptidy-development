@@ -1,24 +1,26 @@
-plt.figure(figsize=(14, 7))
-for val in dataframe.columns.values:
-    plt.plot(
-        dataframe.index, dataframe[val], linewidth=2, alpha=0.8, label=val)
-plt.title("Stocks Visualization")
-plt.xlabel("Dates")
-plt.ylabel("Prices ($)")
-plt.legend()
-plt.show()
+print("-" * 37)
+print("    Histogram Analysis of Tickers")
+print("-" * 37)
 
-compare_data = (dataframe / dataframe.iloc[0, :])
-plt.figure(figsize=(14, 7))
-for val in compare_data.columns.values:
-    plt.plot(
-        compare_data.index,
-        compare_data[val],
-        linewidth=2,
-        alpha=0.8,
-        label=val)
-plt.title("Comparison of Stocks")
-plt.xlabel("Dates")
-plt.ylabel("Prices ($)")
-plt.legend()
+
+def hisogram_stats(val):
+    print("      Mean of " + val + " : {:.5f}".format(returns[val].mean()))
+    print("      Std of " + val + " : {:.5f}".format(returns[val].std()))
+    print("      Kurtosis of " + val +
+          " : {:.5f}".format(returns[val].kurtosis()))
+    print("-" * 37)
+
+
+for val in returns.columns:
+    hisogram_stats(val=val)
+
+    plt.figure(figsize=(10, 5))
+    returns[val].plot.hist(label=val, bins=35, color="g")
+
+    plt.axvline(returns[val].mean(), color="w", linewidth=2, linestyle="--")
+    plt.axvline(returns[val].std(), color="b", linewidth=2, linestyle="--")
+    plt.axvline(-returns[val].std(), color="b", linewidth=2, linestyle="--")
+
+    plt.title(val + " Histogram")
+    plt.legend()
 plt.show()

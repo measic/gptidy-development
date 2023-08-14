@@ -1,24 +1,25 @@
-import sys
-import os
+# HEPROW Inputs:
+heprowPath = "/home/pyne-user/Dropbox/UCB/Research/ETAs/88Inch/Data/Experiments/PHS/33MeVTa_29-31Mar17/Unfold/BeamOnly/HEPROW/"
 
-import pandas as pd
-import numpy as np
+heprowName = "mik_Det0_1.gru"
+unfanaName = "unf_Det0_1.gru"
+gravelName = "grv_out_Det0_1.flu"
+faltwPHSName = "faltw_Det0_1.phs"
+measPHSName = "Inputs/Det0_stat_100_phs_03.phs"
+mtxName = "MIEKE_Det0_1.MTX"
+heprowBinBounds = "low"
 
-from datetime import datetime
-from math import cos, radians
+# Meulders - 33 MeV d on Ta
+meuldersPath="/home/pyne-user/Dropbox/UCB/Research/ETAs/88Inch/Data/Experiments/PHS/33MeVTa_29-31Mar17/Unfold/"
 
-%matplotlib inline
+meuldersName="Meulders33MeVTaSpectrum_1.txt"
+meuldersBinBounds="up"
 
-# Path to support scripts 
-sys.path.insert(0,os.path.abspath('/home/pyne-user/Dropbox/UCB/Computational_Tools/Scripts/Python/DataAnalysis'))
-from DataManipulation import bin_differentiation, normAUBC
-from DataIO import read_delimited_data_file
-from Histograms import Histogram
+# MCNP - 33 MeV d on Ta
+mcnpPath="/home/pyne-user/Dropbox/UCB/Research/ETAs/88Inch/Data/Simulated/PHS/33MeVTa/BeamOnly/Model/NoExtrap_Void_1deg/"
 
-sys.path.insert(0,os.path.abspath('/home/pyne-user/Dropbox/UCB/Computational_Tools/Scripts/Python/Unfolding'))
-from HEPROW import readMTX, readGru, readFlu
-from Root import FluxNormalization
+mcnpName="33MeVTaBeamOnly_Det.out"
+mcnpBinBounds="up"
 
-sys.path.insert(0,os.path.abspath('/home/pyne-user/Dropbox/UCB/Computational_Tools/Scripts/Python/GeneralNuclear'))
-from Detectors import nonparalyzable_beam_dead_time, nonparalyzable_dead_time
-from MCNP import read_tally
+# Output
+outPath="/home/pyne-user/Dropbox/UCB/Research/ETAs/88Inch/Data/Experiments/PHS/33MeVTa_29-31Mar17/Unfold/BeamOnly/HEPROW/"

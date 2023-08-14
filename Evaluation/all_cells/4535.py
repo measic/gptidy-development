@@ -1,2 +1,2 @@
-# create a list
-a_list = ['M', 'o', 'n', 't', 'y', '', 'P', 'y', 't', 'h', 'o', 'n']
+# This will give us the last three elements
+print(a_list[-3:])

@@ -8,8 +8,8 @@ generator = {v.multidegree() : [v]}
 list_op = partial_derivatives(v.parent())
 W1 = Subspace(generators=generator, operators=list_op, add_degrees=add_degree)
 
-op_pol = polarization_operators(r, deg_v)
-W2 = PolarizedSpace(IsotypicComponent(W1, n), op_pol)
-show(character(W2))
+op_pol = polarization_operators(r, max_deg=deg_v, row_symmetry="permutation")
+W2 = PolarizedSpace(IsotypicComponent(W1, n, use_antisymmetry=True), op_pol, add_degrees=add_degrees_symmetric)
+show(character(W2, row_symmetry="permutation"))
 t2 = datetime.datetime.now()
 show(t2-t1)

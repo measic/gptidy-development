@@ -1,1 +1,1 @@
-plot_history(histories['focus'], label="focus")
+show_results('focus')

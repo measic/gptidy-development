@@ -1,15 +1,17 @@
-import numpy as np
+import math
+y1s = np.arange(0, 10, 0.1).tolist()
+x1s = [(1/5)*y**2 - 5 for y in y1s]
+y2s = np.arange(-5, 0, 0.1).tolist()
+x2s = [(1/5)*y**2 - 5 for y in y2s]
 
-xs = np.arange(-1, 6, 1).tolist()
-xs = sorted(xs)
-ys = [f(x) for x in xs]
-
-p = graphs.get_plot(x_color='#ff6300', y_color='#19a974')
-p.title.text = '7 x- en y-waarden van f(x)'
+p = graphs.get_plot()
+p.title.text = 'Grafiek van een niet-functie'
 p.title.text_font = 'Quicksand'
 p.title.text_font_size = '18pt'
 p.title.align = 'center'
-p.circle(xs, ys, radius=.4, color='#555555')
 
+p.tools[0].mode = 'vline' # Trigger hover on vertical lines
+p.line(x1s, y1s, line_width=10, color=graphs.BLUE, line_cap='round')
+p.line(x2s, y2s, line_width=10, color=graphs.BLUE, line_cap='round')
 item = json.dumps(json_item(p))
-Path('plt/multiple_x.json').write_text(item)
+Path('plt/no_fx.json').write_text(item)

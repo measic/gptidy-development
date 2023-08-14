@@ -1,2 +1,2 @@
-### Teste
-test.info()
+### Treino
+train.isnull().sum()

@@ -1,1 +1,1 @@
-compress_homopolymer("aaacacttctcctaccc")
+split_seq("actacatcgatcgtaactaaacacccctctctacgatagtcgaacgta", width=10)

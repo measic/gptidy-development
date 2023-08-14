@@ -1,2 +1,2 @@
-json.loads(cy.msgToKernel)['payload']
-#cy.msgToKernel["payload"]
+cy.incomingMessageArrived = False
+cy.incomingMessageArrived

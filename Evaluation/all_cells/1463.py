@@ -1,14 +1,12 @@
-x3 = 26.9
-y3 = 55.7
-z3 = 'Third record.'
-zz3 = ['an', 'example','list']
-data3 = np.array([13,15,17,25.7,34.6,88])
-datalist = []
-#we convert the numpy arrays to float type (instead of integer) and lists to make it easier to write the file (i.e. enable JSON encoding).
-data_enc = list(np.array(data,dtype=float))
-data2_enc = list(np.array(data2,dtype=float))
-data3_enc = list(data3)
-datalist.append({'x':x, 'y':y, 'z':z, 'data':data_enc})
-datalist.append({'x':x2, 'y':y2, 'z':z2, 'data':data2_enc})
-datalist.append({'x':x3, 'y':y3, 'z':z3, 'zz':zz3, 'data':data3_enc})
-print(datalist)
+with open('datalist.txt', 'r') as readfile:
+    read_datalist = json.load(readfile)
+
+#some examples of how to use the JSON data that was read from file.
+print('read_datalist')
+print(read_datalist)
+print('zz variable of third record')
+print(read_datalist[2]['zz'])
+print('numpy array from first record')
+print(np.array(read_datalist[0]['data']))
+print('standard deviation from array of 2nd record')
+print(np.std(read_datalist[1]['data']))

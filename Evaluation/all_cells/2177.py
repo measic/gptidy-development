@@ -1,29 +1,48 @@
-def PolarizedSpace(S, operators, add_degrees=add_degrees_isotypic):
+def character(S, left_basis=s, right_basis=s, row_symmetry=None):
     if isinstance(S, dict):
-        return {key : PolarizedSpace(value, operators, add_degrees=add_degrees)
-                for key, value in S.iteritems()}
+        return sum(character(V,
+                             left_basis=left_basis, right_basis=right_basis, row_symmetry=row_symmetry) 
+                   for V in S.values())
     else:
         basis = S.basis()
         basis_element = basis.values().pop()[0]
-        P1 = basis_element.parent()
-        r = len(op_pol.keys().pop())
-        row_symmetry = op_pol.values().pop()[0].kwds['row_symmetry']
-        if row_symmetry == "permutation":
-            add_degrees = add_degrees_symmetric
-        D = cartesian_product([ZZ for i in range(r)])
-        generators = {}
+        P = basis_element.parent()
+        n = P.ncols()
+        r = P.nrows()
+        
+        charac = 0
+        if row_symmetry != "permutation":
+            q = PolynomialRing(QQ,'q',r).gens()
 
-        if isinstance(P1, DiagonalAntisymmetricPolynomialRing):
-            P2 = DiagonalAntisymmetricPolynomialRing(P1._R, P1.ncols(), r , P1.ninert(), P1.antisymmetries())
+        for nu in Partitions(n):
+            basis_nu = {}
+            charac_nu = 0
+            # Get the nu_isotypic part of the basis
             for key, value in basis.iteritems():
-                d = (D((key[0][0] if i==0 else 0 for i in range(0,r))), key[1])
-                generators[d] = tuple(reduce_antisymmetric_normal(P2(b), 
-                                                      b.parent().ncols(), 
-                                                      b.parent().nrows()+b.parent().ninert(), 
-                                                      b.antisymmetries()) for b in value)
-        else :
-            P2 = DiagonalPolynomialRing(P1._R, P1.ncols(), r , P1.ninert())
-            for key, value in basis.iteritems():
-                d = (D((key[0][0] if i==0 else 0 for i in range(0,r))), key[1])
-                generators[d] = tuple(P2(b) for b in value)
-        return Subspace(generators, operators, add_degrees=add_degrees)
+                if Partition(key[1]) == nu:
+                    basis_nu[key[0]] = value
+
+            # Use monomials to compute the character
+            if row_symmetry == "permutation":
+                for deg, b in basis_nu.iteritems():
+                    charac_nu += sum(m(Partition(deg)) for p in b)
+                if charac_nu != 0 :
+                    if left_basis == s :
+                        charac_nu = s(charac_nu).restrict_partition_lengths(r,exact=False)
+                    elif left_basis != m :
+                        charac_nu = left_basis(charac_nu)
+
+            # Or use directly the degrees
+            else:
+                for deg, b in basis_nu.iteritems():
+                    charac_nu += sum(prod(q[i]**deg[i] for i in range(0,len(deg))) for p in b)
+                if charac_nu != 0 :
+                    if left_basis == s :
+                        charac_nu = s.from_polynomial(charac_nu).restrict_partition_lengths(r,exact=False)           
+                    else:
+                        charac_nu = left_basis.from_polynomial(charac_nu)
+
+            # Make the tensor product with s[nu]
+            if charac_nu != 0:
+                charac += tensor([charac_nu, right_basis(s(nu))])
+        return charac

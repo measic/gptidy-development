@@ -1,17 +1,8 @@
-with pm.Model() as model:
-    # covariance function
-    ℓ = pm.Gamma("ℓ", alpha=2, beta=2)
-    # informative, positive normal prior on the period 
-    η = pm.HalfNormal("η", sd=5)
-    cov = η**2 * pm.gp.cov.ExpQuad(1, ℓ)
-    
-    gp = pm.gp.Latent(cov_func=cov)
-    
-    # make gp prior
-    f = gp.prior("f", X=x[:,None])
-    
-    # logit link and Bernoulli likelihood
-    p = pm.Deterministic("p", pm.math.invlogit(f))
-    y_ = pm.Bernoulli("y", p=p, observed=y)
-    
-    trace = pm.sample(1000)
+n_pred = 200
+X_new = np.linspace(0, 2.0, n_pred)[:,None]
+
+with model:
+    f_pred = gp.conditional("f_pred", X_new)
+
+with model:
+    pred_samples = pm.sample_ppc(trace, vars=[f_pred], samples=1000)

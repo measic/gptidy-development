@@ -1,8 +1,4 @@
-less = 0
-np.bincount(cluster_assignment[10]())
-cnt = np.bincount(cluster_assignment[100]())
-for i in cnt:
-    if i <= 236:
-        less += 1
-        
-print less
+k=100
+visualize_document_clusters(wiki, tf_idf, centroids[k](), cluster_assignment[k](), k,
+                            map_index_to_word, display_content=False)
+# turn off text for brevity -- turn it on if you are curious ;)

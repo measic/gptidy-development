@@ -1,7 +1,12 @@
-data_no_nulls_column_list = list(data_no_nulls.columns)
+parametros_LDA_svd = {
+    'solver'            :['svd'],
+    'priors'            :priors,
+    'n_components'      :[0, 1, 2, 3, 4, 5, 6],
+}
 
-if visualize_dataset == True:
-    for feature in features_to_exclude:
-        if feature in data_no_nulls_column_list:
-            data_no_nulls.drop([feature], axis = 1, inplace = True)
-            print("{} removed from visualization dataset".format(feature))
+(tiempo_LDA_svd, grid_lda_svd) = correr_y_mostrar(
+    LDA(),
+    parametros_LDA_svd,
+    5,
+    5
+)

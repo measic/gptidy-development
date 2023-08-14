@@ -1,17 +1,2 @@
-countries = ['Croatia',
- 'USA',
- 'Argentina',
- 'Mexico',
- 'USA',
- 'Morocco',
- 'USA',
- 'Finland',
- 'Argentina',
- 'Italy',
- 'Canada',
- 'South Korea', 
- 'Malta', 
- 'Thailand']
-countries.pop() # 'Thailand'
-countries
-# ['Croatia', 'USA', 'Argentina', 'Mexico', 'USA', 'Morocco', 'USA', 'Finland',  'Argentina', 'Italy', 'Canada', 'South Korea',  'Malta']
+num_of_repeats = None
+num_of_repeats # 3

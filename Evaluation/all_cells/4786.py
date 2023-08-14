@@ -1,34 +1,31 @@
-data_index = 0
+num_steps = 100001
 
-def generate_batch(batch_size, num_skips, skip_window):
-  global data_index
-  assert batch_size % num_skips == 0
-  assert num_skips <= 2 * skip_window
-  batch = np.ndarray(shape=(batch_size), dtype=np.int32)
-  labels = np.ndarray(shape=(batch_size, 1), dtype=np.int32)
-  span = 2 * skip_window + 1 # [ skip_window target skip_window ]
-  buffer = collections.deque(maxlen=span)
-  for _ in range(span):
-    buffer.append(data[data_index])
-    data_index = (data_index + 1) % len(data)
-  for i in range(batch_size // num_skips):
-    target = skip_window  # target label at the center of the buffer
-    targets_to_avoid = [ skip_window ]
-    for j in range(num_skips):
-      while target in targets_to_avoid:
-        target = random.randint(0, span - 1)
-      targets_to_avoid.append(target)
-      batch[i * num_skips + j] = buffer[skip_window]
-      labels[i * num_skips + j, 0] = buffer[target]
-    buffer.append(data[data_index])
-    data_index = (data_index + 1) % len(data)
-  return batch, labels
-
-print('data:', [reverse_dictionary[di] for di in data[:8]])
-
-for num_skips, skip_window in [(2, 1), (4, 2)]:
-    data_index = 0
-    batch, labels = generate_batch(batch_size=8, num_skips=num_skips, skip_window=skip_window)
-    print('\nwith num_skips = %d and skip_window = %d:' % (num_skips, skip_window))
-    print('    batch:', [reverse_dictionary[bi] for bi in batch])
-    print('    labels:', [reverse_dictionary[li] for li in labels.reshape(8)])
+with tf.Session(graph=graph) as session:
+  tf.global_variables_initializer().run()
+  print('Initialized')
+  average_loss = 0
+  for step in range(num_steps):
+    batch_data, batch_labels = generate_batch(
+      batch_size, num_skips, skip_window)
+    feed_dict = {train_dataset : batch_data, train_labels : batch_labels}
+    _, l = session.run([optimizer, loss], feed_dict=feed_dict)
+    average_loss += l
+    if step % 2000 == 0:
+      if step > 0:
+        average_loss = average_loss / 2000
+      # The average loss is an estimate of the loss over the last 2000 batches.
+      print('Average loss at step %d: %f' % (step, average_loss))
+      average_loss = 0
+    # note that this is expensive (~20% slowdown if computed every 500 steps)
+    if step % 10000 == 0:
+      sim = similarity.eval()
+      for i in range(valid_size):
+        valid_word = reverse_dictionary[valid_examples[i]]
+        top_k = 8 # number of nearest neighbors
+        nearest = (-sim[i, :]).argsort()[1:top_k+1]
+        log = 'Nearest to %s:' % valid_word
+        for k in range(top_k):
+          close_word = reverse_dictionary[nearest[k]]
+          log = '%s %s,' % (log, close_word)
+        print(log)
+  final_embeddings = normalized_embeddings.eval()

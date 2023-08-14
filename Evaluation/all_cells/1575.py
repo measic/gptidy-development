@@ -1,1 +1,1 @@
-E01
+result.dropna()

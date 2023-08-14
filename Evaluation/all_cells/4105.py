@@ -1,5 +1,1 @@
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-import lpf    #ローパスフィルタモジュール
-import integral    #積分計算モジュール
+df1.head()

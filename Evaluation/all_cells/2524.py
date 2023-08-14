@@ -1,1 +1,1 @@
-print(storage.redundancies.redundancy)
+subsets = [i for i in redundancy.index if i[1] == feature]

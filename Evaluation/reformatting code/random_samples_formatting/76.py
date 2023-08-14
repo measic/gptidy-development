@@ -1,11 +1,15 @@
-# TODO: Inverse transform the centers
-log_centers = None
+# The three players' heights, in meters:
+klay =  2.01 # Klay Thompson is 6'7"
+steph = 1.91 # Steph Curry is 6'3"
+kevin = 2.06 # Kevin Durant is officially 6'9", but many suspect that he is taller.
+             # (Further complicating matters, membership of the "Splash Triplets" 
+             #  is disputed, since it was originally used in reference to 
+             #  Klay Thompson, Steph Curry, and Draymond Green.)
 
-# TODO: Exponentiate the centers
-true_centers = None
-
-# Display the true centers
-segments = ['Segment {}'.format(i) for i in range(0,len(centers))]
-true_centers = pd.DataFrame(np.round(true_centers), columns = data.keys())
-true_centers.index = segments
-display(true_centers)
+# We'd like to look at all 3 pairs of heights, compute the absolute
+# difference between each pair, and then find the smallest of those
+# 3 absolute differences.  This is left to you!  If you're stuck,
+# try computing the value for each step of the process (like the
+# difference between Klay's heigh and Steph's height) on a separate
+# line and giving it a name (like klay_steph_height_diff).
+min_height_difference = ...

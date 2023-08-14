@@ -1,6 +1,6 @@
-# gamma_final_mean = get_mean_band(gamma_pca_data)
-# beta_final_mean = get_mean_band(beta_pca_data)
-# alpha_final_mean = get_mean_band(alpha_pca_data)
-# delta_final_mean = get_mean_band(delta_pca_data)
-# theta_final_mean = get_mean_band(theta_pca_data)
-# regular_data_final_mean = get_mean_band(pca_data)                                 
+# results = np.concatenate((gamma_final_mean,
+#                           beta_final_mean,
+#                           alpha_final_mean,
+#                           delta_final_mean,
+#                           theta_final_mean,
+#                           regular_data_final_mean),axis = 1)

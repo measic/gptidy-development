@@ -1,22 +1,24 @@
-with tf.variable_scope("encoder"):
-    
-    if use_bidirectional_encoder:
-        fw_cell = tf.nn.rnn_cell.BasicLSTMCell(cell_size)
-        fw_cell = tf.contrib.rnn.DropoutWrapper(fw_cell, input_keep_prob=0.8)
-        bw_cell = tf.nn.rnn_cell.BasicLSTMCell(cell_size)
-        bw_cell = tf.contrib.rnn.DropoutWrapper(bw_cell, input_keep_prob=0.8)
-
-        o, e = tf.nn.bidirectional_dynamic_rnn(
-            fw_cell, bw_cell, embedding_input, dtype='float32', sequence_length=dataset.src_size,
-            time_major=is_time_major)
-        encoder_outputs = tf.concat(o, -1)
-        encoder_state = e
-    
+with tf.variable_scope("train"):
+    if is_time_major:
+        logits = tf.transpose(logits, [1, 0, 2])
+        crossent = tf.nn.sparse_softmax_cross_entropy_with_logits(
+            labels=dataset.tgt_out_ids, logits=logits)
+        target_weights = tf.sequence_mask(dataset.tgt_size, tf.shape(logits)[1], tf.float32)
     else:
-        fw_cell = tf.nn.rnn_cell.BasicLSTMCell(cell_size)
-        fw_cell = tf.contrib.rnn.DropoutWrapper(fw_cell, input_keep_prob=0.8)
-        o, e = tf.nn.dynamic_rnn(fw_cell, embedding_input, dtype='float32',
-                                 sequence_length=dataset.src_size, time_major=is_time_major)
-        encoder_outputs = o
-        encoder_state = e
-    
+        crossent = tf.nn.sparse_softmax_cross_entropy_with_logits(
+            labels=dataset.tgt_out_ids, logits=logits)
+        target_weights = tf.sequence_mask(dataset.tgt_size, tf.shape(logits)[1], tf.float32)
+    loss = tf.reduce_sum(crossent * target_weights) / tf.to_float(batch_size)
+    tf.summary.scalar("loss", loss)
+
+    learning_rate = tf.placeholder(dtype=tf.float32, name="learning_rate")
+    max_global_norm = tf.placeholder(dtype=tf.float32, name="max_global_norm")
+    optimizer = tf.train.MomentumOptimizer(learning_rate, momentum=0.5)
+    params = tf.trainable_variables()
+    gradients = tf.gradients(loss, params)
+    for grad, var in zip(gradients, params):
+        tf.summary.histogram(var.op.name+'/gradient', grad)
+    gradients, _ = tf.clip_by_global_norm(gradients, max_global_norm)
+    for grad, var in zip(gradients, params):
+        tf.summary.histogram(var.op.name+'/clipped_gradient', grad)
+    update = optimizer.apply_gradients(zip(gradients, params))

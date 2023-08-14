@@ -1,4 +1,1 @@
-params_list = []
-for key, value in best_model.params.iteritems():
-    params_list.append(str(key)+" = "+str(value['actual']))
-params_list
+gbm_best.train(x=predictors, y=response, training_frame=df)

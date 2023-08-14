@@ -1,1 +1,2 @@
-plt.plot(np.unique(a1), np.poly1d(np.polyfit(a1, a2, 10))(np.unique(a1)))
+print("-----QDA-----")
+print("The accuracy of QDA is", qda_acc)

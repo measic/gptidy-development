@@ -1,1 +1,1 @@
-%matplotlib inline
+from pylab import *

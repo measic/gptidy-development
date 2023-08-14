@@ -1,1 +1,2 @@
-rnd_clf.feature_importances_
+from sklearn.datasets import fetch_mldata
+mnist = fetch_mldata('MNIST original')

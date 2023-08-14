@@ -1,1 +1,1 @@
-%timeit correlation.update_redundancies(k=5, runs=10)
+correlation.update_multivariate_relevancies(k = 5, runs = 50)

@@ -1,2 +1,1 @@
-numberOfVertices = 'numberOfVertices.png'
-Image( filename = pathname + numberOfVertices)
+Image(filename = pathname + DATAppDxyDz )

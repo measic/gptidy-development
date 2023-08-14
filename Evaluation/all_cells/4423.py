@@ -1,1 +1,1 @@
-rnd_clf.oob_score
+accuracy_score(y_pred_extra_trees, y_pred)

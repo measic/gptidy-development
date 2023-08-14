@@ -1,6 +1,8 @@
-with pm.Model() as model:
-    lambda_1 = pm.Exponential("lambda_1", 1.0)
-    lambda_2 = pm.Exponential("lambda_2", 1.0)
-    tau = pm.DiscreteUniform("tau", lower=0, upper=10)
+import theano.tensor as tt
 
-new_deterministic_variable = lambda_1 + lambda_2
+with pm.Model() as theano_test:
+    p1 = pm.Uniform("p", 0, 1)
+    p2 = 1 - p1
+    p = tt.stack([p1, p2])
+    
+    assignment = pm.Categorical("assignment", p)

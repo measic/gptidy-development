@@ -1,3 +1,1 @@
-three_x_squared_minus_eleven = [(3, 2), (-11, 0)]
-output_at(three_x_squared_minus_eleven, 2) # 1 
-output_at(three_x_squared_minus_eleven, 3) # 16
+four_x_plus_fifteen = [(4, 1), (15, 0)]

@@ -1,11 +1,13 @@
-scores = []
-for rep in range(number_of_replicates):
-    env.reset()
-    done = False
-    episode_score = 0.0
-    while not done:
-        action = fitted_q(env, gamma, RandomForestRegressor, number_of_value_iterations=number_of_value_iterations)
-        _, r, done = env.step(action)
-        episode_score += r
-    scores.append(episode_score)
-print('mean score: {} se: {}'.format(np.mean(scores), np.std(scores) / np.sqrt(number_of_replicates)))
+#ignore
+# Copyright 2019 Meng Lee @ leemeng.tw
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.

@@ -1,1 +1,1 @@
-from BITS.plot.plotly import make_hist, make_scatter, make_layout, show_plot
+layout = make_layout(500, 300)

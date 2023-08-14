@@ -1,21 +1,29 @@
-def getBestParams(train_data, train_labels):
-    #mini_train_data, mini_test_data, mini_train_labels, mini_test_labels = train_test_split(train_data, train_labels,
-    #                                    stratify=train_labels, 
-    #                                    test_size=0.55)
-    
-    #
-    # Logistic Regression
-    #
-    lr = LogisticRegression(penalty='l2', multi_class = 'ovr', solver='liblinear', max_iter=150)
-    params = {'C': [0.1, 0.25,  0.5,]}
-    logit = GridSearchCV(lr, params, cv=5,
-                         scoring='accuracy', return_train_score=True)
+#
+#  Find best C param for Logistic Regression L2
+#
+data   = all_data['best_fit_1000']['data']
+labels = all_data['best_fit_1000']['labels']
+splits = splitData(data, labels)
+logit_best_params = getBestParams(splits['train_data'], splits['train_labels'])
 
-    # Fit  training data
-    logit.fit(train_data, train_labels)  
-    # Show the best C parameter to use and the expected accuracy
-    print('\nLogistic Regression Classifier, L2 regularization')
-    print(' Best param:', logit.best_params_)
-    print(' Accuracy:  ', np.round(logit.best_score_, 4) )
-    
-    return logit.best_params_
+#
+#  Find best C param for Linear SVM
+#
+svm_best_params = getBestParamsSVM(splits['train_data'], splits['train_labels'])
+
+
+print("\n\n")
+
+
+#
+#  Find best C param for Logistic Regression L2
+#
+data   = all_data['best_fit_8000']['data']
+labels = all_data['best_fit_8000']['labels']
+splits = splitData(data, labels)
+logit_best_params = getBestParams(splits['train_data'], splits['train_labels'])
+
+#
+#  Find best C param for Linear SVM
+#
+svm_best_params = getBestParamsSVM(splits['train_data'], splits['train_labels'])

@@ -1,2 +1,1 @@
-#track impact parameter Z with respect to primary vertex
-Image(filename = pathname + DCA)
+interact(mostrar_evolucion_credito, P = 1000000, I = 17, N = 20)

@@ -1,2 +1,2 @@
-# Get length, or number of elements in a list
-len(new_list)
+# Try to reassign...
+my_tuple[0] = 'goodbye'

@@ -1,21 +1,13 @@
-tickers = ["IBM", "AAPL", "GOOGL", "MSFT"]
+returns = dataframe.pct_change()  # Caluculates daily returns
+returns.iloc[0, :] = 0  # replaces nan with 0.00
+display.display(returns.head(10))
 
-data = quandl.get_table(
-    "WIKI/PRICES",
-    ticker=tickers,
-    qopts={"columns": ["date", "ticker", "adj_close"]},
-    date={
-        "gte": "2015-1-1",
-        "lte": "2017-12-31"
-    },
-    paginate=True,
-)
+plt.figure(figsize=(14, 7))
+for val in returns.columns.values:
+    plt.plot(returns.index, returns[val], linewidth=2, alpha=0.8, label=val)
 
-dataframe = data.set_index("date")
-dataframe = dataframe.pivot(columns="ticker")
-print("{}\n".format(dataframe.columns))
-dataframe.columns = [col[1] for col in dataframe.columns]
-print("{}".format(dataframe.columns))
-dataframe = pd.DataFrame(dataframe)
-dataframe = dataframe.dropna()
-display.display(dataframe.head(10))
+plt.title("Daily Returns of Portfolios")
+plt.ylabel("Returns")
+plt.xlabel("Dates")
+plt.legend()
+plt.show()

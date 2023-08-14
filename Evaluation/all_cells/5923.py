@@ -1,21 +1,6 @@
-# Save the data for easy access
-pickle_file = 'notMNIST.pickle'
-if not os.path.isfile(pickle_file):
-    print('Saving data to pickle file...')
-    try:
-        with open('notMNIST.pickle', 'wb') as pfile:
-            pickle.dump(
-                {
-                    'train_dataset': train_features,
-                    'train_labels': train_labels,
-                    'valid_dataset': valid_features,
-                    'valid_labels': valid_labels,
-                    'test_dataset': test_features,
-                    'test_labels': test_labels,
-                },
-                pfile, pickle.HIGHEST_PROTOCOL)
-    except Exception as e:
-        print('Unable to save data to', pickle_file, ':', e)
-        raise
+# Determine if the predictions are correct
+is_correct_prediction = tf.equal(tf.argmax(prediction, 1), tf.argmax(labels, 1))
+# Calculate the accuracy of the predictions
+accuracy = tf.reduce_mean(tf.cast(is_correct_prediction, tf.float32))
 
-print('Data cached in pickle file.')
+print('Accuracy function created.')

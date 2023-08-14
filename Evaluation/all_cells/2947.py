@@ -1,35 +1,25 @@
-#train.drop(['sentiment','seven_days'],axis=1,inplace=True)
-#test.drop(['sentiment','seven_days'],axis=1,inplace=True)
-result_test = []
-result_train = []
-tot = 0
-for string in ['share','comment','zan','content_len','链接','//@','@','#','【','《','\[']:
-    temp = []
-    for i in test[string+'_histogram']:
-        if isinstance(i,int):
-            temp.append(np.zeros(shape=8))
-            tot +=1
-        else:
-            temp.append(i[0])
-    result_test.append(np.asarray(temp))
-    temp = []
-    for i in train[string+'_histogram']:
-        temp.append(i[0])
-    result_train.append(np.asarray(temp))
-    
-    train.drop(string+'_histogram',axis=1,inplace=True)
-    test.drop(string+'_histogram',axis=1,inplace=True)
-train.drop(['pid','uid'],inplace=True,axis = 1)
-test.drop(['pid','uid'],inplace=True,axis = 1)
+import warnings
+warnings.filterwarnings('always')
 
-train_y = train[['share','comment','zan']].values
-train.drop(['share','comme·nt','zan'],axis = 1,inplace=True)
-train_x = train.values
-test_x  = test.values
-for i in result_train:
-    train_x = np.c_[train_x,i]
-for i in result_test:
-    test_x = np.c_[test_x,i]
-np.save('processed_data/train3_np',train_x)
-np.save('processed_data/test3_np',test_x)
-np.save('processed_data/target3_np',train_y)
+import pandas as pd
+import urllib.request
+import numpy as np
+from IPython.display import display
+from sklearn.model_selection import StratifiedKFold
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import GridSearchCV
+from sklearn import metrics
+from sklearn import preprocessing
+from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+from sklearn.metrics import precision_recall_fscore_support
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix
+from textwrap import wrap
+from sklearn.svm import LinearSVC
+from sklearn.svm import SVC
+
+

@@ -1,1 +1,3 @@
-set1.update({1000})
+# create a dictionary
+my_dictionary = {'var1':1, 'var2':2, 'var3':4}
+print(my_dictionary)

@@ -1,6 +1,3 @@
-try:
-    print(y)
-except(NameError) as err:
-    print("NameError", err)
-else:
-    raise
+# float
+x = 1.0
+type(x)

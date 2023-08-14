@@ -1,1 +1,2 @@
-lv_workspace.get_subset_object('B').get_step_object('step_2').indicator_data_filter_settings['ntot_winter'].settings.df
+f1_A = lv_workspace.get_data_filter_object(step=1, subset='A') 
+f1_A.include_list_filter

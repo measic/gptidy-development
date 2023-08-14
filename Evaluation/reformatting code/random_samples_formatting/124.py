@@ -1,4 +1,6 @@
-plt.scatter(X, y);
-plt.xlabel('Input', fontsize=15);
-plt.ylabel('Target', fontsize=15);
-plt.title('Toy regression problem', fontsize=15);
+from sklearn.ensemble import RandomForestRegressor
+regr = RandomForestRegressor(max_depth=4, random_state=0)
+regr.fit(x,y)
+### Quanto maior o score, maior a importância do atributo
+print(colunasNumericasIdade)
+print(regr.feature_importances_)

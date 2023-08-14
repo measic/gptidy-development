@@ -1,9 +1,18 @@
-image_url = 'http://cfile7.uf.tistory.com/image/26117F3E581EA5550BDC79'
+# FileNotFoundError -> IOError 계열
 
-image_data = requests.get(image_url).content
+# try:
+#     f = open('utf8_string.txt', 'rt', encoding='utf8')
+#     print(f.read())
+#     1/0
+# except IOError:
+#     print('파일을 찾을 수 없습니다.')
+# finally:
+#     print('close 합니다.')
+#     f.close()
 
-# f = open('twice.jpg', 'wb')
-# f.write(image_data)
-# f.close()
-
-# open('twice.jpg', 'wb').write(image_data)
+try:
+    with open('utf8_string.txt', 'rt', encoding='utf8') as f:
+        print(f.read())
+        1/0
+except IOError:
+    print('파일을 찾을 수 없습니다.')

@@ -1,15 +1,9 @@
-# Finally, we will define the send message function for you
-def factor_send_sp_msg(self, variable):
+def calc_sum_product_variable_to_factor_msg(variable, factor):
     
-    assert isinstance(variable, Variable), "Factor can only send messages to variable!"
-    assert can_send_message(self, variable), "Cannot send message!"
+    neighbour_msg_prod = get_neighbour_messages(variable, factor)
     
-    out_msg = calc_sum_product_factor_to_variable_msg(self, variable)
+    if len(neighbour_msg_prod) > 0:
+        return np.prod(np.array(neighbour_msg_prod), axis=0)
+    else:
+        return np.ones(variable.num_states)
     
-    # Send the message
-    variable.receive_msg(self, out_msg)
-    
-    # Remove the pending sign if present
-    self.pending.discard(variable)
-    
-Factor.send_sp_msg = factor_send_sp_msg

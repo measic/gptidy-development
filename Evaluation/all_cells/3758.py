@@ -1,14 +1,14 @@
-if use_attention is False:
-    all_decoded = []
-    for beam_i in range(beam_width):
-        inputs = []
-        all_decoded.append([])
-        decoded = decode_ids(input_ids, bm_output_ids[:,:,beam_i])
-        for dec in decoded:
-            all_decoded[-1].append(dec[1])
-            inputs.append(dec[0])
+from aipython.searchGeneric import Searcher
 
-    print('\n'.join(
-        '{} ---> {}'.format(inputs[i], ' / '.join(d[i] for d in all_decoded))
-                            for i in range(len(inputs))
-    ))
+s = Searcher(problem=search_simple2)
+
+# Visualization options
+s.sleep_time = 0.2 # The time, in seconds, between each step in auto solving
+s.line_width = 4.0 # The thickness of edges
+s.text_size = 15 # The fontsize of the text
+s.detail_level = 1 # 0=no text, 1=truncated text, 2=full text
+s.show_edge_costs = True
+
+# Display the widget
+display(s)
+s.search()

@@ -1,7 +1,7 @@
-def inverse_difference(history, yhat, interval=1):
+def function_def(history, yhat, interval=1):
     return yhat + history[-interval]
 
-def function_def(train, test):
+def scale(train, test):
     scaler = MinMaxScaler(feature_range=(-1, 1))
     scaler = scaler.fit(train)
     train = train.reshape(train.shape[0], train.shape[1])

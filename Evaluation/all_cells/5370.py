@@ -1,5 +1,2 @@
-def is_nam(s):
-    return 1 if s == 'N-Am.' else 0
-
-df_secs['is_na'] = df_secs['area'].apply(is_nam)
-df_secs
+# create variables
+df_secs['frac'] = mdl.continuous_var_list(securities, name='frac', ub=1)

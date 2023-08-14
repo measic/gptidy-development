@@ -1,16 +1,8 @@
-%matplotlib inline
+print(env.action_space)  # 0 or 1
 
-import matplotlib
-import matplotlib.pyplot as plt
-import gym
-import numpy as np
-import bisect
-import math
-import os
-import random
-import tensorflow as tf
+obs = env.reset()
+print(obs)  # position, velocity, angle, angular_velocity
+print(env._max_episode_steps)
 
-from agents.random_agent import run_episode_random_agent
-from agents.human_crafted_agent import human_decision, run_episode_human_crafted_agent
-
-tf.logging.set_verbosity(tf.logging.WARN)  # Remove Info logs
+observation_space_dimension = env.observation_space.shape[0]
+print(observation_space_dimension)

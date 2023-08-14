@@ -1,9 +1,42 @@
-# plot solutions
-plt.plot(linspace(2012,2013,1000), sol_n_lincs[:,1]+sol_n_lincs[:,2], label='N. Lincs')
-plt.plot(linspace(2012,2013,1000), sol_haringey[:,1]+sol_haringey[:,2], label = 'Haringey')
-plt.plot(linspace(2012,2013,1000), sol_dudley[:,1]+sol_dudley[:,2], label = 'Dudley')
-plt.ylim(0,0.05)
-plt.xlim(2012,2013)
-plt.ylabel('Prevalence')
-plt.xticks([2012,2013], ['2012','2013'])
-plt.legend()
+plt.figure(figsize=(8,6))
+
+for j in xrange(len(n3_test)):
+    wav = 0
+    wav_pos = 0
+    plt.plot([0,0.09],[2*(j+1), 2*(j+1)], '0.8')
+    for i in xrange(len(n3_test[j])):
+        cov = -log(1 - n3_test[j][i])
+        adpc = - log(1 - n3_diag[j][i])
+        [incsol, scrsol] = fsolve(
+            lambda x: [test_diag_fun(x)[0] - cov, test_diag_fun(x)[1] - adpc], [0.09, 0.25] 
+        )
+        prev = 1 - U_fun(incsol*p_asymp, 
+                         sc + scrsol*p_true_pos, 
+                         incsol*(1-p_asymp), 
+                         scrsol*p_true_pos + att_symp*p_true_pos
+                        )
+        plt.plot(prev, 2*(j+1), 'ob', markerfacecolor='None', markersize=20*sqrt(n3_props[j][i]))
+        wav = wav + n3_props[j][i]*prev
+        wav_pos = wav_pos + n3_props[j][i]*adpc/cov
+        
+    plt.plot(wav, 2*(j+1), 'ob')
+    plt.text(0.082, 2*(j+1), factors[j], verticalalignment='center')
+
+# overall
+cov = -log(1 - 0.346)
+adpc = - log(1 - 0.02)
+[incsol, scrsol] = fsolve(
+    lambda x: [test_diag_fun(x)[0] - cov, test_diag_fun(x)[1] - adpc], [0.09, 0.25] 
+)
+prev = 1 - U_fun(
+    incsol*p_asymp, sc + scrsol*p_true_pos, incsol*(1-p_asymp), scrsol*p_true_pos + att_symp*p_true_pos
+    )
+
+plt.plot([prev,prev],[0,100])
+
+cur_axes = plt.gca()
+cur_axes.axes.get_yaxis().set_ticks([])
+plt.xlim([0,0.08])
+plt.ylim([0,26])
+plt.xlabel('Estimated Prevalence')
+plt.ylabel('Stratification')

@@ -1,4 +1,1 @@
-type ℝ = Double
-type ℝ² = V2 ℝ
-type ℝ³ = V3 ℝ
-type ℝ⁴ = V4 ℝ
+(m$) <$> [V3 1 0 0, V3 0 1 0, V3 0 0 1]

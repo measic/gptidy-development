@@ -1,2 +1,1 @@
-# doesn't affect b
-print(b)
+5 / 'five'

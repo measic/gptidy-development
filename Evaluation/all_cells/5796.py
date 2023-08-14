@@ -1,4 +1,5 @@
-# use your function
-window_size = 100
-step_size = 5
-X,y = encode_io_pairs(text,window_size,step_size)
+# train the model
+model.fit(Xsmall, ysmall, batch_size=500, epochs=40,verbose = 1)
+
+# save weights
+model.save_weights('model_weights/best_RNN_small_textdata_weights.hdf5')

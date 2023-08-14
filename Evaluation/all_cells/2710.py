@@ -1,15 +1,43 @@
-arcpy.env.workspace = os.path.join(PATH, 'SF_vote_2016.gdb')
+# First we have to make a precinct_id column, since PREC_2012 is text
+# arcpy.AddField_management(PATH + '\\derived_data.gdb\\pop_by_block', 'precinct_id', 'LONG')
+# arcpy.CalculateField_management(PATH + '\\derived_data.gdb\\pop_by_block', 'precinct_id', '!PREC_2012!', "PYTHON_9.3")
 
-NO_TOUCH = ['OBJECTID', 'precinctname', 'reportingtype', 'precinctid']
-FLOAT = ['turnout_percent']
+# Create join key columns, this shit is so jenky
+arcpy.AddField_management(os.path.join(PATH, 'derived_data.gdb', 'pop_by_block'), 'pop_block_join_key', 'TEXT')
+arcpy.CalculateField_management(
+    os.path.join(PATH, 'derived_data.gdb', 'pop_by_block'),
+    'pop_block_join_key',
+    'str(!tractce10!) + str(!blockce10!)',
+    'PYTHON_9.3'
+)
+arcpy.AddField_management(os.path.join(PATH, 'derived_data.gdb', 'SF_2010_pop_block'), 'pop_block_join_key', 'TEXT')
+arcpy.CalculateField_management(
+    os.path.join(PATH, 'derived_data.gdb', 'SF_2010_pop_block'),
+    'pop_block_join_key',
+    "'0' + str(!census_tract!) + str(!block!)",
+    'PYTHON_9.3'
+)
 
-for table in sorted(arcpy.ListTables()):
-    for field in arcpy.ListFields(table):
-        if field.name not in NO_TOUCH:
-            original_name = field.name
-            temp_name = field.name[:5] + '_temp'
-            arcpy.AddField_management(table, temp_name, 'FLOAT' if original_name in FLOAT else 'LONG')
-            arcpy.CalculateField_management(table, temp_name, u'!{}!'.format(original_name), "PYTHON_9.3")
-            arcpy.DeleteField_management(table, original_name)
-            arcpy.AlterField_management(table, temp_name, to_appropriate_column_name(original_name[:31]))
-    print('{} complete'.format(table))
+# Now do the actual join
+arcpy.JoinField_management(
+    os.path.join(PATH, 'derived_data.gdb', 'pop_by_block'),
+    'pop_block_join_key',
+    os.path.join(PATH, 'derived_data.gdb', 'SF_2010_pop_block'),
+    'pop_block_join_key'
+)
+
+# Also make a precinct_id column, since PREC_2012 is text
+arcpy.AddField_management(os.path.join(PATH, 'derived_data.gdb', 'pop_by_block'), 'precinct_id', 'LONG')
+func = """def to_int(x):
+    if sum([a.isalnum() for a in x]) == 0:
+        return None
+    else:
+        return int(x)
+    """
+arcpy.CalculateField_management(
+    os.path.join(PATH, 'derived_data.gdb', 'pop_by_block'),
+    'precinct_id',
+    'to_int(!PREC_2012!)',
+    'PYTHON_9.3',
+    func
+)

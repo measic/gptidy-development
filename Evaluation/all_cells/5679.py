@@ -1,12 +1,9 @@
-import pandas as pd
-import numpy as np
+import nltk
+from nltk.corpus import stopwords
+import sys
 
-#data_streamer = ReutersStreamReader('reuters').iterdocs()
-#y = len(list(data_streamer))
-#print(y)
-
-data_streamer = ReutersStreamReader('reuters').iterdocs()
-data = get_minibatch(data_streamer, None)
-print("number of labeled documents in dataset ",data.count()[0])
-
-#type(data)
+def cleanupDoc(s):
+     stopset = set(stopwords.words('english'))
+     tokens = nltk.word_tokenize(s)
+     cleanup = [token.lower() for token in tokens if token.lower() not in stopset and  len(token)>2]
+     return cleanup

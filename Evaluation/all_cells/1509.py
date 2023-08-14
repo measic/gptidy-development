@@ -1,2 +1,2 @@
-### print out the first 2000 characters of the raw text to get a sense of what we need to throw out
-text[:2000]
+### TODO: implement window_transform_series in my_answers.py
+from my_answers import window_transform_series

@@ -1,1 +1,1 @@
-import mymodule
+mymodule.my_variable

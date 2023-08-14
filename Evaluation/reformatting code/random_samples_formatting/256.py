@@ -1,24 +1,52 @@
-reset_graph()
+batch_size = 128
+embedding_size = 128 # Dimension of the embedding vector.
+skip_window = 1 # How many words to consider left and right.
+num_skips = 2 # How many times to reuse an input to generate a label.
+# We pick a random validation set to sample nearest neighbors. here we limit the
+# validation samples to the words that have a low numeric ID, which by
+# construction are also the most frequent. 
+valid_size = 16 # Random set of words to evaluate similarity on.
+valid_window = 100 # Only pick dev samples in the head of the distribution.
+valid_examples = np.array(random.sample(range(valid_window), valid_size))
+num_sampled = 64 # Number of negative examples to sample.
 
-n_inputs = 28 * 28  # MNIST
-n_hidden1 = 300
-n_hidden2 = 50
-n_hidden3 = 50
-n_hidden4 = 50
-n_hidden5 = 50
-n_outputs = 10
+graph = tf.Graph()
 
-X = tf.placeholder(tf.float32, shape=(None, n_inputs), name="X")
-y = tf.placeholder(tf.int32, shape=(None), name="y")
+with graph.as_default(), tf.device('/cpu:0'):
 
-with tf.name_scope("dnn"):
-    hidden1 = tf.layers.dense(X, n_hidden1, activation=tf.nn.relu, name="hidden1")
-    hidden2 = tf.layers.dense(hidden1, n_hidden2, activation=tf.nn.relu, name="hidden2")
-    hidden3 = tf.layers.dense(hidden2, n_hidden3, activation=tf.nn.relu, name="hidden3")
-    hidden4 = tf.layers.dense(hidden3, n_hidden4, activation=tf.nn.relu, name="hidden4")
-    hidden5 = tf.layers.dense(hidden4, n_hidden5, activation=tf.nn.relu, name="hidden5")
-    logits = tf.layers.dense(hidden5, n_outputs, name="outputs")
+  # Input data.
+  train_dataset = tf.placeholder(tf.int32, shape=[batch_size])
+  train_labels = tf.placeholder(tf.int32, shape=[batch_size, 1])
+  valid_dataset = tf.constant(valid_examples, dtype=tf.int32)
+  
+  # Variables.
+  embeddings = tf.Variable(
+    tf.random_uniform([vocabulary_size, embedding_size], -1.0, 1.0))
+  softmax_weights = tf.Variable(
+    tf.truncated_normal([vocabulary_size, embedding_size],
+                         stddev=1.0 / math.sqrt(embedding_size)))
+  softmax_biases = tf.Variable(tf.zeros([vocabulary_size]))
+  
+  # Model.
+  # Look up embeddings for inputs.
+  embed = tf.nn.embedding_lookup(embeddings, train_dataset)
+  # Compute the softmax loss, using a sample of the negative labels each time.
+  loss = tf.reduce_mean(
+    tf.nn.sampled_softmax_loss(weights=softmax_weights, biases=softmax_biases, inputs=embed,
+                               labels=train_labels, num_sampled=num_sampled, num_classes=vocabulary_size))
 
-with tf.name_scope("loss"):
-    xentropy = tf.nn.sparse_softmax_cross_entropy_with_logits(labels=y, logits=logits)
-    loss = tf.reduce_mean(xentropy, name="loss")
+  # Optimizer.
+  # Note: The optimizer will optimize the softmax_weights AND the embeddings.
+  # This is because the embeddings are defined as a variable quantity and the
+  # optimizer's `minimize` method will by default modify all variable quantities 
+  # that contribute to the tensor it is passed.
+  # See docs on `tf.train.Optimizer.minimize()` for more details.
+  optimizer = tf.train.AdagradOptimizer(1.0).minimize(loss)
+  
+  # Compute the similarity between minibatch examples and all embeddings.
+  # We use the cosine distance:
+  norm = tf.sqrt(tf.reduce_sum(tf.square(embeddings), 1, keep_dims=True))
+  normalized_embeddings = embeddings / norm
+  valid_embeddings = tf.nn.embedding_lookup(
+    normalized_embeddings, valid_dataset)
+  similarity = tf.matmul(valid_embeddings, tf.transpose(normalized_embeddings))

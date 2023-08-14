@@ -1,30 +1,21 @@
-tags = [tag for i, (word, tag) in enumerate(data.training_set.stream())]
-s = tags[:-1]
-e = tags[1:]
-
-spluse = list(zip(s, e))
-
-def bigram_counts(sequences):
-    """Return a dictionary keyed to each unique PAIR of values in the input sequences
-    list that counts the number of occurrences of pair in the sequences list. The input
-    should be a 2-dimensional array.
+def ending_counts(sequences):
+    """Return a dictionary keyed to each unique value in the input sequences list
+    that counts the number of occurrences where that value is at the end of
+    a sequence.
     
-    For example, if the pair of tags (NOUN, VERB) appear 61582 times, then you should
-    return a dictionary such that your_bigram_counts[(NOUN, VERB)] == 61582
+    For example, if 18 sequences end with DET, then you should return a
+    dictionary such that your_starting_counts[DET] == 18
     """
-    d4 = defaultdict(int)
+    d5 = defaultdict(int)
     for i in sequences:
-        d4[i] += 1
+        d5[i[-1]] += 1
             
-    return d4
+    return d5
 
-# TODO: call bigram_counts with a list of tag sequences from the training set
-tag_bigrams = bigram_counts(spluse)
+# TODO: Calculate the count of each tag ending a sequence
+tag_ends = ending_counts(data.training_set.Y)
 
-assert len(tag_bigrams) == 144, \
-       "Uh oh. There should be 144 pairs of bigrams (12 tags x 12 tags)"
-assert min(tag_bigrams, key=tag_bigrams.get) in [('X', 'NUM'), ('PRON', 'X')], \
-       "Hmmm...The least common bigram should be one of ('X', 'NUM') or ('PRON', 'X')."
-assert max(tag_bigrams, key=tag_bigrams.get) in [('DET', 'NOUN')], \
-       "Hmmm...('DET', 'NOUN') is expected to be the most common bigram."
-HTML('<div class="alert alert-block alert-success">Your tag bigrams look good!</div>')
+assert len(tag_ends) == 12, "Uh oh. There should be 12 tags in your dictionary."
+assert min(tag_ends, key=tag_ends.get) in ['X', 'CONJ'], "Hmmm...'X' or 'CONJ' should be the least common ending bigram."
+assert max(tag_ends, key=tag_ends.get) == '.', "Hmmm...'.' is expected to be the most common ending bigram."
+HTML('<div class="alert alert-block alert-success">Your ending tag counts look good!</div>')

@@ -1,25 +1,19 @@
-# from bishop import thetas
-thetas = np.array([(1., 4., 0., 0.), 
-                   (9., 4., 0., 0.), 
-                   (1., 64., 0., 0.), 
-                   (1., 0.25, 0., 0.), 
-                   (1., 4., 10., 0.), 
-                   (1., 4., 0., 5.)])
+### Test your function
+N = 2
+train_x = np.linspace(-1, 1, N)
+train_t = 2*train_x
+test_N = 3
+test_x = np.linspace(-1, 1, test_N) 
+theta = [1, 2, 3, 4]
+beta = 25
+test_mean, test_covar, C = gp_predictive_distribution(train_x, train_t, test_x, theta, beta, C=None)
 
-n_samples = 5 # number of functions we sample per plot.
-N_test = 100
-x_test = np.linspace(-1, 1, N_test) 
 
-for idx, theta in enumerate(thetas):
-    K = computeK(x_test,x_test,theta)
-    plt.subplot(2, 3, idx+1).title.set_text(str(theta))
-    
-    for i in range(n_samples):
-        plt.plot(x_test,np.random.multivariate_normal(np.zeros(len(K)),K))
-    
-    variance = K.diagonal()
-    plt.fill_between(x_test, -2*np.sqrt(variance), 2*np.sqrt(variance), color='r', alpha=0.1 )
-    plt.plot(x_test, np.zeros(len(x_test)), '--')
+assert test_mean.shape == (test_N,), "the shape of mean is incorrect"
+assert test_covar.shape == (test_N, test_N), "the shape of var is incorrect"
+assert C.shape == (N, N), "the shape of C is incorrect"
 
-plt.suptitle("Function Samples from GP")
-plt.show()
+C_in = np.array([[0.804, -0.098168436], [-0.098168436, 0.804]])
+_, _, C_out = gp_predictive_distribution(train_x, train_t, test_x, theta, beta, C=C_in)
+
+assert np.allclose(C_in, C_out), "C is not reused!"

@@ -1,3 +1,2 @@
-#create a 2D matrix
-L=np.array([[3,2,1],[9,5,6]])
-print(L)
+#element-wise multiplication of two matrices with same shape.
+print(E*L)

@@ -1,11 +1,14 @@
-yellow_output = 'test_videos_output/solidYellowLeft.mp4'
-leftline=[(0,0,0,0)]
-rightline=[(0,0,0,0)]
-## To speed up the testing process you may want to try your pipeline on a shorter subclip of the video
-## To do so add .subclip(start_second,end_second) to the end of the line below
-## Where start_second and end_second are integer values representing the start and end of the subclip
-## You may also uncomment the following line for a subclip of the first 5 seconds
-##clip2 = VideoFileClip('test_videos/solidYellowLeft.mp4').subclip(0,5)
-clip2 = VideoFileClip('test_videos/solidYellowLeft.mp4')
-yellow_clip = clip2.fl_image(process_image)
-%time yellow_clip.write_videofile(yellow_output, audio=False)
+def plot_decision_boundary(X, y, w, i):
+    x1s = np.arange(7)
+    x2s = (-w[2]-w[0]*x1s)/w[1]
+
+    fig = figure(0, (8,6))
+    #Scatter data
+    scatter(X[:,0], X[:,1], c = y, s = 75)
+    scatter(X[i,0], X[i,1], c = 'r', s = 75)
+    #Plot decision boundary
+    plot(x1s, x2s)
+
+    xlabel('$x_1$', fontsize = 20)
+    ylabel('$x_2$', fontsize = 20)
+    grid(1)

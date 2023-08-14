@@ -1,1 +1,1 @@
-shop_info = shop_info.join(regression_predict)
+shop_info.loc[56,'cos_sim_wk_66']

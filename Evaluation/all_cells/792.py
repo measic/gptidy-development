@@ -1,2 +1,2 @@
-## transpose matrix
-print(A.T)
+## matrix addition
+print( A + B)

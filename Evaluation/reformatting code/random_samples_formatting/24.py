@@ -1,8 +1,9 @@
-if __name__=='__main__':
-    #Correlation for Continuous variables
-    Corr=pandas.DataFrame()
-    for Variable in Q_Dependent:
-        C=Q_training[[t for t in Q_training.keys() if (t not in Q_Dependent)]+[Variable]].corr()[Variable][:-1]
-        Corr=Corr.append(C)
-    #Write correlation as csv
-    Corr.T.to_csv('Correlations.csv')
+# Selecting certian numerical features
+X_select = X_Num_Cov[space]
+# Dropping the missing values from the feature space
+X_select = X_select.dropna()
+# Creating the output space
+Y = X_select['reviews_per_month']
+X_select = X_select.drop(['reviews_per_month'], axis = 1)
+print(X_select.info())
+X_select.head()

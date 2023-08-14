@@ -1,5 +1,2 @@
-reset_graph()
-
-X = tf.placeholder(tf.float32, shape=(None, height, width, 1))
-feature_maps = tf.constant(fmap)
-convolution = tf.nn.conv2d(X, feature_maps, strides=[1,1,1,1], padding="SAME")
+### Calculate the accuracy for these 5 new images. 
+### For example, if the model predicted 1 out of 5 signs correctly, it's 20% accurate on these new images.

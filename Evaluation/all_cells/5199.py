@@ -1,2 +1,3 @@
-def leaky_relu(z, alpha=0.01):
-    return np.maximum(alpha*z, z)
+reset_graph()
+
+X = tf.placeholder(tf.float32, shape=(None, n_inputs), name="X")

@@ -1,2 +1,1 @@
-# Display the clustering results based on 'Channel' data
-vs.channel_results(reduced_data, outliers, pca_samples)
+dfTiDirt = pd.read_csv('titanic_data.csv')

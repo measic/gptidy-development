@@ -1,30 +1,10 @@
-def buildProfit(bankdata):
-    data = []
+def plot_general(bankdata, minDate, maxDate):
+    (data, _, _) = buildTraces(bankdata)
+    layout = go.Layout(title = 'Saldo ' + minDate.strftime("%m/%d/%Y") + ' - ' + maxDate.strftime("%m/%d/%Y"),
+                  xaxis = dict(title = 'Fecha'),
+                  yaxis = dict(title = 'Saldo (' + CURRENCY + ')'),
+                  showlegend = True
+    )
 
-    for bank in bankdata[CURRENT]:
-        dates = bankdata[CURRENT][bank]['date']
-        movements = bankdata[CURRENT][bank]['movements']
-
-        profit = {}
-        for date, movement in zip(dates, movements):
-            key = str(date.month) + '/' + str(date.year)
-
-            if key in profit:
-                profit[key] += float(movement)
-            else:
-                profit[key] = float(movement)
-            
-        months = []
-        profits = []
-        for key, value in profit.items():
-            months.append(dt.datetime.strptime(key, '%m/%Y').date())
-            profits.append(value)
-        
-        trace = go.Bar(
-            x = months,
-            y = profits,
-            name = "Profit for {}".format(SUPPORTED_BANKS[bank])
-        )
-        data.append(trace)
-        
-    return data
+    fig = dict(data=data, layout=layout)
+    py.offline.iplot(fig, filename='styled-line')

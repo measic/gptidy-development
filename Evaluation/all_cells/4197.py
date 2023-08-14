@@ -1,20 +1,22 @@
-from nose.tools import ok_
-from nose.tools import eq_
-ok_('seconds_in_a_decade' in vars(), "It looks like you didn't give anything the name seconds_in_a_decade.  Maybe there's a typo, or maybe you just need to run the cell below Question 3.2 where you defined seconds_in_a_decade.  (Click that cell and then click the 'run # cell' button in the menu bar above.")
-ok_(isinstance(seconds_in_a_decade, int), "It looks like you didn't change the cell to define seconds_in_a_decade appropriately.  It should be a number, computed using Python's arithmetic.  For example, this is almost right:  seconds_in_a_decade = 10*365*24*60*60")
-ok_(seconds_in_a_decade != 315360000, "It looks like you didn't account for leap years. There were 2 leap years and 8 non-leap years in this period. Leap years have 366 days instead of 365.")
-ok_(seconds_in_a_decade == 315532800)
-ok_(time != ..., "Fill in the row time = ... with something like: time = 4.567")
-eq_(round(time, 5), 1.2, "Read the text above the question to see what time should be")
-ok_(estimated_distance_m != ..., "Fill in the row  estimated_distance_m = ... with something like: estimated_distance_m = 4.567")
-ok_(estimated_distance_m != 113, "Note that the units are meters, but the text used centimeters.")
-eq_(round(estimated_distance_m, 5), 1.13, "Read the text above the question to see what estimated_distance_m should be.")
-ok_(predicted_distance_m != ..., "Fill in the line that currently says  predicted_distance_m = ... n the cell above.")
-eq_(round(predicted_distance_m, 5), 1.17022, "Compute predicted_distance_m using the formula in the text above.  Hint: it should    predicted_distance_m = (1/2) * gravity_constant ...")
-eq_(round(difference, 5), 0.04022)
-ok_(num_avenues_away != ..., "Fill in the line  num_avenues_away = ... in the cell above. ")
-ok_(num_avenues_away != -3, "Remember to compute the absolute value of 7-10.  Traveling  '-3 blocks' doesn't really make sense!")
-eq_(num_avenues_away, 3)
-eq_(manhattan_distance, 1462)
-eq_(round(botan_distance_from_average_m, 5), 0.162)
-eq_(round(min_height_difference, 5), 0.05)
+# TODO: Minimum price of the data
+minimum_price = None
+
+# TODO: Maximum price of the data
+maximum_price = None
+
+# TODO: Mean price of the data
+mean_price = None
+
+# TODO: Median price of the data
+median_price = None
+
+# TODO: Standard deviation of prices of the data
+std_price = None
+
+# Show the calculated statistics
+print "Statistics for Boston housing dataset:\n"
+print "Minimum price: ${:,.2f}".format(minimum_price)
+print "Maximum price: ${:,.2f}".format(maximum_price)
+print "Mean price: ${:,.2f}".format(mean_price)
+print "Median price ${:,.2f}".format(median_price)
+print "Standard deviation of prices: ${:,.2f}".format(std_price)

@@ -1,2 +1,5 @@
-# Fully train the SRGAN with VGG loss and Discriminator loss
-srgan_network.train_full_model(coco_path, num_images=80000, epochs=5, batch_size=16)
+#Only run once!
+X = np.hstack((X, np.ones((X.shape[0], 1))))
+
+#Initialize Weights to zero:
+w = np.zeros(X.shape[1])

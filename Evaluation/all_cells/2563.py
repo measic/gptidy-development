@@ -1,1 +1,1 @@
-stats.ttest_1samp(posttest.Q2_SceneColorScheme,50)
+stats.ttest_rel(posttest.Q2_SceneSkyPresence, posttest.Q2_SceneColorScheme)

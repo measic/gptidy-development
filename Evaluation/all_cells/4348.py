@@ -1,1 +1,1 @@
-from google.colab import drive
+cd gd/My Drive

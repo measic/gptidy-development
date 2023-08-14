@@ -1,10 +1,4 @@
-# connect the probabilities in `p` with our observations through a
-# Bernoulli random variable.
-with model:
-    observed = pm.Bernoulli("bernoulli_obs", p, observed=D)
-    
-    # Mysterious code to be explained in Chapter 3
-    start = pm.find_MAP()
-    step = pm.Metropolis()
-    trace = pm.sample(120000, step=step, start=start)
-    burned_trace = trace[100000::2]
+t = np.linspace(temperature.min() - 5, temperature.max()+5, 50)[:, None]
+p_t = logistic(t.T, beta_samples, alpha_samples)
+
+mean_prob_t = p_t.mean(axis=0)

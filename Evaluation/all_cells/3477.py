@@ -1,11 +1,4 @@
-statement1 = False
-statement2 = False
-
-if statement1:
-    print("statement1 is True")
-    
-elif statement2:
-    print("statement2 is True")
-    
-else:
-    print("statement1 and statement2 are False")
+# Bad indentation! This would lead to error
+#if statement1:
+#    if statement2:
+#    print("both statement1 and statement2 are True")  # this line is not properly indented

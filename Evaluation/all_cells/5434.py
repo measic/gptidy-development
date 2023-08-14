@@ -1,11 +1,11 @@
-tf.reset_default_graph()
+# Delete this cell to re-enable tracebacks
+import sys
+ipython = get_ipython()
 
-global_step = tf.Variable(0, name="global_step", trainable=False)
-policy_estimator = PolicyEstimator(learning_rate=0.001)
-value_estimator = ValueEstimator(learning_rate=0.1)
+def hide_traceback(exc_tuple=None, filename=None, tb_offset=None,
+                   exception_only=False, running_compiled_code=False):
+    etype, value, tb = sys.exc_info()
+    value.__cause__ = None  # suppress chained exceptions
+    return ipython._showtraceback(etype, value, ipython.InteractiveTB.get_exception_only(etype, value))
 
-with tf.Session() as sess:
-    sess.run(tf.initialize_all_variables())
-    # Note, due to randomness in the policy the number of episodes you need varies
-    # TODO: Sometimes the algorithm gets stuck, I'm not sure what exactly is happening there.
-    stats = actor_critic(env, policy_estimator, value_estimator, 50, discount_factor=0.95)
+#ipython.showtraceback = hide_traceback

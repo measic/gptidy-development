@@ -1,1 +1,1 @@
-uniao_dropna.corr(method='pearson')
+uniao_dropna.corr(method = 'kendall')

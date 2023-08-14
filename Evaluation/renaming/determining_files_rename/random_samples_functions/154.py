@@ -1,4 +1,4 @@
-def function_def(history, yhat, interval=1):
+def inverse_difference(history, yhat, interval=1):
     return yhat + history[-interval]
 
 def scale(train, test):
@@ -10,7 +10,7 @@ def scale(train, test):
     test_scaled = scaler.transform(test)
     return (scaler, train_scaled, test_scaled)
 
-def invert_scale(scaler, X, value):
+def function_def(scaler, X, value):
     new_row = [x for x in X] + [value]
     array = numpy.array(new_row)
     array = array.reshape(1, len(array))

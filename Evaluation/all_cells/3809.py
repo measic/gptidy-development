@@ -1,5 +1,1 @@
-MCppDxyDz = "MC_PlotDxyvsDz.png"
-MCppDzNtrk = "MC_PlotDzvsNtrk.png"
-DATAppDxyDz = "DATA_PlotDxyvsDz.png"
-DATAppDzNtrk = "DATA_PlotDzvsNtrk.png"
-DCA = "DCA.png"
+Image(filename = pathname + DATAppDzNtrk )

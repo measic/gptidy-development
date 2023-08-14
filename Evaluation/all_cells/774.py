@@ -1,2 +1,2 @@
-## add new column
-data["N21"] = ""
+## display first 5 rows of data frame with new index
+data.iloc[0:5]

@@ -1,2 +1,4 @@
-plt.hist(dataset[dataset.match==1].playlist_duration_ms)
-plt.hist(dataset[dataset.match==0].playlist_duration_ms)
+first_name = "Johan"
+last_name = "Gambolputty"
+full_name = first_name + last_name
+print(full_name)

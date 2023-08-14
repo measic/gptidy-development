@@ -1,3 +1,4 @@
-# read in the text, transforming everything to lower case
-text = open('datasets/holmes.txt').read().lower()
-print('our original text has ' + str(len(text)) + ' characters')
+### find and replace '\n' and '\r' symbols - replacing them 
+text = text[1302:]
+text = text.replace('\n',' ')    # replacing '\n' with '' simply removes the sequence
+text = text.replace('\r',' ')

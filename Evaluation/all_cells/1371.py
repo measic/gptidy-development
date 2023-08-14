@@ -1,3 +1,2 @@
-A = 15
-print('B', B)
-print('A\n', A)
+#Get a list of variables in the local scope (which includes hidden variables from your jupyter notebook)
+dir()

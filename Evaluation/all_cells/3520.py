@@ -1,1 +1,2 @@
-mymodule.my_function() 
+from importlib import reload
+reload(mymodule)

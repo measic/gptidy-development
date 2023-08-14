@@ -1,1 +1,1 @@
-cigar.flatten().unflatten().string
+r = ConsedRunner()

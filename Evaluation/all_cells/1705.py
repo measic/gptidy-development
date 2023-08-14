@@ -1,2 +1,2 @@
-plot_heatmap(top10_df, 'AssessBenefits6')    
-plt.title('Importance of  Retirement or pension savings matching', fontsize=18)
+plot_heatmap(top10_df, 'AssessBenefits8')    
+plt.title('Importance of Computer/office equipment allowance', fontsize=18)

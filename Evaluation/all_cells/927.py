@@ -1,7 +1,4 @@
-# Line plot
-series.plot()
-plt.xticks(rotation=90)
-pyplot.show()
-# The reason this chart doesn't match up with what's provided because python
-# Understands time now and there are missing data for several points across multiple dates
-# I guess I will have to try differently to reproduce this
+labels=pd.date_range(start="1901-1-1",periods=len(series),freq="MS")
+# Man this frequency is tricky. If just say M, it means month end.....
+labels
+series.index=labels

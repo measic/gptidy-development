@@ -1,2 +1,3 @@
-# map is a built-in python function
-list(map(lambda x: x**2, range(-3,4)))
+p1 = Point(0, 0)  # this will invoke the __init__ method in the Point class
+
+print(p1)          # this will invoke the __str__ method

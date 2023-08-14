@@ -1,3 +1,2 @@
-#for more complex formatting it is recommended to use format()
-agestring2 = fullname + ' {0} months old'.format(str(age*12))
-print(agestring2)
+#show one cell at row1 column 3. (0,2 in base 0 indexing)
+print(stimuli.iloc[0][2])

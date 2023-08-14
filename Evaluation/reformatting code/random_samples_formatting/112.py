@@ -1,41 +1,30 @@
-basic_model = HiddenMarkovModel(name="base-hmm-tagger")
+fig, ax1 = plt.subplots()
 
-tags = (tag for i, (word, tag) in enumerate(data.training_set.stream()))
-words = (word for i, (word, tag) in enumerate(data.training_set.stream()))
+tick_locations = [value for value in x_axis]
 
-# TODO: create states with emission probability distributions P(word | tag) and add to the model
-# (Hint: you may need to loop & create/add new states)
-#basic_model.add_states()
+plt.xticks(tick_locations, county, rotation=90)
 
-emission_counts = pair_counts(tags, words)
-states = {}
-for tag, word_dict in emission_counts.items():
-    emission_dict = defaultdict(float)
-    for word in word_dict.keys():
-        emission_dict[word] = emission_counts[tag][word] / tag_unigrams[tag] 
-    state_emission = DiscreteDistribution(dict(emission_dict))
-    states[tag] = State(state_emission, name=tag)
-    
-basic_model.add_states(list(states.values()))
+grad_rate = df_county_data["Graduation Rate"]
+county = df_county_data["County Name"]
+pov_rate = df_county_data["Poverty Rate"]
+t = np.arange(len(county))
+ax1.plot(t, pov_rate, 'b-')
+ax1.set_xlabel('counties')
+# Make the y-axis label, ticks and tick labels match the line color.
+ax1.set_ylabel('Poverty Rate', color='b')
+ax1.tick_params('y', colors='b')
 
-# TODO: add edges between states for the observed transition frequencies P(tag_i | tag_i-1)
-# (Hint: you may need to loop & add transitions
-#basic_model.add_transition()
-for tag in data.training_set.tagset:
-    state = states[tag]
-    basic_model.add_transition(basic_model.start, state, tag_starts[tag]/len(data.training_set))
-    basic_model.add_transition(state, basic_model.end, tag_ends[tag]/tag_unigrams[tag])
-    for next_tag in data.training_set.tagset:
-        next_state = states[next_tag]
-        basic_model.add_transition(state, next_state, tag_bigrams[(tag, next_tag)]/tag_unigrams[tag])
+plt.title("High School Graduation Rates and Poverty Rates by County")
 
-# NOTE: YOU SHOULD NOT NEED TO MODIFY ANYTHING BELOW THIS LINE
-# finalize the model
-basic_model.bake()
+ax2 = ax1.twinx()
 
-assert all(tag in set(s.name for s in basic_model.states) for tag in data.training_set.tagset), \
-       "Every state in your network should use the name of the associated tag, which must be one of the training set tags."
-assert basic_model.edge_count() == 168, \
-       ("Your network should have an edge from the start node to each state, one edge between every " +
-        "pair of tags (states), and an edge from each state to the end node.")
-HTML('<div class="alert alert-block alert-success">Your HMM network topology looks good!</div>')
+ax2.plot(t,grad_rate, 'r*')
+ax2.set_ylabel('Graduation Rate', color='r')
+ax2.tick_params('y', colors='r')
+zoom = 5
+w, h = fig.get_size_inches()
+fig.set_size_inches(w * zoom, h * zoom/2)
+# plt.xlim(0,20)
+# fig.tight_layout()
+plt.savefig("Images/County_Grad_Poverty_Rates2.png", bbox_inches = "tight")
+plt.show()

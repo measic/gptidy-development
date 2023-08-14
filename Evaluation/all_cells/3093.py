@@ -1,13 +1,1 @@
-# Set up.
-
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-
-from IPython.core.interactiveshell import InteractiveShell
-InteractiveShell.ast_node_interactivity = 'all'
-
-np.random.seed(42)
-
-%load_ext autoreload
-%autoreload 2
+colors_dict = {'white': (255, 255, 255), 'black': (0, 0, 0), 'red': (255, 0, 0), 'green': (0, 255, 0), 'yellow': (255, 255, 0)}

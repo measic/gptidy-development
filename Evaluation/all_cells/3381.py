@@ -1,3 +1,2 @@
-import datasets.divahisdb as diva
-hisdb = diva.HisDBDataset(datasets_path / diva.NAME, gt=True)
-page, page_gt = hisdb[0]
+np.unique(gt & diva.BOUNDARY)
+# plt.imshow((gt & diva.BOUNDARY).astype(bool),'binary')

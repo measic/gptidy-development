@@ -1,5 +1,4 @@
-# boolean
-b1 = True
-b2 = False
-
-type(b1)
+[1 + 2, 
+ 1 - 2,
+ 1 * 2,
+ 1 % 2]

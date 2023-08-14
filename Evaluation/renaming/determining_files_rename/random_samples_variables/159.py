@@ -1,15 +1,15 @@
 colors = ['b', 'g', 'r', 'k', 'c', 'm', 'y']
-variable_def = 0
+index = 0
 for segment in segments:
-    segDF = data.loc[data['RiverSeg'] == segment]
-    segDF = segDF[segDF["lam'"] > 0]
-    segDF = segDF.sort_values('Year')
-    x = segDF['Year']
-    y = segDF["1-lam'"]
+    variable_def = data.loc[data['RiverSeg'] == segment]
+    variable_def = variable_def[variable_def["lam'"] > 0]
+    variable_def = variable_def.sort_values('Year')
+    x = variable_def['Year']
+    y = variable_def["1-lam'"]
     y.name = segment
-    plt.plot(x, y, colors[variable_def])
+    plt.plot(x, y, colors[index])
     plt.legend(loc=(1.05, 0.2))
-    variable_def += 1
+    index += 1
 plt.title("1-Lambda', " + river + ' River Segments')
 plt.xlabel('Year')
 plt.ylabel("1-Lambda'")

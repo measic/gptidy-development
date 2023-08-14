@@ -1,6 +1,6 @@
 import math
 
-def grayscale(img):
+def function_def(img):
     """Applies the Grayscale transform
     This will return an image with only one color channel
     but NOTE: to see the returned image as grayscale
@@ -57,7 +57,7 @@ def draw_lines(img, lines, color=[255, 0, 0], thickness=10):
             cv2.line(img, (x1, y1), (x2, y2), [0, 0, 255], 6)
             if x1 == x2:
                 continue
-            slope = function_def(x1, y1, x2, y2)
+            slope = get_slope(x1, y1, x2, y2)
             if slope < 0:
                 if slope > -0.5 or slope < -0.8:
                     continue
@@ -69,7 +69,7 @@ def draw_lines(img, lines, color=[255, 0, 0], thickness=10):
     draw_lines_oneside(img, left_lines, color, thickness)
     draw_lines_oneside(img, right_lines, color, thickness)
 
-def function_def(x1, y1, x2, y2):
+def get_slope(x1, y1, x2, y2):
     return (y2 - y1) / (x2 - x1)
 
 def draw_lines_oneside(img, lines, color, thickness):

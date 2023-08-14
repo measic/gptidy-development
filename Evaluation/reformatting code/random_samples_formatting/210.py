@@ -1,7 +1,6 @@
-shuffled = tripsqc.sample(frac=1)
-trainsize = int(len(shuffled['fare_amount']) * 0.80)
-validsize = int(len(shuffled['fare_amount']) * 0.20)
-
-
-df_train = shuffled.iloc[:trainsize, :]
-df_valid = shuffled.iloc[trainsize:(trainsize+validsize), :]
+data_chars = []
+for i, e in enumerate(data_pre):
+    chars = []
+    for j in range(5):
+        chars.append(e[:,int(centers[i][j]-21):int(centers[i][j]+21)])
+    data_chars.append(chars)

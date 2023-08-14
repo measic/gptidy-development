@@ -7,8 +7,8 @@ def save_annotations(adict):
     with open(os.path.join('.', filename), 'w', newline='') as out:
         writer = csv.writer(out)
         for key, value in adict.items():
-            variable_def = [key, *value]
-            writer.writerow(variable_def)
+            line = [key, *value]
+            writer.writerow(line)
 
 def create_anottations(lista, save=True):
     """Use dumb walk heuristic to create anottations
@@ -21,17 +21,17 @@ def create_anottations(lista, save=True):
         
         a dict with name of image: (xleft, ytop, xright, ytop) coordinates
     """
-    cont = 0
+    variable_def = 0
     result = {}
     for img in lista:
         try:
             result[img] = find_conteiner(img)
         except ValueError:
             pass
-        cont += 1
-        if cont % 100 == 0:
+        variable_def += 1
+        if variable_def % 100 == 0:
             clear_output()
-            print('...', cont, '...')
+            print('...', variable_def, '...')
     if save:
         save_annotations(result)
     return result

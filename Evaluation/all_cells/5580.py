@@ -1,31 +1,14 @@
-# %matplotlib inline
-%matplotlib notebook
+def convert_column_string_encoding(column):
+    column = Column([pcc.utils.b(x) for x in column.data], name = column.name)
+    return column
 
-try:
-    from importlib import reload
-except:
-    pass
+def get_mjdmax_BessellV(sn):
+    v = sn.lcfit.spline["BessellV"]    
+    mjd_spline = np.arange(np.nanmin(sn.phot.data["BessellV"]["MJD"]), 
+                 np.nanmax(sn.phot.data["BessellV"]["MJD"]),
+                 0.001)
+    w = np.where(v(mjd_spline) == np.nanmax(v(mjd_spline)))
 
-from __future__ import print_function ## Force python3-like printing
-
-import os
-
-from matplotlib import pyplot as plt
-from matplotlib import rc
-rc('text', usetex=True)
-
-import sfdmap
-
-import numpy as np
-from astropy.table import Table,Column
-
-import pycoco as pcc
-
-reload(pcc) ## FOR DEV
-# reload(pcc.defaults)
-# reload(pcc.functions)
-# reload(pcc.classes)
-# reload(pcc.utils)
-
-
-import pyCoCo as pccsims
+    mjdmax = mjd_spline[w]
+    
+    return mjdmax

@@ -1,1 +1,1 @@
-plot_categorical_count(df, 'Student', title='Number Of Student', limit=3)
+plot_categorical_count(df, 'Gender', title='number of respondents per Gender')

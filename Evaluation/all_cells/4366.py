@@ -1,2 +1,9 @@
-### TODO: Test the performance of the dog_detector function
-### on the images in human_files_short and dog_files_short.
+from keras.layers import Conv2D, MaxPooling2D, GlobalAveragePooling2D
+from keras.layers import Dropout, Flatten, Dense
+from keras.models import Sequential
+
+model = Sequential()
+
+### TODO: Define your architecture.
+
+model.summary()

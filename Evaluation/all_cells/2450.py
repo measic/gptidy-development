@@ -1,1 +1,1 @@
-from BITS.seq.utils import compress_homopolymer
+from BITS.seq.utils import split_seq

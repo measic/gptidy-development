@@ -1,1 +1,2 @@
-cmap.hex_colors
+init_notebook_mode()
+plot_interactive(collection)

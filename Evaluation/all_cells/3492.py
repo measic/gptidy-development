@@ -1,16 +1,11 @@
-def print_max(a, b):
-    if a > b:
-        print( a, 'is maximum')
-    elif a == b:
-        print(a, 'is equal to', b)
-    else:
-        print(b, 'is maximum')
+x = 50
 
-# directly pass literal values
-print_max(3, 4)
+def func():
+    global x
 
-x = 7
-y = 7
+    print('x is', x)
+    x = 2
+    print('Changed global x to', x)
 
-# pass variables as arguments
-print_max(x, y)
+func()
+print('Value of x is', x)

@@ -1,6 +1,11 @@
-# accessing words with Dataset.X and tags with Dataset.Y 
-for i in range(4):    
-    print("Sentence {}:".format(i + 1), data.training_set.X[i])
-    print()
-    print("Labels {}:".format(i + 1), data.training_set.Y[i])
-    print()
+d1 = defaultdict(list)
+d2 = defaultdict(list)
+for i, pair in enumerate(data.stream()):
+    d1[pair[1]].append(pair[0])
+    if i > 1000: break
+
+print(d1.keys())
+#print(d1.items())
+
+for key in d1.keys():
+    d2[key] = Counter(d1[key])

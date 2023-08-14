@@ -1,1 +1,1 @@
-fruits.index
+d1[1:3]

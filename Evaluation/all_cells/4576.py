@@ -1,15 +1,7 @@
-temperature = float(input('What is the temperature in F? '))
+# A simple for loop to find sum of all numbers up to 99
+counter = 0
 
-if temperature > 70:
-    print('Wear shorts.') 
-
-elif temperature > 20:
-    print('Wear pants.')
+for i in range(100):
+    counter += i
     
-elif temperature > 10:
-    print('do something')
-    
-else:
-    print("Don't go outside.")
-    
-print("...end of program")
+print(counter)

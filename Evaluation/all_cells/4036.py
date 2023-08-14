@@ -1,2 +1,4 @@
-heatmap_avg = np.zeros((oriImg.shape[0], oriImg.shape[1], 19))
-paf_avg = np.zeros((oriImg.shape[0], oriImg.shape[1], 38))
+f = plt.figure()
+plt.imshow(oriImg[:,:,[2,1,0]])
+ax2 = plt.imshow(heatmap_avg[:,:,1], alpha=.5)
+f.show()

@@ -1,2 +1,2 @@
 # BK
-wervingsgebieden
+wervingsgebieden.dtypes

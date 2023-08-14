@@ -1,1 +1,2 @@
-m = keras.models.load_model("/Users/tim/MMT/HALcoll/halcoll/data/tiltx_model.h5")
+ttt = train_dataset['cell_e_series_chamber_ambient_C'] - train_dataset['yankee_temperature']
+ttt.min()

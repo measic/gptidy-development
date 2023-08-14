@@ -1,30 +1,22 @@
-# Transformer 之上已經沒有其他 layers 了，我們使用 tf.keras.Model 建立一個模型
-class Transformer(tf.keras.Model):
-  # 初始參數包含 Encoder & Decoder 都需要超參數以及中英字典數目
-  def __init__(self, num_layers, d_model, num_heads, dff, input_vocab_size, 
-               target_vocab_size, rate=0.1):
-    super(Transformer, self).__init__()
+#ignore
+# labels = ['sentence', 'subword']
+# # plot(inp, name='inp', labels=labels, shape_desc='(batch_size, inp_seq_len)')
+# # plot(tar, name='tar', labels=labels, shape_desc='(batch_size, tar_seq_len)')
 
-    self.encoder = Encoder(num_layers, d_model, num_heads, dff, 
-                           input_vocab_size, rate)
+# # string
+# plot(decode(inp), name='inp', is_string=True, 
+#      labels=labels)
+# plot(decode(tar, lang='zh'), name='tar', is_string=True, 
+#      labels=labels)
+# plot(decode(tar[:, :-1], lang='zh'), name='tar[:, :-1]', is_string=True, 
+#      labels=labels)
+# plot(decode(tar[:, 1:], lang='zh'), name='tar[:, 1:]', is_string=True, 
+#      labels=labels)
 
-    self.decoder = Decoder(num_layers, d_model, num_heads, dff, 
-                           target_vocab_size, rate)
-    # 這個 FFN 輸出跟中文字典一樣大的 logits 數，等通過 softmax 就代表每個中文字的出現機率
-    self.final_layer = tf.keras.layers.Dense(target_vocab_size)
-  
-  # enc_padding_mask 跟 dec_padding_mask 都是英文序列的 padding mask，
-  # 只是一個給 Encoder layer 的 MHA 用，一個是給 Decoder layer 的 MHA 2 使用
-  def call(self, inp, tar, training, enc_padding_mask, 
-           combined_mask, dec_padding_mask):
 
-    enc_output = self.encoder(inp, training, enc_padding_mask)  # (batch_size, inp_seq_len, d_model)
-    
-    # dec_output.shape == (batch_size, tar_seq_len, d_model)
-    dec_output, attention_weights = self.decoder(
-        tar, enc_output, training, combined_mask, dec_padding_mask)
-    
-    # 將 Decoder 輸出通過最後一個 linear layer
-    final_output = self.final_layer(dec_output)  # (batch_size, tar_seq_len, target_vocab_size)
-    
-    return final_output, attention_weights
+# predicted_indices = tf.argmax(predictions, axis=-1)
+# predicted_words = decode(predicted_indices, lang="zh")
+
+
+# plot(predicted_words, name='predicted_words', is_string=True, 
+#      labels=labels)

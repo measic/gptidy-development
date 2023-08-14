@@ -1,7 +1,20 @@
-def marginal(self):
+# ANSWER 1.5
+def receive_msg(self, other, msg):
     
-    marginal = np.prod(np.array(list(self.in_msgs.values())), axis=0)
-    marginal /= np.sum(marginal)
-    return marginal
-
-Variable.marginal = marginal
+    
+    if other not in self.in_msgs or not np.allclose(self.in_msgs[other], msg):
+        self.in_msgs[other] = msg
+        
+        pending = []
+        for n in self.neighbours:
+            if can_send_message(self, n):
+                pending.append(n)
+        
+        self.pending.update(pending)
+    
+    else:
+        self.in_msgs[other] = msg
+    
+    
+    
+Node.receive_msg = receive_msg

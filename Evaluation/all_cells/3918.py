@@ -1,1 +1,1 @@
-!easy_install -U NeoBase
+!pip install GeoBases3K

@@ -1,2 +1,2 @@
-# print the zeroth element
-print( a_list[3] )
+# create a list
+a_list = ['M', 'o', 'n', 't', 'y', '', 'P', 'y', 't', 'h', 'o', 'n']

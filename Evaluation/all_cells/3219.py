@@ -1,2 +1,1 @@
-imshow(ball, cmap = 'gray')
-colorbar()
+print(X.shape, y.shape)

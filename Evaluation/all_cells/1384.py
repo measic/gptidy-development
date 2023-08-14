@@ -1,5 +1,5 @@
-E[0][2]= 10 
-print('first\n',E)
-# a more compact way to access the same element is using a "," instead of the interior brackets ']['
-E[0,2] = 10
-print('2nd\n',E)
+#demonstrates the difference between axis=0 and axis=1
+AX = np.array([[1,2,3],[4,5,6]])
+print(AX)
+print('sum down', np.sum(AX, axis=0))
+print('sum across', np.sum(AX, axis=1))

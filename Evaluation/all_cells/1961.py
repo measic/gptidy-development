@@ -1,2 +1,7 @@
-# Predictions is an array of predicted values
-print(predictions_5K)
+plt.scatter(model_5K.predict(X_train_5K), model_5K.predict(X_train_5K) - y_train_5K, c="blue", label="Training Data")
+plt.scatter(model_5K.predict(X_test_5K), model_5K.predict(X_test_5K) - y_test_5K, c="orange", label="Testing Data")
+plt.legend()
+plt.hlines(y=0, xmin=y_test_5K.min(), xmax=y_test_5K.max())
+plt.title("Residual Plot for 5K")
+plt.savefig('model_5k.png')
+plt.show()

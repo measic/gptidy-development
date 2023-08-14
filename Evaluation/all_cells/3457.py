@@ -1,3 +1,3 @@
+l = [1, 'a', 1.0]
+
 print(l)
-print(l[1:3])
-print(l[::2])

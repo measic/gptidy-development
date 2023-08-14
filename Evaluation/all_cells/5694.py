@@ -1,71 +1,82 @@
 import sys
 from collections import defaultdict
 import math
+import logging
+
+#import emission_counts
+#import transition_counts
 
 """
-Count n-gram frequencies in a CoNLL NER data file and write counts to
-stdout. 
+Usage:
+python viterbi.py ner.counts ngram.counts ner_dev.dat > [output_file]
+Implementation of the Viterbi algorithm
+Calculate emission e(x|y) and trigram probability based on data 
+in ner_counts,
+Read ner_dev.dat, output prediction to [output_file]
 """
 
-def simple_conll_corpus_iterator():
-    """
-    Get an iterator object over the corpus file. The elements of the
-    iterator contain (word, ne_tag) tuples. Blank lines, indicating
-    sentence boundaries return (None, None).
-    """
-    
-    for line in train_sents:
-        if line: # Nonempty line
-            # Extract information from line.
-            # Each line has the format
-            # word pos_tag phrase_tag ne_tag
-            for i in range(len(line)):
-                word = line[i][0]
-                ne_tag = line[i][2]
-                #print(word,ne_tag)
-                yield word, ne_tag
-        else: # Empty line
-            yield (None, None)                        
-      
-    
-def sentence_iterator(corpus_iterator):
-    """
-    Return an iterator object that yields one sentence at a time.
-    Sentences are represented as lists of (word, ne_tag) tuples.
-    """  
-    
-    current_sentence = [] #Buffer for the current sentence
-    for l in corpus_iterator:        
-            if l==(None, None):
-                if current_sentence:  #Reached the end of a sentence
-                    yield current_sentence
-                    current_sentence = [] #Reset buffer
-                else: # Got empty input stream
-                    sys.stderr.write("WARNING: Got empty input file/stream.\n")
-                    raise StopIteration
-            else:
-                current_sentence.append(l) #Add token to the buffer
 
-    if current_sentence: # If the last line was blank, we're done
-        yield current_sentence  #Otherwise when there is no more token
-                                # in the stream return the last sentence.
+# Go through dev data, predict tag & compute probability based on model abov
+log_probability = 0
+y_predict = []
+y_actual = []
+# First round for q(*, *, y_1)
+first_round = True
+for sent in test_sents:
+    log_probability = 0
+    first_round = True
+    for i in  range(len(sent)):
+        word = sent[i][0]
+        # Check if there is an existing label associated to the word
+        if word in counter.count_xy:
+            max_probability = 0
+            for label in list(counter.count_xy[word]):
+                # Calculate e(x|y)
+                emission = float(counter.count_xy[word][label]) / float(counter.count_y[label])
+                # Calculate q(y| y_i-2, y_i-1)
+                # Check for first round
+                if first_round:
+                    y_2 = '*'
+                    y_1 = '*' 
+                    first_round = False
+                bigram = y_2 + ' ' + y_1
+                trigram = y_2 + ' ' + y_1 + ' ' + label
+                parameter = 0.0000000001
+                if trigram in counter.trigram_counts:
+                    parameter = float(counter.trigram_counts[trigram])/float(counter.bigram_counts[bigram])
+                probability = parameter*emission
+                if probability > max_probability:
+                    max_probability = probability
+                    arg_max = label	
+        
+            log_probability = log_probability + math.log(max_probability)
+            y_actual.append(sent[i][2])
+            y_predict.append(arg_max)
+            y_2 = y_1
+            y_1 = arg_max
+        else:
+            y_predict.append('O')
+            y_actual.append(sent[i][2])
+            
 
-def get_ngrams(sent_iterator, n):
-    """
-    Get a generator that returns n-grams over the entire corpus,
-    respecting sentence boundaries and inserting boundary tokens.
-    Sent_iterator is a generator object whose elements are lists
-    of tokens.
-    """
-          
-    for sent in sent_iterator:
-         #Add boundary symbols to the sentence
-         w_boundary = (n-1) * [(None, "*")]
-         w_boundary.extend(sent)
-         w_boundary.append((None, "STOP"))
-         #Then extract n-grams
-         ngrams = (tuple(w_boundary[i:i+n]) for i in xrange(len(w_boundary)-n+1))
-         for n_gram in ngrams: #Return one n-gram at a time
-            yield n_gram        
-
-
+#     # If Count(x~>y) = 0, use _RARE_ 
+#     else:
+#         for label in list(count_xy['_RARE_']):
+#             # Calculate e(_RARE_|y)
+#             probability = 0
+#             emission = float(count_xy['_RARE_'][label]) / float(count_y[label])
+#             # Calculate q(y| y_i-2, y_i-1)
+#             # Check for first round
+#             if first_round:
+#                 y_2 = '*'
+#                 y_1 = '*' 
+#                 first_round = False
+#             bigram = y_2 + ' ' + y_1
+#             trigram = y_2 + ' ' + y_1 + ' ' + label
+#             parameter = 0.0000000001
+#             if trigram in trigram_counts:
+#                 parameter = float(trigram_counts[trigram])/float(bigram_counts[bigram])
+#             probability = parameter*emission
+#             if probability > max_probability:
+#                 max_probability = probability
+#                 arg_max = label

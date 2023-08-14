@@ -1,4 +1,4 @@
 seed = ['Hello World']
-variable_def = FunctionCoverageRunner(cgi_decode)
+cgi_runner = FunctionCoverageRunner(cgi_decode)
 m = MutationCoverageFuzzer(seed)
-results = m.runs(variable_def, 10000)
+variable_def = m.runs(cgi_runner, 10000)

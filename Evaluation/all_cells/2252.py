@@ -1,6 +1,8 @@
-'''Test cell'''
-reference = [list(row).index(min(row)) for row in distances]
-if np.allclose(closest_cluster, reference):
-    print('Pass')
+print len(cluster_assignment)
+print np.bincount(cluster_assignment)
+
+if len(cluster_assignment)==59071 and \
+   np.array_equal(np.bincount(cluster_assignment), np.array([23061, 10086, 25924])):
+    print('Pass') # count number of data points for each cluster
 else:
-    print('Check your code again')
+    print('Check your code again.')

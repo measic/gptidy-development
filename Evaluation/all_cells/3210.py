@@ -1,19 +1,5 @@
-def update_nueron(w, x, label):
-    '''
-    Update McCulloch + Pitts Nueron using Rosenblatt's Perceptron Algorithms
-    w = neuron weights
-    x = (n dimensional numpy array example)
-    label = binary label
-    '''
-    if neuron(x, w) == 0 and label == 1:
-        w = w + x
-        print('incorrect!, New weights = ' + str(w))
+#Initialize Weights to zero:
+w = np.zeros(3)
 
-    elif neuron(x, w) == 1 and label == 0:
-        w = w - x
-        print('incorrect!, New weights = ' + str(w))
-
-    else:
-        print('correct!')  
-    
-    return w
+#Start on 0th example:
+i = 0

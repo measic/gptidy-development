@@ -1,1 +1,1 @@
-cigar.alignment_len
+cigar.flatten().string

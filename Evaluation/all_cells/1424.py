@@ -1,3 +1,2 @@
-#show the data (age) of type 2 cats.
-data2 = data[cat2]
-print(data2)
+#and here is the same calculation in compact form. 
+print(np.average(data[cat==2]))

@@ -1,1 +1,1 @@
-y_prob.head(10)
+y_test.head(10)

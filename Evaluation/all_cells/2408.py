@@ -1,1 +1,1 @@
-c.calc_dist_mat()
+c.plot_tsne()

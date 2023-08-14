@@ -1,2 +1,2 @@
-# CREATE DATAFRAME FROM BOOKINGS_DF_EX GROUPED BY arr_port
-BOOKINGS_GROUP_BY_ARR_PORT = BOOKINGS_DF_EX.groupby(['arr_port']).sum()
+# SORTED BY PAX
+BOOKINGS_GROUP_BY_ARR_PORT.sort_values(by=['pax'], ascending=False)

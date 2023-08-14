@@ -1,4 +1,4 @@
-new_pc = eigvecs[:,-2:]
+sparse_data = my_spca.transform(X)
 
 plt.figure(figsize=(15,5)); 
 
@@ -9,7 +9,7 @@ pca11=plt.arrow   (0, 0, *vec[:,0] * val[0], head_width=0.05, head_length=0.05,c
 pca12=plt.arrow   (0, 0, *vec[:,1] * val[1], head_width=0.05, head_length=0.05,color='magenta',label='Second PC')
 plt.grid(True); 
 
-new_pc_cen = new_pc - new_pc.mean(0,keepdims=True)
+new_pc_cen = sparse_data - sparse_data.mean(0,keepdims=True)
 cov        = new_pc_cen.T @ new_pc_cen /(new_pc_cen.shape[0] - 1)
 val,vec    = np.linalg.eigh(cov)
 

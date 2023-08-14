@@ -30,7 +30,7 @@ class R_pca:
         return np.sum(np.power(M, p))
 
     @staticmethod
-    def function_def(M, tau):
+    def shrink(M, tau):
         return np.sign(M) * np.maximum(np.abs(M) - tau, np.zeros(M.shape))
 
     def svd_threshold(self, M, tau):
@@ -59,7 +59,7 @@ class R_pca:
         self.S = Sk
         return (Lk, Sk)
 
-    def plot_fit(self, size=None, tol=0.1, axis_on=True):
+    def function_def(self, size=None, tol=0.1, axis_on=True):
         n, d = self.D.shape
         if size:
             nrows, ncols = size

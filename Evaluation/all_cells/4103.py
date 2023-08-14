@@ -1,1 +1,5 @@
-print('Peak aggregate current: {0} A'.format(sim.peak))
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import lpf    #ローパスフィルタモジュール
+import integral    #積分計算モジュール

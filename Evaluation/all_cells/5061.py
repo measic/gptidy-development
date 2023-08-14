@@ -1,14 +1,10 @@
-import plotly.graph_objs as go
+### add more regression lines here, by adding new elements to the list
+regression_lines = [(1.7, 10), (1, 50)]
 
-def trace_rmse(x_values, y_values, regression_lines):
-    errors = root_mean_squared_errors(x_values, y_values, regression_lines)
-    x_values_bar = list(map(lambda error: 'm: ' + str(error[0]) + ' b: ' + str(error[1]), errors))
-    y_values_bar = list(map(lambda error: error[-1], errors))
-    return dict(
-        x=x_values_bar,
-        y=y_values_bar,
-        type='bar'
-    )
+if x_values and y_values:
+    regression_traces = list(map(lambda line: m_b_trace(line[0], line[1], x_values, name='m:' + str(line[0]) + 'b: ' + str(line[1])), regression_lines))
 
+    scatter_trace = trace_values(x_values, y_values, text=titles, name='movie data')
+    rmse_calc_trace = trace_rmse(x_values, y_values, regression_lines)
 
-x_values and y_values and trace_rmse(x_values, y_values, regression_lines)
+    regression_and_rss(scatter_trace, regression_traces, rmse_calc_trace)

@@ -1,9 +1,11 @@
-def loss_function(real, pred):
-  # 這次的 mask 將序列中不等於 0 的位置視為 1，其餘為 0 
-  mask = tf.math.logical_not(tf.math.equal(real, 0))
-  # 照樣計算所有位置的 cross entropy 但不加總
-  loss_ = loss_object(real, pred)
-  mask = tf.cast(mask, dtype=loss_.dtype)
-  loss_ *= mask  # 只計算非 <pad> 位置的損失 
-  
-  return tf.reduce_mean(loss_)
+num_layers = 4 
+d_model = 128
+dff = 512
+num_heads = 8
+
+input_vocab_size = subword_encoder_en.vocab_size + 2
+target_vocab_size = subword_encoder_zh.vocab_size + 2
+dropout_rate = 0.1  # 預設值
+
+print("input_vocab_size:", input_vocab_size)
+print("target_vocab_size:", target_vocab_size)

@@ -1,1 +1,1 @@
-rnd_clf.oob_score_
+accuracy_score(y_test, y_pred_rf)

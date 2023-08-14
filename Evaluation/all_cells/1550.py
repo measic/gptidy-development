@@ -1,1 +1,1 @@
-melted_stats['day'] = melted_stats.time.dt.day
+melted_stats.to_csv(r'D:\Annies_Dissertation\Analysis\Regression\Monthly_PM25_LSOA.csv')

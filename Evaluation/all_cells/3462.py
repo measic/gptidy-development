@@ -1,7 +1,9 @@
-# convert a string to a list by type casting:
+# create a new empty list
+l = []
 
-print(s)
+# add an elements using `append`
+l.append("A")
+l.append("d")
+l.append("d")
 
-s2 = list(s)
-
-s2
+print(l)

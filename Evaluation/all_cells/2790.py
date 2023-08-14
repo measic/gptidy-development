@@ -1,6 +1,5 @@
-join_tree = InferenceController.apply(s_bbn)
-for node in join_tree.get_bbn_nodes():
-    potential = join_tree.get_bbn_potential(node)
-    print(node)
-    print(potential)
-    print('>')
+with warnings.catch_warnings():
+    warnings.simplefilter('ignore')
+    
+    draw_graphs(multi_graphs, 'Multi-connected')
+    draw_graphs(singly_graphs, 'Singly-connected')

@@ -1,1 +1,1 @@
-# results.shape
+# results[:10,2]

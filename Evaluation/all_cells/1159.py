@@ -1,26 +1,21 @@
-def bin_independent(Table,All_Data,n,name='Binned'):
-    Tab=[]
-    Thre=[]
-    for category in Table:
-        #Read the values from all the data
-        A=All_Data[category].values.copy()
-        #Calculate the threesholds
-        A=A[~numpy.isnan(A)]
-        A.sort()
-        Ts=[]
-        for i in range(n):
-            Ts+=[A[int(len(A)/float(n)*(i+1))-1]]
-        #Make the new Series
-        Ser=pandas.Series(Table[category].values.copy()*0,index=Table.index)
-        for t in Ts:
-            Ser=Ser+(Table[category]<=t)
-        Ser.name='%s%i_%s'%(name,n,category)
-        Tab+=[Ser]
-        Thre+=[pandas.Series(Ts,index=['Threeshold %i'%(i+1) for i in range(len(Ts))],name=category)]
-    Threesholds=pandas.concat(Thre,axis=1)
-    Threesholds.to_csv('%s%i_Threesholds.csv'%(name,n))
-    
-    return pandas.concat(Tab,axis=1)
+if __name__=='__main__':
+   
+    #This part is to test the function
 
-#bin_independent(Trial_data[Protein[:4]],Dream9,2)
-#pandas.concat([Trial_data[Protein[:4]],bin_independent(Trial_data[Protein[:4]],Dream9,2),bin_independent(Trial_data[Protein[:4]],Dream9,3)],axis=1).T
+    #Open the data and read in pandas
+    Dream9_training=pandas.read_excel('Dream9.xlsx',"trainingData")
+    Dream9_scoring=pandas.read_excel('Dream9.xlsx',"scoringData")
+    Dream9=pandas.concat([Dream9_training,Dream9_scoring])
+
+    #Create the new tables
+    Q_training=PreProcess(Dream9_training,Dream9)
+    Q_scoring=PreProcess(Dream9_scoring,Dream9)
+
+    #Save the tables as csv
+    Q_training.to_csv('Qtraining.csv')
+    Q_scoring.to_csv('Qscoring.csv')
+
+    #Number of columns and rows of new Table
+    print Q_training.shape
+    print Q_scoring.shape
+    #A=binned(Dream9_training['Remission_Duration'])

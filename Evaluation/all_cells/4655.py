@@ -1,1 +1,1 @@
-scratch_model.compile(optimizer='sgd', loss='categorical_crossentropy', metrics=['accuracy'])
+scratch_model.load_weights('saved_models/weights.best.from_scratch.hdf5')

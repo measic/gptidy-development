@@ -1,1 +1,1 @@
-workspace_alias = ekos.get_alias_for_unique_id(workspace_unique_id = workspace_uuid)
+ekos.import_default_data(workspace_alias = workspace_alias)

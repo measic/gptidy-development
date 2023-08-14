@@ -1,18 +1,12 @@
-### Test test test
-# Simulate a single forward pass
-X_prior.reset()
-X.reset()
-Z_prior.reset()
-Z.reset()
-Y_cond.reset()
-Y.reset()
+### Test test test: unobserved
+nodes = [X_prior, X, Z_prior, Z, Y_cond, Y]
+for n in nodes:
+    n.reset()
+    
+X_prior.pending.add(X)
+Z_prior.pending.add(Z)
+Y.pending.add(Y_cond)
 
-X_prior.send_ms_msg(X)
-Z_prior.send_ms_msg(Z)
-X.send_ms_msg(Y_cond)
-Z.send_ms_msg(Y_cond)
-Y_cond.send_ms_msg(Y)
+max_sum(nodes)
 
-assert np.allclose(X.unnormalized_log_marginal(), [-0.05129329, -2.99573227])
-assert np.allclose(Z.unnormalized_log_marginal(), [-0.22314355, -1.60943791])
-assert np.allclose(Y.unnormalized_log_marginal(), [-0.27453685, -2.01740615])
+assert np.allclose(Y.unnormalized_log_marginal(), [-0.27453685, -2.01740615] )

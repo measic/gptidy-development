@@ -1,6 +1,12 @@
-with tf.name_scope("loss"):                                     # 책에는 없음
-    xentropy = tf.nn.sparse_softmax_cross_entropy_with_logits(  # 책에는 없음
-        labels=y, logits=logits)                                # 책에는 없음
-    base_loss = tf.reduce_mean(xentropy, name="avg_xentropy")   # 책에는 없음
-    reg_losses = tf.get_collection(tf.GraphKeys.REGULARIZATION_LOSSES)
-    loss = tf.add_n([base_loss] + reg_losses, name="loss")
+n_epochs = 20
+batch_size = 200
+
+with tf.Session() as sess:
+    init.run()
+    for epoch in range(n_epochs):
+        for X_batch, y_batch in shuffle_batch(X_train, y_train, batch_size):
+            sess.run(training_op, feed_dict={X: X_batch, y: y_batch})
+        accuracy_val = accuracy.eval(feed_dict={X: X_valid, y: y_valid})
+        print(epoch, "검증 세트 정확도:", accuracy_val)
+
+    save_path = saver.save(sess, "./my_model_final.ckpt")

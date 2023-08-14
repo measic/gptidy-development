@@ -1,3 +1,2 @@
-#InvalidACCCI
-a = ACCanalysis.Invalid.mean()
-sms.DescrStatsW(ACCanalysis.Invalid).tconfint_mean()
+a = ACCrunanalysis.loc[ACCrunanalysis['Run'] == 0].Invalid.mean()
+sms.DescrStatsW(ACCrunanalysis.loc[ACCrunanalysis['Run'] == 0].Invalid).tconfint_mean()

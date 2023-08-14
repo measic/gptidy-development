@@ -1,4 +1,7 @@
-### find and replace '\n' and '\r' symbols - replacing them 
-text = text[1302:]
-text = text.replace('\n',' ')    # replacing '\n' with '' simply removes the sequence
-text = text.replace('\r',' ')
+### TODO: implement cleaned_text in my_answers.py
+from my_answers import cleaned_text
+
+text = cleaned_text(text)
+
+# shorten any extra dead space created above
+text = text.replace('  ',' ')

@@ -1,2 +1,5 @@
-# Load the 'sim_no-learning' log file from the initial simulation results
-vs.plot_trials('sim_no-learning.csv')
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+import wot

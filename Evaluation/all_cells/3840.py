@@ -1,4 +1,6 @@
-% store -r sbi_corr_high_ROA
-% store -r sbi_corr_high_ROE
-% store -r sbi_corr_high_NIMTA
-% store -r sbi_corr_high_NNPASTA
+sbi_corr_max_ROA = max_corr(sbi_corr_high_ROA)
+sbi_corr_max_NIMTA = max_corr(sbi_corr_high_NIMTA)
+sbi_corr_max_NNPASTA = max_corr(sbi_corr_high_NNPASTA)
+print(sbi_corr_high_ROA)
+print(sbi_corr_max_NIMTA)
+print(sbi_corr_max_NNPASTA)

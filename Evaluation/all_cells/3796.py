@@ -1,31 +1,55 @@
-import numpy as np
+## Ref: https://plot.ly/python/time-series/
 
-aapl_close = aapl[["close"]]
-dates = aapl[["date"]]
+trace_high = go.Scatter(
+                x=googl.date,
+                y=googl['high'],
+                name = "High",
+                line = dict(color = '#228B22'),
+                opacity = 0.8)
 
- 
-aapl_change = aapl_close.apply(lambda x: np.log(x) - np.log(x.shift(1))) # shift moves dates back by 1.
+trace_low = go.Scatter(
+                x=googl.date,
+                y=googl['low'],
+                name = "Low",
+                line = dict(color = '#B22222'),
+                opacity = 0.8)
 
+data_googl = [trace_high,trace_low]
 
-layout = dict(title = 'Change in AAPL stock from the previous day',
-               xaxis=dict(
-                    title = 'Date',
-                    tickcolor='#000'
+layout = {
+    'title' : 'GOOGLE Stock Variation',
+    'yaxis' : {'title': 'Stock Value'},
+    'xaxis' : {'title' : 'Year',
+               'range' : ['2014-01-01','2016-12-01'],
+               'rangeselector' : dict(
+                                buttons=list([
+                                    dict(count=1,
+                                         label='1m',
+                                         step='month',
+                                         stepmode='backward'),
+                                    dict(count=6,
+                                         label='6m',
+                                         step='month',
+                                         stepmode='backward'),
+                                    dict(count=1,
+                                         label='1y',
+                                         step='year',
+                                         stepmode='backward'),
+                                    dict(count=5,
+                                         label='5y',
+                                         step='year',
+                                         stepmode='backward'),                                    
+                                    dict(step='all')
+                                    ])
                 ),
-                yaxis=dict(
-                    title = 'Variations in stock price',
-                    tickcolor='#000'
-                    )
-              )
+               "rangeslider" : dict(
+                    visible = True
+                ),
+               "type" : 'date'
+              }
+    
+}
 
 
-# Create a trace
-trace = go.Scatter(
-    x = dates,
-    y = aapl_change)
-
-
-data_aapl_change = [trace]
-fig = dict(data=data_aapl_change, layout=layout)
-
-py.iplot(fig)
+fig = dict(data=data_googl, layout=layout)
+py.iplot(fig, filename = "Variation of High and Low of Google Stock Prices")

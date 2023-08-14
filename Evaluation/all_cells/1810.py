@@ -1,20 +1,52 @@
-#counts per second
-xbar_cps = np.mean(counts_ps, axis=1)
-s_cps = np.std(counts_ps, axis=1)
+# Creating MOM and SDOM
 
-#number of frames per exposure
-num_per_dir = [len(os.listdir('data/'+f)) for f in files]
-nframes = [sum(num_per_dir[0:i]) for i in range(len(files))]
+# Pulls all the files together
+# assums all the frames are in one directory
+# Creates an array with all the file names
+files = np.array(natsorted(os.listdir()))
 
-plt.plot(nframes, xbar_cps, marker='x', color='k')
-plt.plot(nframes, s_cps, marker='x', color='b')
+
+data = []
+
+# Go through each frame, take the median, subtract bias, and divide 
+# by exposure time
+for i in files:
+
+    # loading in the data
+    frame_data = fits.getdata(i)
+    frame_exp = fits.open(i)
+    exp_time = frame_exp[0].header['EXPTIME']
+    # Subtracting the bias
+    data_subbed = frame_data - bias_2D
+    data_median_ps = np.median(data_subbed,axis=0)/exp_time
+    # Median of each frame divided by exposure time for that frame
+    data.append(data_median_ps)
+   
+data = np.array(data)
+
+# Setting up arrays 
+mom = []
+std = []
+num_frame = np.arange(2,len(data)+1)
+
+# Calculates MOM and SDOM 
+i = 2
+while i < len(data)+1:
+    frames = data[:i]
+    mean = np.mean(frames) 
+    stand = np.std(frames)
+    mom.append(mean)
+    std.append(stand)
+    i = i + 1
+    
+mom = np.array(mom)
+std = np.array(std)
+
+plt.scatter(num_frame,mom,marker='x',color='black',label='MOM')
+plt.scatter(num_frame,std,marker='v',color='gray',label='SDOM')
 plt.xlabel('Number of Frames')
-plt.ylabel('MOM (ADU/s)')
-plt.savefig('writeup/plots/exptime_vs_meancount.png')
+plt.ylabel('Counts/second (ADU/sec)')
+plt.legend(loc='best')
+plt.savefig('../plots/mom_sdom.png')
 plt.show()
-
-
-#
-
-
 

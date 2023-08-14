@@ -1,1 +1,1 @@
-result.dropna()
+result[:10]

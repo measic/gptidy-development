@@ -1,2 +1,1 @@
-school = Table.read_table('school.csv')
-school
+check('tests/q51.py')

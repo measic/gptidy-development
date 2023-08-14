@@ -1,2 +1,3 @@
-workspace_uuid = ekos.get_unique_id_for_alias(workspace_alias = 'lena_indicator')
-print(workspace_uuid)
+ekos.load_workspace(unique_id = workspace_uuid)
+# Här får jag ofta felmeddelande:
+# AttributeError: module 'core' has no attribute 'ParameterMapping'

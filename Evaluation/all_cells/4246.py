@@ -1,8 +1,11 @@
-# Replace the ... with an expression to compute the absolute
-# value of the difference between Botan's height (1.85m) and
-# the average human height.
-botan_distance_from_average_m = ...
+# Just read and run this cell.
 
-# Again, we've written this here so that the distance you
-# compute will get printed when you run this cell.
-botan_distance_from_average_m
+aditya_height_m = 1.21
+botan_height_m = 1.85
+average_adult_human_height_m = 1.688
+
+# The biggest distance from the average human height, among the two heights:
+biggest_distance_m = max(abs(aditya_height_m - average_adult_human_height_m), abs(botan_height_m - average_adult_human_height_m))
+
+# Print out our results in a nice readable format:
+print("The biggest distance from the average height among these two people is", biggest_distance_m, "meters.")

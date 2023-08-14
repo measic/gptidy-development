@@ -1,10 +1,3 @@
-X, t = create_X_and_t(X1, X2)
-a = compute_multipliers(X, t)
-
-cond = (a > 1e-6).reshape(-1)
-
-plt.scatter(X[(t==-1),0], X[(t==-1),1], color='blue')
-plt.scatter(X[(t==1),0], X[(t==1),1], color='green')
-plt.scatter(X[cond,0], X[cond,1], color='red', marker='x', s=100)
-plt.title("Support vectors")
-plt.show()
+#增加文档Documention String
+    #这只是一个惯例，不是强制标准，不能要求程序员已定位函数提供说明文档
+    #函数定义更新了，文档未必同步更新

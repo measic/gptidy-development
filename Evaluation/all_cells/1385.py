@@ -1,3 +1,2 @@
-#add a row. 
-E = np.concatenate((E, [[7,8,9]]), axis=0) 
-print(E)
+#here the : means "every row" because it is before the comma, and 1 indexes the 2nd column.
+print(E[:,1])

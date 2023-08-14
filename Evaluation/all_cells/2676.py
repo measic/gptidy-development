@@ -1,58 +1,131 @@
-# time-change plots
-
-# Nitrogen-14 small-time change plot
+# Lithium-7 plot
 fig, stam_graf0 = plt.subplots()
-stam_graf0.axhline(y=0.0, color='m', linestyle='--')
-stam_graf0.plot(rfrac_eq*(first_line_R), (rho_N_tpdt - rho_N_t), 'b', label='fixed D = 1.457x10$^{6}$')
-stam_graf0.plot(rfrac_eq*(first_line_R), (rho_N_tpdt_var - rho_N_t)-15, 'r',label='$\\mu$-constrained D,\n zeroed at -15')
+#stam_graf0.plot(nuc_burn_model_data[:,2], nuc_mol_mass, 'r')
+stam_graf0.axhline(y=0.0, color='m', linestyle='--') #,label='no change in abundance'
+stam_graf0.plot(nuc_rad_frac*(first_line_R), nuc_burn_grads_data[:,5], 'r')#, label='(k-1) to (k+1)'
 stam_graf0.set_xlabel('Radius / $R_{\odot}$')
-stam_graf0.set_ylabel(r'$\rho_{N14}(t+dt) - \rho_{N14}(t)$')
-plt.legend(loc='upper left', bbox_to_anchor=(0.45, 0.95))
-
-#add fractional radius label to plot
-frac_x3 = stam_graf0.twiny()
-frac_x3.set_xlim(min(rfrac_eq),(0.1/first_line_R))
-frac_x3.set_xlabel('Fractional radius')
-stam_graf0.set_xlim([0, 0.1])
-stam_graf0.set_ylim([-20, 15])
-#plt.show()
-stam_graf0.set_title('N14 density time change for log$(L/L_{\odot})$ = 2.1231\n 1$M_{\odot}$, $Z=Z_{\odot}$ with diffusion', y=1.15)
-fig.savefig('mu_test_data/mu_test_graphs/eq_logL=2.1231_N14_density_time_change.pdf', bbox_inches='tight')
-
-
-# Nitrogen-14 small-time change plot - mass fractions
-fig, stam_graf0 = plt.subplots()
-stam_graf0.axhline(y=0.0, color='m', linestyle='--')
-stam_graf0.plot(rfrac_eq*(first_line_R), (rho_N_tpdt - rho_N_t)/(10**logDensity_red), 'g')
-stam_graf0.set_xlabel('Radius / $R_{\odot}$')
-stam_graf0.set_ylabel('$X_{N}(t+dt) - X_{N}(t)$')
-#plt.legend(loc='upper left', bbox_to_anchor=(0.5, 0.5))
-
-#add fractional radius label to plot
-frac_x3 = stam_graf0.twiny()
-frac_x3.set_xlim(min(rfrac_eq),(0.1/first_line_R))
-frac_x3.set_xlabel('Fractional radius')
-stam_graf0.set_xlim([0, 0.1])
-#stam_graf0.set_ylim([-0.0005, 0.0005])
-#plt.show()
-stam_graf0.set_title('N14 mass-fraction time (fixed D) change for \nlog$(L/L_{\odot})$ = 2.1231 1$M_{\odot}$, $Z=Z_{\odot}$ with diffusion', y=1.15)
-fig.savefig('mu_test_data/mu_test_graphs/eq_logL=2.1231_N14_mass_frac_time_change.pdf', bbox_inches='tight')
-
-
-# Density plot
-fig, stam_graf0 = plt.subplots()
-#stam_graf0.axhline(y=0.0, color='m', linestyle='--')
-# nuc_dXLi7_dr_correction/rad_fraction_to_Rsun
-stam_graf0.plot(rad_frac*(first_line_R), logDensity, 'r')
-stam_graf0.set_xlabel('Radius / $R_{\odot}$')
-stam_graf0.set_ylabel('Density')
+stam_graf0.set_ylabel('d$X_{Li7}$/dr / $(M_{Li7}/M_{layer}) R_{\odot}$ $^{-1}$')# d$X_{Li7}$/dr R_{\odot}$ $^{-1}
+#plt.legend(loc='upper left', bbox_to_anchor=(0.55, 1.0))
 
 #add fractional radius label to plot
 frac_x = stam_graf0.twiny()
-frac_x.set_xlim(rad_frac[0],0.1/first_line_R)
+frac_x.set_xlim(nuc_rad_frac[0],nuc_rad_frac[-1])
 frac_x.set_xlabel('Fractional radius')
-stam_graf0.set_xlim([0, 0.1])
-#stam_graf0.set_ylim([-0.002, 0.002])
+#stam_graf0.set_ylim([-0.0003, 0.001])
 #plt.show()
-stam_graf0.set_title('Density-radius plot for \nlog$(L/L_{\odot})$ = 2.1231\n 1$M_{\odot}$, $Z=Z_{\odot}$ with diffusion', y=1.15)
-fig.savefig('mu_test_data/mu_test_graphs/eq_logL=2.1231_density_radius.pdf', bbox_inches='tight')
+stam_graf0.set_title('Li7 abundance gradient for burning region for \nlog$(L/L_{\odot})$ = 2.1231\n 1M_sun, Z=Z_sun with diffusion', y=1.15)
+fig.savefig('mu_test_data/mu_test_graphs/burning_logL=2.1231_Li7_radius_gradient_19.pdf', bbox_inches='tight')
+
+
+
+# Carbon-12 plot
+fig, stam_graf0 = plt.subplots()
+#stam_graf0.plot(nuc_burn_model_data[:,2], nuc_mol_mass, 'r')
+stam_graf0.axhline(y=0.0, color='m', linestyle='--') #,label='no change in abundance'
+stam_graf0.plot(nuc_rad_frac*(first_line_R), nuc_burn_grads_data[:,6], 'r')#, label='(k-1) to (k+1)'
+stam_graf0.set_xlabel('Radius / $R_{\odot}$')
+stam_graf0.set_ylabel('d$X_{C12}$/dr / $(M_{C12}/M_{layer}) R_{\odot}$ $^{-1}$')
+#plt.legend(loc='upper left', bbox_to_anchor=(0.5, 0.6))
+# nuc_dXLi7_dr_correction/rad_fraction_to_Rsun
+
+#add fractional radius label to plot
+frac_x = stam_graf0.twiny()
+frac_x.set_xlim(nuc_rad_frac[0],nuc_rad_frac[-1])
+frac_x.set_xlabel('Fractional radius')
+
+#stam_graf0.set_xlim([0.03, 0.001])
+#plt.show()
+stam_graf0.set_title('C12 abundance gradient for burning region for \nlog$(L/L_{\odot})$ = 2.1231\n 1M_sun, Z=Z_sun with diffusion', y=1.15)
+fig.savefig('mu_test_data/mu_test_graphs/burning_logL=2.1231_C12_radius_gradient_19.pdf', bbox_inches='tight')
+
+# Nitrogen-14 plot
+fig, stam_graf0 = plt.subplots()
+#stam_graf0.plot(nuc_burn_model_data[:,2], nuc_mol_mass, 'r')
+stam_graf0.axhline(y=0.0, color='m', linestyle='--') #,label='no change in abundance'
+# nuc_dXLi7_dr_correction/rad_fraction_to_Rsun
+stam_graf0.plot(nuc_rad_frac*(first_line_R), nuc_burn_grads_data[:,7], 'r')#, label='(k-1) to (k+1)'
+stam_graf0.set_xlabel('Radius / $R_{\odot}$')
+stam_graf0.set_ylabel('d$X_{N14}$/dr / $(M_{N14}/M_{layer}) R_{\odot}$ $^{-1}$')
+#plt.legend(loc='upper left', bbox_to_anchor=(0.5, 0.5))
+
+#add fractional radius label to plot
+frac_x = stam_graf0.twiny()
+frac_x.set_xlim(nuc_rad_frac[0],nuc_rad_frac[-1])
+frac_x.set_xlabel('Fractional radius')
+
+#stam_graf0.set_ylim([-0.0003, 0.001])
+#plt.show()
+stam_graf0.set_title('N14 abundance gradient for burning region for \nlog$(L/L_{\odot})$ = 2.1231\n 1M_sun, Z=Z_sun with diffusion', y=1.15)
+fig.savefig('mu_test_data/mu_test_graphs/burning_logL=2.1231_N14_radius_gradient_19.pdf', bbox_inches='tight')
+
+# Helium-3 plot
+fig, stam_graf0 = plt.subplots()
+#stam_graf0.plot(nuc_burn_model_data[:,2], nuc_mol_mass, 'r')
+stam_graf0.axhline(y=0.0, color='m', linestyle='--') #,label='no change in abundance'
+# nuc_dXLi7_dr_correction/rad_fraction_to_Rsun
+stam_graf0.plot(nuc_rad_frac*(first_line_R), nuc_burn_grads_data[:,8], 'r')#, label='(k-1) to (k+1)'
+stam_graf0.set_xlabel('Radius / $R_{\odot}$')
+stam_graf0.set_ylabel('d$X_{He3}$/dr / $(M_{He3}/M_{layer}) R_{\odot}$ $^{-1}$')
+#plt.legend(loc='upper left', bbox_to_anchor=(0.5, 0.5))
+
+#add fractional radius label to plot
+frac_x = stam_graf0.twiny()
+frac_x.set_xlim(nuc_rad_frac[0],nuc_rad_frac[-1])
+frac_x.set_xlabel('Fractional radius')
+
+#stam_graf0.set_ylim([-0.0003, 0.001])
+#plt.show()
+stam_graf0.set_title('He3 abundance gradient for burning region for \nlog$(L/L_{\odot})$ = 2.1231\n 1M_sun, Z=Z_sun with diffusion', y=1.15)
+fig.savefig('mu_test_data/mu_test_graphs/burning_logL=2.1231_He3_radius_gradient_19.pdf', bbox_inches='tight')
+
+# Helium-4 plot
+fig, stam_graf0 = plt.subplots()
+#stam_graf0.plot(nuc_burn_model_data[:,2], nuc_mol_mass, 'r')
+stam_graf0.axhline(y=0.0, color='m', linestyle='--') #,label='no change in abundance'
+# nuc_dXLi7_dr_correction/rad_fraction_to_Rsun
+stam_graf0.plot(nuc_rad_frac*(first_line_R), nuc_burn_grads_data[:,9], 'r')#, label='(k-1) to (k+1)'
+stam_graf0.set_xlabel('Radius / $R_{\odot}$')
+stam_graf0.set_ylabel('d$X_{He4}$/dr / $(M_{He4}/M_{layer}) R_{\odot}$ $^{-1}$')
+#plt.legend(loc='upper left', bbox_to_anchor=(0.5, 0.5))
+
+#add fractional radius label to plot
+frac_x = stam_graf0.twiny()
+frac_x.set_xlim(nuc_rad_frac[0],nuc_rad_frac[-1])
+frac_x.set_xlabel('Fractional radius')
+
+#stam_graf0.set_ylim([-0.0003, 0.001])
+#plt.show()
+stam_graf0.set_title('He4 abundance gradient for burning region for \nlog$(L/L_{\odot})$ = 2.1231\n 1M_sun, Z=Z_sun with diffusion', y=1.15)
+fig.savefig('mu_test_data/mu_test_graphs/burning_logL=2.1231_He4_radius_gradient_19.pdf', bbox_inches='tight')
+
+# molecular weight
+fig, stam_graf0 = plt.subplots()
+#stam_graf0.plot(logP[:-1], mol_mass, 'r')
+stam_graf0.plot(nuc_rad_frac*(first_line_R), nuc_burn_grads_data[:,2], 'c')
+stam_graf0.axhline(y=0.0, color='m', linestyle='--')
+stam_graf0.set_xlabel('Radius / $R_{\odot}$')
+stam_graf0.set_ylabel('d$\mu$/dr / $(M_{i}/M_{layer}) R_{\odot}$ $^{-1}$')
+
+#add fractional radius label to plot
+frac_x = stam_graf0.twiny()
+frac_x.set_xlim(nuc_rad_frac[0],nuc_rad_frac[-1])
+frac_x.set_xlabel('Fractional radius')
+stam_graf0.set_title('Molecular weight gradient for \nburning region for log$(L/L_{\odot})$ = 2.1231\n 1M_sun, Z=Z_sun with diffusion', y=1.15)
+fig.savefig('mu_test_data/mu_test_graphs/burning_logL=2.1231_mu_grad.pdf', bbox_inches='tight')
+
+# diffusion coefficients
+fig, stam_graf0 = plt.subplots()
+#stam_graf0.plot(logP[:-1], mol_mass, 'r')
+stam_graf0.plot(nuc_rad_frac*(first_line_R), nuc_burn_grads_data[:,10], 'k')
+stam_graf0.axhline(y=0.0, color='m', linestyle='--')
+stam_graf0.set_xlabel('Radius / $R_{\odot}$')
+stam_graf0.set_ylabel('D$_{therm}$ / cm$^{2}$s$^{-1}$')
+#stam_graf0.set_ylim(min(nuc_burn_grads_data[:,10])-100000,max(nuc_burn_grads_data[:,10])+100000)
+
+#add fractional radius label to plot
+frac_x = stam_graf0.twiny()
+frac_x.set_xlim(nuc_rad_frac[0],nuc_rad_frac[-1])
+frac_x.set_xlabel('Fractional radius')
+stam_graf0.set_title('Thermohaline diffusion coefficent \nplot for log$(L/L_{\odot})$ = 2.1231\n 1M_sun, Z=Z_sun with diffusion', y=1.15)
+fig.savefig('mu_test_data/mu_test_graphs/burning_logL=2.1231_coefficients_if.pdf', bbox_inches='tight')
+print 'minimum value of Dthm = ',min(nuc_burn_grads_data[:,10])

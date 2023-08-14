@@ -1,2 +1,1 @@
-print(colunasNumericas)
-print(modeloRandomForestClassifier.feature_importances_)
+train_dropna.skew()

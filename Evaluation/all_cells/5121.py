@@ -1,2 +1,2 @@
-### Random Forest
-from sklearn.ensemble import RandomForestClassifier
+print(colunasNumericas)
+print(modeloRandomForestClassifier.feature_importances_)

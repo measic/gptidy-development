@@ -1,22 +1,12 @@
-print('checking')
-A.dot(v2)
-eigen_values[1]*v2
+# tranform each class
+Y1 = np.matmul(X1,v2)
+Y2 = np.matmul(X2,v2)
 
-np.testing.assert_array_almost_equal(A.dot(v2),
-                                         eigen_values[1] *v2,
-                                         decimal=6, err_msg='', verbose=True)
+## show me dont tell me
+ax = plt.gca()
+ax.hist(Y1,color='blue', alpha=0.5, label='1')
+ax.hist(Y2,color='yellow', alpha=0.5, label='2')
+plt.legend(loc='upper right')
+plt.xlabel('y')
 
-print('comparing with scilit learn')
-lda = LinearDiscriminantAnalysis(n_components=1)
-X_lda = lda.fit(X, labels).transform(X)
-
-v3 = lda.scalings_
-
-print('eigenvectors')
-
-v3.T
-v2
-
-print('dot product between scikit learn and our eigenvector')
-# 1 means they are aligned
-v2.dot(v3)/np.linalg.norm(v3)
+Y = np.matmul(X,v2)

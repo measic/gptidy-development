@@ -1,2 +1,1 @@
-from movie_data import movies 
-len(movies)
+movies[0]['budget']/1000000

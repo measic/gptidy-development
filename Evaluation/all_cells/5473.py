@@ -1,4 +1,10 @@
-def k_n_m(xn, xm, thetas):
-    k = thetas[0] * np.exp(-thetas[1]/2 * np.linalg.norm(xn-xm)**2) + thetas[2] + thetas[3]*xn * xm
+def computeK(x1, x2, thetas):
     
-    return k
+    # not optimal implementation.
+    K = []
+    for i in range(len(x1)):
+        innerList = []
+        for j in range(len(x2)):
+            innerList.append(k_n_m(x1[i], x2[j], thetas))
+        K.append(innerList)
+    return np.array(K)

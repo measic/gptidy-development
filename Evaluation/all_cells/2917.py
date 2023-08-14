@@ -1,2 +1,2 @@
-cols_to_save = ['desc', 'year']
-geojson = df_to_geojson(df_combined, cols_to_save)
+# show the iframe of the leaflet web map here
+IFrame('leaflet/location-map.html', width=600, height=400)

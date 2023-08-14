@@ -1,1 +1,2 @@
-dl1_container = DL1ParametersContainer() 
+# The file has been created
+!ls -lsh dl1.h5

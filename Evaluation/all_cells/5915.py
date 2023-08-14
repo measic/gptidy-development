@@ -1,47 +1,23 @@
-# plot the function and the derivative for the activations sigmoid, tanh and ReLU.
-import numpy as np
-from scipy.special import expit
-n = 100
-xs = np.linspace(-3, 3, n)
-ReLu = np.maximum(xs,0)
-d_ReLu = np.concatenate((np.zeros(int(n/2)), np.ones(int(n/2))))
+def download(url, file):
+    """
+    Download file from <url>
+    :param url: URL to file
+    :param file: Local file path
+    """
+    if not os.path.isfile(file):
+        print('Downloading ' + file + '...')
+        urlretrieve(url, file)
+        print('Download Finished')
 
-tanh = np.tanh(xs)
-d_tanh = 1- tanh**2
+# Download the training and test dataset.
+download('https://s3.amazonaws.com/udacity-sdc/notMNIST_train.zip', 'notMNIST_train.zip')
+download('https://s3.amazonaws.com/udacity-sdc/notMNIST_test.zip', 'notMNIST_test.zip')
 
-sig = expit(xs)
-d_sig = sig*(1- sig)
+# Make sure the files aren't corrupted
+assert hashlib.md5(open('notMNIST_train.zip', 'rb').read()).hexdigest() == 'c8673b3f28f489e9cdf3a3d74e2ac8fa',\
+        'notMNIST_train.zip file is corrupted.  Remove the file and try again.'
+assert hashlib.md5(open('notMNIST_test.zip', 'rb').read()).hexdigest() == '5d3c7e653e63471c88df796156a9dfa9',\
+        'notMNIST_test.zip file is corrupted.  Remove the file and try again.'
 
-plt.figure(figsize=(20,5))
-# plot ReLu:
-plt.subplot(1,3, 1)
-plt.plot(xs, ReLu, label = 'ReLu')
-plt.plot(xs, d_ReLu, label = 'd_Relu')
-plt.xlabel('x')
-plt.ylabel('y')
-plt.title("ReLu(x) Plot")
-plt.ylim(-1.1, 1.1)
-plt.legend()
-
-# plot tanh:
-plt.subplot(1,3,2)
-plt.plot(xs, tanh, label = 'tanh')
-plt.plot(xs, d_tanh, label = 'd_tanh')
-plt.xlabel('x')
-plt.ylabel('y')
-plt.title("tanh(x) Plot")
-plt.ylim(-1.1, 1.1)
-plt.legend()
-
-# plot sigmoid:
-plt.subplot(1,3,3)
-plt.plot(xs, sig, label = 'sigmoid')
-plt.plot(xs, d_sig, label = 'd_sigmoid')
-plt.xlabel('x')
-plt.ylabel('y')
-plt.title("Sigmoid(x) Plot")
-plt.ylim(-1.1, 1.1)
-plt.legend()
-    
-plt.suptitle('Activation functions')
-plt.show()
+# Wait until you see that all files have been downloaded.
+print('All files downloaded.')

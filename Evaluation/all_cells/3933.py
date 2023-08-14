@@ -1,2 +1,1 @@
-cy.incomingMessageArrived = False
-cy.incomingMessageArrived
+cy.requestSelectedNodes()

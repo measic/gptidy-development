@@ -1,1 +1,1 @@
-show_results('focus')
+test_labels[lab].idxmin()

@@ -1,1 +1,1 @@
-# delta_final_mean.shape
+# results.shape

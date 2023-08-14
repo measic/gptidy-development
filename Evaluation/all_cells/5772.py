@@ -1,4 +1,2 @@
-# lets take a look at our time series
-plt.plot(dataset)
-plt.xlabel('time period')
-plt.ylabel('normalized series value')
+### TODO: implement the function window_transform_series in the file my_answers.py
+from my_answers import window_transform_series

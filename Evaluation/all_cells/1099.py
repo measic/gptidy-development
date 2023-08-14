@@ -1,31 +1,23 @@
+%run ../preprocessing/Artifact_Removal/preprocecssing_helpers.ipynb
+import os
+
+import mne
+from mne.preprocessing import ICA
+import numpy as np
+import matplotlib.pyplot as plt
+%matplotlib inline
+import matplotlib
+matplotlib.rcParams['figure.figsize'] = (10.0, 10.0)
+matplotlib.rcParams.update({'font.size': 15})
+
+from mne.datasets import sample
+from mne.decoding import UnsupervisedSpatialFilter
+
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import normalize
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+
+from scipy.stats import skew, kurtosis
 import pandas as pd
-import p5_util
-import p6_util_plot
-is_dumped=True
-if is_dumped is True:
-    filename = './data/dict_cls_score.dump'
-    dict_cls_score = p5_util.object_load(filename)
-else :
-    pass
-
-dict_cls_score['VGG16 Seq'] = score_vgg16_seq
-dict_benchmark_result = dict_cls_score.copy()
-
-df_result = pd.DataFrame.from_dict( dict_benchmark_result, orient='index')
-df_result.reset_index(inplace=True)
-df_result.rename(columns={'index':'Classifier',0:'Score'}, inplace=True)
-df_result
-nb_images = oP7_DataBreed._sampling_breed_count*oP7_DataBreed._sampling_image_per_breed_count
-nb_images = oP7_DataBreed.df_pil_image_kpdesc.shape[0]
-if oP7_DataBreed.is_kp_filtered :
-    title = "Benchmark classifiers accuracy / GMM clustering / "+str(nb_images)+" filtered splitted images / "+str(oP7_DataBreed.sampling_breed_count)+" breeds"
-else :
-    title = "Benchmark classifiers accuracy / GMM clustering / "+str(nb_images)+" splitted images / "+str(oP7_DataBreed.sampling_breed_count)+" breeds"
-
-p6_util_plot.ser_item_occurency_plot(df_result.Classifier, df_result.Score*100, item_count=None, title=title,\
-                                    p_reverse=False,p_x_title='Classifiers', p_y_title='Accuracy')
-
-#### Classifier API
-p5_util.object_dump(dict_cls_score,filename)
-
-dict_cls_score

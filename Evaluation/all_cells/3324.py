@@ -1,1 +1,1 @@
-!tar xfz bc-1.07.1.tar.gz
+!cd bc-1.07.1; make CFLAGS="--coverage"

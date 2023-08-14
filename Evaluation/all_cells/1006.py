@@ -1,4 +1,5 @@
-X_season = feature_copy[model_features]
-
-y_season = tourney_comp_ratings[tourney_comp_ratings['season_t']== test_year]['game_result']
-X_season.shape
+prediction_probabilities = logreg.predict_proba(X_season)
+print("Accuracy:",metrics.accuracy_score(y_season, y_pred_season))
+print("Precision:", metrics.precision_score(y_season,y_pred_season))
+print("Recall:",metrics.recall_score(y_season, y_pred_season))
+print("Log loss= ",log_loss(y_season, prediction_probabilities))

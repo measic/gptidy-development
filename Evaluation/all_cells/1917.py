@@ -1,12 +1,10 @@
-def insert_and_time_filter_cuckoo_filter(capacity, percent_fill=0.9):
-    num_inserted = 0
-    c_filter = CuckooFilter(capacity, 2)
-    now = time.time()
-    for i in range(int(percent_fill*capacity)):
-        try:
-            c_filter.insert(str(i))
-            num_inserted += 1
-        except Exception("CuckooFilter has filled up!"):
-            break
-    elapsed_insertion = time.time() - now
-    return c_filter, elapsed_insertion, num_inserted
+bloom_times = []
+cuckoo_times = []
+
+for size in tqdm(capacities):
+    
+    __, c_time, num_inserted = insert_and_time_filter_cuckoo_filter(int(size))
+    cuckoo_times.append(c_time)
+    
+    __,b_time =  insert_and_time_filter_bloom_filter(num_inserted)
+    bloom_times.append(b_time)

@@ -1,4 +1,16 @@
-feature_layer_coll_item = feature_layer_srch_results[0]
-feature_layers = feature_layer_coll_item.layers
-feature_layer = feature_layers[0]
-feature_layer.properties.name
+from arcgis import geometry
+from arcgis import features
+
+def create_feature(map1, g):
+    try:
+        oid = 1
+        pt = geometry.Point(g)
+        feat = features.Feature(geometry=pt, attributes={'OBJECTID': 1,
+                                                        'name': 'name',
+                                                        'type': 'park',
+                                                        'surface': 'dirt'})
+        feature_layer.edit_features(adds=[feat])
+        print(str(g))
+        map1.draw(g)
+    except:
+        print("Couldn't create the feature. Try again, please...")

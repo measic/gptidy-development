@@ -1,3 +1,2 @@
-# Creeer dataframe met daarin het aantal behaalde diploma's per kwalificatie #BK
-df_totaalKN = df.groupby(['KWALIFICATIE NAAM']).sum()[['2013   AANT','2014   AANT','2015   AANT','2016   AANT','2017   AANT']]
-df_totaalKN.head()
+# BK
+df_landelijk10.plot.bar(figsize=(18,7.0),title='Top 10 opleiding met meeste MBO 4 diplomas landelijk in 2017')

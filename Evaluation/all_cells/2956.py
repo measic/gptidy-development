@@ -1,22 +1,18 @@
-def getBestParamsSVM(train_data, train_labels):
-    #mini_train_data, mini_test_data, mini_train_labels, mini_test_labels = train_test_split(train_data, train_labels,
-    #                                    stratify=train_labels, 
-    #                                    test_size=0.55)
-    
-    #
-    # SVM
-    #
-    classifier = LinearSVC(penalty='l2')
-
-    params = {'C': [0.01, 0.1, 0.5]}
-    svm = GridSearchCV(classifier, params, cv=4, 
-                       scoring='accuracy', return_train_score=True)
-
-    # Fit  training data
-    svm.fit(train_data, train_labels)  
-    # Show the best C parameter to use and the expected accuracy
-    print('\nSVM Classifier')
-    print(' Best param:', svm.best_params_)
-    print(' Accuracy:  ', np.round(svm.best_score_, 4) )
-    
-    return svm.best_params_
+def coords_of_max(theArray, n):
+    # Flatten the 2D array
+    flat = theArray.flatten()
+    # Partition so that the we know the sort order for
+    # the cells with the highest values.  We just
+    # care about the top n highest values.  So for example,
+    # if n = 3, get return 3 indices.  
+    indices = np.argpartition(flat, -n)[-n:]
+    # Reverse so that we show index of highest value first
+    # (descending)
+    indices = indices[np.argsort(-flat[indices])]
+    # Now return the coordinates for these indices
+    # for a 2D array.  This will return 2 arrays,
+    # the first for the row index, the second for the
+    # column index.  The row index represents the
+    # actual digit, the column index represents
+    # the confused digit
+    return np.unravel_index(indices, theArray.shape)

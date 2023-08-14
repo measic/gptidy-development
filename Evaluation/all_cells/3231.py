@@ -1,2 +1,1 @@
-for i in range(250):
-    w = update_nueron(w, X[i%X.shape[0], :], y[i%X.shape[0]])
+!pip install --user python-resize-image==1.1.11

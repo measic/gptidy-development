@@ -1,3 +1,3 @@
-Z1=X.loc[:, X.dtypes == np.float64] #Extracting columns with values of type float 
-Z2=X.loc[:, X.dtypes == np.int64]   #Extracting columns with values of type int
-X_numeric=pd.concat([Z1,Z2], axis=1)
+space=['accommodates','bathrooms','bedrooms','beds','guests_included','price','reviews_per_month']
+for item in X['property_type'].unique().tolist():
+    space.append(item)

@@ -1,1 +1,1 @@
-regression_lines = [(1.7, 10), (1.9, 20)]
+x_values and y_values and root_mean_squared_errors(x_values, y_values, regression_lines)

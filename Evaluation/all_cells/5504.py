@@ -1,1 +1,5 @@
-params['args'].annotation #不能加*号 *号只是表示有特殊意义
+def add(x:int,y:int)->int:
+    return x+y
+
+print(add.__annotations__['x'])
+print(add.__annotations__)

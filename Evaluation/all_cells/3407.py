@@ -1,1 +1,1 @@
-help(math.log)
+math.log(10, 2)

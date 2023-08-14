@@ -1,3 +1,5 @@
-p = pcc.classes.PhotometryClass()
+# s = pcc.SpectrumClass()
 
-p.load_table(pcc.utils.simulate_out_to_ap_table(mjd_to_sim, flux, flux_err, filters_to_sim))
+# s.load("SN2009jf_55106.120000.spec", directory="/Users/berto/Code/CoCo/spectra/")
+
+# s.plot()

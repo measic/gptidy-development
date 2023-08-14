@@ -1,13 +1,13 @@
-x_axis = [x for x in range(1,9)]
-y_axis = mean_df_clean["earnings_cost_ratio"]
+#add Tuition Cost Tier column to dataframe
+region_stats["tuition_cost_tier"] = pd.cut(region_stats["tuition_in_state"], bins, labels=bin_names)
 
-plt.plot(x_axis, y_axis, 'go--', linewidth=2, markersize=8, color='blue', label="Earning-Cost Ratio")
+#store variables for ratio calculations
+cost = region_stats['tuition_in_state']
+earnings6 = region_stats['earnings6years']
+earnings10 = region_stats['earnings10years']
 
-plt.title("Earnings/Cost ratio per region ($)")
-plt.xlabel("Region")
-plt.ylabel("Earnings/Cost Ratio")
-plt.grid()
-plt.legend(title=[""])
-plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
-#save fig
-#plt.savefig("Plots/Earnings-CostRatioPerRegion.png")
+#add columns for earnings/cost ratio, 6 - 10 year earnings growth ratio
+region_stats['earnings_cost_ratio'] = earnings6/cost
+region_stats['earnings_growth_y6_y10'] = earnings10/earnings6
+region_stats['weighted_growth_to_tuition'] = region_stats['earnings_cost_ratio'] * region_stats['earnings_growth_y6_y10']
+

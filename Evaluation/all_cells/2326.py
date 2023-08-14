@@ -1,2 +1,2 @@
-with torch.no_grad():
-    output = net(example_data)
+%load_ext watermark
+%watermark -v -m -p numpy,scipy,pandas,matplotlib,seaborn,sklearn

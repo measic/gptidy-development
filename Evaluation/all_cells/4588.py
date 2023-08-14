@@ -1,12 +1,3 @@
-state2abbr = {
-    'Michigan': 'MI',
-    'Oregon' : 'OR',
-    'Califonia' : 'CA',
-    'Nevada' : 'NV' }
-
-cities = {
-    'Ann Arbor' : 'MI',
-    'Chicago' : 'IL',
-    'Portland' : 'OR',
-    'Berkeley' : 'CA',
-    'San Francisco' : 'CA' }
+# Now change a, which is a mutable object
+a[0] = 100
+print(a)

@@ -1,1 +1,1 @@
-stable_wave_model = shop_info.loc[:,'wave_model2_1':'wave_model2_7']
+stable_wave_model.to_csv('stable_wave_model.csv', sep=",", index = True)

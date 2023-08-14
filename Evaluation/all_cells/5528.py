@@ -1,1 +1,1 @@
-twitter_archive.rating_denominator.value_counts()
+img_predictions.tail()

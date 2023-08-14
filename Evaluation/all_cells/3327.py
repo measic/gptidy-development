@@ -1,1 +1,1 @@
-!cd bc-1.07.1/bc; echo 2 + 2 | ./bc
+!rm -fr bc-1.07.1 bc-1.07.1.tar.gz

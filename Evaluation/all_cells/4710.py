@@ -1,1 +1,1 @@
-import re
+re.split('\s+', text)

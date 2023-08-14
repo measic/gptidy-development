@@ -1,11 +1,11 @@
-# TODO: Inverse transform the centers
-log_centers = pca.inverse_transform(centers)
+# idea for the code and visualization provided by the mentor in the review
 
-# TODO: Exponentiate the centers
-true_centers = np.exp(log_centers)
+# check if samples' spending closer to segment 0 or 1
+df_diffs = (np.abs(samples-true_centers.iloc[0]) < np.abs(samples-true_centers.iloc[1])).applymap(lambda x: 0 if x else 1)
 
-# Display the true centers
-segments = ['Segment {}'.format(i) for i in range(0,len(centers))]
-true_centers = pd.DataFrame(np.round(true_centers), columns = data.keys())
-true_centers.index = segments
-display(true_centers)
+# see how cluster predictions align with similariy of spending in each category
+df_preds = pd.concat([df_diffs, pd.Series(sample_preds, name='PREDICTION')], axis=1)
+sns.heatmap(df_preds, annot=True, cbar=False, yticklabels=['sample 0', 'sample 1', 'sample 2'], linewidth=.1, square=True)
+plt.title('Samples closer to\ncluster 0 or 1?')
+plt.xticks(rotation=45, ha='center')
+plt.yticks(rotation=0)

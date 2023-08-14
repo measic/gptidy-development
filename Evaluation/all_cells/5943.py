@@ -1,17 +1,30 @@
-# probamos con n_components para reduccion pero no afecto
-shrinkage = np.linspace(0.1,1.0).tolist()
-shrinkage.append('auto')
-
-parametros_LDA_lsqr_eigen = {
-    "solver": ["lsqr"],
-    "priors": priors,
-    "shrinkage": shrinkage,
-    "n_components": range(1, 20)
+parametersDecisionTree = {
+    'criterion':['entropy','gini'],
+    'max_depth':randint(1, 200)
 }
 
-(tiempo_LDA_lsqr_eigen, grid_lda) = correr_y_mostrar(
-    LDA(),
-    parametros_LDA_lsqr_eigen,
+(tiempo_random_decision_Tree, random_decision) = correr_randomized_y_mostrar(
+    DecisionTreeClassifier(),
+    parametersDecisionTree,
     5,
-    10
+    5,
+    100
 )
+
+verTiempo(tiempo_decision_tree, tiempo_random_decision_Tree)
+
+parametersDecisionTree2 = {
+    'criterion':['entropy','gini'],
+    'max_depth':randint(1, 200),
+    'min_samples_split':uniform(0, 1)
+}
+
+(tiempo_random_decision_Tree_2, random_decision_tree_2) = correr_randomized_y_mostrar(
+    DecisionTreeClassifier(),
+    parametersDecisionTree2,
+    5,
+    5,
+    500
+)
+
+verTiempo(tiempo_decision_tree_2, tiempo_random_decision_Tree_2)

@@ -1,6 +1,11 @@
-'''Create the FP yield(A,Z) list container'''
 
-cfpy_az = get_fpy_az( cfpy_az_df )
 
-print('Sum of yield values in dictionary container = ',round(sum([fp.yield_percent for fp in cfpy_az]),2))
-print('# of FP nuclides = ', len(cfpy_az))
+# Load dataset and writing the custom parser
+def parser(x):
+    return datetime.strptime(x, '%m/%d/%y')
+
+# Man gotta figure out the strptime function to see how it actually works 
+
+# Date_parser always get called to pass a function understand the dates
+series=read_csv("/Users/shengyuchen/Dropbox/Engagement - Business/My Hub/AI:ML:DL Playground/Local Python/AI-ML-DL Algorithms/LSTM Neural Networks/shampoo-sales.csv",header=0,parse_dates=[0],index_col=0,squeeze=True,date_parser=parser)
+series.head()

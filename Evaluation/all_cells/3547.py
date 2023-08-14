@@ -1,1 +1,2 @@
-ekos.import_default_data(workspace_alias = workspace_alias)
+#%%timeit
+ekos.load_data(unique_id = workspace_uuid)

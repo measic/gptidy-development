@@ -1,6 +1,9 @@
-plt.figure(figsize=(14, 12))
-df_top10 = df.where(df['Country'].isin(top_10_list))
+fig, axes = plt.subplots(10, 1, figsize=(14, 34))
 
-sns.boxplot(data=df_top10, x='ConvertedSalary', y='Country', palette='Paired')
-plt.title('Salary Distribution in the Top 10 Countries', fontsize=16)
-sns.despine(left=True)
+for ax, country in zip(axes, top_10_list):
+    data = df[df['Country'] == country]
+    sns.countplot(data=data, x='YearsCodingProf', palette='Paired', ax=ax, order=data['YearsCodingProf'].value_counts().index)
+    ax.set_title('Years coding professionally in {}'.format(country), fontsize=16)
+    #plt.xticks(rotation='vertical')
+    sns.despine(left=True)
+plt.subplots_adjust(hspace=.6)

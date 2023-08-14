@@ -1,38 +1,35 @@
-#train_basic = pd.read_pickle('raw_data/basic_train')
-#test_basic  = pd.read_pickle('raw_data/basic_test')
-#train_basic = train_basic.loc[1626750:]
-#计算情感极性
-begin_time= time.time()
-train_sentiment,test_sentiment = feature.sentiment_feature(train_basic,test_basic)
-end_time = time.time()
-print end_time - begin_time
-#计算一周内出现微博的数量
-begin_time= time.time()
-train_seven_days ,test_seven_days = feature.find_seven_days(train_basic,test_basic)
-end_time = time.time()
-print end_time - begin_time
-#lda特征
-begin_time = time.time()
-train_lda_feature,test_lda_feature = feature.lda_feature(train_basic,test_basic)
-end_time = time.time()
-print end_time - begin_time
-#用户特征
-begin_time= time.time()
-train_user,test_user = feature.user_basic_feature(train_basic,test_basic)
-end_time = time.time()
-print end_time - begin_time
-#文本特征
-begin_time= time.time()
-train_content,test_content = feature.content_basic_feature(train_basic,test_basic)
-end_time = time.time()
-print end_time - begin_time
-#时间特征
-begin_time= time.time()
-train_time,test_time = feature.time_feature(train_basic,test_basic)
-end_time = time.time()
-print end_time - begin_time
-#关键词特征
-begin_time = time.time()
-train_keyword,test_keyword = feature.key_word_feature(train_basic,test_basic)
-end_time = time.time()
-print end_time - begin_time
+#train.drop(['sentiment','seven_days'],axis=1,inplace=True)
+#test.drop(['sentiment','seven_days'],axis=1,inplace=True)
+result_test = []
+result_train = []
+tot = 0
+for string in ['share','comment','zan','content_len','链接','//@','@','#','【','《','\[']:
+    temp = []
+    for i in test[string+'_histogram']:
+        if isinstance(i,int):
+            temp.append(np.zeros(shape=8))
+            tot +=1
+        else:
+            temp.append(i[0])
+    result_test.append(np.asarray(temp))
+    temp = []
+    for i in train[string+'_histogram']:
+        temp.append(i[0])
+    result_train.append(np.asarray(temp))
+    
+    train.drop(string+'_histogram',axis=1,inplace=True)
+    test.drop(string+'_histogram',axis=1,inplace=True)
+train.drop(['pid','uid'],inplace=True,axis = 1)
+test.drop(['pid','uid'],inplace=True,axis = 1)
+
+train_y = train[['share','comment','zan']].values
+train.drop(['share','comme·nt','zan'],axis = 1,inplace=True)
+train_x = train.values
+test_x  = test.values
+for i in result_train:
+    train_x = np.c_[train_x,i]
+for i in result_test:
+    test_x = np.c_[test_x,i]
+np.save('processed_data/train3_np',train_x)
+np.save('processed_data/test3_np',test_x)
+np.save('processed_data/target3_np',train_y)

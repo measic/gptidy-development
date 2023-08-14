@@ -1,4 +1,4 @@
-plt.plot(train3.index, train3, label='Train')
-plt.plot(test3.index, test3, label='Test')
-plt.plot(pred3.index, pred3, label='Holt-Winters3')
+plt.plot(train4.index, train4, label='Train')
+plt.plot(test4.index, test4, label='Test')
+plt.plot(pred4.index, pred4, label='Holt-Winters4')
 plt.legend(loc='best')

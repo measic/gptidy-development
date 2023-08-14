@@ -1,2 +1,3 @@
-#here the : means "every row" because it is before the comma, and 1 indexes the 2nd column.
-print(E[:,1])
+#we get a list of consecutive integers by range() and initialize an array with it
+F=np.array(range(5,11))
+print(F)

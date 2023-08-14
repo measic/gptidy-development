@@ -1,4 +1,8 @@
-for learning_rate in [3E-3]:
-        print('Training with learning rate={}'.format(learning_rate))
-        lenet_model = LeNetModel(logits, X_train, y_train, X_valid, y_valid, learning_rate, x, y , hold_prob, hparam='lr_{}'.format(learning_rate) )
-        lenet_model.train(EPOCHS, BATCH_SIZE)
+f, (ax1, ax2) = plt.subplots(2, 3, figsize=(24, 9))
+f.tight_layout()
+half = 3
+for i in range(3):
+    ax1[i].imshow(test_images[i])
+    ax2[i].imshow(test_images[half + i])
+plt.subplots_adjust(left=0., right=1, top=0.9, bottom=0.)
+plt.show()

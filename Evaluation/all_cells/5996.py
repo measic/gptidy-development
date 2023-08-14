@@ -1,3 +1,1 @@
-%%time
-df = DataframeGenerator(LINKIN_PARK_ALBUMS)
-df.init_dfs()
+qgrid.show_grid(df.cos_sim[0], export_mode=True)

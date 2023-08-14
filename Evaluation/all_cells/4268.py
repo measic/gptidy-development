@@ -1,6 +1,2 @@
-# Calculate the percentage of each category
-samples_w_total = samples.copy()
-samples_w_total['Total'] = samples_w_total.sum(axis=1)
-samples_percentage = samples.loc[:,"Fresh":"Delicatessen"].div(samples_w_total['Total'], axis=0) * 100
-samples_percentage['Total'] = samples_percentage.sum(axis=1)
-samples_percentage
+# Produce a scatter matrix for each pair of features in the data
+pd.scatter_matrix(data, alpha = 0.3, figsize = (14,8), diagonal = 'kde');

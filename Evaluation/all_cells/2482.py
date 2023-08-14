@@ -1,9 +1,13 @@
-provi=providence_x_train[providence_x_train['word'].isin(brent_words)]
-provi=provi.reset_index(drop=True)
+#Set name of MODFLOW exe
+#  assumes executable is in users path statement
+exe_name = 'mfusg'
+if platform.system() == 'Windows':
+    exe_name += '.exe'
+mfexe = exe_name
 
-brent=brent_x_train[brent_x_train['word'].isin(provi_words)]
-brent=brent.reset_index(drop=True)
+modelpth = os.path.join('data')
+modelname = 'zaidel'
 
-print("\nFeature correlations between two data samples (Brent corpus and Providence corpus) \n")
-print(brent.corrwith(provi, drop=True))
-
+#make sure modelpth directory exists
+if not os.path.exists(modelpth):
+    os.makedirs(modelpth)

@@ -1,5 +1,3 @@
-import pymc3 as pm
-
-N = 100
-with pm.Model() as model:
-    p = pm.Uniform("freq_cheating", 0, 1)
+with model:
+    first_coin_flips = pm.Bernoulli("first_flips", 0.5, shape=N, testval=np.random.binomial(1, 0.5, N))
+print(first_coin_flips.tag.test_value)

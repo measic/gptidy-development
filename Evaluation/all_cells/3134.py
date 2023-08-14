@@ -1,1 +1,1 @@
-split = StratifiedShuffleSplit(1, .8, 42)
+from sklearn.linear_model import SGDClassifier

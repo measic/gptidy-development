@@ -1,1 +1,1 @@
-twitter_archive_clean.columns
+twitter_archive_clean.info()

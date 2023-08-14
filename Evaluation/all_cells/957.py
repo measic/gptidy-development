@@ -1,36 +1,23 @@
-from pandas import DataFrame
-from pandas import Series
-from pandas import concat
-from pandas import read_csv
-from pandas import datetime
-from sklearn.metrics import mean_squared_error
-from sklearn.preprocessing import MinMaxScaler
-from keras.models import Sequential
-from keras.layers import Dense
-from keras.layers import LSTM
-from math import sqrt
-from matplotlib import pyplot
-import numpy
+# make a one-step forecast
+def forecast_lstm(model, batch_size, X):
+    X=X.reshape(1,1,len(X))
+    yhat=model.predict(X,batch_size=batch_size)
+    return yhat[0,0]
 
-filename="/Users/shengyuchen/Dropbox/Engagement - Business/My Hub/AI:ML:DL Playground/Local Python/AI-ML-DL Algorithms/LSTM Neural Networks/shampoo-sales.csv"
-# datetime parsing function for loading the dataset
-def parser(x):
-    return datetime.strptime('190'+x, '%Y-%b') # String manpuation
+# load the dataset
+series=read_csv(filename, header=0,parse_dates=[0],index_col=0,squeeze=True)
 
-# frame a sequence as a supervised learning problem
-def timeseries_to_supervised(data,lag=1):
-    df=DataFrame(data)
-    columns=[df.shift(i) for i in range(1,lag+1)]
-    columns.append(df)
-    df=concat(columns,axis=1)
-    df.fillna(0,inplace=True)
-    return df
+# transform data to be staionary
+raw_values=series.values
+diff_values=difference(raw_values,1)
 
-# create a differenced series
-def difference(dataset,interval=1):
-    diff=list()
-    for i in range(interval, len(dataset)):
-        value=dataset[i]-dataset[i-interval]
-        diff.append(value)
-    return Series(diff)
+# transform data to be supervised learning
+supervised = timeseries_to_supervised(diff_values,1)
+supervised_values=supervised.values
+
+# split data into train and test-sets
+train,test=supervised_values[0:-12],supervised_values[-12:]
+
+# transform the scale of the data
+scaler, train_scaled, test_scaled = scale(train, test)
 

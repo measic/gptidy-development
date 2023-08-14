@@ -1,1 +1,1 @@
-print(count.vocabulary_)
+np.set_printoptions(precision=2)

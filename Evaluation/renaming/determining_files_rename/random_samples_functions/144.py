@@ -20,7 +20,7 @@ class BatchGenerator(object):
             self._cursor[b] = (self._cursor[b] + 1) % self._text_size
         return batch
 
-    def function_def(self):
+    def next(self):
         """Generate the next array of batches from the data. The array consists of
     the last batch of the previous array, followed by num_unrollings new ones.
     """
@@ -35,7 +35,7 @@ def characters(probabilities):
   characters back into its (most likely) character representation."""
     return [id2char(c) for c in np.argmax(probabilities, 1)]
 
-def batches2string(batches):
+def function_def(batches):
     """Convert a sequence of batches back into their (most likely) string
   representation."""
     s = [''] * batches[0].shape[0]
@@ -44,7 +44,7 @@ def batches2string(batches):
     return s
 train_batches = BatchGenerator(train_text, batch_size, num_unrollings)
 valid_batches = BatchGenerator(valid_text, 1, 1)
-print(batches2string(train_batches.next()))
-print(batches2string(train_batches.next()))
-print(batches2string(valid_batches.next()))
-print(batches2string(valid_batches.next()))
+print(function_def(train_batches.next()))
+print(function_def(train_batches.next()))
+print(function_def(valid_batches.next()))
+print(function_def(valid_batches.next()))

@@ -1,2 +1,7 @@
-from devito import norm
-assert np.isclose(norm(image), 1e7, rtol=1e1)
+import pandas as pd
+import numpy as np
+from hics.incremental_correlation import IncrementalCorrelation
+from hics.result_storage import DefaultResultStorage
+from hics.scored_slices import ScoredSlices
+import wrar
+import collections

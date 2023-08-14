@@ -1,11 +1,5 @@
-# tsne
-tsne_train = tsne_all[(tsne_y == y_pred_label_te.flatten()[dataset_subset_indices]) & tsne_y!=0]
-tsne_train_y = tsne_y[(tsne_y == y_pred_label_te.flatten()[dataset_subset_indices]) & tsne_y!=0]
-# plot
-_, ax = plt.subplots(1, 1, figsize=(10, 10))
-plt.axis('off')
-plt.gca().xaxis.set_major_locator(plt.NullLocator())
-plt.gca().yaxis.set_major_locator(plt.NullLocator())
-plot_pts_2d(tsne_all, tsne_y, ax, classes_to_keep, colors)
-plt.savefig("../Figures/Zurich/tSNE/t-SNE_ED_after_PCA.pdf",
-            bbox_inches='tight', pad_inches=0)
+# plot first 2 PCA components
+_, ax = plt.subplots(1, 1, figsize=(8, 8))
+plot_pts_2d(act_test[:, :2], data_test.gt_patches.flatten(), ax, classes_to_keep, colors, subsample_pct=.0005)
+ax.set_axis_off()
+print("Variance explained by first 2 components: %.2f" % np.sum(pca.explained_variance_ratio_[:2]))

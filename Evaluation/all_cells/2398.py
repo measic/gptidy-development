@@ -1,10 +1,5 @@
-fig, ax = plt.subplots(figsize=(8, 6))
+post_pmf_contribs = sp.stats.poisson.pmf(np.atleast_3d(x_plot),
+                                         trace['mu'][:, np.newaxis, :])
+post_pmfs = (trace['w'][:, np.newaxis, :] * post_pmf_contribs).sum(axis=-1)
 
-plot_w = np.arange(K) + 1
-
-ax.bar(plot_w - 0.5, trace['w'].mean(axis=0), width=1., lw=0);
-
-ax.set_xlim(0.5, K);
-ax.set_xlabel('Component');
-
-ax.set_ylabel('Posterior expected mixture weight');
+post_pmf_low, post_pmf_high = np.percentile(post_pmfs, [2.5, 97.5], axis=0)

@@ -1,2 +1,2 @@
-### Treino
-train.isnull().sum()
+### Join
+join.isnull().sum()

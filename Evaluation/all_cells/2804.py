@@ -1,9 +1,17 @@
-# Convert each column for both test and training sets:
-for df in [train, test]:
-    convert_col_type(df, categories, 'category')
-    convert_col_type(df, floats, 'float')
-    convert_col_type(df, ints, 'int')
-    convert_col_type(df, bools, 'bool')
-    
-# Re-define the full dataset
-data_full = pd.concat([train, test], keys = ['train', 'test'])
+# Compute the correlation matrix
+corr = data_full.corr()
+
+# Generate a mask for the upper triangle
+mask = np.zeros_like(corr, dtype=np.bool)
+mask[np.triu_indices_from(mask)] = True
+
+# Set up the matplotlib figure
+f, ax = plt.subplots(figsize=(11, 9))
+
+# Draw the heatmap with the mask and correct aspect ratio
+sns.heatmap(corr, mask=mask, #cmap=cmap, vmax=.3,
+            square=True,
+            linewidths=.5, cbar_kws={"shrink": .5}, ax=ax)
+
+# Simpler version (but too small to be useful)
+#plt.matshow(data_full.corr())

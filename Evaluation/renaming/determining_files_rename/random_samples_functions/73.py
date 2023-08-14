@@ -15,7 +15,7 @@ def gaussian_blur(img, kernel_size):
     """Applies a Gaussian Noise kernel"""
     return cv2.GaussianBlur(img, (kernel_size, kernel_size), 0)
 
-def function_def(img, vertices):
+def region_of_interest(img, vertices):
     """
     Applies an image mask.
     
@@ -32,7 +32,7 @@ def function_def(img, vertices):
     masked_image = cv2.bitwise_and(img, mask)
     return masked_image
 
-def draw_lines(img, lines, color=[255, 0, 0], thickness=2):
+def function_def(img, lines, color=[255, 0, 0], thickness=2):
     """
     NOTE: this is the function you might want to use as a starting point once you want to 
     average/extrapolate the line segments you detect to map out the full
@@ -61,7 +61,7 @@ def hough_lines(img, rho, theta, threshold, min_line_len, max_line_gap):
     """
     lines = cv2.HoughLinesP(img, rho, theta, threshold, np.array([]), minLineLength=min_line_len, maxLineGap=max_line_gap)
     line_img = np.zeros((*img.shape, 3), dtype=np.uint8)
-    draw_lines(line_img, lines)
+    function_def(line_img, lines)
     return line_img
 
 def weighted_img(img, initial_img, α=0.8, β=1.0, λ=0.0):

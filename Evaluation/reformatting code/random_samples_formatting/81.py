@@ -1,1 +1,1 @@
-Image(filename = pathname + DATA_fraction)
+plt.hist(X, bins=200);

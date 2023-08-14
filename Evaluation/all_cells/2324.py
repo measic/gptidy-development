@@ -1,4 +1,2 @@
-test()
-for epoch in range(1, n_epochs + 1):
-    train(epoch)
-    test()
+with torch.no_grad():
+    output = net(example_data)

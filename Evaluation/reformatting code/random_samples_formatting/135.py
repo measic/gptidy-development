@@ -1,40 +1,16 @@
-class Decoder(tf.keras.layers.Layer):
-  # 初始參數跟 Encoder 只差在用 `target_vocab_size` 而非 `inp_vocab_size`
-  def __init__(self, num_layers, d_model, num_heads, dff, target_vocab_size, 
-               rate=0.1):
-    super(Decoder, self).__init__()
+means = X_train.mean(axis=0, keepdims=True)
+stds = X_train.std(axis=0, keepdims=True) + 1e-10
+X_val_scaled = (X_valid - means) / stds
 
-    self.d_model = d_model
-    
-    # 為中文（目標語言）建立詞嵌入層
-    self.embedding = tf.keras.layers.Embedding(target_vocab_size, d_model)
-    self.pos_encoding = positional_encoding(target_vocab_size, self.d_model)
-    
-    self.dec_layers = [DecoderLayer(d_model, num_heads, dff, rate) 
-                       for _ in range(num_layers)]
-    self.dropout = tf.keras.layers.Dropout(rate)
-  
-  # 呼叫時的參數跟 DecoderLayer 一模一樣
-  def call(self, x, enc_output, training, 
-           combined_mask, inp_padding_mask):
-    
-    tar_seq_len = tf.shape(x)[1]
-    attention_weights = {}  # 用來存放每個 Decoder layer 的注意權重
-    
-    # 這邊跟 Encoder 做的事情完全一樣
-    x = self.embedding(x)  # (batch_size, tar_seq_len, d_model)
-    x *= tf.math.sqrt(tf.cast(self.d_model, tf.float32))
-    x += self.pos_encoding[:, :tar_seq_len, :]
-    x = self.dropout(x, training=training)
+with tf.Session() as sess:
+    init.run()
+    for epoch in range(n_epochs):
+        for X_batch, y_batch in shuffle_batch(X_train, y_train, batch_size):
+            X_batch_scaled = (X_batch - means) / stds
+            sess.run(training_op, feed_dict={X: X_batch_scaled, y: y_batch})
+        if epoch % 5 == 0:
+            acc_batch = accuracy.eval(feed_dict={X: X_batch_scaled, y: y_batch})
+            acc_valid = accuracy.eval(feed_dict={X: X_val_scaled, y: y_valid})
+            print(epoch, "배치 데이터 정확도:", acc_batch, "검증 세트 정확도:", acc_valid)
 
-    
-    for i, dec_layer in enumerate(self.dec_layers):
-      x, block1, block2 = dec_layer(x, enc_output, training,
-                                    combined_mask, inp_padding_mask)
-      
-      # 將從每個 Decoder layer 取得的注意權重全部存下來回傳，方便我們觀察
-      attention_weights['decoder_layer{}_block1'.format(i + 1)] = block1
-      attention_weights['decoder_layer{}_block2'.format(i + 1)] = block2
-    
-    # x.shape == (batch_size, tar_seq_len, d_model)
-    return x, attention_weights
+    save_path = saver.save(sess, "./my_model_final_selu.ckpt")

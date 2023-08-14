@@ -1,10 +1,1 @@
-sample_list = []
-sumsum = 0
-
-for i in range(10) :
-  sample_list.append(i)
-  sumsum += i
-  print(i)
-print('loop done')
-print(sumsum)
-print(sample_list)
+a = pd.read_csv('https://raw.githubusercontent.com/RayleighKim/Example_datasets/master/ade_sales.csv')

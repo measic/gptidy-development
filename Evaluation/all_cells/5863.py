@@ -1,1 +1,1 @@
-sign_name = pd.read_csv('signnames.csv')
+y_pred = tf.nn.softmax(logits)

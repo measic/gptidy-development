@@ -1,1 +1,1 @@
-saver = tf.train.import_meta_graph("./my_model_final.ckpt.meta")
+from tensorflow_graph_in_jupyter import show_graph

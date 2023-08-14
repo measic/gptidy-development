@@ -1,29 +1,20 @@
-from GeoBases import GeoBase
+import ipywidgets as widgets
+import json
+import time
+from threading import Thread
+from traitlets import Int, Unicode, Tuple, CInt, Dict, validate, observe
 
-#IMPORT DATA FROM GEOBASE
-geo_o = GeoBase(data='ori_por', verbose=False)
 
-
-def get_name(IATA_code):
-  """
-    Function to return the name of the airport linked to IATA_code
+class cyjsWidget(widgets.DOMWidget):
     
-    @IATA_code : String object which is a IATA_code
-   
-    @return    : String object which is the name of the airport
-  """
-  try:
-    result = geo_o.get(IATA_code.replace(" ",""), 'name')
-  except KeyError as e:
-    result = "NOT FOUND IATA CODE"
-   
-  return result
-  
+    _view_name = Unicode('CyjsView').tag(sync=True)
+    _view_module = Unicode('cyjs').tag(sync=True)
+    frameWidth = Int(400).tag(sync=True)
+    frameHeight = Int(300).tag(sync=True)
+    msgFromKernel = Unicode("{}").tag(sync=True)
+    msgToKernel = Unicode("{}").tag(sync=True)
+    status = "initial status message\n"
+    selectedNodes = [];
+    incomingMessageArrivedAndParsed = False;
+    globalStatus = "blank"
 
-
-BOOKINGS_GROUP_BY_ARR_PORT.columns.values
-new_df = BOOKINGS_GROUP_BY_ARR_PORT.reset_index()
-
-new_df['airport_name'] = new_df['arr_port'].apply(lambda x: get_name(x))
-
-new_df

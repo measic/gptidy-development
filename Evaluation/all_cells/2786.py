@@ -1,14 +1,10 @@
-airports = pd.read_csv('test/airports.csv')
-airports=airports[airports['traffic'] > 8000]
-chart_3 = MapChart(dataframe = airports, 
-       projection = "albersUsa", 
-       region = "US", 
-       unit = 'airport', 
-       value = 'traffic',
-       canvas_height=800,
-       canvas_width = 1200
-      )\
-.addTooltip()\
-.addMarker({"shape":'circle', "color":"steelblue", "scale": 0.5, "opacity": 0.5})
-
-chart_3.show()
+with warnings.catch_warnings():
+    warnings.simplefilter('ignore')
+    
+    plt.figure(figsize=(10, 5))
+    plt.subplot(121) 
+    nx.draw(nx_multi_bbn, with_labels=True, font_weight='bold')
+    plt.title('Multi-connected BBN')
+    plt.subplot(122) 
+    nx.draw(nx_singly_bbn, with_labels=True, font_weight='bold')
+    plt.title('Singly-connected BBN')

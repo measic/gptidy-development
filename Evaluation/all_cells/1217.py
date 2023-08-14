@@ -1,1 +1,1 @@
-shop_info['wave_model_total_3']
+shop_info['wave_model_total_1'] 

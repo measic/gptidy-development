@@ -1,5 +1,4 @@
-module_path = os.path.abspath('..')
-if module_path not in sys.path:
-    sys.path.append(module_path)
-
-from image_retraining import retrain
+# Download the Inception model once and reuse it (set the flag and clobber it each time).
+if force_inception_download and os.path.isdir(model_dir):    
+    shutil.rmtree(model_dir)
+retrain.maybe_download_and_extract()

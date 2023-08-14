@@ -1,2 +1,1 @@
-# Check if the samples vary significantly
-display(samples - data.mean().round())
+samples.plot(kind='bar', figsize=(10, 6))

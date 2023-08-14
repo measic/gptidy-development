@@ -1,9 +1,6 @@
-x = 50
-
-def func(x):
-    print('x is', x)
-    x = 2
-    print('Changed local x to', x)
-
-func(x)
-print('x is still', x)
+def func1(s):
+    """
+    Print a string 's' and tell how many characters it has    
+    """
+    
+    print(s + " has " + str(len(s)) + " characters")

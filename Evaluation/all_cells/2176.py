@@ -1,11 +1,15 @@
-def add_degrees_isotypic(gen_deg, op_deg):
-    D = cartesian_product([ZZ for i in range(len(gen_deg[0]))])
-    return D(gen_deg[0])+D(op_deg), gen_deg[1]
+def Range(S, operators, add_degrees=add_degrees_isotypic):
+    if isinstance(S, dict):
+        return {key : Range(value, operators, add_degrees=add_degrees)
+                for key, value in S.iteritems()}
 
-def add_degrees_symmetric(gen_deg,op_deg):
-    D = cartesian_product([ZZ for i in range(len(gen_deg[0]))])
-    d = D(gen_deg[0])+D(op_deg)
-    return D(sorted(d, reverse=True)), gen_deg[1]
-
-def add_degrees_test(gen_deg, op_deg):
-    return gen_deg+op_deg
+    result = {}
+    basis = S.basis()
+    for key, b in basis.iteritems():
+        result = merge(result, {add_degrees(key, deg): 
+                                     [op(p) for p in b for op in op_list if op(p)!=0] 
+                                     for deg, op_list in operators.iteritems()})    
+    if result != {} :
+        return Subspace(result, {}, add_degrees) #{} <-> operators
+    else :
+        return None

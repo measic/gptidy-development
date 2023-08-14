@@ -1,5 +1,4 @@
-start = 10
-stop = 30
-step = 2
+# sorting lists
+s2.sort()
 
-list(range(start, stop, step))
+print(s2)

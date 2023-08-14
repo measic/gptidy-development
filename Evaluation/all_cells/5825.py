@@ -1,16 +1,11 @@
-import numpy as np
-import pandas as pd
-import random as rand
-import math
-import matplotlib.pyplot as plt
+Sw_inv = np.linalg.inv(Sw)
+I = np.matmul(Sw,Sw_inv)
 
-np.set_printoptions(precision=4)
+print('Sw:')
+Sw
 
-from sklearn import datasets
-from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
-from sklearn.decomposition import PCA as sklearnPCA
+print('Inverted Sw:')
+Sw_inv
 
-from IPython.core.interactiveshell import InteractiveShell
-InteractiveShell.ast_node_interactivity = "all"
-
-%matplotlib inline
+print('Identity matrix')
+I

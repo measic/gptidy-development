@@ -1,8 +1,8 @@
-train3, test3 = df_per_day.iloc[:300,13], df_per_day.iloc[300:,13]
+train4, test4 = df_per_day.iloc[:295,13], df_per_day.iloc[295:,13]
 
 
-model3 = ExponentialSmoothing(train3, seasonal='mul', seasonal_periods=12).fit()
-pred3 = model3.predict(start=test3.index[0], end=test3.index[-1])
+model4 = ExponentialSmoothing(train4, seasonal='mul', seasonal_periods=12).fit()
+pred4 = model4.predict(start=test4.index[0], end=test4.index[-1])
 
 
-(mean_absolute_error(np.exp(test3), np.exp(pred3)))
+(mean_absolute_error(np.exp(test4), np.exp(pred4)))

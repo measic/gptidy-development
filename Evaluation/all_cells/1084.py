@@ -1,3 +1,4 @@
-import numpy as np
-# Ajout de la dernière couche fully-connected qui permet de classifier
-VGG16Seq.add(Dense(nb_labels, activation='softmax'))
+import p5_util
+p5_util.object_dump(VGG16Seq,'./data/VGG16Seq_sgd.dump')
+
+VGG16Seq.summary()

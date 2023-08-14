@@ -1,13 +1,9 @@
-fig1, ax1 = plt.subplots()
-ax1.plot(t_synced[0:1000], power_data_synced[0:1000],  label='Power',  marker='o',linewidth=0.3, markersize=1.5)
-ax1.legend();
-ax1.set_ylabel('Power [W]')
-ax1.set_xlabel('Time')
-ax1.set_title('Power');
+temp = pd.read_excel(temp_data_path)
+temp = temp.values
+temp_data = temp[0][3:]
 
-fig2, ax2 = plt.subplots()
-ax2.plot(t_synced[0:1000], traj_data_synced[0:1000],  label='Angles',  marker='o',linewidth=0.3, markersize=1.5)
-ax2.legend();
-ax2.set_ylabel('Angles [deg]')
-ax2.set_xlabel('Time')
-ax2.set_title('Angles');
+n_timesteps = len(traj_data_synced)
+num_joints=6
+temp_lin_int = np.ndarray((n_timesteps,num_joints))
+for i in range(num_joints):
+    temp_lin_int[0:,i] = np.linspace(temp_data[0+i],temp_data[6+i],num=n_timesteps)

@@ -1,6 +1,8 @@
-# get index of predicted dog breed for each image in test set
-VGG16_predictions = [np.argmax(VGG16_model.predict(np.expand_dims(feature, axis=0))) for feature in test_VGG16]
+### TODO: Obtain bottleneck features from another pre-trained CNN.
 
-# report test accuracy
-test_accuracy = 100*np.sum(np.array(VGG16_predictions)==np.argmax(test_targets, axis=1))/len(VGG16_predictions)
-print('Test accuracy: %.4f%%' % test_accuracy)
+INCEPTION_BNECK = 'bottleneck_features/DogInceptionV3Data.npz'
+
+bottleneck_features = np.load(INCEPTION_BNECK)
+train_incp_bn = bottleneck_features['train']
+valid_incp_bn = bottleneck_features['valid']
+test_incp_bn  = bottleneck_features['test']

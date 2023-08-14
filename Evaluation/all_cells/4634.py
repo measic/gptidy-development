@@ -1,9 +1,26 @@
-challenge_output = 'test_videos_output/challenge.mp4'
-## To speed up the testing process you may want to try your pipeline on a shorter subclip of the video
-## To do so add .subclip(start_second,end_second) to the end of the line below
-## Where start_second and end_second are integer values representing the start and end of the subclip
-## You may also uncomment the following line for a subclip of the first 5 seconds
-##clip3 = VideoFileClip('test_videos/challenge.mp4').subclip(0,5)
-clip3 = VideoFileClip('test_videos/challenge.mp4')
-challenge_clip = clip3.fl_image(process_image)
-%time challenge_clip.write_videofile(challenge_output, audio=False)
+from sklearn.datasets import load_files       
+from keras.utils import np_utils
+import numpy as np
+from glob import glob
+
+# define function to load train, test, and validation datasets
+def load_dataset(path):
+    data = load_files(path)
+    dog_files = np.array(data['filenames'])
+    dog_targets = np_utils.to_categorical(np.array(data['target']), 133)
+    return dog_files, dog_targets
+
+# load train, test, and validation datasets
+train_files, train_targets = load_dataset('dogImages/train')
+valid_files, valid_targets = load_dataset('dogImages/valid')
+test_files, test_targets   = load_dataset('dogImages/test')
+
+# load list of dog names
+dog_names = [item[20:-1] for item in sorted(glob("dogImages/train/*/"))]
+
+# print statistics about the dataset
+print('There are %d total dog categories.' % len(dog_names))
+print('There are %s total dog images.\n' % len(np.hstack([train_files, valid_files, test_files])))
+print('There are %d training dog images.' % len(train_files))
+print('There are %d validation dog images.' % len(valid_files))
+print('There are %d test dog images.'% len(test_files))

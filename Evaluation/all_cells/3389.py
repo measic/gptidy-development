@@ -1,2 +1,1 @@
-import cProfile
-cProfile.run('diva.to_encoding(array)')
+%timeit diva.to_encoding(array)

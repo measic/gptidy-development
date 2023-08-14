@@ -37,7 +37,7 @@ class R_pca:
         U, S, V = np.linalg.svd(M, full_matrices=False)
         return np.dot(U, np.dot(np.diag(self.shrink(S, tau)), V))
 
-    def fit(self, tol=None, max_iter=1000, iter_print=100):
+    def function_def(self, tol=None, max_iter=1000, iter_print=100):
         iter = 0
         err = np.Inf
         Sk = self.S
@@ -59,7 +59,7 @@ class R_pca:
         self.S = Sk
         return (Lk, Sk)
 
-    def function_def(self, size=None, tol=0.1, axis_on=True):
+    def plot_fit(self, size=None, tol=0.1, axis_on=True):
         n, d = self.D.shape
         if size:
             nrows, ncols = size

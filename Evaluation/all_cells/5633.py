@@ -1,1 +1,1 @@
-cootable = load_coords()
+c.ra.deg[0], c.dec.deg[0]

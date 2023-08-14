@@ -1,1 +1,1 @@
-Image(filename = pathname + averagePileUp_multCollisionFrac)
+Image (filename = pathname + removedFractionRun262274_ilterEfficiency)

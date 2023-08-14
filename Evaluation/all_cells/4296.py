@@ -1,2 +1,2 @@
-# Display sample log-data after having a PCA transformation applied
-display(pd.DataFrame(np.round(pca_samples, 4), columns = pca_results.index.values))
+# Display sample log-data after applying PCA transformation in two dimensions
+display(pd.DataFrame(np.round(pca_samples, 4), columns = ['Dimension 1', 'Dimension 2']))

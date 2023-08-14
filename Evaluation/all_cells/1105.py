@@ -1,4 +1,5 @@
-# pca = UnsupervisedSpatialFilter(PCA(28), average=False) # PCA, keep 9 components 
-
-# epoch_data = epoch.get_data()
-# pca_data = pca.fit_transform(epoch_data)
+# gamma_data = gamma_epoch.get_data()
+# beta_data = beta_epoch.get_data()
+# alpha_data = alpha_epoch.get_data()
+# theta_data = theta_epoch.get_data()
+# delta_epoch = delta_epoch.get_data()

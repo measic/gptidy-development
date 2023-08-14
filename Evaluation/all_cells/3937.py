@@ -1,18 +1,21 @@
-import quandl
-import numpy as np
-import pandas as pd
-import seaborn as sns
+tickers = ["IBM", "AAPL", "GOOGL", "MSFT"]
 
-from IPython import display
-from matplotlib import style
-from matplotlib import colors
-from matplotlib import pyplot as plt
-from scipy import optimize as opt
+data = quandl.get_table(
+    "WIKI/PRICES",
+    ticker=tickers,
+    qopts={"columns": ["date", "ticker", "adj_close"]},
+    date={
+        "gte": "2015-1-1",
+        "lte": "2017-12-31"
+    },
+    paginate=True,
+)
 
-pd.options.display.max_rows = 10
-pd.options.display.float_format = "{:.2f}".format
-style.use('fivethirtyeight')
-np.random.seed(4200)
-
-%matplotlib inline
-%config InlineBackend.figure_format = 'retina'
+dataframe = data.set_index("date")
+dataframe = dataframe.pivot(columns="ticker")
+print("{}\n".format(dataframe.columns))
+dataframe.columns = [col[1] for col in dataframe.columns]
+print("{}".format(dataframe.columns))
+dataframe = pd.DataFrame(dataframe)
+dataframe = dataframe.dropna()
+display.display(dataframe.head(10))

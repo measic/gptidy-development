@@ -1,1 +1,1 @@
-np.sum(y_pred == y_pred_rf) / len(y_pred)  # almost identical predictions
+rnd_clf.oob_score

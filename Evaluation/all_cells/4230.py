@@ -1,5 +1,9 @@
-bimonthly_salary = 840
-monthly_salary = 2 * bimonthly_salary
-number_of_months_in_a_year = 12
-yearly_salary = number_of_months_in_a_year * monthly_salary
-yearly_salary
+# Change the next line so that it computes the number of
+# seconds in a decade and assigns that number the name
+# seconds_in_a_decade.
+seconds_in_a_decade = ...
+
+# We've put this line in this cell so that it will print
+# the value you've given to seconds_in_a_decade when you
+# run it.  You don't need to change this.
+seconds_in_a_decade

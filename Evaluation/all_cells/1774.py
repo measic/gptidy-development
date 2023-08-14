@@ -1,38 +1,19 @@
-traces = []
-list_img = read_img_list()
+def create_2statesworld():
 
+    P = np.zeros((2,2,3)) # P(s'|s,a) ... our model of the environment
+    P[0,0,0] = 0.5
+    P[1,0,0] = 0.5
+    P[1,0,1] = 1.
+    P[1,1,2] = 1.
 
-for i, row in df_viewing[150:155].iterrows():
-    illum_x, illum_y, illum_z = polar_to_euclidean(row['illum_theta'],row['illum_phi'])
-    view_x, view_y, view_z = polar_to_euclidean(row['view_theta'],row['view_phi'])
+    R = np.zeros((2,3))  # R(s,a) ... the reward funciton 
+    R[0,0] = 5
+    R[0,1] = 10
+    R[1,2] = -1
 
-    line_x = [illum_x, illum_x, 0, view_x]
-    line_y = [illum_y, illum_y, 0, view_y]
-    line_z = [illum_z-0.05, illum_z, 0, view_z]
+    states = [0, 1]
+    actions = [[0, 1], [2]]
+    next_states = [0, 1]
+    gamma = 0.95
     
-    # plotting line
-    line_scatter = go.Scatter3d(
-        x=line_x,
-        y=line_y,
-        z=line_z,
-        name=os.path.basename(list_img[i])
-    )
-    
-    traces.append(line_scatter)
-
-    
-layout = go.Layout(
-    title='Illumination and viewing pairs',
-    autosize=True,
-    width=900,
-    height=800,
-    margin=dict(
-        l=65,
-        r=50,
-        b=65,
-        t=90
-    )
-)
-
-fig = go.Figure(data=traces, layout=layout)
-iplot(fig, filename='elevations-3d-surface')
+    return P, R, states, actions, next_states, gamma

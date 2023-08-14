@@ -1,3 +1,4 @@
-%matplotlib inline
-import matplotlib.pyplot as plt
-from skimage.segmentation import mark_boundaries
+boximg   = hisdb[0][0].crop(box)
+boxgtimg = hisdb[0][1].crop(box)
+plt.imshow(mark_boundaries(np.array(boximg),
+                           np.array(boxgtimg)[:,:,2]))

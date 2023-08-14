@@ -1,12 +1,4 @@
-print ("Total", "trues", "falses")
-for sample in bag_clf1.estimators_samples_:
-    count = 0
-    trues = 0
-    falses = 0
-    for i in sample:
-        count +=1
-        if i:
-            trues += 1
-        else:
-            falses += 1
-    print ("%d\t%d\t%d\n" %(count, trues, falses))
+tree_clf = DecisionTreeClassifier(random_state=42)
+tree_clf.fit(X_train, y_train)
+y_pred_tree = tree_clf.predict(X_test)
+print(accuracy_score(y_test, y_pred_tree))

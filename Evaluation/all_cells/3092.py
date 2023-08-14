@@ -1,1 +1,7 @@
-model.sample (model.loglike_GeneralizedHalo, model.prior_transform_GeneralizedHalo, 'DMdataref2.txt',[5.,10.,4.,1.5,5E8])
+targets = np.array(['Vessel underway (stern)',
+                    'Power-driven vessel underway (>50m in length) (starboard)',
+                    'Power-driven vessel underway (>50m in length) (port)',
+                    'Power-driven vessel underway (>50m in length) (bow)',
+                    'Power-driven vessel underway (<50m in length) (starboard)',
+                    'Power-driven vessel underway (<50m in length) (port)',
+                    'Power-driven vessel underway (<50m in length) (bow)'], dtype=np.dtype('unicode_'))

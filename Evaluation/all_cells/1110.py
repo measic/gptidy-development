@@ -1,11 +1,28 @@
-# # final_data = np.shape()
-# final_means = []
-# for data in gamma_pca_data:
-# #     print (data.shape)
-#     means = []
-#     for channel in data:
-# #         print(channel.shape)
-#         mean = channel.mean()
-#         means.append(mean)
-#     final_means.append(means)
-# final_means = np.array(final_means)
+def get_mean_band(data):
+    
+    final_variances = []
+    for d in data:
+    #     print (data.shape)
+        variances = []
+        skewnesses = []
+        kurtosises = []
+        stats = []
+        for channel in d:
+    #         print(channel.shape)
+            var = channel.var()
+            variances.append(var)
+            
+            skewness = skew(channel, axis=0)
+#             print(skewness)
+
+            skewnesses.append(skewness)
+#             print(skewness)
+            kurt = kurtosis(channel)
+            kurtosises.append(kurt)
+#         print(skewnesses)
+#         mean_skew = np.mean(skewnesses)
+#         stats.append(mean_skew)
+#         stats.append(np.mean(variances))
+        final_variances.append([variances, skewnesses, kurtosises])
+    
+    return np.array(final_variances)

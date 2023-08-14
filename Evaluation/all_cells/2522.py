@@ -1,1 +1,1 @@
-sorted(storage.redundancies.redundancy['Col4'].items(), key=lambda r: r[1])
+print(storage.redundancies.redundancy)

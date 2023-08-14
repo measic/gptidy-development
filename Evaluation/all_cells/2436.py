@@ -1,1 +1,1 @@
-from BITS.seq.consed import ConsedRunner
+r.run(["acgt", "acga", "acgat"])

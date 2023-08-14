@@ -1,1 +1,1 @@
-gROOT.ProcessLine('sim0->findGammaCalibrationConstants()')
+gROOT.ProcessLine('sim0->getMinimizer()->Hesse()')

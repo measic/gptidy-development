@@ -1,2 +1,1 @@
-map1 = dev_gis.map('Los Angeles', 10)
-map1
+map1.clear_graphics()

@@ -1,15 +1,13 @@
-import numpy as np
+start = datetime(2017, 3, 31, 10, 27)
+stop = datetime(2017, 3, 31, 10, 44)
+rangeSetting = 2*10**-7
 
-# 1 MeV
-print "For 1 MeV Mik file:"
-bounds = np.linspace(2.0,37,36)   #(First right bin boundary, last right bin, boundary, number of bins)
-print len(bounds)
-for i in range(0,len(bounds)):
-    print '{}                                      right boundary of energy interval {}'.format(bounds[i],i+1)
+norm = FluxNormalization('/home/pyne-user/Dropbox/UCB/Research/ETAs/88Inch/Data/Experiments/PHS/33MeVTa_29-31Mar17/BCM/2H+1_33MeV_1027_31Mar2017_Goldblum at 100 nA no bias.bcm', 
+                        startTime=start, stopTime=stop)
+norm.currentIntegrator = (575)*rangeSetting*1E6
+norm.set_solid_angle(640+46.4, 25)
+norm.set_dead_time(nonparalyzable_beam_dead_time, obsCountRate=(47833445)/norm.runTime, 
+                   tauDetector=300E-9, tauBeam=158.5E-9)
+norm.mcnpNormFactor=(1-cos(radians(1)))/2*4*np.pi*20.8E9*norm.currentIntegrator
 
-# 0.5 MeV
-print "\nFor 1 MeV Mik file:"
-bounds = np.linspace(1.5,37.5,73)   #(First right bin boundary, last right bin, boundary, number of bins)
-print len(bounds)
-for i in range(0,len(bounds)):
-    print '{}                                      right boundary of energy interval {}'.format(bounds[i],i+1)
+print str(norm)

@@ -1,2 +1,4 @@
-gROOT.ProcessLine('std::vector<double> params0 = sim0->findGammaCalibrationConstants()')
-gROOT.ProcessLine('sim0->writeStateToDisk("CalibParams_0.txt")')
+# Plot Resolution function
+gROOT.ProcessLine('TF1* resolution = sim0->getResolutionFunction()')
+gROOT.ProcessLine('TCanvas c2')
+gROOT.ProcessLine('resolution->Draw()')

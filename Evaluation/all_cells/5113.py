@@ -1,2 +1,2 @@
-### Resposta: Não
-print_full(train.groupby(['Nome']).size())
+### kendall
+train.corr(method = 'kendall')

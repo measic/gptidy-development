@@ -1,2 +1,3 @@
-# Access data by indexing with a key name
-my_dictionary['var1']
+# Add a new key
+my_dictionary['new_key'] = 'newbie'
+print(my_dictionary)

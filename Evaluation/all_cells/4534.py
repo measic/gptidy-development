@@ -1,3 +1,2 @@
-# let's change an element!
-a_list[0] = 'bye'
-print(a_list)
+# This will give us the first three elements
+print(a_list[0:3])

@@ -1,1 +1,3 @@
-df.to_csv('twitter_archive_master.csv')
+top=df.groupby('breed').filter(lambda x: len(x) >= 20)
+top['breed'].value_counts().plot(kind = 'bar')
+plt.title('The Most Rated Breeds');

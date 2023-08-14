@@ -1,1 +1,1 @@
-from sklearn.model_selection import StratifiedShuffleSplit
+split = StratifiedShuffleSplit(1, .8, 42)

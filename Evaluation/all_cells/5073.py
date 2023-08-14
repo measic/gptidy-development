@@ -1,3 +1,2 @@
-### União do Treino e Teste 
-frames = [train[colunasTeste], test]
-join = pd.concat(frames)
+### Teste
+test.head(20)

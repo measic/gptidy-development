@@ -1,7 +1,7 @@
-heads_proba = 0.51 # The probability of head is 0.51 as it is a biased coin
+from sklearn.model_selection import train_test_split
+from sklearn.datasets import make_moons
 
-# coin_tosses contains the coin tosses for 10 series of 10000 times of coin tosses
-coin_tosses = (np.random.rand(10000, 10) < heads_proba).astype(np.int32) 
-cumulative_sum_of_number_of_heads = np.cumsum(coin_tosses, axis=0)
-cumulative_heads_ratio = cumulative_sum_of_number_of_heads / np.arange(1, 10001).reshape(-1, 1)
-cumulative_heads_ratio
+X, y = make_moons(n_samples=500, noise=0.3, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42)
+
+plt.scatter(X[:,0], X[:, 1], c=y)

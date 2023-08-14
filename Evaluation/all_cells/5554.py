@@ -1,1 +1,1 @@
-#twitter_archive_clean['tweet_id']=twitter_archive_clean['tweet_id'].apply(int)
+twitter_archive_clean.timestamp=pd.to_datetime(twitter_archive_clean.timestamp)

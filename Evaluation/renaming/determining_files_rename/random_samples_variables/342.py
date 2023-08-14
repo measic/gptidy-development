@@ -1,8 +1,8 @@
 cluster_means = []
 np.random.seed(45)
 with pm.Model() as model:
-    variable_def = pm.Dirichlet('pi', np.ones(K))
-    comp_dist = []
+    pi = pm.Dirichlet('pi', np.ones(K))
+    variable_def = []
     mu = []
     sigma_sq = []
     cov = []
@@ -11,6 +11,6 @@ with pm.Model() as model:
         mu.append(pm.Normal('mu%i' % i, temp_mean, 20, shape=D))
         sigma_sq.append(pm.InverseGamma('sigma_sq%i' % i, 1, 1, shape=D))
         cov.append(tt.nlinalg.alloc_diag(sigma_sq[i]))
-        comp_dist.append(pm.MvNormal.dist(mu=mu[i], cov=cov[i]))
+        variable_def.append(pm.MvNormal.dist(mu=mu[i], cov=cov[i]))
         cluster_means.append(temp_mean)
-    xobs = pm.Mixture('x_obs', variable_def, comp_dist, observed=X_shared)
+    xobs = pm.Mixture('x_obs', pi, variable_def, observed=X_shared)

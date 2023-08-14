@@ -1,1 +1,1 @@
-twitter_archive_clean.head()
+tweet_info_clean.info()

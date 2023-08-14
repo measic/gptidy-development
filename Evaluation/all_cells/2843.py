@@ -1,1 +1,1 @@
-plot_residuals(model_elastic, X_train, y)
+preds = {'ridge': ridge_preds, 'lasso': lasso_preds, 'elastic': elastic_preds}

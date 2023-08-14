@@ -1,40 +1,29 @@
-def alias(Table,aliases):
-    Aliased=[]
-    for key in Alias_Dict:
-        if key in Table.keys():
-            Series=Table[key]
-            new_Series=pandas.Series()
-            new_Series.name=Series.name
-            for key2,data in zip(Series.keys(),Series):
-                new_Series[key2]=0.0
-                for val in aliases[key]:
-                    try:
-                        if numpy.isnan(data):
-                            new_Series[key2]=numpy.nan
-                    except:
-                        pass             
-                    if data==val:
-                        new_Series[key2]=aliases[key][val]
-                        break
-            Aliased+=[new_Series]
-    return pandas.concat(Aliased,axis=1)
-    
-    #Changes the values on a Series with aliases as a dict that transform the old values in the new values
-    
+def cutoff(Table,cutoff):
+    #This function makes values above a threeshold equal to the threeshold
+    Tab=[]
+    for key0 in Table.keys():
+        Series=Table[key0]
+        new_Series=Table[key0].copy()
+        for key,data in zip(Series.keys(),Series):
+            if data>cutoff:
+                new_Series[key]=cutoff
+            else:
+                new_Series[key]=data
+        new_Series.name='%s_cut'%Series.name
+        Tab+=[new_Series]
+    return pandas.concat(Tab,axis=1)
 
-def split(Series,All_Data):
-    #For Series with multiple values, creates a table with a column for each unique value
-    #The value is True for the correct column and False for all the other columns
-    D=[]
-    for value in All_Data[Series.name].unique():
-        q=(Series==value)*1.0
-        q.name='%s=%s'%(q.name,value)
-        D+=[q]
-    return pandas.concat(D,axis=1)
-
+def binned(Table,bins=[0,52,104]):
+    #This function will bin the results from Remission and Overall Survival as expected    
+    Tab=[]
+    for key0 in Table.keys():
+        Series=Table[key0]
+        bins = numpy.array(bins)
+        digitized = list(numpy.digitize(Series, bins))
+        for i,v in enumerate(Series):
+            if numpy.isnan(v):
+                digitized[i]=numpy.nan
+        Tab+=[pandas.Series(digitized,index=Series.index,name='%s_binned'%Series.name)*52-26]
+    return pandas.concat(Tab,axis=1)
 #Example
-#Alias_Dict={'SEX':{'F':1},'PRIOR.MAL':{'YES':1},'PRIOR.CHEMO':{'YES':1},'PRIOR.XRT':{'YES':1},
-#                'Infection':{'Yes':1},'ITD':{'POS':1,'ND':numpy.nan},'D835':{'POS':1,'ND':numpy.nan},
-#                'Ras.Stat':{'POS':1,'NotDone':numpy.nan},'resp.simple':{'CR':1},'Relapse':{'Yes':1},
-#                'vital.status':{'A':1}}
-#pandas.concat([Trial_data[Categorical[:4]+['cyto.cat']],alias(Trial_data,Alias_Dict),split(Trial_data['cyto.cat'],Dream9)],axis=1).T
+#pandas.concat([Trial_data[Dependent[-2:]],cutoff(Trial_data[Dependent[-2:]],130),binned(Trial_data[Dependent[-2:]])],axis=1).T

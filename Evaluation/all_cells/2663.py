@@ -1,14 +1,20 @@
-# TODO: One-hot encode the 'features_log_minmax_transform' data using pandas.get_dummies()
-features_final = pd.get_dummies(features_log_minmax_transform)
+# Counting the ones as this is the naive case. Note that 'income' is the 'income_raw' data 
+# encoded to numerical values done in the data preprocessing step.
+TP = np.sum(income)
 
-# TODO: Encode the 'income_raw' data to numerical values
-income = income_raw.map({ '<=50K': 0, '>50K': 1 })
-#print income_raw.tail()
-#print income.tail()
+# Specific to the naive case
+FP = income.count() - TP
 
-# Print the number of features after one-hot encoding
-encoded = list(features_final.columns)
-print("{} total features after one-hot encoding.".format(len(encoded)))
+TN = 0 # No predicted negatives in the naive case
+FN = 0 # No predicted negatives in the naive case
 
-# Uncomment the following line to see the encoded feature names
-print encoded
+# Calculate accuracy, precision and recall
+accuracy = 1.0 * (TP+TN) / (TP+TN+FP+FN)
+recall = 1.0 * TP / (TP+FN)
+precision = 1.0 * TP / (TP+FP)
+
+# Calculate F-score using the formula above for beta = 0.5 and correct values for precision and recall.
+fscore = ((1.0 + 0.5 * 0.5) * (precision * recall)) / ((0.5 * 0.5 * precision) + recall)
+
+# Print the results 
+print("Naive Predictor: [Accuracy score: {}, F-score: {}]".format(accuracy, fscore))

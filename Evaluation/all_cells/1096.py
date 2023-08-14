@@ -1,2 +1,3 @@
-filename= './data/result_VGG16Seq.dump'
-p5_util.object_dump(y_pred,filename)
+(loss, score_vgg16_seq) = VGG16Seq.evaluate(arr_X_test, arr_y_test, verbose=True)
+
+score_vgg16_seq

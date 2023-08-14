@@ -1,2 +1,2 @@
-## get dimension of matrix
-print( A.shape )
+## transpose matrix
+print(A.T)

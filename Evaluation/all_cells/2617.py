@@ -1,9 +1,9 @@
 %%time
-inference_2 = ed.Gibbs({pi_ed2: qpi_2, mu_ed2: qmu_2, sigmasq_ed2: qsigma_2, z_ed2: qz_2}, data={x_ed2: X})
-inference_2.initialize(n_print=500, logdir='log/IMG={}_K={}_T={}_model2'.format(img_no, K, T))
-sess = ed.get_session()
-tf.global_variables_initializer().run()
-for _ in range(inference_2.n_iter):
-    info_dict_2 = inference_2.update()
-    inference_2.print_progress(info_dict_2)
-inference_2.finalize()
+# posterior inference
+M = 300
+mu_2_sample, sigmasq_2_sample, pi_2_sample = qmu_2.sample(M), qsigma_2.sample(M), qpi_2.sample(M)
+x_2_post = Normal(loc=tf.ones([N, 1, 1, 1]) * mu_2_sample, scale=tf.ones([N, 1, 1, 1]) * tf.sqrt(sigmasq_2_sample))
+x_2_broadcasted = tf.cast(tf.tile(tf.reshape(X, [N, 1, 1, D]), [1, M, K, 1]), dtype=tf.float32)
+log_liks_2 = tf.reduce_mean(tf.reduce_sum(x_2_post.log_prob(x_2_broadcasted), 3), 1)
+clusters_2 = tf.argmax(log_liks_2, 1).eval()
+posterior_mu_2 = qmu_2.params.eval().mean(axis=0)

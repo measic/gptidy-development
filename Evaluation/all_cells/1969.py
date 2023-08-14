@@ -1,12 +1,17 @@
-# Note: Use an alpha of .01 when creating the model for this activity
-from sklearn.linear_model import ElasticNet
+# Used X_test, y_test, and model.predict(X_test) to calculate MSE and R2
 
-elasticnet_5K = ElasticNet(alpha=.01).fit(X_train_5K, y_train_5K)
+from sklearn.metrics import mean_squared_error
 
-predictions_5K = elasticnet_5K.predict(X_test_5K)
-
-MSE = mean_squared_error(y_test_5K, predictions)
-r2 = elasticnet_5K.score(X_test_5K, y_test_5K)
+MSE = mean_squared_error(y_test_nobib, predictions)
+r2 = model_nobib.score(X_test_nobib, y_test_nobib)
 
 
 print(f"MSE: {MSE}, R2: {r2}")
+
+# Model built without Bib numbers has a smaller R2 value, so Bib numbers was helping model predictions
+
+# create lists of MSE and r2 values for each model
+
+# boston_models.append('nobib')
+# boston_mse.append(MSE)
+# boston_r2.append(r2)

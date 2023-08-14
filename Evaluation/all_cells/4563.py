@@ -1,2 +1,2 @@
-# inspect a dictionary's keys with the keys() method
-my_dictionary.keys()
+# Access data by indexing with a key name
+my_dictionary['var1']

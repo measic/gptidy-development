@@ -9,8 +9,8 @@ def process_image(img):
     ypos = data.ypos[data.count]
     yaw = data.yaw[data.count]
     x_world, y_world = pix_to_world(xpix, ypix, xpos, ypos, yaw, world_size, scale)
-    variable_def, obsypix = rover_coords(obs_map)
-    obs_x_world, obs_y_world = pix_to_world(variable_def, obsypix, xpos, ypos, yaw, world_size, scale)
+    obsxpix, obsypix = rover_coords(obs_map)
+    obs_x_world, obs_y_world = pix_to_world(obsxpix, obsypix, xpos, ypos, yaw, world_size, scale)
     data.worldmap[y_world, x_world, 2] = 255
     data.worldmap[obs_y_world, obs_x_world, 0] = 255
     nav_pix = data.worldmap[:, :, 2] > 0
@@ -18,8 +18,8 @@ def process_image(img):
     rock_map = find_rocks(warped, levels=(110, 110, 50))
     if rock_map.any():
         rock_x, rock_y = rover_coords(rock_map)
-        rock_x_world, rock_y_world = pix_to_world(rock_x, rock_y, xpos, ypos, yaw, world_size, scale)
-        data.worldmap[rock_y_world, rock_x_world, :] = 255
+        variable_def, rock_y_world = pix_to_world(rock_x, rock_y, xpos, ypos, yaw, world_size, scale)
+        data.worldmap[rock_y_world, variable_def, :] = 255
     output_image = np.zeros((img.shape[0] + data.worldmap.shape[0], img.shape[1] * 2, 3))
     output_image[0:img.shape[0], 0:img.shape[1]] = img
     output_image[0:img.shape[0], img.shape[1]:] = warped

@@ -1,2 +1,2 @@
-for x in range(4): # by default range start at 0
-    print(x),
+for word in ["scientific", "computing", "with", "python"]:
+    print(word)

@@ -3,12 +3,12 @@ layer = '2'
 o_or_s = 'output'
 val_arrays = np.load(os.path.join(vsig.out_dir, '_'.join(['valid_hidden_layer', layer, o_or_s])) + '.npy')
 n_generations, _, n_neurons = val_arrays.shape
-variable_def = 2
-nrows = n_neurons // variable_def
-fig, axes = plt.subplots(nrows=nrows, ncols=variable_def, figsize=(16, 20))
+ncols = 2
+variable_def = n_neurons // ncols
+fig, axes = plt.subplots(nrows=variable_def, ncols=ncols, figsize=(16, 20))
 for g in range(n_generations):
     for i in range(n_neurons):
-        ax = axes[i // variable_def, i % variable_def]
+        ax = axes[i // ncols, i % ncols]
         ax.cla()
         y_pred_colors = val_arrays[g, :, i]
         ax.plot(vsig.timestamps, vsig.mixed_signal, color='grey', alpha=0.3)

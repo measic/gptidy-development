@@ -1,2 +1,2 @@
-# Compute a single transport map from day 7 to 7.5
-tmap_annotated = ot_model.compute_transport_map(7,7.5)
+ot_model_strict = wot.ot.OTModel(adata,epsilon = 0.05, lambda1 = 3,lambda2 = 50) 
+tmap_anno_strict = ot_model_strict.compute_transport_map(7,7.5)

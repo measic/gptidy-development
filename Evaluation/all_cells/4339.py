@@ -1,3 +1,1 @@
-%%writefile  test.py
-
-print('hello?')
+from google.colab import files

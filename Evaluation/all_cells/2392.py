@@ -1,1 +1,2 @@
-sunspot_df = get_rdataset('sunspot.year', cache=True).data
+K = 50
+N = sunspot_df.shape[0]

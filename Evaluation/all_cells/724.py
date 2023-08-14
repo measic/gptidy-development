@@ -1,2 +1,2 @@
-##  get river name
-river = data.iloc[0]["River"]
+## add new column
+data["SWI_2"] = ""

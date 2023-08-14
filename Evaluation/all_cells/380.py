@@ -1,11 +1,18 @@
+import numpy as np
+import pandas as pd
+from pandas import Series,DataFrame
+df = pd.read_csv("hotels_data.csv")
 
-x_axis = ["Poverty", "Med Inc", "Unemployment", "ESL", "HH Size"]
-y_axis = [corr_pov, corr_inc, corr_job, corr_ESL, corr_hh]
+from datetime import datetime
+from dateutil.parser import parse
 
-plt.bar(x_axis, y_axis, color="b", align="center")
-plt.title("Correlations of Demographic Metrics to High School Graduation Rates")
-plt.xlabel("Demographic Metric")
-plt.ylabel("Correlation")
+#parsing string to date time format
+def get_datetime(date_str):
+    return datetime.strptime(date_str, '%m/%d/%Y %H:%M')
 
+df["DayDiff"] = DataFrame([get_datetime(val) for val in df["Checkin Date"]]) - DataFrame([get_datetime(val) for val in df["Snapshot Date"]])
+df["WeekDay"] = DataFrame([get_datetime(val).weekday() for val in df["Checkin Date"]])
+df["DiscountDiff"] = df["Original Price"] - df["Discount Price"]
+df["DiscountPerc"] = (df["DiscountDiff"]/df["Original Price"]) * 100
 
-plt.show()
+df

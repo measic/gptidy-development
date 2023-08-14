@@ -1,3 +1,2 @@
-space=['accommodates','bathrooms','bedrooms','beds','guests_included','price','reviews_per_month']
-for item in X['property_type'].unique().tolist():
-    space.append(item)
+num_test = 0.20
+X_train, X_test, y_train, y_test = train_test_split(X_select, Y, test_size=num_test, random_state=100)

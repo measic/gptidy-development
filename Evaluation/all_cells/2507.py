@@ -1,8 +1,5 @@
 #NBVAL_IGNORE_OUTPUT
+from examples.seismic import plot_image
 
-# Prepare the varying source locations
-source_locations = np.empty((nshots, 2), dtype=np.float32)
-source_locations[:, 0] = np.linspace(0., 1000, num=nshots)
-source_locations[:, 1] = 30.
-
-plot_velocity(model, source=source_locations)
+# Plot the inverted image
+plot_image(np.diff(image.data, axis=1))

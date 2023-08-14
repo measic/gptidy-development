@@ -1,33 +1,75 @@
-i_maxmin = np.argmax(waves_nearest_neighbor, axis=0)
-wave_max_distance = np.max(waves_nearest_neighbor, axis=0)
-wave_farthest_neighbor_colors = [0] * len(xindex)
-wave_farthest_neighbor = np.zeros((len(xindex),))
-for i, ii in enumerate(i_maxmin):
-    wave_farthest_neighbor_colors[i] = msig.waves[ii].color
-    wave_farthest_neighbor[i] = msig.waves[ii].sample_full[i]
-transition_vlines = np.where(i_maxmin[1:] - i_maxmin[:-1])[0] + 1
-transition_vcolors = [wave_farthest_neighbor_colors[v] for v in transition_vlines]
+# Code specific to window_type == sliding
 
-w_size = 17
-center = (w_size - 1) // 2
-min_peaks_vlines = []
-for i in range(len(xindex) - w_size):
-    if np.argmin(wave_max_distance[i:i + w_size]) == center:
-        min_peaks_vlines.append(i + center)
+xmin = 0
+xmax = y_score.shape[0]
+xindex = range(xmin, xmax)
 
-min_peaks_vlines = np.array(min_peaks_vlines)
-# print(min_peaks_vlines[1:] - min_peaks_vlines[:-1])
-# print(min_peaks_vlines)
-min_peaks_vcolors = np.array([wave_max_distance[v] for v in min_peaks_vlines])
-min_peaks_vcolors /= np.max(min_peaks_vcolors)
-# print(len(min_peaks_vcolors))
-# print(min_peaks_vcolors)
+fig, ax = plt.subplots(nrows=4, ncols=1, figsize=(10, 16))
+# ax = plt.Axes(fig, [0., 0., 1., 1.])
+# ax.set_axis_off()
+# fig.add_axes(ax)
 
-vmin = 0
-vmax = 0.65
-cmap = cm.Greys_r
+ax[0].scatter(
+    xindex, 
+    x_test_clipped, 
+    marker='.', 
+    c=y_true_colors)
+ax[0].set_title('epoch = {}'.format(epoch))
+ax[0].set_xlim((xmin, xmax))
+ax[0].set_xticks([])
+ax[0].grid(True)
 
-# alphas = np.ones(wave_max_distance.shape) * 0.2
-wave_max_distance_colors = Normalize(vmin, vmax, clip=True)(wave_max_distance)
-wave_max_distance_colors = cmap(wave_max_distance_colors)
-# wave_max_distance_colors[..., -1] = alphas
+ax[1].imshow(
+    y_score.T, 
+    interpolation='nearest', 
+    cmap=plt.get_cmap('Spectral'), 
+    origin='upper');
+ax[1].spines['top'].set_visible(False)
+ax[1].set_xlim((xmin, xmax))
+ax[1].set_xticks([])
+ax[1].set_ylim((y_score.shape[1], 0))
+ax[1].set_yticks([y_score.shape[1]])
+
+divider = make_axes_locatable(ax[1])
+ax1Top = divider.append_axes("top", 0.5, sharex=ax[1])
+ax1Top.xaxis.set_tick_params(labelbottom=False)
+ax1Top.plot(y_score_mean)
+ax1Top.set_title('sequence model type = {}'.format(msig.sequence_type))
+ax1Top.set_xlim((xmin, xmax))
+ax1Top.set_ylim((-1, 1))
+ax1Top.set_yticks((-1, 0, 1))
+ax1Top.grid(True)
+
+ax[2].imshow(
+    y_score_unshifted_clipped.T, 
+    interpolation='nearest', 
+    cmap=plt.get_cmap('Spectral'), 
+    origin='upper');
+ax[2].spines['top'].set_visible(False)
+ax[2].set_xlim((xmin, xmax))
+ax[2].set_xticks([])
+ax[2].set_ylim((y_score_unshifted_clipped.shape[1], 0))
+ax[2].set_yticks([y_score_unshifted_clipped.shape[1]])
+
+divider = make_axes_locatable(ax[2])
+ax2Top = divider.append_axes("top", 0.5, sharex=ax[2])
+ax2Top.xaxis.set_tick_params(labelbottom=False)
+ax2Top.plot(y_score_unshifted_clipped_mean)
+ax2Top.set_title('{} window size = {}'.format(window_type, msig.window_size))
+ax2Top.set_xlim((xmin, xmax))
+ax2Top.set_ylim((-1, 1))
+ax2Top.set_yticks((-1, 0, 1))
+ax2Top.grid(True)
+
+ax[3].scatter(
+    xindex, 
+    x_test_clipped,
+    marker='.', 
+    c=y_pred_colors)
+ax[3].set_title('loss = {:<6.4f}, accuracy = {:<.2%}'.format(*score))
+ax[3].set_xlim((xmin, xmax))
+ax[3].grid(True)
+
+# plt.draw()
+plt.savefig(os.path.join(msig.out_dir, 'prediction_analysis.png'), bbox_inches='tight', pad_inches=0.08)
+# plt.show()

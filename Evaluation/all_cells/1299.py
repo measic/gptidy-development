@@ -1,1 +1,1 @@
-now.strftime('%Y-%m-%d %H:%M:%S')
+from datetime import datetime
