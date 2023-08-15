@@ -1,7 +1,10 @@
-def get_neighbour_messages(sender, receiver):
-    messages = []
+def can_send_message(sender, receiver):
     for n in sender.neighbours:
-        if n is not receiver:
-            messages.append(sender.in_msgs[n])
-    return messages
+        if n is not receiver and n not in sender.in_msgs:
+            return False
     
+    return True
+
+# Do the results make sense?
+print (can_send_message(X, X_prior))
+print (can_send_message(X_prior, X))

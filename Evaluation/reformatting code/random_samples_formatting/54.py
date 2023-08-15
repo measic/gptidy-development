@@ -1,15 +1,6 @@
-# Finally, we will define the send message function for you
-def factor_send_sp_msg(self, variable):
+def calc_sum_product_factor_to_variable_msg(factor, variable):
+    neighbour_msg_prod = calc_other_neighbour_msg_prod(factor, variable)
     
-    assert isinstance(variable, Variable), "Factor can only send messages to variable!"
-    assert can_send_message(self, variable), "Cannot send message!"
+    f_neighb_first = move_dimension_first(factor.f, factor.neighbours.index(variable))
     
-    out_msg = calc_sum_product_factor_to_variable_msg(self, variable)
-    
-    # Send the message
-    variable.receive_msg(self, out_msg)
-    
-    # Remove the pending sign if present
-    self.pending.discard(variable)
-    
-Factor.send_sp_msg = factor_send_sp_msg
+    return marginalize(calculate_factor(f_neighb_first, neighbour_msg_prod), 0)

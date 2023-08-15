@@ -1,23 +1,17 @@
-### Test test test
-# message from X_prior to X
-X_prior.reset()
-X.reset()
+# graficamos los datos nuevamente
+scatter(x[1:50,1],x[1:50,2],alpha=0.25, color="b")
+scatter(x[51:100,1],x[51:100,2],alpha=0.25, color="r")
+scatter(x[101:150,1],x[101:150,2],alpha=0.25, color="g")
+xlabel("Longitud del Pétalo (cm)")
+ylabel("Anchura del Pétalo (cm)")
+grid("on")
 
-X_prior.send_sp_msg(X)
-assert np.allclose(list(X.in_msgs.values()), [0.95, 0.05])
+# obtenemos los vectores con las características promedio para cada una de las clases de flores
+prom_1 = mean(x[1:50,:],1)
+prom_2 = mean(x[51:100,:],1)
+prom_3 = mean(x[101:150,:],1)
 
-# message from Z_prior to Z
-Z_prior.reset()
-Z.reset()
-
-Z_prior.send_sp_msg(Z)
-assert np.allclose(list(Z.in_msgs.values()), [0.8, 0.2])
-
-# message from Y_cond to Y
-Y_cond.reset()
-Y.reset()
-
-Y_cond.receive_msg(X, X_prior.f) # simulating that Y_cond received all necessary messages from X
-Y_cond.receive_msg(Z, Z_prior.f) # simulating that Y_cond received all necessary messages from Z
-Y_cond.send_sp_msg(Y)
-assert np.allclose(list(Y.in_msgs.values()), [0.821024, 0.178976])
+# graficamos los vectores
+quiver(prom_1[1,1],prom_1[1,2],angles="xy", scale_units="xy", scale=1, color="b")
+quiver(prom_2[1,1],prom_2[1,2],angles="xy", scale_units="xy", scale=1, color="r")
+quiver(prom_3[1,1],prom_3[1,2],angles="xy", scale_units="xy", scale=1, color="g")

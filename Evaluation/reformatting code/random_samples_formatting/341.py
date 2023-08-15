@@ -1,5 +1,2 @@
-#Only run once!
-X = np.hstack((X, np.ones((X.shape[0], 1))))
-
-#Initialize Weights to zero:
-w = np.zeros(X.shape[1])
+# Produce a scatter matrix without outliers... distribution appears more normal
+pd.scatter_matrix(good_data, alpha = 0.3, figsize = (14,8), diagonal = 'kde');

@@ -1,9 +1,8 @@
-training_acc_file = 'accuracies/train_acc_list.p'
-valid_acc_file = 'accuracies/valid_acc_list.p'
+save_file= './train_model_best.ckpt'
+saver = tf.train.Saver()
 
-with open(training_acc_file, mode='rb') as f:
-    combined_train_acc_list = pickle.load(f)
-with open(valid_acc_file, mode='rb') as f:
-    combined_valid_acc_list = pickle.load(f)
+with tf.Session() as session:
+    saver.restore(session, save_file)
     
-all_acc = np.row_stack([combined_train_acc_list, combined_valid_acc_list[0]])
+    _, test_accuracy = evaluate(X_test, y_test, b = BETA, lr = LEARNING_RATE)
+    print("Test Accuracy = {:.3f}".format(test_accuracy))

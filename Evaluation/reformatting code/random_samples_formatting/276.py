@@ -1,4 +1,3 @@
-num_points = 400
-
-tsne = TSNE(perplexity=30, n_components=2, init='pca', n_iter=5000)
-two_d_embeddings = tsne.fit_transform(final_embeddings[1:num_points+1, :])
+img_61060 = plt.imread(test_path + "61060_1/pdi_heat.jpg")
+plt.figure(figsize = (15,15))
+plt.imshow(img_61060);

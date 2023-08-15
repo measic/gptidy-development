@@ -1,4 +1,4 @@
-#Valor total - bruto: 418
-#Valor total - Sem Nulos: 331
-test_dropna=test.dropna(subset=colunasSemCabine)
-test_dropna.describe()
+#Valor total - bruto: 891
+#Valor total - Sem Nulos: 712
+train_dropna=train.dropna(subset=colunasSemCabine)
+train_dropna.describe()

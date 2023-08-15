@@ -1,17 +1,11 @@
 ### Test test test
-Y_cond.reset()
-Y.reset()
+nodes = [X_prior, X, Z_prior, Z, Y_cond, Y]
+for n in nodes:
+    n.reset()
+    
+X_prior.pending.add(X)
+Z_prior.pending.add(Z)
+Y.pending.add(Y_cond)
 
-# First message from X to Y_cond
-X_prior.reset()
-X.reset()
-X_prior.send_sp_msg(X) # simulating that X received all necessary messages
-X.send_sp_msg(Y_cond) 
-assert np.allclose(list(Y_cond.in_msgs.values()), [0.95, 0.05])
-
-# Second message from Z to Y_cond
-Z_prior.reset()
-Z.reset()
-Z_prior.send_sp_msg(Z) # simulating that Z received all necessary messages
-Z.send_sp_msg(Y_cond)
-assert np.allclose(list(Y_cond.in_msgs.values()), [[0.95, 0.05], [0.8, 0.2]])
+sum_product(nodes)
+assert np.allclose(Y.marginal(), [0.821024, 0.178976])

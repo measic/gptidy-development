@@ -1,6 +1,3 @@
-from sklearn.ensemble import RandomForestRegressor
-regr = RandomForestRegressor(max_depth=4, random_state=0)
-regr.fit(x,y)
-### Quanto maior o score, maior a importância do atributo
-print(colunasNumericasIdade)
-print(regr.feature_importances_)
+colunasNumericasIdade=['Classe','Idade','FaixaEtaria','ParentesIrmao','ParentesFilhos','SaudacaoNum','PassagemPreco','SexoNum','PortoEmbarqueNum','FamiliaQtde','EstaSozinho','TemCabine']
+x = pd.DataFrame(treino_dropna,columns=colunasNumericasIdade).values
+y = treino_dropna['Idade'].astype('float32')

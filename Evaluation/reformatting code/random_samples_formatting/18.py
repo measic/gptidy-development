@@ -1,11 +1,18 @@
-# Just read and run this cell.
-
-aditya_height_m = 1.21
-botan_height_m = 1.85
-average_adult_human_height_m = 1.688
-
-# The biggest distance from the average human height, among the two heights:
-biggest_distance_m = max(abs(aditya_height_m - average_adult_human_height_m), abs(botan_height_m - average_adult_human_height_m))
-
-# Print out our results in a nice readable format:
-print("The biggest distance from the average height among these two people is", biggest_distance_m, "meters.")
+# Pymc model
+X_shared = theano.shared(X)
+minibatch_size = 500
+X_minibatch = pm.Minibatch(X, minibatch_size)
+np.random.seed(45)
+with pm.Model() as model:
+    pi = pm.Dirichlet('pi', np.ones(K))
+    comp_dist = []
+    mu = []
+    sigma_sq = []
+    cov = []
+    for i in range(K):
+        mu.append(pm.Normal('mu%i' % i, 127, 80, shape=D))
+        sigma_sq.append(pm.InverseGamma('sigma_sq%i' % i, 1, 1, shape=D))
+        cov.append(tt.nlinalg.alloc_diag(sigma_sq[i]))
+        comp_dist.append(pm.MvNormal.dist(mu=mu[i], cov=cov[i]))
+    xobs = pm.Mixture('x_obs', pi, comp_dist,
+            observed=X_shared)

@@ -1,7 +1,8 @@
-# for each node, total outgoing flow must be smaller than available quantity
-for i in source:
-    tm.add_constraint(tm.sum(x[i,j] for j in target) <= capacities[i])
-    
-# for each target node, total ingoing flow must be greater thand demand
-for j in target:
-    tm.add_constraint(tm.sum(x[i,j] for i in source) >= demands[j])
+# create flow variables for each couple of nodes
+# x(i,j) is the flow going out of node i to node j
+x = {(i,j): tm.continuous_var(name='x_{0}_{1}'.format(i,j)) for i in source for j in target}
+
+# each arc comes with a cost. Minimize all costed flows
+tm.minimize(tm.sum(x[i,j]*costs.get((i,j), 0) for i in source for j in target))
+
+tm.print_information()

@@ -1,8 +1,7 @@
-VAR_GENE_DS_PATH = 'data/ExprMatrix.var.genes.h5ad'
-CELL_DAYS_PATH = 'data/cell_days.txt'
-SERUM_CELL_IDS_PATH = 'data/serum_cell_ids.txt'
-CELL_GROWTH_PATH = 'data/growth_gs_init.txt'
-
-# load data
-adata = wot.io.read_dataset(VAR_GENE_DS_PATH, obs=[CELL_DAYS_PATH, CELL_GROWTH_PATH], obs_filter=SERUM_CELL_IDS_PATH)
-adata.shape
+# dropout metrics
+y_scores = probas_dropout.flatten()
+precision_dropout, recall_dropout, _ = metrics.precision_recall_curve(y_true, y_scores)
+pr_auc_dropout = metrics.average_precision_score(y_true, y_scores)
+auroc_dropout = metrics.roc_auc_score(y_true, y_scores)
+fpr_dropout, tpr_dropout, _ = metrics.roc_curve(y_true, y_scores)
+print("AUROC: %.2f, PR AUC: %.2f" % (auroc_dropout, pr_auc_dropout))

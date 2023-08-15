@@ -1,7 +1,7 @@
-import pandas as pd
+%load_ext autoreload
+%autoreload 2
+%matplotlib inline
+%debug
 
-import plotly
-import plotly.plotly as py
-import plotly.graph_objs as go
-
-plotly.tools.set_credentials_file(username='srjit', api_key='lpKtXjzR7LBaqHwlxFQp')
+import warnings
+warnings.filterwarnings('ignore')

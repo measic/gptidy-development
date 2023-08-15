@@ -1,2 +1,3 @@
-### Calculate the accuracy for these 5 new images. 
-### For example, if the model predicted 1 out of 5 signs correctly, it's 20% accurate on these new images.
+### Run the predictions here and use the model to output the prediction for each image.
+### Make sure to pre-process the images with the same pre-processing pipeline used earlier.
+### Feel free to use as many code cells as needed.

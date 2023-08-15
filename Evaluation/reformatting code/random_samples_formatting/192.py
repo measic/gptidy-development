@@ -1,5 +1,7 @@
-figsize(12.5, 4)
-plt.title("Posterior distribution of $p_A$, the true effectiveness of site A")
-plt.vlines(p_true, 0, 90, linestyle="--", label="true $p_A$ (unknown)")
-plt.hist(burned_trace["p"], bins=25, histtype="stepfilled", normed=True)
-plt.legend();
+#include the observations, which are Bernoulli
+with model:
+    obs = pm.Bernoulli("obs", p, observed=occurrences)
+    # To be explained in chapter 3
+    step = pm.Metropolis()
+    trace = pm.sample(18000, step=step)
+    burned_trace = trace[1000:]

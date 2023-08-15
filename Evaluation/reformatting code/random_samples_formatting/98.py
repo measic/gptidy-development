@@ -1,7 +1,7 @@
-from IPython.core.display import HTML
+#type your code here.
+figsize(12.5, 4)
 
-
-def css_styling():
-    styles = open("../styles/custom.css", "r").read()
-    return HTML(styles)
-css_styling()
+plt.scatter(alpha_samples, beta_samples, alpha=0.1)
+plt.title("Why does the plot look like this?")
+plt.xlabel(r"$\alpha$")
+plt.ylabel(r"$\beta$");

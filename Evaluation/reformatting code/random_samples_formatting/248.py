@@ -1,7 +1,7 @@
-figsize(12.5, 3)
-p_trace = burned_trace["freq_cheating"][15000:]
-plt.hist(p_trace, histtype="stepfilled", normed=True, alpha=0.85, bins=30, 
-         label="posterior distribution", color="#348ABD")
-plt.vlines([.05, .35], [0, 0], [5, 5], alpha=0.3)
-plt.xlim(0, 1)
-plt.legend();
+save_file= './train_model_best.ckpt'
+saver = tf.train.Saver()
+
+with tf.Session() as session:
+    saver.restore(session, save_file)
+    feed_dict = {tf_train_dataset : X2_norm, tf_keep_prob : 1}
+    proba = session.run(train_prediction, feed_dict)

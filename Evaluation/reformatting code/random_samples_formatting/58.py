@@ -1,14 +1,19 @@
-def plot_decision_boundary(X, y, w, i):
-    x1s = np.arange(7)
-    x2s = (-w[2]-w[0]*x1s)/w[1]
+def update_nueron(w, x, label):
+    '''
+    Update McCulloch + Pitts Nueron using Rosenblatt's Perceptron Algorithms
+    w = neuron weights
+    x = (n dimensional numpy array example)
+    label = binary label
+    '''
+    if neuron(x, w) == 0 and label == 1:
+        w = w + x
+        print('incorrect!, New weights = ' + str(w))
 
-    fig = figure(0, (8,6))
-    #Scatter data
-    scatter(X[:,0], X[:,1], c = y, s = 75)
-    scatter(X[i,0], X[i,1], c = 'r', s = 75)
-    #Plot decision boundary
-    plot(x1s, x2s)
+    elif neuron(x, w) == 1 and label == 0:
+        w = w - x
+        print('incorrect!, New weights = ' + str(w))
 
-    xlabel('$x_1$', fontsize = 20)
-    ylabel('$x_2$', fontsize = 20)
-    grid(1)
+    else:
+        print('correct!')  
+    
+    return w

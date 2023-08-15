@@ -1,18 +1,8 @@
-A = np.matmul(Sw_inv, Sb)
-
-eigen_values, V = np.linalg.eig(A)
-
-print('A:')
-A
-
-print('eigen_values:')
-eigen_values
-print('eigen_vectors matrix:')
-V
-
-print('eigen_vectors :')
-v1 = V[:,0]
-v2 = V[:,1]
-
-v1
-v2
+### União
+uniao_dropnaSliceNome = uniao_dropna['Nome'].str.split(',', expand=True)
+uniao_dropna['Primeiro Nome']= uniao_dropnaSliceNome[0]
+uniao_dropnaNomeSlice = uniao_dropnaSliceNome[1].str.split('.', expand=True,n=1)
+uniao_dropnaComplemntoSlice = uniao_dropnaNomeSlice[1].str.split('(', expand=True)
+uniao_dropna['Saudação'] = uniao_dropnaNomeSlice[0]
+uniao_dropna['Sobrenome'] = uniao_dropnaComplemntoSlice[0]
+uniao_dropna['Complemento'] = uniao_dropnaComplemntoSlice[1]

@@ -1,15 +1,5 @@
-import numpy as np
-import nestle
-import math
-
-import matplotlib.pyplot as plt
-import matplotlib.animation as animation
-
-import corner
-
-from scipy.integrate import quad
-
-from nsdmd import model 
-from nsdmd import io
-
-import pandas as pd
+plt.bar(['knn', 'dt'], [knn_grid_score, dt_grid_score], label='R-Squared', color='coral')
+plt.title('Comparing R-Squared Scores')
+plt.xlabel('algorithm')
+plt.ylabel('R-Squared')
+plt.show()

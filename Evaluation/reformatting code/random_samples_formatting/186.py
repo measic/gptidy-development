@@ -1,8 +1,12 @@
-x = Input(batch_shape=(batch_size, window_size, 1))
-z1 = PLSTM(n_neurons, return_sequences=True, implementation=2)(x)
-z2 = PLSTM(n_neurons, return_sequences=True, implementation=2)(z1)
-z = Dense(n_classes, activation='softmax')(z2)
+sigma = 0.2
+beta  = 1.0 / pow(sigma, 2)
+N_test = 100
 
-model = Model(inputs=[x], outputs=[z])
-model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
-model.summary()
+x_test = np.linspace(-1, 1, N_test) 
+mu_test = np.zeros(N_test)
+y_test = true_mean_function(x_test)
+t_test = add_noise(y_test, sigma)
+
+plt.plot( x_test, y_test, 'b-', lw=2)
+plt.plot( x_test, t_test, 'go')
+plt.show()

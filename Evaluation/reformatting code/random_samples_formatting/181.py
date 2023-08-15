@@ -1,21 +1,16 @@
-from sklearn.cluster import KMeans
-from sklearn.metrics import silhouette_score
+url = 'http://mattmahoney.net/dc/'
 
-n_clusters = 2
+def maybe_download(filename, expected_bytes):
+  """Download a file if not present, and make sure it's the right size."""
+  if not os.path.exists(filename):
+    filename, _ = urlretrieve(url + filename, filename)
+  statinfo = os.stat(filename)
+  if statinfo.st_size == expected_bytes:
+    print('Found and verified %s' % filename)
+  else:
+    print(statinfo.st_size)
+    raise Exception(
+      'Failed to verify ' + filename + '. Can you get to it with a browser?')
+  return filename
 
-# TODO: Apply your clustering algorithm of choice to the reduced data 
-clusterer = KMeans(n_clusters=n_clusters, random_state=10)
-clusterer = clusterer.fit(reduced_data)
-
-# TODO: Predict the cluster for each data point
-preds = clusterer.predict(reduced_data)
-
-# TODO: Find the cluster centers
-centers = clusterer.cluster_centers_
-
-# TODO: Predict the cluster for each transformed sample data point
-sample_preds = clusterer.predict(pca_samples)
-
-# TODO: Calculate the mean silhouette coefficient for the number of clusters chosen
-score = silhouette_score(reduced_data, preds)
-print("{} => {}".format(n_clusters, score))
+filename = maybe_download('text8.zip', 31344016)

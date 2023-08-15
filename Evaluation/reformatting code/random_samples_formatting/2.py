@@ -1,1 +1,1 @@
-dw_obj.classification_results[wb]['mean_EQR_by_year']#.dropna(subset = ['mean_ek_value'])
+dw_obj = w.get_step_object(step = 3, subset = subset_uuid).indicator_objects[indicator]

@@ -1,34 +1,23 @@
-# ANSWER 2.2
-def calc_max_sum_variable_to_factor_msg(variable, factor):
-    
-    neighbour_msg_prod = get_neighbour_messages(variable, factor)
-    
-    if len(neighbour_msg_prod) > 0:
-        message = np.sum(np.array(neighbour_msg_prod), axis=0)
-    else:
-        message = np.zeros(variable.num_states)
-    
-#     for i in range(variable.num_states):
-#         if variable.observed_state[i] < 0.1:
-#             message[i] = -1e10
-    
-    message += np.log(variable.observed_state)
-    
-    return message
-    
-    
-    
-def variable_send_ms_msg(self, factor):
-    
-    assert isinstance(factor, Factor), "Variable can only send messages to factor!"
-    assert can_send_message(self, factor), "Cannot send message!"
-    
-    out_msg = calc_max_sum_variable_to_factor_msg(self, factor)
-    
-    # Send the message
-    factor.receive_msg(self, out_msg)
-    
-    # Remove the pending sign if present
-    self.pending.discard(factor)
+### Test test test
+# message from X_prior to X
+X_prior.reset()
+X.reset()
 
-Variable.send_ms_msg = variable_send_ms_msg
+X_prior.send_ms_msg(X)
+assert np.allclose(list(X.in_msgs.values()), [-0.05129329, -2.99573227])
+
+# message from Z_prior to Z
+Z_prior.reset()
+Z.reset()
+
+Z_prior.send_ms_msg(Z)
+assert np.allclose(list(Z.in_msgs.values()), [-0.22314355, -1.60943791])
+
+# message from Y_cond to Y
+Y_cond.reset()
+Y.reset()
+
+Y_cond.receive_msg(X, X_prior.f) # simulating that Y_cond received all necessary messages from X
+Y_cond.receive_msg(Z, Z_prior.f) # simulating that Y_cond received all necessary messages from Z
+Y_cond.send_ms_msg(Y)
+assert np.allclose(list(Y.in_msgs.values()), [1.74989999, 0.79332506])

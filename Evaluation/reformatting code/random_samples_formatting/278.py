@@ -1,12 +1,9 @@
-tweets_data = []
-
-tweet_file = open('tweet_json.txt', "r")
-
-for line in tweet_file:
-    try:
-        tweet = json.loads(line)
-        tweets_data.append(tweet)
-    except:
-        continue
-        
-tweet_file.close()
+'''with open('tweet_json.txt', 'a', encoding='utf8') as f:
+    for tweet_id in twitter_archive['tweet_id']:
+        try:
+            tweet = api.get_status(tweet_id, tweet_mode='extended')
+            json.dump(tweet._json, f)
+            f.write('\n')
+        except:
+            continue
+'''

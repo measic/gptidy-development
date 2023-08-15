@@ -1,1 +1,1 @@
-Image (filename = pathname + numberOfEventsRun262274_eventAccepted)
+Image(filename = pathname + averagePileUp_multCollisionFrac)

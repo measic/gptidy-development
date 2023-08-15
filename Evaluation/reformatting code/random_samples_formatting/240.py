@@ -1,3 +1,2 @@
-#ValidACCCI
-a = ACCanalysis.Valid.mean()
-sms.DescrStatsW(ACCanalysis.Valid).tconfint_mean()
+a = RTrunanalysis.loc[RTrunanalysis['Run'] == 3].Invalid.mean()
+sms.DescrStatsW(RTrunanalysis.loc[RTrunanalysis['Run'] == 3].Invalid).tconfint_mean()

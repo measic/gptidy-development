@@ -1,20 +1,24 @@
-fig, axes = plt.subplots(nrows=2, ncols=1, figsize=(8,8))
+#ignore
+# google drive sync
 
-dfBabies.loc[dfBabies["smoke"]==0].hist(column="weight", ax=axes[0], facecolor="steelblue", edgecolor="white")                                                   
-axes[0].set_title("Baby Weight of Non-Smokers", fontsize=20)
-axes[0].set_xlabel("Baby Weight (in ounces)", fontsize=16)
-axes[0].set_ylabel("Frequency", fontsize=16)
-axes[0].set_axisbelow(True)
+save_to_gdrive = True
+dataset_in_gdrive = False # set to True for speed up without training
 
 
-dfBabies.loc[dfBabies["smoke"]==1].hist(column="weight", ax=axes[1], facecolor="darkseagreen", edgecolor="white")
-axes[1].set_title("Baby Weight of Smokers", fontsize=20)
-axes[1].set_xlabel("Baby Weight (in ounces)", fontsize=16)
-axes[1].set_ylabel("Frequency", fontsize=16)
-axes[1].set_axisbelow(True)
+if save_to_gdrive:
+  from google.colab import drive
+  drive.mount('/content/gdrive')
+  output_dir = os.path.join("/content/gdrive/My Drive", output_dir)
+    
+en_vocab_file = os.path.join(output_dir, "en_vocab")
+zh_vocab_file = os.path.join(output_dir, "zh_vocab")
+checkpoint_path = os.path.join(output_dir, "checkpoints")
+log_dir = os.path.join(output_dir, 'logs')
 
-# Set  axis limits to match
-axes[0].set_xlim([30,180])
-axes[1].set_xlim([30,180]);
-
-fig.subplots_adjust(hspace=.5)
+if dataset_in_gdrive:
+  download_dir = os.path.join(output_dir, "tensorflow-datasets/downloads")
+else:
+  download_dir = "tensorflow-datasets/downloads"
+    
+# print(f"Save result to {output_dir}")
+clear_output()

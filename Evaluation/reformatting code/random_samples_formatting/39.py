@@ -1,3 +1,9 @@
-# round lat-long to 7 decimal points (to prevent fluky floating point .000000000001 stuff) to reduce js data file size
-df_combined['lat'] = df_combined['lat'].round(7)
-df_combined['lon'] = df_combined['lon'].round(7)
+### Test, test, test
+X_prior.reset()
+X.reset()
+Y_cond.reset()
+
+X_prior.send_sp_msg(X)
+X.set_observed(0)
+X.send_sp_msg(Y_cond)
+assert np.allclose(list(Y_cond.in_msgs.values()), [9.5e-01, 5.0e-12])

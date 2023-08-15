@@ -1,9 +1,2 @@
-config = json.load(open(os.path.expanduser("~/.thesis.conf")))
-datasets_path = Path(config['datasets'])
-db_folder = Path(config['datasets']) / 'hisdb'
-modules   = Path(config['project']) / 'src'
-
-%load_ext autoreload
-%autoreload 2
-import sys
-sys.path.append(str(modules))
+# Display sample log-data after applying PCA transformation in two dimensions
+display(pd.DataFrame(np.round(pca_samples, 4), columns = ['Dimension 1', 'Dimension 2']))

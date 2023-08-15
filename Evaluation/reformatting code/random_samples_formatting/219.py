@@ -1,20 +1,18 @@
-ev_Eigenvalue <$> roughEigenSystem euclideanNorm
-     (    ex.<V3  1   1 (-1)
-      ^+^ ey.<V3  1 (-2)  2
-      ^+^ ez.<V3(-1)  2   3 :: ℝ³+>ℝ³ )
-ev_Eigenvalue <$> roughEigenSystem euclideanNorm
-     (    ex.<V3  1   1.1   1
-      ^+^ ey.<V3  1   1   1.1
-      ^+^ ez.<V3  1   1   1 :: ℝ³+>ℝ³ )
-ev_Eigenvalue <$> roughEigenSystem euclideanNorm
-     (    ex.<V3  1   1   1
-      ^+^ ey.<V3  1   1   1
-      ^+^ ez.<V3  1   1   1 :: ℝ³+>ℝ³ )
-ev_Eigenvalue <$> roughEigenSystem euclideanNorm
-     (    ex.<V3  1   0   0.1
-      ^+^ ey.<V3  0.2   1   0
-      ^+^ ez.<V3  0   0.1   1 :: ℝ³+>ℝ³ )
-ev_Eigenvalue <$> roughEigenSystem euclideanNorm
-     (    ex.<V3  1   0   0
-      ^+^ ey.<V3  0   1   0
-      ^+^ ez.<V3  0   0   1 :: ℝ³+>ℝ³ )
+### Test test test
+# Simulate a single forward pass
+X_prior.reset()
+X.reset()
+Z_prior.reset()
+Z.reset()
+Y_cond.reset()
+Y.reset()
+
+X_prior.send_sp_msg(X)
+Z_prior.send_sp_msg(Z)
+X.send_sp_msg(Y_cond)
+Z.send_sp_msg(Y_cond)
+Y_cond.send_sp_msg(Y)
+
+assert np.allclose(X.marginal(), [0.95, 0.05])
+assert np.allclose(Z.marginal(), [0.8, 0.2])
+assert np.allclose(Y.marginal(), [0.821024, 0.178976])

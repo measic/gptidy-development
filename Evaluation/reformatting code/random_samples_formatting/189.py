@@ -1,12 +1,25 @@
-def prepare_analysis(df):
-    
-    acc_2 = pd.DataFrame(np.transpose(df))
+from itertools import combinations
 
-    acc_2.columns = ['Acc_train','Beta', 'Learning_Rate', 'Learning_Decay', 'Acc_valid']
-    acc_2['Group'] = acc_2['Beta'] + acc_2['Learning_Rate'] + acc_2['Learning_Decay']
-    
-    return acc_2
+waypoint_distances = {}
+waypoint_durations = {}
 
-acc = prepare_analysis(all_acc)
-acc['counter'] = acc.groupby(['Beta','Learning_Rate','Learning_Decay']).cumcount()+1
-acc = acc.sort_values(['Beta', 'Learning_Rate', 'Learning_Decay', 'counter'])
+for (waypoint1, waypoint2) in combinations(all_waypoints, 2):
+    try:
+        route = gmaps.distance_matrix(origins=[waypoint1],
+                                      destinations=[waypoint2],
+                                      mode="driving", # Change this to "walking" for walking directions,
+                                                      # "bicycling" for biking directions, etc.
+                                      language="English",
+                                      units="metric")
+
+        # "distance" is in meters
+        distance = route["rows"][0]["elements"][0]["distance"]["value"]
+
+        # "duration" is in seconds
+        duration = route["rows"][0]["elements"][0]["duration"]["value"]
+
+        waypoint_distances[frozenset([waypoint1, waypoint2])] = distance
+        waypoint_durations[frozenset([waypoint1, waypoint2])] = duration
+    
+    except Exception as e:
+        print("Error with finding the route between %s and %s." % (waypoint1, waypoint2))

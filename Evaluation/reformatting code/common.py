@@ -1,4 +1,4 @@
-IGNORE_TYPES = 'W292,E901,E902,W605,W503'
+IGNORE_TYPES = 'W292,W391,E901,E902,W605,W503'
 
 import subprocess
 
@@ -9,6 +9,7 @@ def unpack_gpt(gpt_results):
     # get all the code from the results
     for i, result in enumerate(gpt_results):
         if gpt_results[i]['reason'] == 'stop':
+            #TODO if we fail at a split later we will return None
             split = result['result'].split('Formatted code:')
             changes = split[0].split("Identified formatting issues:")[1].strip("\n")
             code = split[1].split("```")[1].strip("\n")
@@ -32,12 +33,10 @@ with open('../pep8_error_types.csv', 'r') as f:
         error_types[error_type] = description
 
 
-def pycodestyle(folder_name, NUM_FILES, ignore_types, ignore_ids):
+def pycodestyle(folder_name, NUM_FILES, ignore_types):
     error_counts = {}
 
     for i in range(NUM_FILES):
-        if i in ignore_ids:
-            continue
         file_name = f'{folder_name}/{i}.py'
         result = subprocess.run(
             ['pycodestyle', f'--ignore={ignore_types}', '--statistics', file_name], stdout=subprocess.PIPE).stdout.decode('utf-8')

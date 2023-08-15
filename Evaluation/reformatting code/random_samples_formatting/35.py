@@ -1,8 +1,33 @@
-from plotly.offline import iplot, init_notebook_mode
-init_notebook_mode(connected=True)
-from graph import trace_values, m_b_trace, plot
+'''Function to read the blank-spaced column data into a Pandas data frame (table)'''
 
-if x_values and y_values:
-    movies_trace = trace_values(x_values, y_values, text=titles, name='movie data')
-    regression_trace = m_b_trace(1.7, 10, x_values, name='estimated revenue')
-    plot([movies_trace, regression_trace])
+def read_table(file_name):
+    '''
+    Read table data into a `pandas` data frame (table).  
+    
+    Parameters
+    ----------
+    file_name: str, required
+        File name and its path relative to this notebook.
+    
+    Returns
+    -------
+    df: pandas.df
+        `Pandas` data frame (table).
+
+    Examples
+    --------
+    '''
+    import pandas as pd
+    
+    df = pd.read_csv( file_name,  
+                      skiprows=6,
+                      delim_whitespace=True)
+    
+# to avoid frustrations, set explicitly the data types of each column
+    for c in df.columns: 
+        if c == 'Y(NO-DIM)':
+            continue
+        df = df.astype({c:float},copy=False)
+
+    #print(df.dtypes)
+    return df

@@ -1,13 +1,5 @@
-# data analysis and wrangling
-import pandas as pd
-import numpy as np
-
-# visualization
-import seaborn as sns
-import matplotlib
-import matplotlib.pyplot as plt
-%matplotlib inline
-
-# Stats
-from scipy.stats.stats import skew
-from scipy.stats.stats import pearsonr
+with warnings.catch_warnings():
+    warnings.simplefilter('ignore')
+    
+    draw_graphs(multi_graphs, 'Multi-connected')
+    draw_graphs(singly_graphs, 'Singly-connected')

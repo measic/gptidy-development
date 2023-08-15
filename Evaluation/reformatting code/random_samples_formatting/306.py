@@ -1,1 +1,1 @@
-y_values and y_values[0] # 26.0
+x_values and x_values[0] # 13.0

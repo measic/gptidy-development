@@ -1,7 +1,21 @@
-got = pd.read_csv('test/got.csv')
-radial1 = TreeChart(dataframe = got, 
-          child_column="actor", 
-          parent_column="to", 
-          diameter = 800)
-radial1.addTooltip( template = "{actor} from {house} is casted by {name}.")
-radial1.show()
+def clean_election_data():
+    '''
+    Function to clean election data 
+    '''
+    import math
+        
+    # read in dirty data 
+    df = pd.read_csv("2014_election_results.csv")
+    dfClean = df.dropna(subset=["STATE", "D", "GENERAL PERCENT"]).copy()
+
+    for i in range(len(dfClean)):
+        row = dfClean.iloc[i]  
+        row["GENERAL PERCENT"] = np.float(row["GENERAL PERCENT"].strip("%").replace(",", "."))
+        if(pd.isnull(row["CANDIDATE NAME"]) or (row["CANDIDATE NAME"] == 'Scattered')):
+            if(pd.isnull(row["CANDIDATE NAME (Last)"]) or (row["CANDIDATE NAME (Last)"] == 'Scattered')):
+                row["CANDIDATE NAME"] = "UNKNOWN" 
+            else:
+                row["CANDIDATE NAME"] = row["CANDIDATE NAME (Last)"]
+    
+    dfClean = dfClean[["STATE", "D", "CANDIDATE NAME", "GENERAL PERCENT"]]
+    return dfClean
