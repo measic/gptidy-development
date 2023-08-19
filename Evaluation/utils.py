@@ -8,6 +8,20 @@ def num_tokens_from_string(string: str) -> int:
     num_tokens = len(encoding.encode(string))
     return num_tokens
 
+def gpt_35_turbo_token_dollar_cost(input_str, output_str) -> int:
+    # $0.0015 / 1000 tokens for input
+    # $0.002 / 1000 tokens for output
+
+    # get number of tokens
+    input_tokens = num_tokens_from_string(input_str)
+    output_tokens = num_tokens_from_string(output_str)
+
+    # input cost
+    input_cost = 0.0015 * input_tokens / 1000
+    output_cost = 0.002 * output_tokens / 1000
+
+    return input_cost + output_cost
+
 
 def print_check_gpt_results(gpt_results):
     # checking finish reason for identified functions
@@ -49,6 +63,7 @@ def stats_results_unused(gpt_unused_names, before):
     false_negatives = 0
     for i, gpt_names in enumerate(gpt_unused_names):
         before_names = before[i]
+        gpt_names = gpt_names if gpt_names is not None else []
         for name in gpt_names:
             if name in before_names:
                 true_positives += 1
@@ -56,7 +71,7 @@ def stats_results_unused(gpt_unused_names, before):
                 false_positives += 1
 
     for i, before_names in enumerate(before):
-        gpt_names = gpt_unused_names[i]
+        gpt_names = gpt_unused_names[i] if gpt_unused_names[i] is not None else []
         for name in before_names:
             if name not in gpt_names:
                 false_negatives += 1
