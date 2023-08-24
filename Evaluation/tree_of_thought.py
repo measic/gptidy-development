@@ -3,7 +3,7 @@ import re
 import openai
 
 # set key
-openai.api_key = "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"
+openai.api_key = "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"
 
 # GPT wrapper -- sometimes it fails and we should retry
 def gpt_wrapper(msgs, n, stop):
@@ -110,7 +110,7 @@ def solve_toc(input_msgs_cot, identify_trials, code_trials, identify_vote_trials
     for i in range(code_trials):
         if identify_completions.choices[i].finish_reason == 'stop':
             try:
-                code = updated_code_completions.choices[i]['message']['content'].split('```')[1].split('```')[0]
+                code = updated_code_completions.choices[i]['message']['content'].split('```')[1].strip("\n")
             except:
                 print(f"ERROR: Depth 2: code failed for trial {i}")
                 updated_code_lst.append(None)

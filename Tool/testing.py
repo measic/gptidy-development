@@ -35,12 +35,7 @@ project_context = "the project's purpose is to construct benchmark machine learn
 
 # rename_function = rename_function(notebook, context="analyzing jeopardy data", cell_id=10, function_name="function")
 
-# extract_function = extract_function(notebook, context="this project is about analyzing jeopardy data", cell_id=7, lines=(3,13))
-
-
 # context = "The purpose of this project is to provide a Python suite that constructs benchmark datasets for machine learning using the MIMIC-III clinical database. The project focuses on creating a multitask learning benchmark dataset for four key inpatient clinical prediction tasks, including mortality prediction, decompensation detection, length of stay forecasting, and phenotype classification."
-
-# extract_variable = extract_variable(notebook, context=context, cell_id=2, segment='self._data[index][0]')
 
 # introduction = "Analyzing Jeopardy Questions to Win Big\r\n\r\n# Background\r\n\r\nJeopardy is a popular TV game show where contestants answer questions to win money. In this project, we will analyze a dataset of Jeopardy questions to identify patterns in the questions that could help us win big.\r\n\r\n# Goals\r\n\r\nThe goal of this project is to answer the following questions:\r\n- How often do the answers appear in the questions?\r\n- How often are new questions repeats of older ones?\r\n- Are high-value questions harder or easier than low-value questions?\r\n- Which words commonly appear in high-value questions?\r\n\r\n# Structure\r\n\r\nThis notebook is organized into the following sections:\r\n- Data loading and cleaning\r\n- Answer overlap analysis\r\n- Question overlap analysis\r\n- High-value vs. low-value questions analysis\r\n- Common word analysis"
 
