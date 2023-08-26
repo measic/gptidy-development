@@ -1,2 +1,2 @@
-variable_def = 'http://www.google.com/search?q=fuzzing'
-mutations = 50
+seed_input = 'http://www.google.com/search?q=fuzzing'
+variable_def = 50

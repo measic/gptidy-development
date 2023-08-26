@@ -13,7 +13,7 @@ class MonteCarlo(EuropeanOption):
         except:
             raise ValueError('Problem assigning types in MC arguments')
 
-    def function_def(self, seed=1234567890):
+    def simulation_terminal(self, seed=1234567890):
         if self.fixed_seed:
             assert isinstance(seed, int)
             np.random.seed(seed)
@@ -37,7 +37,7 @@ class MonteCarlo(EuropeanOption):
         return payoff
 
     @property
-    def value(self):
+    def function_def(self):
         payoff = self.generate_payoffs()
         return self.discount * np.sum(payoff) / float(len(payoff))
 

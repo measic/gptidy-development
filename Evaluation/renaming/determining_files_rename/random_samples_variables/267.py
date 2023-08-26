@@ -3,19 +3,19 @@ summary_frequency = 100
 with tf.Session(graph=graph) as session:
     tf.global_variables_initializer().run()
     print('Initialized')
-    mean_loss = 0
+    variable_def = 0
     for step in range(num_steps):
         batches = train_batches.next()
         feed_dict = dict()
         for i in range(num_unrollings + 1):
             feed_dict[train_data[i]] = batches[i]
         _, l, predictions, lr = session.run([optimizer, loss, train_prediction, learning_rate], feed_dict=feed_dict)
-        mean_loss += l
+        variable_def += l
         if step % summary_frequency == 0:
             if step > 0:
-                mean_loss = mean_loss / summary_frequency
-            print('Average loss at step %d: %f learning rate: %f' % (step, mean_loss, lr))
-            mean_loss = 0
+                variable_def = variable_def / summary_frequency
+            print('Average loss at step %d: %f learning rate: %f' % (step, variable_def, lr))
+            variable_def = 0
             labels = np.concatenate(list(batches)[1:])
             print('Minibatch perplexity: %.2f' % float(np.exp(logprob(predictions, labels))))
             if step % (summary_frequency * 10) == 0:
@@ -33,7 +33,7 @@ with tf.Session(graph=graph) as session:
             reset_sample_state.run()
             valid_logprob = 0
             for _ in range(valid_size):
-                variable_def = valid_batches.next()
-                predictions = sample_prediction.eval({sample_input: variable_def[0]})
-                valid_logprob = valid_logprob + logprob(predictions, variable_def[1])
+                b = valid_batches.next()
+                predictions = sample_prediction.eval({sample_input: b[0]})
+                valid_logprob = valid_logprob + logprob(predictions, b[1])
             print('Validation set perplexity: %.2f' % float(np.exp(valid_logprob / valid_size)))

@@ -1,3 +1,3 @@
-image = mpimg.imread('test_images/solidWhiteCurve.jpg')
-variable_def = lane_detection(image)
-plt.imshow(variable_def)
+variable_def = mpimg.imread('test_images/solidWhiteCurve.jpg')
+lane_detected = lane_detection(variable_def)
+plt.imshow(lane_detected)

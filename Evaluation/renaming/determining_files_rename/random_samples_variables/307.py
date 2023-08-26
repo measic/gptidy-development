@@ -25,22 +25,22 @@ def blockMotion(t, blockPositions, vBlock, i, blockNum, kp, kc, mass, F0, v0, vf
     xi = blockPositions[i] - i
     vi = vBlock
     if i == 0:
-        xiP = blockPositions[i + 1] - (i + 1)
-        springForce = kc * (xiP - xi) + kp * (v0 * t - xi)
+        variable_def = blockPositions[i + 1] - (i + 1)
+        springForce = kc * (variable_def - xi) + kp * (v0 * t - xi)
     elif i == blockNum - 1:
         xiM = blockPositions[i - 1] - (i - 1)
         springForce = kc * (xiM - xi) + kp * (v0 * t - xi)
     else:
         xiM = blockPositions[i - 1] - (i - 1)
-        xiP = blockPositions[i + 1] - (i + 1)
-        springForce = kc * (xiP + xiM - 2 * xi) + kp * (v0 * t - xi)
-    variable_def = friction(vi, vf, F0)
-    if abs(springForce) <= abs(variable_def):
+        variable_def = blockPositions[i + 1] - (i + 1)
+        springForce = kc * (variable_def + xiM - 2 * xi) + kp * (v0 * t - xi)
+    frictionForce = friction(vi, vf, F0)
+    if abs(springForce) <= abs(frictionForce):
         dv = -vi
         vi = 0
         dx = vi
     else:
-        totalForce = (springForce + variable_def) / mass
+        totalForce = (springForce + frictionForce) / mass
         dx = vi
         dv = totalForce
     return np.array([dx, dv], float)

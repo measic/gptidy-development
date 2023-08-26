@@ -34,7 +34,7 @@ def difference(dataset, interval=1):
 def inverse_difference(history, yhat, interval=1):
     return yhat + history[-interval]
 
-def scale(train, test):
+def function_def(train, test):
     scaler = MinMaxScaler(feature_range=(-1, 1))
     scaler = scaler.fit(train)
     train = train.reshape(train.shape[0], train.shape[1])
@@ -50,7 +50,7 @@ def invert_scale(scaler, X, value):
     inverted = scaler.inverse_transform(array)
     return inverted[0, -1]
 
-def function_def(train, batch_size, nb_epoch, neurons):
+def fit_lstm(train, batch_size, nb_epoch, neurons):
     X, y = (train[:, 0:-1], train[:, -1])
     X = X.reshape(X.shape[0], 1, X.shape[1])
     model = Sequential()
@@ -72,8 +72,8 @@ diff_values = difference(raw_values, 1)
 supervised = timeseries_to_supervised(diff_values, 1)
 supervised_values = supervised.values
 train, test = (supervised_values[0:-12], supervised_values[-12:])
-scaler, train_scaled, test_scaled = scale(train, test)
-lstm_model = function_def(train_scaled, 1, 3000, 4)
+scaler, train_scaled, test_scaled = function_def(train, test)
+lstm_model = fit_lstm(train_scaled, 1, 3000, 4)
 train_reshaped = train_scaled[:, 0].reshape(len(train_scaled), 1, 1)
 lstm_model.predict(train_reshaped, batch_size=1)
 predictions = list()

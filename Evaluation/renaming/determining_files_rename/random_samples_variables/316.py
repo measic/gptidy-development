@@ -1,11 +1,11 @@
 import numpy as np
 from scipy.special import expit
-variable_def = 100
-xs = np.linspace(-3, 3, variable_def)
+n = 100
+xs = np.linspace(-3, 3, n)
 ReLu = np.maximum(xs, 0)
-d_ReLu = np.concatenate((np.zeros(int(variable_def / 2)), np.ones(int(variable_def / 2))))
-tanh = np.tanh(xs)
-d_tanh = 1 - tanh ** 2
+d_ReLu = np.concatenate((np.zeros(int(n / 2)), np.ones(int(n / 2))))
+variable_def = np.tanh(xs)
+d_tanh = 1 - variable_def ** 2
 sig = expit(xs)
 d_sig = sig * (1 - sig)
 plt.figure(figsize=(20, 5))
@@ -18,7 +18,7 @@ plt.title('ReLu(x) Plot')
 plt.ylim(-1.1, 1.1)
 plt.legend()
 plt.subplot(1, 3, 2)
-plt.plot(xs, tanh, label='tanh')
+plt.plot(xs, variable_def, label='tanh')
 plt.plot(xs, d_tanh, label='d_tanh')
 plt.xlabel('x')
 plt.ylabel('y')

@@ -2,7 +2,7 @@ import math
 leftline = [(0, 0, 0, 0)]
 rightline = [(0, 0, 0, 0)]
 
-def function_def(img):
+def grayscale(img):
     """Applies the Grayscale transform
     This will return an image with only one color channel
     but NOTE: to see the returned image as grayscale
@@ -35,7 +35,7 @@ def region_of_interest(img, vertices):
     masked_image = cv2.bitwise_and(img, mask)
     return masked_image
 
-def draw_lines(img, lines, color=[255, 0, 0], thickness=2):
+def function_def(img, lines, color=[255, 0, 0], thickness=2):
     """
     NOTE: this is the function you might want to use as a starting point once you want to 
     average/extrapolate the line segments you detect to map out the full
@@ -114,7 +114,7 @@ def draw_lines_roi(img, lines, vertices, color=[255, 0, 0], thickness=2):
         else:
             rightline = [(right_line_x1, y_min, right_line_x2, y_max)]
     newlines = [leftline, rightline]
-    draw_lines(img, newlines, color, thickness)
+    function_def(img, newlines, color, thickness)
     return img
 
 def hough_lines(img, rho, theta, threshold, min_line_len, max_line_gap, vertices):

@@ -16,7 +16,7 @@ def gaussian_blur(img, kernel_size):
     """Applies a Gaussian Noise kernel"""
     return cv2.GaussianBlur(img, (kernel_size, kernel_size), 0)
 
-def region_of_interest(img, vertices):
+def function_def(img, vertices):
     """
     Applies an image mask.
     
@@ -77,7 +77,7 @@ def draw_lines_oneside(img, lines, color, thickness):
         return
     top = 330
     bottom = img.shape[0]
-    x1_avg, y1_avg, x2_avg, y2_avg = function_def(lines)
+    x1_avg, y1_avg, x2_avg, y2_avg = averaging_lines(lines)
     slope = (y2_avg - y1_avg) / (x2_avg - x1_avg)
     bias = y1_avg - slope * x1_avg
     x1 = (bottom - bias) / slope
@@ -86,7 +86,7 @@ def draw_lines_oneside(img, lines, color, thickness):
     y2 = top
     cv2.line(img, (int(x1), y1), (int(x2), y2), color, thickness)
 
-def function_def(lines):
+def averaging_lines(lines):
     lines_size = len(lines)
     x1_sum, y1_sum, x2_sum, y2_sum = (0, 0, 0, 0)
     for line in lines:

@@ -1,10 +1,10 @@
 batch_size = 128
 embedding_size = 128
 skip_window = 1
-variable_def = 2
+num_skips = 2
 valid_size = 16
-valid_window = 100
-valid_examples = np.array(random.sample(range(valid_window), valid_size))
+variable_def = 100
+valid_examples = np.array(random.sample(range(variable_def), valid_size))
 num_sampled = 64
 graph = tf.Graph()
 with graph.as_default(), tf.device('/cpu:0'):

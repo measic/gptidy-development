@@ -39,9 +39,9 @@ class EuropeanOption(object):
         return 'This European Option is priced using {0}'.format(self.getmodel())
 
     @abstractmethod
-    def function_def(self):
+    def value(self):
         pass
 
     @abstractmethod
-    def delta(self):
+    def function_def(self):
         pass

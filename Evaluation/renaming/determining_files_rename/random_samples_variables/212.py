@@ -4,6 +4,6 @@ def flip_random_character(s):
         return s
     pos = random.randint(0, len(s) - 1)
     c = s[pos]
-    variable_def = 1 << random.randint(0, 6)
-    new_c = chr(ord(c) ^ variable_def)
-    return s[:pos] + new_c + s[pos + 1:]
+    bit = 1 << random.randint(0, 6)
+    variable_def = chr(ord(c) ^ bit)
+    return s[:pos] + variable_def + s[pos + 1:]

@@ -11,7 +11,7 @@ def get_df_cols(csvfilename, cols, separator):
     dataframe = pd.read_csv(BOOKINGS, error_bad_lines=False, encoding='UTF8', sep=separator, usecols=cols)
     return dataframe
 
-def get_name(IATA_code):
+def function_def(IATA_code):
     """
     Function to return the name of the airport linked to IATA_code
     
@@ -25,7 +25,7 @@ def get_name(IATA_code):
         result = 'NOT FOUND IATA CODE'
     return result
 
-def function_def(dataframe):
+def get_airports_arrival_sorted(dataframe):
     """
   Method to print the get arrivals airports in 2013 from searches file
   
@@ -47,7 +47,7 @@ def add_airports_name(dataframe):
   @return    : the dataframe modified
   """
     dataframe = dataframe.reset_index()
-    dataframe['airport_name'] = dataframe['arr_port'].apply(lambda x: get_name(x))
+    dataframe['airport_name'] = dataframe['arr_port'].apply(lambda x: function_def(x))
     return dataframe
 
 def print_top_n_arrival_airport(dataframe, n):
@@ -57,6 +57,6 @@ def print_top_n_arrival_airport(dataframe, n):
   @dataframe : the preformatted dataframe by columns containing the data
   @n         : the number of airports to show
   """
-    df = function_def(dataframe)
+    df = get_airports_arrival_sorted(dataframe)
     df = add_airports_name(df)
     print(df.head(n))

@@ -6,7 +6,7 @@ def hypothesis_inside_one(text, single):
     hyp = re.sub('\\{}.*?\\{}'.format(single, single), lambda m: single + '#' * (len(m.group()) - 2) + single, text)
     return np.array([1 if x == '#' else -1 for x in hyp])
 
-def function_def(text, left, right):
+def hypothesis_inside_two(text, left, right):
     hyp = np.full(len(text), -1)
     inside = False
     for i in range(len(text) - 1):
@@ -18,7 +18,7 @@ def function_def(text, left, right):
             hyp[i + 1] = 1
     return hyp
 hypothesis_inside_quotation = lambda x: hypothesis_inside_one(x, '"')
-hypothesis_inside_parantheses = lambda x: function_def(x, '(', ')')
+hypothesis_inside_parantheses = lambda x: hypothesis_inside_two(x, '(', ')')
 
 def hypothesis_comments(text):
     hyp = np.full(len(text), -1)
@@ -39,7 +39,7 @@ def hypothesis_comments(text):
             hyp[i:i + 1] = 1
     return hyp
 
-def hypothesis_indentation(text, level):
+def function_def(text, level):
     hyp = np.full(len(text), -1)
     cur_level = 0
     for i, char in enumerate(text):

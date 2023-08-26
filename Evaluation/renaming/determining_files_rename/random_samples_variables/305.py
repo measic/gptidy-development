@@ -1,11 +1,11 @@
 def process_image(image):
     """ Filter color """
-    color_select = np.copy(image)
+    variable_def = np.copy(image)
     rgb_threshold = [200, 150, 95]
     thresholds = (image[:, :, 0] < rgb_threshold[0]) | (image[:, :, 1] < rgb_threshold[1]) | (image[:, :, 2] < rgb_threshold[2])
-    color_select[thresholds] = [0, 0, 0]
-    variable_def = grayscale(color_select)
-    blurred = gaussian_blur(variable_def, 3)
+    variable_def[thresholds] = [0, 0, 0]
+    gray = grayscale(variable_def)
+    blurred = gaussian_blur(gray, 3)
     edges = canny(blurred, 50, 150)
     xsize = image.shape[1]
     ysize = image.shape[0]

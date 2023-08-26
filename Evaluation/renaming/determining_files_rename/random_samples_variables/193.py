@@ -7,14 +7,14 @@ def process_image(image):
     edges = canny(blur_gray, low_threshold, high_threshold)
     imshape = image.shape
     xPct = 0.05
-    yPct = 0.6
+    variable_def = 0.6
     xbl = imshape[1] * xPct
     xbr = imshape[1] * (1 - xPct)
     xtl = imshape[1] * (0.5 - xPct)
-    variable_def = imshape[1] * (0.5 + xPct)
+    xtr = imshape[1] * (0.5 + xPct)
     yb = imshape[0]
-    yt = imshape[0] * yPct
-    vertices = np.array([[(xbl, yb), (xtl, yt), (variable_def, yt), (xbr, yb)]], dtype=np.int32)
+    yt = imshape[0] * variable_def
+    vertices = np.array([[(xbl, yb), (xtl, yt), (xtr, yt), (xbr, yb)]], dtype=np.int32)
     masked_image = region_of_interest(edges, vertices)
     rho = 2
     theta = np.pi / 180

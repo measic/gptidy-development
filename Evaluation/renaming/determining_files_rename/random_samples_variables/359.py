@@ -35,13 +35,13 @@ def blockMotionVaryingMasses(t, blockPositions, vBlock, i, blockNum, kp, kc, mas
         xiM = blockPositions[i - 1] - (i - 1)
         xiP = blockPositions[i + 1] - (i + 1)
         springForce = kc * (xiP + xiM - 2 * xi) + kp * (v0 * t - xi)
-    frictionForce = friction(vi, vf, F0)
-    if abs(springForce) <= abs(frictionForce):
-        variable_def = -vi
+    variable_def = friction(vi, vf, F0)
+    if abs(springForce) <= abs(variable_def):
+        dv = -vi
         vi = 0
         dx = vi
     else:
-        totalForce = (springForce + frictionForce) / mi
+        totalForce = (springForce + variable_def) / mi
         dx = vi
-        variable_def = totalForce
-    return np.array([dx, variable_def], float)
+        dv = totalForce
+    return np.array([dx, dv], float)

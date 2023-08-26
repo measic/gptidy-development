@@ -1,6 +1,6 @@
 import random
 
-def function_def(solution):
+def compute_fitness(solution):
     """
         This function returns the total distance traveled on the current road trip.
         
@@ -38,7 +38,7 @@ def mutate_agent(agent_genome, max_mutations=3):
         agent_genome[swap_index1], agent_genome[swap_index2] = (agent_genome[swap_index2], agent_genome[swap_index1])
     return tuple(agent_genome)
 
-def shuffle_mutation(agent_genome):
+def function_def(agent_genome):
     """
         Applies a single shuffle mutation to the given road trip.
         
@@ -77,7 +77,7 @@ def run_genetic_algorithm(generations=5000, population_size=100):
         for agent_genome in population:
             if agent_genome in population_fitness:
                 continue
-            population_fitness[agent_genome] = function_def(agent_genome)
+            population_fitness[agent_genome] = compute_fitness(agent_genome)
         new_population = []
         for rank, agent_genome in enumerate(sorted(population_fitness, key=population_fitness.get)[:population_subset_size]):
             if (generation % generations_10pct == 0 or generation == generations - 1) and rank == 0:
@@ -88,7 +88,7 @@ def run_genetic_algorithm(generations=5000, population_size=100):
             for offspring in range(2):
                 new_population.append(mutate_agent(agent_genome, 3))
             for offspring in range(7):
-                new_population.append(shuffle_mutation(agent_genome))
+                new_population.append(function_def(agent_genome))
         for i in range(len(population))[::-1]:
             del population[i]
         population = new_population

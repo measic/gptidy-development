@@ -1,4 +1,4 @@
-def highlight_column_matches(data, column='', color='yellow'):
+def function_def(data, column='', color='yellow'):
     """
     highlight the maximum in a Series or DataFrame
     """
@@ -21,7 +21,7 @@ def save_rnn_layers(hidden_layers, output_layers):
         np.save(os.path.join(vsig.out_dir, 'valid_hidden_layer_' + i + '_state'), hidden_layers[i]['state'])
     np.save(os.path.join(vsig.out_dir, 'valid_output_layer'), output_layers)
 
-def function_def(hidden_layers, output_layers):
+def save_mlp_layers(hidden_layers, output_layers):
     for i, layer in hidden_layers.items():
         np.save(os.path.join(vsig.out_dir, 'valid_hidden_layer_' + i + '_output'), layer)
     np.save(os.path.join(vsig.out_dir, 'valid_output_layer'), output_layers)

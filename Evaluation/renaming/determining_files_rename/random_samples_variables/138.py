@@ -1,6 +1,6 @@
 def lane_detection(image):
     gray = grayscale(image)
-    kernel_size = 5
+    variable_def = 5
     blur_gray = gaussian_blur(gray, 5)
     low_threshold = 60
     high_threshold = 180
@@ -13,7 +13,7 @@ def lane_detection(image):
     threshold = 15
     min_line_len = 40
     max_line_gap = 20
-    variable_def = hough_lines(masked_edges, rho, theta, threshold, min_line_len, max_line_gap)
+    line_image = hough_lines(masked_edges, rho, theta, threshold, min_line_len, max_line_gap)
     color_edges = np.dstack((edges, edges, edges))
-    lines_edges = weighted_img(variable_def, image, α=0.8, β=1.0, λ=0.0)
+    lines_edges = weighted_img(line_image, image, α=0.8, β=1.0, λ=0.0)
     return lines_edges

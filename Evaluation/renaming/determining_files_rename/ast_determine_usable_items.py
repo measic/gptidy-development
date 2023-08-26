@@ -147,7 +147,9 @@ Ensures that items are not repeated across different namespaces or different typ
 def determine_usable_items(code, filter_type, ignore_underscores):
     tree = ast.parse(code)
     items = _get_items(tree, ignore_underscores)
-    return _filter_items(items, filter_type)
+    items = _filter_items(items, filter_type)
+    items.sort()  # without sorting it is not deterministic
+    return items
 
 """
 This renamer assumes that the code given is either renaming a function or a variable (not both)

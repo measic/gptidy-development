@@ -1,4 +1,4 @@
-def function_def(binary_img):
+def rover_coords(binary_img):
     ypos, xpos = binary_img.nonzero()
     x_pixel = -(ypos - binary_img.shape[0]).astype(np.float)
     y_pixel = -(xpos - binary_img.shape[1] / 2).astype(np.float)
@@ -15,14 +15,14 @@ def rotate_pix(xpix, ypix, yaw):
     ypix_rotated = xpix * np.sin(yaw_rad) + ypix * np.cos(yaw_rad)
     return (xpix_rotated, ypix_rotated)
 
-def translate_pix(xpix_rot, ypix_rot, xpos, ypos, scale):
+def function_def(xpix_rot, ypix_rot, xpos, ypos, scale):
     xpix_translated = xpix_rot / scale + xpos
     ypix_translated = ypix_rot / scale + ypos
     return (xpix_translated, ypix_translated)
 
 def pix_to_world(xpix, ypix, xpos, ypos, yaw, world_size, scale):
     xpix_rot, ypix_rot = rotate_pix(xpix, ypix, yaw)
-    xpix_tran, ypix_tran = translate_pix(xpix_rot, ypix_rot, xpos, ypos, scale)
+    xpix_tran, ypix_tran = function_def(xpix_rot, ypix_rot, xpos, ypos, scale)
     x_pix_world = np.clip(np.int_(xpix_tran), 0, world_size - 1)
     y_pix_world = np.clip(np.int_(ypix_tran), 0, world_size - 1)
     return (x_pix_world, y_pix_world)
@@ -30,7 +30,7 @@ idx = np.random.randint(0, len(img_list) - 1)
 image = mpimg.imread(img_list[idx])
 warped, mask = perspect_transform(image, source, destination)
 threshed = color_thresh(warped)
-xpix, ypix = function_def(threshed)
+xpix, ypix = rover_coords(threshed)
 dist, angles = to_polar_coords(xpix, ypix)
 mean_dir = np.mean(angles)
 fig = plt.figure(figsize=(12, 9))

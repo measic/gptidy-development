@@ -16,7 +16,7 @@ def gaussian_blur(img, kernel_size):
     """Applies a Gaussian Noise kernel"""
     return cv2.GaussianBlur(img, (kernel_size, kernel_size), 0)
 
-def function_def(img, vertices):
+def region_of_interest(img, vertices):
     """
     Applies an image mask.
     
@@ -66,13 +66,13 @@ def draw_lines(img, lines, color=[255, 0, 0], thickness=10):
                 if slope < 0.5 or slope > 0.8:
                     continue
                 right_lines.append(line)
-    draw_lines_oneside(img, left_lines, color, thickness)
-    draw_lines_oneside(img, right_lines, color, thickness)
+    function_def(img, left_lines, color, thickness)
+    function_def(img, right_lines, color, thickness)
 
 def get_slope(x1, y1, x2, y2):
     return (y2 - y1) / (x2 - x1)
 
-def draw_lines_oneside(img, lines, color, thickness):
+def function_def(img, lines, color, thickness):
     if len(lines) == 0:
         return
     top = 330

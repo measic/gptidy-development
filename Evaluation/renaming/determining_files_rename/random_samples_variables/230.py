@@ -23,8 +23,8 @@ def lane_detection_ppline_3_channels(image, k_size=3, vertex_ratio_h=0.45, verte
      - debug: Whether or not to display the images after each step of the process, for
      debugging or tuning purposes.
     """
-    max_y, variable_def = image.shape[:2]
-    roi = np.array([[(0, max_y), (round(variable_def * vertex_ratio_h), round(max_y * vertex_ratio_v)), (round(variable_def * (1 - vertex_ratio_h)), round(max_y * vertex_ratio_v)), (variable_def, max_y)]])
+    max_y, max_x = image.shape[:2]
+    roi = np.array([[(0, max_y), (round(max_x * vertex_ratio_h), round(max_y * vertex_ratio_v)), (round(max_x * (1 - vertex_ratio_h)), round(max_y * vertex_ratio_v)), (max_x, max_y)]])
     if debug:
         plt.subplot(5, 3, 1)
         plt.imshow(image)
@@ -36,15 +36,15 @@ def lane_detection_ppline_3_channels(image, k_size=3, vertex_ratio_h=0.45, verte
     if debug:
         plt.subplot(5, 3, 3)
         plt.imshow(hls)
-    edges_list = []
+    variable_def = []
     for chan in range(0, 3):
-        edges_list.append(canny(hls[:, :, chan], low_thresh, high_thresh, L2gradient=L2gradient))
+        variable_def.append(canny(hls[:, :, chan], low_thresh, high_thresh, L2gradient=L2gradient))
         if debug:
             plt.subplot(5, 3, chan + 4)
-            plt.imshow(edges_list[chan])
+            plt.imshow(variable_def[chan])
     masked_edges_list = []
     for chan in range(0, 3):
-        masked_edges_list.append(region_of_interest(edges_list[chan], roi))
+        masked_edges_list.append(region_of_interest(variable_def[chan], roi))
         if debug:
             plt.subplot(5, 3, chan + 7)
             plt.imshow(masked_edges_list[chan])

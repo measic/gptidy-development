@@ -15,17 +15,17 @@ colormap = plt.get_cmap('gnuplot', len(group_values))
 pc1 = x_pca[:, 0]
 pc2 = x_pca[:, 1]
 p = ax.scatter(pc1, pc2, c=posIDs, cmap=colormap, s=10)
-cb = plt.colorbar(p)
+variable_def = plt.colorbar(p)
 loc = np.arange(0, max(posIDs), max(posIDs) / float(len(group_values)))
-cb.set_ticks(loc)
-cb.set_ticklabels(group_values)
+variable_def.set_ticks(loc)
+variable_def.set_ticklabels(group_values)
 for label, x, y in zip(labels, pc1, pc2):
     if y == np.amax(y) or x == np.amax(x):
         plt.annotate(label, fontsize=2, xy=(x, y), xytext=(0, 1), textcoords='offset points', ha='right', va='bottom')
 if pos_filter == None:
     axins = zoomed_inset_axes(ax, 2.5, loc=2)
-    x1, variable_def, y1, y2 = (-3.1, 2.5, 6.3, 9.8)
-    axins.set_xlim(x1, variable_def)
+    x1, x2, y1, y2 = (-3.1, 2.5, 6.3, 9.8)
+    axins.set_xlim(x1, x2)
     axins.set_ylim(y1, y2)
     axins.scatter(pc1, pc2, c=posIDs, cmap=colormap)
     plt.yticks(visible=False)
@@ -35,8 +35,8 @@ if pos_filter == None:
         if y == np.amax(y) or x == np.amax(x):
             plt.annotate(label, fontsize=8, xy=(x, y), xytext=(0, 1), textcoords='offset points', ha='right', va='bottom')
     axins2 = zoomed_inset_axes(ax, 2.5, loc=4)
-    x1, variable_def, y1, y2 = (-4, 0.5, -8.5, -6.5)
-    axins2.set_xlim(x1, variable_def)
+    x1, x2, y1, y2 = (-4, 0.5, -8.5, -6.5)
+    axins2.set_xlim(x1, x2)
     axins2.set_ylim(y1, y2)
     axins2.scatter(pc1, pc2, c=posIDs, cmap=colormap)
     plt.yticks(visible=False)

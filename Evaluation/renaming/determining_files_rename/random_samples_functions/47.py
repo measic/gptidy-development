@@ -33,7 +33,7 @@ class R_pca:
     def shrink(M, tau):
         return np.sign(M) * np.maximum(np.abs(M) - tau, np.zeros(M.shape))
 
-    def svd_threshold(self, M, tau):
+    def function_def(self, M, tau):
         U, S, V = np.linalg.svd(M, full_matrices=False)
         return np.dot(U, np.dot(np.diag(self.shrink(S, tau)), V))
 
@@ -59,7 +59,7 @@ class R_pca:
         self.S = Sk
         return (Lk, Sk)
 
-    def function_def(self, size=None, tol=0.1, axis_on=True):
+    def plot_fit(self, size=None, tol=0.1, axis_on=True):
         n, d = self.D.shape
         if size:
             nrows, ncols = size

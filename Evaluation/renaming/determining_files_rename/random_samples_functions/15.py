@@ -21,12 +21,12 @@ def save_rnn_layers(hidden_layers, output_layers):
         np.save(os.path.join(vsig.out_dir, 'valid_hidden_layer_' + i + '_state'), hidden_layers[i]['state'])
     np.save(os.path.join(vsig.out_dir, 'valid_output_layer'), output_layers)
 
-def save_mlp_layers(hidden_layers, output_layers):
+def function_def(hidden_layers, output_layers):
     for i, layer in hidden_layers.items():
         np.save(os.path.join(vsig.out_dir, 'valid_hidden_layer_' + i + '_output'), layer)
     np.save(os.path.join(vsig.out_dir, 'valid_output_layer'), output_layers)
 
-def function_def(tensor):
+def glance_at_tensor(tensor):
     if len(tensor.shape) == 3:
         print(tensor[:10, 0, 0])
         print(tensor[0, :10, 0])

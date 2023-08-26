@@ -1,6 +1,6 @@
 import math
 
-def function_def(img):
+def grayscale(img):
     """Applies the Grayscale transform
     This will return an image with only one color channel
     but NOTE: to see the returned image as grayscale
@@ -8,7 +8,7 @@ def function_def(img):
     you should call plt.imshow(gray, cmap='gray')"""
     return cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
 
-def canny(img, low_threshold, high_threshold):
+def function_def(img, low_threshold, high_threshold):
     """Applies the Canny transform"""
     return cv2.Canny(img, low_threshold, high_threshold)
 

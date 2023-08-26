@@ -2,7 +2,7 @@ import math
 leftline = [(0, 0, 0, 0)]
 rightline = [(0, 0, 0, 0)]
 
-def grayscale(img):
+def function_def(img):
     """Applies the Grayscale transform
     This will return an image with only one color channel
     but NOTE: to see the returned image as grayscale
@@ -117,7 +117,7 @@ def draw_lines_roi(img, lines, vertices, color=[255, 0, 0], thickness=2):
     draw_lines(img, newlines, color, thickness)
     return img
 
-def function_def(img, rho, theta, threshold, min_line_len, max_line_gap, vertices):
+def hough_lines(img, rho, theta, threshold, min_line_len, max_line_gap, vertices):
     """
     `img` should be the output of a Canny transform.
         

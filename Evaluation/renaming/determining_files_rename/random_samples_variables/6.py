@@ -17,9 +17,9 @@ def LeNet6(x, n_classes):
     fc1 = tf.matmul(fc0, fc1_W) + fc1_b
     fc1 = tf.nn.relu(fc1)
     fc1 = tf.nn.dropout(fc1, keep_prob)
-    variable_def = tf.Variable(tf.truncated_normal(shape=(252, 168), mean=mu, stddev=sigma))
+    fc2_W = tf.Variable(tf.truncated_normal(shape=(252, 168), mean=mu, stddev=sigma))
     fc2_b = tf.Variable(tf.zeros(168))
-    fc2 = tf.matmul(fc1, variable_def) + fc2_b
+    fc2 = tf.matmul(fc1, fc2_W) + fc2_b
     fc2 = tf.nn.relu(fc2)
     fc2 = tf.nn.dropout(fc2, keep_prob)
     fc3_W = tf.Variable(tf.truncated_normal(shape=(168, 84), mean=mu, stddev=sigma))
@@ -27,7 +27,7 @@ def LeNet6(x, n_classes):
     fc3 = tf.matmul(fc2, fc3_W) + fc3_b
     fc3 = tf.nn.relu(fc3)
     fc3 = tf.nn.dropout(fc3, keep_prob)
-    fc4_W = tf.Variable(tf.truncated_normal(shape=(84, n_classes), mean=mu, stddev=sigma))
+    variable_def = tf.Variable(tf.truncated_normal(shape=(84, n_classes), mean=mu, stddev=sigma))
     fc4_b = tf.Variable(tf.zeros(n_classes))
-    logits = tf.matmul(fc3, fc4_W) + fc4_b
+    logits = tf.matmul(fc3, variable_def) + fc4_b
     return logits

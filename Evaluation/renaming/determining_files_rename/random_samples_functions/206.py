@@ -2,7 +2,7 @@ import unittest
 
 class TestFeatures(unittest.TestCase):
 
-    def test_features_ground(self):
+    def function_def(self):
         sample = asl.df.ix[98, 1][features_ground].tolist()
         self.assertEqual(sample, [9, 113, -12, 119])
 
@@ -14,7 +14,7 @@ class TestFeatures(unittest.TestCase):
         sample = asl.df.ix[98, 1][features_polar].tolist()
         np.testing.assert_almost_equal(sample, [113.3578, 0.0794, 119.603, -0.1005], 3)
 
-    def function_def(self):
+    def test_features_delta(self):
         sample = asl.df.ix[98, 0][features_delta].tolist()
         self.assertEqual(sample, [0, 0, 0, 0])
         sample = asl.df.ix[98, 18][features_delta].tolist()

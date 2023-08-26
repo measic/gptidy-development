@@ -3,8 +3,8 @@ fig = plt.figure(figsize=(16, 4))
 
 def get_annot_img(ax, camera, frame):
     ax.set_title('Camera ' + str(camera) + ' at frame ' + str(frame))
-    im = X[camera, frame]
-    ax.imshow(im)
+    variable_def = X[camera, frame]
+    ax.imshow(variable_def)
     Annotations_for_cam = Annotations[camera]
     Annot_on_frame_cam = Annotations_for_cam[frame]
     COLORS = ['red', 'yellow']
@@ -17,4 +17,4 @@ get_annot_img(fig.add_subplot(121), 0, 0)
 get_annot_img(fig.add_subplot(122), 1, 0)
 plt.axis('off')
 plt.show()
-Ps, Ks, variable_def = marconi.get_calibration('Soccer', split_intrinsic_extrinsic=True)
+Ps, Ks, Rts = marconi.get_calibration('Soccer', split_intrinsic_extrinsic=True)

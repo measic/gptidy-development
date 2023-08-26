@@ -2,12 +2,12 @@ class Config(object):
     default_fn = os.path.join(PROJECT_DIR, 'config', 'seq2seq', 'default.yaml')
 
     @staticmethod
-    def function_def(fn=default_fn):
+    def load_defaults(fn=default_fn):
         with open(fn) as f:
             return yaml.load(f)
 
     @classmethod
-    def from_yaml(cls, fn):
+    def function_def(cls, fn):
         params = yaml.load(fn)
         return cls(**params)
 

@@ -2,9 +2,9 @@ class Dataset(object):
     PAD = 0
     SOS = 1
     EOS = 2
-    variable_def = 3
+    UNK = 3
     constants = ['PAD', 'SOS', 'EOS', 'UNK']
-    hu_alphabet = list('aábcdeéfghiíjklmnoóöőpqrstuúüűvwxyz-+._')
+    variable_def = list('aábcdeéfghiíjklmnoóöőpqrstuúüűvwxyz-+._')
 
     def __init__(self, fn, config, src_alphabet=None, tgt_alphabet=None):
         self.config = config

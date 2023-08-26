@@ -1,3 +1,3 @@
-pca = None
+variable_def = None
 pca_samples = None
-variable_def = vs.pca_results(good_data, pca)
+pca_results = vs.pca_results(good_data, variable_def)

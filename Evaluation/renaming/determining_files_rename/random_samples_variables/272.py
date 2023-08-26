@@ -48,11 +48,11 @@ with graph.as_default():
     gradients, v = zip(*optimizer.compute_gradients(loss))
     gradients, _ = tf.clip_by_global_norm(gradients, 1.25)
     optimizer = optimizer.apply_gradients(zip(gradients, v), global_step=global_step)
-    variable_def = tf.nn.softmax(logits)
+    train_prediction = tf.nn.softmax(logits)
     sample_input = tf.placeholder(tf.float32, shape=[1, vocabulary_size])
-    saved_sample_output = tf.Variable(tf.zeros([1, num_nodes]))
+    variable_def = tf.Variable(tf.zeros([1, num_nodes]))
     saved_sample_state = tf.Variable(tf.zeros([1, num_nodes]))
-    reset_sample_state = tf.group(saved_sample_output.assign(tf.zeros([1, num_nodes])), saved_sample_state.assign(tf.zeros([1, num_nodes])))
-    sample_output, sample_state = lstm_cell(sample_input, saved_sample_output, saved_sample_state)
-    with tf.control_dependencies([saved_sample_output.assign(sample_output), saved_sample_state.assign(sample_state)]):
+    reset_sample_state = tf.group(variable_def.assign(tf.zeros([1, num_nodes])), saved_sample_state.assign(tf.zeros([1, num_nodes])))
+    sample_output, sample_state = lstm_cell(sample_input, variable_def, saved_sample_state)
+    with tf.control_dependencies([variable_def.assign(sample_output), saved_sample_state.assign(sample_state)]):
         sample_prediction = tf.nn.softmax(tf.nn.xw_plus_b(sample_output, w, b))

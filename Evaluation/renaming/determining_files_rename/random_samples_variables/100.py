@@ -40,13 +40,13 @@ def split_by_class(X_train, y_train):
     Return data_by_classes, list of tuples, each tuple: (X_train_class_i, y_train_class_i)
     Note: X_train_class_i is a list, y_train_class_i is a number
     """
-    class_dict = {}
+    variable_def = {}
     for i in range(len(y_train)):
-        if y_train[i] not in class_dict:
-            class_dict[y_train[i]] = [X_train[i]]
+        if y_train[i] not in variable_def:
+            variable_def[y_train[i]] = [X_train[i]]
         else:
-            class_dict[y_train[i]].append(X_train[i])
-    data_by_classes = [(X_train_class_i, y_train_class_i) for y_train_class_i, X_train_class_i in class_dict.items()]
+            variable_def[y_train[i]].append(X_train[i])
+    data_by_classes = [(X_train_class_i, y_train_class_i) for y_train_class_i, X_train_class_i in variable_def.items()]
     return data_by_classes
 
 def augment_by_class(training_data_tuple):
@@ -104,4 +104,4 @@ transformed_img = random_zoom(rand_img)
 (plt.subplot(122), plt.imshow(transformed_img), plt.title('Output'))
 plt.suptitle('Zoom')
 plt.show()
-variable_def, y_train_augmented = augment_data(X_train, y_train)
+X_train_augmented, y_train_augmented = augment_data(X_train, y_train)

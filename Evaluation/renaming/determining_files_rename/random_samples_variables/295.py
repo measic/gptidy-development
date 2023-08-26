@@ -19,10 +19,10 @@ with tf.name_scope('inputs'):
     X_reshaped = tf.reshape(X, shape=[-1, height, width, channels])
     y = tf.placeholder(tf.int32, shape=[None], name='y')
 conv1 = tf.layers.conv2d(X_reshaped, filters=conv1_fmaps, kernel_size=conv1_ksize, strides=conv1_stride, padding=conv1_pad, activation=tf.nn.relu, name='conv1')
-variable_def = tf.layers.conv2d(conv1, filters=conv2_fmaps, kernel_size=conv2_ksize, strides=conv2_stride, padding=conv2_pad, activation=tf.nn.relu, name='conv2')
+conv2 = tf.layers.conv2d(conv1, filters=conv2_fmaps, kernel_size=conv2_ksize, strides=conv2_stride, padding=conv2_pad, activation=tf.nn.relu, name='conv2')
 with tf.name_scope('pool3'):
-    pool3 = tf.nn.max_pool(variable_def, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='VALID')
-    pool3_flat = tf.reshape(pool3, shape=[-1, pool3_fmaps * 7 * 7])
+    variable_def = tf.nn.max_pool(conv2, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='VALID')
+    pool3_flat = tf.reshape(variable_def, shape=[-1, pool3_fmaps * 7 * 7])
 with tf.name_scope('fc1'):
     fc1 = tf.layers.dense(pool3_flat, n_fc1, activation=tf.nn.relu, name='fc1')
 with tf.name_scope('output'):

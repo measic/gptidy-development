@@ -11,9 +11,9 @@ def expectedFit(x, a, b):
     return a * np.exp(-b * x)
 occurenceRegion = bigOccurences[7:14]
 magnitudeRegion = bigMagnitudes[7:14]
-parameters, variable_def = curve_fit(expectedFit, magnitudeRegion, occurenceRegion)
+parameters, covariance = curve_fit(expectedFit, magnitudeRegion, occurenceRegion)
 fitX = magnitudeRegion
 aFit = parameters[0]
-bFit = parameters[1]
-fitY = aFit * np.exp(-bFit * magnitudeRegion)
-print('A = ', aFit, 'b = ', bFit)
+variable_def = parameters[1]
+fitY = aFit * np.exp(-variable_def * magnitudeRegion)
+print('A = ', aFit, 'b = ', variable_def)

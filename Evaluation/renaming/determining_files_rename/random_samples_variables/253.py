@@ -1,10 +1,10 @@
 def process_image(image):
-    variable_def = grayscale(image)
+    gray = grayscale(image)
     kernel_size = 5
-    blur_gray = gaussian_blur(variable_def, kernel_size)
+    variable_def = gaussian_blur(gray, kernel_size)
     low_threshold = 50
     high_threshold = 150
-    edges = canny(blur_gray, low_threshold, high_threshold)
+    edges = canny(variable_def, low_threshold, high_threshold)
     imshape = image.shape
     xPct = 0.05
     yPct = 0.6

@@ -25,19 +25,19 @@ def get_data_from_tsv(feature_file, x_fields, y_field, x_filter=None, seed=0, as
         x_fields.append(my_data.columns.get_loc(y_field))
         my_data = my_data.iloc[:, x_fields]
     del x_fields[-1]
-    x_train, y_train, x_dev, y_dev, variable_def, y_test = train_validate_test_split(my_data, y_field, train_percent=train_portion, validate_percent=test_portion, seed=seed, shuffle=shuffle)
+    x_train, y_train, x_dev, y_dev, x_test, variable_def = train_validate_test_split(my_data, y_field, train_percent=train_portion, validate_percent=test_portion, seed=seed, shuffle=shuffle)
     if scale:
         x_train = pandas.DataFrame(preprocessing.scale(x_train), columns=x_train.columns, index=x_train.index)
         x_dev = pandas.DataFrame(preprocessing.scale(x_dev), columns=x_dev.columns, index=x_dev.index)
-        variable_def = pandas.DataFrame(preprocessing.scale(variable_def), columns=variable_def.columns, index=variable_def.index)
+        x_test = pandas.DataFrame(preprocessing.scale(x_test), columns=x_test.columns, index=x_test.index)
         y_train = pandas.DataFrame(preprocessing.scale(y_train), columns=y_train.columns, index=y_train.index)
         y_dev = pandas.DataFrame(preprocessing.scale(y_dev), columns=y_dev.columns, index=y_dev.index)
-        y_test = pandas.DataFrame(preprocessing.scale(y_test), columns=y_test.columns, index=y_test.index)
+        variable_def = pandas.DataFrame(preprocessing.scale(variable_def), columns=variable_def.columns, index=variable_def.index)
     if as_np_array:
         x_train = np.array(x_train).astype(np.float)
         y_train = np.array(y_train).astype(np.float)
         x_dev = np.array(x_dev).astype(np.float)
         y_dev = np.array(y_dev).astype(np.float)
+        x_test = np.array(x_test).astype(np.float)
         variable_def = np.array(variable_def).astype(np.float)
-        y_test = np.array(y_test).astype(np.float)
-    return (x_train, y_train, x_dev, y_dev, variable_def, y_test, labels)
+    return (x_train, y_train, x_dev, y_dev, x_test, variable_def, labels)

@@ -1,9 +1,9 @@
-variable_def = 28
+image_size = 28
 num_labels = 10
-num_channels = 1
+variable_def = 1
 
 def reformat(dataset, labels):
-    dataset = dataset.reshape((-1, variable_def, variable_def, num_channels)).astype(np.float32)
+    dataset = dataset.reshape((-1, image_size, image_size, variable_def)).astype(np.float32)
     labels = (np.arange(num_labels) == labels[:, None]).astype(np.float32)
     return (dataset, labels)
 train_dataset, train_labels = reformat(train_dataset, train_labels)

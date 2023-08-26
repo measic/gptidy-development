@@ -49,7 +49,7 @@ def split_by_class(X_train, y_train):
     data_by_classes = [(X_train_class_i, y_train_class_i) for y_train_class_i, X_train_class_i in class_dict.items()]
     return data_by_classes
 
-def augment_by_class(training_data_tuple):
+def function_def(training_data_tuple):
     """
     Augment the data by translating, rotating, zooming, until it has 1200 examples
     training_data_tuple: (X_train_class_i, y_train_class_i), 
@@ -65,7 +65,7 @@ def augment_by_class(training_data_tuple):
         X_train_by_class.append(new_img)
     return (X_train_by_class, y_train_by_class)
 
-def function_def(augmented_data_by_classes):
+def merge_and_shuffle(augmented_data_by_classes):
     augmented_X_train = []
     augmented_y_train = []
     for augmented_tup in augmented_data_by_classes:
@@ -82,10 +82,10 @@ def augment_data(X_train, y_train):
     data_by_classes = split_by_class(X_train, y_train)
     augmented_data_by_classes = []
     for tup in data_by_classes:
-        augmented_tup = augment_by_class(tup)
+        augmented_tup = function_def(tup)
         assert len(tup[0]) >= NUM_IN_CLASS, 'Class {0} still has {0} examples'.format(tup[1], len(tup[0]))
         augmented_data_by_classes.append(augmented_tup)
-    return function_def(augmented_data_by_classes)
+    return merge_and_shuffle(augmented_data_by_classes)
 rand_img = random.choice(X_train)
 transformed_img = random_translate(rand_img)
 (plt.subplot(121), plt.imshow(rand_img), plt.title('Input'))

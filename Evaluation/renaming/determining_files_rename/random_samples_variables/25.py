@@ -1,8 +1,8 @@
 county = df_county_data['County Name']
-pov_rate = df_county_data['Poverty Rate']
-x_axis = np.arange(len(pov_rate))
-variable_def = [value for value in x_axis]
-plt.bar(x_axis, pov_rate, color='r', align='center')
+variable_def = df_county_data['Poverty Rate']
+x_axis = np.arange(len(variable_def))
+tick_locations = [value for value in x_axis]
+plt.bar(x_axis, variable_def, color='r', align='center')
 plt.title('County Poverty Rates')
 plt.xlabel('Counties')
 plt.ylabel('Poverty Rates')

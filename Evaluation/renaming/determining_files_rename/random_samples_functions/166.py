@@ -5,7 +5,7 @@ import numpy as np
 def one_hot(a, num_classes):
     return np.eye(num_classes)[a.reshape(-1)]
 
-def mlp_logprob(x, W, b, V, a):
+def function_def(x, W, b, V, a):
     h = expit(np.matmul(x, V) + a)
     ln_q = np.matmul(h, W) + b
     ln_Z = logsumexp(ln_q)
@@ -14,7 +14,7 @@ def mlp_logprob(x, W, b, V, a):
 
 def mlp_gradient(x, t, W, b, V, a):
     num_classes = len(b)
-    ln_p, ln_q, ln_Z, h = mlp_logprob(x, W, b, V, a)
+    ln_p, ln_q, ln_Z, h = function_def(x, W, b, V, a)
     t_oh = one_hot(t, num_classes)
     delta_q = t_oh - np.exp(ln_q) / np.exp(ln_Z)
     delta_h = np.matmul(delta_q, W.T)
@@ -31,7 +31,7 @@ def init_params(input_size, num_classes, hidden_units):
     a = np.zeros(hidden_units)
     return (W, b, V, a)
 
-def function_def(x_train, t_train, W, b, V, a, lr):
+def mlp_sgd_iter(x_train, t_train, W, b, V, a, lr):
     indices = np.arange(len(x_train))
     np.random.shuffle(indices)
     logp = np.zeros(len(x_train))
@@ -49,7 +49,7 @@ def function_def(x_train, t_train, W, b, V, a, lr):
 def eval_mean_logp(xs, ts, W, b, V, a):
     logps = []
     for x, t in zip(xs, ts):
-        logp, _, _, _ = mlp_logprob(x, W, b, V, a)
+        logp, _, _, _ = function_def(x, W, b, V, a)
         logps.append(logp[t].squeeze())
     return mean(logps)
 from scipy.optimize import check_grad

@@ -11,15 +11,15 @@ def LeNet6(x, n_classes):
     conv2 = tf.nn.conv2d(conv1, conv2_W, strides=[1, 1, 1, 1], padding='VALID') + conv2_b
     conv2 = tf.nn.relu(conv2)
     conv2 = tf.nn.max_pool(conv2, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='VALID')
-    variable_def = flatten(conv2)
+    fc0 = flatten(conv2)
     fc1_W = tf.Variable(tf.truncated_normal(shape=(400, 252), mean=mu, stddev=sigma))
     fc1_b = tf.Variable(tf.zeros(252))
-    fc1 = tf.matmul(variable_def, fc1_W) + fc1_b
+    fc1 = tf.matmul(fc0, fc1_W) + fc1_b
     fc1 = tf.nn.relu(fc1)
     fc1 = tf.nn.dropout(fc1, keep_prob)
     fc2_W = tf.Variable(tf.truncated_normal(shape=(252, 168), mean=mu, stddev=sigma))
-    fc2_b = tf.Variable(tf.zeros(168))
-    fc2 = tf.matmul(fc1, fc2_W) + fc2_b
+    variable_def = tf.Variable(tf.zeros(168))
+    fc2 = tf.matmul(fc1, fc2_W) + variable_def
     fc2 = tf.nn.relu(fc2)
     fc2 = tf.nn.dropout(fc2, keep_prob)
     fc3_W = tf.Variable(tf.truncated_normal(shape=(168, 84), mean=mu, stddev=sigma))

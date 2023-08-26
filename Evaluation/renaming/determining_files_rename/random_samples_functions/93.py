@@ -10,12 +10,12 @@ def highlight_column_matches(data, column='', color='yellow'):
         is_mixed = data == data[column]
         return pd.DataFrame(np.where(is_mixed, attr, ''), index=data.index, columns=data.columns)
 
-def function_def(csv_filename, columns=['total_reward'], **kwargs):
+def plot_stats(csv_filename, columns=['total_reward'], **kwargs):
     """Plot specified columns from CSV file."""
     df_stats = pd.read_csv(csv_filename)
     df_stats[columns].plot(**kwargs)
 
-def save_rnn_layers(hidden_layers, output_layers):
+def function_def(hidden_layers, output_layers):
     for i, layer in hidden_layers.items():
         np.save(os.path.join(vsig.out_dir, 'valid_hidden_layer_' + i + '_output'), hidden_layers[i]['output'])
         np.save(os.path.join(vsig.out_dir, 'valid_hidden_layer_' + i + '_state'), hidden_layers[i]['state'])

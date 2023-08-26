@@ -1,6 +1,6 @@
 height = 28
 width = 28
-variable_def = 1
+channels = 1
 n_inputs = height * width
 conv1_fmaps = 32
 conv1_ksize = 3
@@ -16,7 +16,7 @@ n_outputs = 10
 reset_graph()
 with tf.name_scope('inputs'):
     X = tf.placeholder(tf.float32, shape=[None, n_inputs], name='X')
-    X_reshaped = tf.reshape(X, shape=[-1, height, width, variable_def])
+    X_reshaped = tf.reshape(X, shape=[-1, height, width, channels])
     y = tf.placeholder(tf.int32, shape=[None], name='y')
 conv1 = tf.layers.conv2d(X_reshaped, filters=conv1_fmaps, kernel_size=conv1_ksize, strides=conv1_stride, padding=conv1_pad, activation=tf.nn.relu, name='conv1')
 conv2 = tf.layers.conv2d(conv1, filters=conv2_fmaps, kernel_size=conv2_ksize, strides=conv2_stride, padding=conv2_pad, activation=tf.nn.relu, name='conv2')
@@ -32,7 +32,7 @@ with tf.name_scope('train'):
     xentropy = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=y)
     loss = tf.reduce_mean(xentropy)
     optimizer = tf.train.AdamOptimizer()
-    training_op = optimizer.minimize(loss)
+    variable_def = optimizer.minimize(loss)
 with tf.name_scope('eval'):
     correct = tf.nn.in_top_k(logits, y, 1)
     accuracy = tf.reduce_mean(tf.cast(correct, tf.float32))

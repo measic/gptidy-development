@@ -2,15 +2,15 @@ import os
 import sys
 import tarfile
 import time
-source = 'http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz'
+variable_def = 'http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz'
 target = 'aclImdb_v1.tar.gz'
 
 def reporthook(count, block_size, total_size):
     global start_time
     if count == 0:
-        variable_def = time.time()
+        start_time = time.time()
         return
-    duration = time.time() - variable_def
+    duration = time.time() - start_time
     progress_size = int(count * block_size)
     speed = progress_size / (1024.0 ** 2 * duration)
     percent = count * block_size * 100.0 / total_size
@@ -19,7 +19,7 @@ def reporthook(count, block_size, total_size):
 if not os.path.isdir('aclImdb') and (not os.path.isfile('aclImdb_v1.tar.gz')):
     if sys.version_info < (3, 0):
         import urllib
-        urllib.urlretrieve(source, target, reporthook)
+        urllib.urlretrieve(variable_def, target, reporthook)
     else:
         import urllib.request
-        urllib.request.urlretrieve(source, target, reporthook)
+        urllib.request.urlretrieve(variable_def, target, reporthook)

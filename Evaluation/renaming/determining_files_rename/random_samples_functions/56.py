@@ -1,7 +1,7 @@
 image_size = 28
 pixel_depth = 255.0
 
-def function_def(folder, min_num_images):
+def load_letter(folder, min_num_images):
     """Load the data for a single letter label."""
     image_files = os.listdir(folder)
     dataset = np.ndarray(shape=(len(image_files), image_size, image_size), dtype=np.float32)
@@ -25,7 +25,7 @@ def function_def(folder, min_num_images):
     print('Standard deviation:', np.std(dataset))
     return dataset
 
-def maybe_pickle(data_folders, min_num_images_per_class, force=False):
+def function_def(data_folders, min_num_images_per_class, force=False):
     dataset_names = []
     for folder in data_folders:
         set_filename = folder + '.pickle'
@@ -34,12 +34,12 @@ def maybe_pickle(data_folders, min_num_images_per_class, force=False):
             print('%s already present - Skipping pickling.' % set_filename)
         else:
             print('Pickling %s.' % set_filename)
-            dataset = function_def(folder, min_num_images_per_class)
+            dataset = load_letter(folder, min_num_images_per_class)
             try:
                 with open(set_filename, 'wb') as f:
                     pickle.dump(dataset, f, pickle.HIGHEST_PROTOCOL)
             except Exception as e:
                 print('Unable to save data to', set_filename, ':', e)
     return dataset_names
-train_datasets = maybe_pickle(train_folders, 45000)
-test_datasets = maybe_pickle(test_folders, 1800)
+train_datasets = function_def(train_folders, 45000)
+test_datasets = function_def(test_folders, 1800)

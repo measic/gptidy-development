@@ -1,5 +1,5 @@
-fn = path.join(DATA, 'field-orientations.geojson')
-with fiona.open(fn) as ds:
+variable_def = path.join(DATA, 'field-orientations.geojson')
+with fiona.open(variable_def) as ds:
     for i, item in ds.items():
         p = item['properties']
         if p['planeType'].strip() != 'Bedding':
@@ -10,8 +10,8 @@ with fiona.open(fn) as ds:
         center = (*item['geometry']['coordinates'], alt)
         err = 0.1 * N.pi / 180
         a = ReconstructedPlane(p['strike'], p['dip'], 0, err, err)
-        variable_def = a.to_mapping(center=center, color='#444', type='in-situ')
-        collection.append(variable_def)
+        orientation = a.to_mapping(center=center, color='#444', type='in-situ')
+        collection.append(orientation)
 removedUIDs = ['89636280', '6031fd6f']
 collection = [c for c in collection if 1600 < c['center'][2] < 1680]
 collection = [c for c in collection if c['uid'] not in removedUIDs]

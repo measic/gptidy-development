@@ -14,11 +14,11 @@ class BatchGenerator(object):
 
     def _next_batch(self):
         """Generate a single batch from the current cursor position in the data."""
-        variable_def = np.zeros(shape=(self._batch_size, vocabulary_size), dtype=np.float)
+        batch = np.zeros(shape=(self._batch_size, vocabulary_size), dtype=np.float)
         for b in range(self._batch_size):
-            variable_def[b, char2id(self._text[self._cursor[b]])] = 1.0
+            batch[b, char2id(self._text[self._cursor[b]])] = 1.0
             self._cursor[b] = (self._cursor[b] + 1) % self._text_size
-        return variable_def
+        return batch
 
     def next(self):
         """Generate the next array of batches from the data. The array consists of
@@ -43,8 +43,8 @@ def batches2string(batches):
         s = [''.join(x) for x in zip(s, characters(b))]
     return s
 train_batches = BatchGenerator(train_text, batch_size, num_unrollings)
-valid_batches = BatchGenerator(valid_text, 1, 1)
+variable_def = BatchGenerator(valid_text, 1, 1)
 print(batches2string(train_batches.next()))
 print(batches2string(train_batches.next()))
-print(batches2string(valid_batches.next()))
-print(batches2string(valid_batches.next()))
+print(batches2string(variable_def.next()))
+print(batches2string(variable_def.next()))

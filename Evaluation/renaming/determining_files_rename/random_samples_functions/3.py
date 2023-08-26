@@ -1,4 +1,4 @@
-def hypothesis_inlinecounter(text):
+def function_def(text):
     hyp = np.concatenate([np.linspace(1, -1, len(x) + 1) for x in text.split('\n')])[:-1]
     return hyp
 
@@ -39,7 +39,7 @@ def hypothesis_comments(text):
             hyp[i:i + 1] = 1
     return hyp
 
-def function_def(text, level):
+def hypothesis_indentation(text, level):
     hyp = np.full(len(text), -1)
     cur_level = 0
     for i, char in enumerate(text):

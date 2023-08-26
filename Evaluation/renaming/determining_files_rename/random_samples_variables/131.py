@@ -28,11 +28,11 @@ def lane_detection_ppline_3_channels(image, k_size=3, vertex_ratio_h=0.45, verte
     if debug:
         plt.subplot(5, 3, 1)
         plt.imshow(image)
-    blur = gaussian_blur(image, k_size)
+    variable_def = gaussian_blur(image, k_size)
     if debug:
         plt.subplot(5, 3, 2)
-        plt.imshow(blur)
-    hls = rbg_to_hls(blur)
+        plt.imshow(variable_def)
+    hls = rbg_to_hls(variable_def)
     if debug:
         plt.subplot(5, 3, 3)
         plt.imshow(hls)
@@ -62,13 +62,13 @@ def lane_detection_ppline_3_channels(image, k_size=3, vertex_ratio_h=0.45, verte
         plt.subplot(5, 3, 13)
         plt.imshow(hls_lines_image)
     try:
-        variable_def = extend_lines(image, lines, angle=angle, angle_thresh=angle_thresh)
+        combined = extend_lines(image, lines, angle=angle, angle_thresh=angle_thresh)
         if debug:
             plt.subplot(5, 3, 14)
-            plt.imshow(variable_def)
+            plt.imshow(combined)
     except IndexError:
         print('Error. Try relaxing your angle parameters a litte.')
-    return variable_def
+    return combined
 
 def process_image_3_channels(image, k_size=3, vertex_ratio_h=0.45, vertex_ratio_v=0.6, low_thresh=50, high_thresh=200, L2gradient=False, rho=2, theta=1 * np.pi / 180.0, min_votes=15, min_line_len=40, max_line_gap=20, angle=3 * np.pi / 16, angle_thresh=np.pi / 16, debug=False):
     result = lane_detection_ppline_3_channels(image, k_size=k_size, low_thresh=low_thresh, high_thresh=high_thresh, L2gradient=L2gradient, rho=rho, theta=theta, min_votes=min_votes, min_line_len=min_line_len, max_line_gap=max_line_gap, angle=angle, angle_thresh=angle_threshold, debug=debug)

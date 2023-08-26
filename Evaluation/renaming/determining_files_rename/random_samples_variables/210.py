@@ -1,11 +1,11 @@
 barwidth = 0.75
 fig, ax = plt.subplots(figsize=(9, 7))
-rects1 = ax.bar(0.5, SkyPresence.mean(), barwidth, color=sns.xkcd_rgb['green'], yerr=SkyPresenceSEM, ecolor='k', error_kw=dict(lw=3))
+variable_def = ax.bar(0.5, SkyPresence.mean(), barwidth, color=sns.xkcd_rgb['green'], yerr=SkyPresenceSEM, ecolor='k', error_kw=dict(lw=3))
 rects2 = ax.bar(1.5, ColorScheme.mean(), barwidth, color=(0.3, 0.9, 0.3), yerr=ColorSchemeSEM, ecolor='k', error_kw=dict(lw=3))
 rects3 = ax.bar(2.5, TreeFreq.mean(), barwidth, color=(0.15, 1, 0.15), yerr=TreeFreqSEM, ecolor='k', error_kw=dict(lw=3))
 rects4 = ax.bar(4, ImageType.mean(), barwidth, yerr=ImageTypeSEM, ecolor='k', edgecolor=sns.xkcd_rgb['green'], linewidth=2, facecolor='none', error_kw=dict(lw=3))
 rects5 = ax.bar(5, FeatureType.mean(), barwidth, yerr=FeatureTypeSEM, ecolor='k', edgecolor=(0.3, 0.9, 0.3), linewidth=2, facecolor='none', error_kw=dict(lw=3))
-variable_def = ax.bar(6, LightType.mean(), barwidth, yerr=LightTypeSEM, ecolor='k', edgecolor=(0.15, 1, 0.15), linewidth=2, facecolor='none', error_kw=dict(lw=3))
+rects6 = ax.bar(6, LightType.mean(), barwidth, yerr=LightTypeSEM, ecolor='k', edgecolor=(0.15, 1, 0.15), linewidth=2, facecolor='none', error_kw=dict(lw=3))
 sns.set(context='notebook', style='white', font='Myriad Pro', font_scale=2, color_codes=False, rc=None)
 ax.set_ylim(0, 100)
 ax.set_xlim(0, 7.5)

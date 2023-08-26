@@ -21,7 +21,7 @@ def draw_person(ax, indv_left, indv_right):
     KNE_r = 10
     HIP_r = 9
 
-    def triangulate(elem):
+    def function_def(elem):
         a = indv_left[1][elem]
         b = indv_right[1][elem]
         a = a[:2]
@@ -31,18 +31,18 @@ def draw_person(ax, indv_left, indv_right):
         result = cv2.triangulatePoints(P1, P2, A, B)
         result /= result[3]
         return result[:3]
-    left_hand = triangulate(HND_l)
-    left_elbow = triangulate(ELB_l)
-    left_shoulder = triangulate(SHO_l)
-    right_hand = triangulate(HND_r)
-    right_elbow = triangulate(ELB_r)
-    right_shoulder = triangulate(SHO_r)
-    right_hip = triangulate(HIP_r)
-    right_knee = triangulate(KNE_r)
-    right_foot = triangulate(FOT_r)
-    left_hip = triangulate(HIP_l)
-    left_knee = triangulate(KNE_l)
-    left_foot = triangulate(FOT_l)
+    left_hand = function_def(HND_l)
+    left_elbow = function_def(ELB_l)
+    left_shoulder = function_def(SHO_l)
+    right_hand = function_def(HND_r)
+    right_elbow = function_def(ELB_r)
+    right_shoulder = function_def(SHO_r)
+    right_hip = function_def(HIP_r)
+    right_knee = function_def(KNE_r)
+    right_foot = function_def(FOT_r)
+    left_hip = function_def(HIP_l)
+    left_knee = function_def(KNE_l)
+    left_foot = function_def(FOT_l)
     ALL = np.squeeze(np.array([left_hand, left_elbow, left_shoulder, right_shoulder, right_elbow, right_hand, right_elbow, right_shoulder, right_hip, right_knee, right_foot, right_knee, right_hip, left_hip, left_knee, left_foot, left_knee, left_hip, left_shoulder]))
     X = ALL[:, 0]
     Y = ALL[:, 1]
@@ -54,9 +54,9 @@ ax.set_xlim([-4000, 4000])
 ax.set_ylim([-4000, 4000])
 ax.set_zlim([0, 4000])
 
-def function_def(ax, R, t):
+def plot_cam(ax, R, t):
     pos = -R.T @ t
     ax.scatter(pos[0], pos[1], pos[2])
     ax.plot([pos[0], pos[0]], [pos[1], pos[1]], [pos[2], 0])
-function_def(ax, R1, t1)
-function_def(ax, R2, t2)
+plot_cam(ax, R1, t1)
+plot_cam(ax, R2, t2)

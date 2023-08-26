@@ -1,6 +1,6 @@
 import math
 
-def function_def(img):
+def grayscale(img):
     """Applies the Grayscale transform
     This will return an image with only one color channel
     but NOTE: to see the returned image as grayscale
@@ -53,7 +53,7 @@ def draw_lines(img, lines, color=[255, 0, 0], thickness=2):
         for x1, y1, x2, y2 in line:
             cv2.line(img, (x1, y1), (x2, y2), color, thickness)
 
-def hough_lines(img, rho, theta, threshold, min_line_len, max_line_gap):
+def function_def(img, rho, theta, threshold, min_line_len, max_line_gap):
     """
     `img` should be the output of a Canny transform.
         

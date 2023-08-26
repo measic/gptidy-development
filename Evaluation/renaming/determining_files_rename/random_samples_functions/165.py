@@ -1,6 +1,6 @@
 from tensorflow.contrib.layers import flatten
 
-def function_def(x):
+def LeNet(x):
     mu = 0
     sigma = 0.1
     conv1_W = tf.Variable(tf.truncated_normal(shape=(5, 5, 3, 6), mean=mu, stddev=sigma))
@@ -27,7 +27,7 @@ def function_def(x):
     logits = tf.matmul(fc2, fc3_W) + fc3_b
     return logits
 
-def model_arc(x):
+def function_def(x):
     mu = 0
     sigma = 0.1
     conv1_W = tf.Variable(tf.truncated_normal(shape=(5, 5, 3, 9), mean=mu, stddev=sigma))

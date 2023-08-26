@@ -1,17 +1,17 @@
-fig, variable_def = plt.subplots()
+fig, ax1 = plt.subplots()
 tick_locations = [value for value in x_axis]
 plt.xticks(tick_locations, county, rotation=90)
-grad_rate = df_county_data['Graduation Rate']
+variable_def = df_county_data['Graduation Rate']
 county = df_county_data['County Name']
 pov_rate = df_county_data['Speak a language other than English']
 t = np.arange(len(county))
-variable_def.plot(t, pov_rate, 'b-')
-variable_def.set_xlabel('county')
-variable_def.set_ylabel('Speak a language other than English', color='b')
-variable_def.tick_params('y', colors='b')
+ax1.plot(t, pov_rate, 'b-')
+ax1.set_xlabel('county')
+ax1.set_ylabel('Speak a language other than English', color='b')
+ax1.tick_params('y', colors='b')
 plt.title('High School Graduation Rates and ESL by County')
-ax2 = variable_def.twinx()
-ax2.plot(t, grad_rate, 'r*')
+ax2 = ax1.twinx()
+ax2.plot(t, variable_def, 'r*')
 ax2.set_ylabel('Graduation Rate', color='r')
 ax2.tick_params('y', colors='r')
 zoom = 5

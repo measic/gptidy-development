@@ -2,11 +2,11 @@ import csv
 import datetime
 import os
 import glob
-IMG_PATH = '/home/ivan/Área de trabalho/2017'
-variable_def = []
-for filename in glob.iglob(IMG_PATH + '**/*/*/*/*stamp.jpg*', recursive=True):
-    variable_def.append(filename)
-print(variable_def[:4])
-print(len(variable_def))
-print(find_conteiner(variable_def[1]))
-print(find_conteiner(variable_def[15]))
+variable_def = '/home/ivan/Área de trabalho/2017'
+lista = []
+for filename in glob.iglob(variable_def + '**/*/*/*/*stamp.jpg*', recursive=True):
+    lista.append(filename)
+print(lista[:4])
+print(len(lista))
+print(find_conteiner(lista[1]))
+print(find_conteiner(lista[15]))

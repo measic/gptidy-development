@@ -16,8 +16,8 @@ with graph.as_default(), tf.device('/cpu:0'):
     softmax_biases = tf.Variable(tf.zeros([vocabulary_size]))
     embed = tf.nn.embedding_lookup(embeddings, train_dataset)
     loss = tf.reduce_mean(tf.nn.sampled_softmax_loss(weights=softmax_weights, biases=softmax_biases, inputs=embed, labels=train_labels, num_sampled=num_sampled, num_classes=vocabulary_size))
-    optimizer = tf.train.AdagradOptimizer(1.0).minimize(loss)
+    variable_def = tf.train.AdagradOptimizer(1.0).minimize(loss)
     norm = tf.sqrt(tf.reduce_sum(tf.square(embeddings), 1, keep_dims=True))
     normalized_embeddings = embeddings / norm
     valid_embeddings = tf.nn.embedding_lookup(normalized_embeddings, valid_dataset)
-    variable_def = tf.matmul(valid_embeddings, tf.transpose(normalized_embeddings))
+    similarity = tf.matmul(valid_embeddings, tf.transpose(normalized_embeddings))

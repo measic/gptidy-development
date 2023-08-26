@@ -7,7 +7,7 @@ for k in range(len(mapIdx)):
     candB = all_peaks[limbSeq[k][1] - 1]
     nA = len(candA)
     nB = len(candB)
-    variable_def, indexB = limbSeq[k]
+    indexA, indexB = limbSeq[k]
     if nA != 0 and nB != 0:
         connection_candidate = []
         for i in range(nA):
@@ -20,9 +20,9 @@ for k in range(len(mapIdx)):
                 vec_y = np.array([score_mid[int(round(startend[I][1])), int(round(startend[I][0])), 1] for I in range(len(startend))])
                 score_midpts = np.multiply(vec_x, vec[0]) + np.multiply(vec_y, vec[1])
                 score_with_dist_prior = sum(score_midpts) / len(score_midpts) + min(0.5 * oriImg.shape[0] / norm - 1, 0)
-                criterion1 = len(np.nonzero(score_midpts > param['thre2'])[0]) > 0.8 * len(score_midpts)
+                variable_def = len(np.nonzero(score_midpts > param['thre2'])[0]) > 0.8 * len(score_midpts)
                 criterion2 = score_with_dist_prior > 0
-                if criterion1 and criterion2:
+                if variable_def and criterion2:
                     connection_candidate.append([i, j, score_with_dist_prior, score_with_dist_prior + candA[i][2] + candB[j][2]])
         connection_candidate = sorted(connection_candidate, key=lambda x: x[2], reverse=True)
         connection = np.zeros((0, 5))

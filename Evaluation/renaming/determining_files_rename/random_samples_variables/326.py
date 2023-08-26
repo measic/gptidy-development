@@ -1,12 +1,12 @@
 X, Annotations = marconi['Soccer2']
 camera = 0
-variable_def = 220
+frame = 220
 fig = plt.figure(figsize=(16, 8))
 ax = fig.add_subplot(111)
-im = X[camera, variable_def]
-ax.imshow(im)
+variable_def = X[camera, frame]
+ax.imshow(variable_def)
 Annotations_for_cam = Annotations[camera]
-Annot_on_frame_cam = Annotations_for_cam[variable_def]
+Annot_on_frame_cam = Annotations_for_cam[frame]
 COLORS = ['red', 'yellow']
 for i, annot in enumerate(Annot_on_frame_cam):
     if annot is not None:

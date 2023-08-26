@@ -16,8 +16,8 @@ def hypothesis_pos(text, pos_tag):
     hyp = [1 if x == '1' else -1 for x in re.sub('[^1]', '0', hyp)]
     return hyp
 
-def hypothesis_verbs(text):
+def function_def(text):
     return hypothesis_pos(text, 'verb')
 
-def function_def(text):
+def hypothesis_nouns(text):
     return hypothesis_pos(text, 'noun')

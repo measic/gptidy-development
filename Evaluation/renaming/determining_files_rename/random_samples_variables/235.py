@@ -83,7 +83,7 @@ def draw_lines_roi(img, lines, vertices, color=[255, 0, 0], thickness=2):
     right_x1 = []
     right_x2 = []
     left_count = 0
-    variable_def = 0
+    right_count = 0
     for line in lines:
         for x1, y1, x2, y2 in line:
             m = (y2 - y1) / (x2 - x1)
@@ -91,21 +91,21 @@ def draw_lines_roi(img, lines, vertices, color=[255, 0, 0], thickness=2):
                 fit = np.polyfit([x1, x2], [y1, y2], 1)
                 right_x1.append(np.int(np.float(y_min - fit[1]) / np.float(fit[0])))
                 right_x2.append(np.int(np.float(y_max - fit[1]) / np.float(fit[0])))
-                variable_def += 1
+                right_count += 1
             if (m < -0.3) & (m > -7):
                 fit = np.polyfit([x1, x2], [y1, y2], 1)
                 left_x1.append(np.int(np.float(y_min - fit[1]) / np.float(fit[0])))
                 left_x2.append(np.int(np.float(y_max - fit[1]) / np.float(fit[0])))
                 left_count += 1
     if left_count > 0:
-        left_line_x1 = np.int(np.nanmedian(left_x1))
+        variable_def = np.int(np.nanmedian(left_x1))
         left_line_x2 = np.int(np.nanmedian(left_x2))
         if leftline[0][2] != 0:
-            if (abs(leftline[0][2] - left_line_x2) < 100) & (abs(leftline[0][0] - left_line_x1) < 50):
-                leftline = [(left_line_x1, y_min, left_line_x2, y_max)]
+            if (abs(leftline[0][2] - left_line_x2) < 100) & (abs(leftline[0][0] - variable_def) < 50):
+                leftline = [(variable_def, y_min, left_line_x2, y_max)]
         else:
-            leftline = [(left_line_x1, y_min, left_line_x2, y_max)]
-    if variable_def > 0:
+            leftline = [(variable_def, y_min, left_line_x2, y_max)]
+    if right_count > 0:
         right_line_x1 = np.int(np.nanmedian(right_x1))
         right_line_x2 = np.int(np.nanmedian(right_x2))
         if rightline[0][2] != 0:

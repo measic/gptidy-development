@@ -1,14 +1,14 @@
 basic_model = HiddenMarkovModel(name='base-hmm-tagger')
-variable_def = (tag for i, (word, tag) in enumerate(data.training_set.stream()))
+tags = (tag for i, (word, tag) in enumerate(data.training_set.stream()))
 words = (word for i, (word, tag) in enumerate(data.training_set.stream()))
-emission_counts = pair_counts(variable_def, words)
+emission_counts = pair_counts(tags, words)
 states = {}
 for tag, word_dict in emission_counts.items():
     emission_dict = defaultdict(float)
     for word in word_dict.keys():
         emission_dict[word] = emission_counts[tag][word] / tag_unigrams[tag]
-    state_emission = DiscreteDistribution(dict(emission_dict))
-    states[tag] = State(state_emission, name=tag)
+    variable_def = DiscreteDistribution(dict(emission_dict))
+    states[tag] = State(variable_def, name=tag)
 basic_model.add_states(list(states.values()))
 for tag in data.training_set.tagset:
     state = states[tag]

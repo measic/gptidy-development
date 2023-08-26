@@ -13,7 +13,7 @@ def random_rotate(img):
     M = cv.getRotationMatrix2D((cols / 2, rows / 2), degree, 1)
     return cv.warpAffine(img, M, (cols, rows))
 
-def random_zoom(img):
+def function_def(img):
     x = random.randint(1, 5)
     y = random.randint(26, 31)
     pts1 = np.float32([[x, x], [y, x], [x, y], [y, y]])
@@ -28,14 +28,14 @@ def random_transform_img(rand_img, transform_type_n=None):
         1: random_rotate
         2: random_zoom
     """
-    transform_funcs = [random_translate, random_rotate, random_zoom]
+    transform_funcs = [random_translate, random_rotate, function_def]
     if transform_type_n:
         transform = transform_funcs[transform_type_n]
         return transform(rand_img)
     transform = random.choice(transform_funcs)
     return transform(rand_img)
 
-def function_def(X_train, y_train):
+def split_by_class(X_train, y_train):
     """
     Return data_by_classes, list of tuples, each tuple: (X_train_class_i, y_train_class_i)
     Note: X_train_class_i is a list, y_train_class_i is a number
@@ -79,7 +79,7 @@ def augment_data(X_train, y_train):
     """
     Main function to augment training data
     """
-    data_by_classes = function_def(X_train, y_train)
+    data_by_classes = split_by_class(X_train, y_train)
     augmented_data_by_classes = []
     for tup in data_by_classes:
         augmented_tup = augment_by_class(tup)
@@ -99,7 +99,7 @@ transformed_img = random_rotate(rand_img)
 plt.suptitle('Rotation')
 plt.show()
 rand_img = random.choice(X_train)
-transformed_img = random_zoom(rand_img)
+transformed_img = function_def(rand_img)
 (plt.subplot(121), plt.imshow(rand_img), plt.title('Input'))
 (plt.subplot(122), plt.imshow(transformed_img), plt.title('Output'))
 plt.suptitle('Zoom')

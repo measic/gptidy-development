@@ -13,7 +13,7 @@ from matplotlib import pyplot
 import numpy
 filename = '/Users/shengyuchen/Dropbox/Engagement - Business/My Hub/AI:ML:DL Playground/Local Python/AI-ML-DL Algorithms/LSTM Neural Networks/shampoo-sales.csv'
 
-def parser(x):
+def function_def(x):
     return datetime.strptime('190' + x, '%Y-%b')
 
 def timeseries_to_supervised(data, lag=1):
@@ -24,7 +24,7 @@ def timeseries_to_supervised(data, lag=1):
     df.fillna(0, inplace=True)
     return df
 
-def function_def(dataset, interval=1):
+def difference(dataset, interval=1):
     diff = list()
     for i in range(interval, len(dataset)):
         value = dataset[i] - dataset[i - interval]

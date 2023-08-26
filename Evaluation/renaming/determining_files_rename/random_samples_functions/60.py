@@ -53,7 +53,7 @@ def draw_lines(img, lines, color=[255, 0, 0], thickness=2):
         for x1, y1, x2, y2 in line:
             cv2.line(img, (x1, y1), (x2, y2), color, thickness)
 
-def function_def(img, rho, theta, threshold, min_line_len, max_line_gap):
+def hough_lines(img, rho, theta, threshold, min_line_len, max_line_gap):
     """
     `img` should be the output of a Canny transform.
         
@@ -64,7 +64,7 @@ def function_def(img, rho, theta, threshold, min_line_len, max_line_gap):
     draw_lines(line_img, lines)
     return line_img
 
-def weighted_img(img, initial_img, α=0.8, β=1.0, λ=0.0):
+def function_def(img, initial_img, α=0.8, β=1.0, λ=0.0):
     """
     `img` is the output of the hough_lines(), An image with lines drawn on it.
     Should be a blank image (all black) with lines drawn on it.

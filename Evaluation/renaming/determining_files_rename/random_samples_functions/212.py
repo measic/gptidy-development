@@ -21,7 +21,7 @@ def random_zoom(img):
     M = cv.getPerspectiveTransform(pts1, pts2)
     return cv.warpPerspective(img, M, (32, 32))
 
-def function_def(rand_img, transform_type_n=None):
+def random_transform_img(rand_img, transform_type_n=None):
     """
     transform_type_n:
         0: random_translate
@@ -61,7 +61,7 @@ def augment_by_class(training_data_tuple):
         return training_data_tuple
     while len(X_train_by_class) < NUM_IN_CLASS:
         rand_img = random.choice(X_train_by_class)
-        new_img = function_def(rand_img)
+        new_img = random_transform_img(rand_img)
         X_train_by_class.append(new_img)
     return (X_train_by_class, y_train_by_class)
 
@@ -75,7 +75,7 @@ def merge_and_shuffle(augmented_data_by_classes):
     X_train, y_train = shuffle(augmented_X_train, augmented_y_train)
     return (X_train, y_train)
 
-def augment_data(X_train, y_train):
+def function_def(X_train, y_train):
     """
     Main function to augment training data
     """
@@ -104,4 +104,4 @@ transformed_img = random_zoom(rand_img)
 (plt.subplot(122), plt.imshow(transformed_img), plt.title('Output'))
 plt.suptitle('Zoom')
 plt.show()
-X_train_augmented, y_train_augmented = augment_data(X_train, y_train)
+X_train_augmented, y_train_augmented = function_def(X_train, y_train)

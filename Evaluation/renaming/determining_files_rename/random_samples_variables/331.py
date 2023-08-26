@@ -2,14 +2,14 @@ X_test_refined = pd.DataFrame([])
 r_precisions = []
 pbar = tqdm(data_test.groupby(['playlist_pid']))
 for pid, df in pbar:
-    labels = y_test.loc[df.index]
+    variable_def = y_test.loc[df.index]
     from IPython.core.debugger import set_trace
     set_trace()
-    targets = dataset.loc[labels.index].track_duration_ms
-    positive_targets = dataset.loc[labels[labels == 1].index].index
-    variable_def = dataset.loc[X_test[X_test.playlist_pid != pid].index].track_duration_ms
+    targets = dataset.loc[variable_def.index].track_duration_ms
+    positive_targets = dataset.loc[variable_def[variable_def == 1].index].index
+    negative_tracks = dataset.loc[X_test[X_test.playlist_pid != pid].index].track_duration_ms
     new_df = df.drop('track_duration_ms', axis=1)
-    new_test = variable_def.append(targets)
+    new_test = negative_tracks.append(targets)
     new_df = pd.concat([new_df.head(1)] * len(new_test))
     test_playlist_tracks = pd.concat([new_df.reset_index(drop=True), new_test.reset_index(drop=True)], axis=1).set_index(new_test.index)
     test_playlist_tracks = (test_playlist_tracks - test_playlist_tracks.mean()) / (test_playlist_tracks.std() + 1e-08)

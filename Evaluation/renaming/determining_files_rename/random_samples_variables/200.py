@@ -11,8 +11,8 @@ def resize_images(src_dir, dest_dir):
         resize_image(image, src_dir, dest_dir)
 
 def resize_image(image_file, src_dir, dest_dir):
-    variable_def = os.path.join(src_dir, image_file)
-    with open(variable_def, 'r+b') as fd_img:
+    in_file = os.path.join(src_dir, image_file)
+    with open(in_file, 'r+b') as fd_img:
         with Image.open(fd_img) as img:
             resized_image = resizeimage.resize_contain(img, [299, 299]).convert('RGB')
             resized_image.save(os.path.join(dest_dir, image_file), img.format)
@@ -25,10 +25,10 @@ for subdir in subdirs:
     if not os.path.isdir(dest_dir):
         os.mkdir(dest_dir)
     if stored_images_resized:
-        source_dir = os.path.join(stored_images_resized, subdir)
-        if os.path.isdir(source_dir):
-            for f in os.listdir(source_dir):
-                path = os.path.join(source_dir, f)
+        variable_def = os.path.join(stored_images_resized, subdir)
+        if os.path.isdir(variable_def):
+            for f in os.listdir(variable_def):
+                path = os.path.join(variable_def, f)
                 if os.path.isfile(path):
                     shutil.copy(path, dest_dir)
     resize_images(os.path.join(image_dir, subdir), dest_dir)

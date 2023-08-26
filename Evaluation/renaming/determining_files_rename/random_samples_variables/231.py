@@ -1,8 +1,8 @@
 fig = plt.figure(figsize=(8, 6))
-variable_def = df_county_data['Speak a language other than English']
+x = df_county_data['Speak a language other than English']
 y = df_county_data['Graduation Rate']
-plt.scatter(variable_def, y, color='g', marker='o', alpha=0.9)
-mask = ~np.isnan(variable_def) & ~np.isnan(y)
+plt.scatter(x, y, color='g', marker='o', alpha=0.9)
+variable_def = ~np.isnan(x) & ~np.isnan(y)
 sns.regplot(df_county_data['Speak a language other than English'], df_county_data['Graduation Rate'], color='r', label='Speak a language other than English')
 plt.title('High School Graduation Rates and ESL by County')
 plt.ylabel('Graduation Rate')

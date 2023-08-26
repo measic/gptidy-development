@@ -1,3 +1,3 @@
-variable_def = 'images'
-test_images = glob(variable_def + '/*')
-test_images
+TEST_IMAGE_DIR = 'images'
+variable_def = glob(TEST_IMAGE_DIR + '/*')
+variable_def

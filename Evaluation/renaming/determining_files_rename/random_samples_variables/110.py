@@ -15,5 +15,5 @@ prob_B = [[[0.9999, 0.3], [0.1, 0.01]], [[0.0001, 0.7], [0.9, 0.99]]]
 f_B = Factor(name='p(B |I, S)', f=np.array(prob_B), neighbours=[B, I, S])
 prob_C = [[0.93, 0.2], [0.07, 0.8]]
 f_C = Factor(name='p(C |B)', f=np.array(prob_C), neighbours=[C, B])
-variable_def = [[0.999, 0.4], [0.001, 0.6]]
-f_W = Factor(name='p(W |B)', f=np.array(variable_def), neighbours=[W, B])
+prob_W = [[0.999, 0.4], [0.001, 0.6]]
+variable_def = Factor(name='p(W |B)', f=np.array(prob_W), neighbours=[W, B])

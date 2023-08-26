@@ -16,11 +16,11 @@ with tf.Session() as sess:
         guess1 = my_top_k[1][i][0]
         index1 = np.argwhere(y_valid == guess1)[0]
         guess2 = my_top_k[1][i][1]
-        variable_def = np.argwhere(y_valid == guess2)[0]
-        guess3 = my_top_k[1][i][2]
-        index3 = np.argwhere(y_valid == guess3)[0]
+        index2 = np.argwhere(y_valid == guess2)[0]
+        variable_def = my_top_k[1][i][2]
+        index3 = np.argwhere(y_valid == variable_def)[0]
         title = ''
         title += 'guess 1: class ' + sign_dict[str(guess1)] + ', probability: ' + str(100 * my_top_k[0][i][0]) + '\n'
         title += 'guess 2: class ' + sign_dict[str(guess2)] + ', probability: ' + str(100 * my_top_k[0][i][1]) + '\n'
-        title += 'guess 3: class ' + sign_dict[str(guess3)] + ', probability: ' + str(100 * my_top_k[0][i][2])
+        title += 'guess 3: class ' + sign_dict[str(variable_def)] + ', probability: ' + str(100 * my_top_k[0][i][2])
         axs[i].set_title(title)

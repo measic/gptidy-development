@@ -1,7 +1,7 @@
-variable_def = df_county_data['County Name']
+county = df_county_data['County Name']
 house_size = df_county_data['Household Size']
 x_axis = np.arange(len(house_size))
-tick_locations = [value for value in x_axis]
+variable_def = [value for value in x_axis]
 plt.bar(x_axis, house_size, color='r', align='center')
 plt.title('County Household Size')
 plt.xlabel('Counties')

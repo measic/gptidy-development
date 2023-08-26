@@ -8,7 +8,7 @@ class two_layer_nn(tf.keras.Model):
         self.dense_out = tf.layers.Dense(output_size, activation=None)
         self.loss_type = loss_type
 
-    def function_def(self, input_data):
+    def predict(self, input_data):
         """ Runs a forward-pass through the network.     
             Args:
                 input_data: 2D tensor of shape (n_samples, n_features).   
@@ -20,7 +20,7 @@ class two_layer_nn(tf.keras.Model):
         logits = self.dense_out(layer_2)
         return logits
 
-    def loss_fn(self, input_data, target):
+    def function_def(self, input_data, target):
         """ Defines the loss function used during 
             training.         
         """

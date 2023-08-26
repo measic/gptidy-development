@@ -47,8 +47,8 @@ def invert_scale(scaler, X, value):
     new_row = [x for x in X] + [value]
     array = numpy.array(new_row)
     array = array.reshape(1, len(array))
-    variable_def = scaler.inverse_transform(array)
-    return variable_def[0, -1]
+    inverted = scaler.inverse_transform(array)
+    return inverted[0, -1]
 
 def fit_lstm(train, batch_size, nb_epoch, neurons):
     X, y = (train[:, 0:-1], train[:, -1])
@@ -76,17 +76,17 @@ scaler, train_scaled, test_scaled = scale(train, test)
 lstm_model = fit_lstm(train_scaled, 1, 3000, 4)
 train_reshaped = train_scaled[:, 0].reshape(len(train_scaled), 1, 1)
 lstm_model.predict(train_reshaped, batch_size=1)
-predictions = list()
+variable_def = list()
 for i in range(len(test_scaled)):
     X, y = (test_scaled[i, 0:-1], test_scaled[i, -1])
     yhat = forecast_lstm(lstm_model, 1, X)
     yhat = invert_scale(scaler, X, yhat)
     yhat = inverse_difference(raw_values, yhat, len(test_scaled) + 1 - i)
-    predictions.append(yhat)
+    variable_def.append(yhat)
     expected = raw_values[len(train) + i + 1]
     print('Month=%d, Predicted=%f, Expected=%f' % (i + 1, yhat, expected))
-rmse = sqrt(mean_squared_error(raw_values[-12:], predictions))
+rmse = sqrt(mean_squared_error(raw_values[-12:], variable_def))
 print('Test RMSE: %.3f' % rmse)
 pyplot.plot(raw_values[-12:])
-pyplot.plot(predictions)
+pyplot.plot(variable_def)
 pyplot.show()

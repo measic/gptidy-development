@@ -1,5 +1,5 @@
-a = 840
-b = 2 * a
+variable_def = 840
+b = 2 * variable_def
 c = 12
-variable_def = c * b
-variable_def
+d = c * b
+d

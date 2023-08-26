@@ -6,9 +6,9 @@ from pybbn.generator.bbngenerator import generate_singly_bbn, generate_multi_bbn
 from pybbn.generator.bbngenerator import convert_for_drawing
 from pybbn.pptc.inferencecontroller import InferenceController
 np.random.seed(37)
-g, p = generate_multi_bbn(5, max_iter=5)
-variable_def = convert_for_exact_inference(g, p)
-nx_multi_bbn = convert_for_drawing(variable_def)
-g, p = generate_singly_bbn(5, max_iter=10)
-s_bbn = convert_for_exact_inference(g, p)
+g, variable_def = generate_multi_bbn(5, max_iter=5)
+m_bbn = convert_for_exact_inference(g, variable_def)
+nx_multi_bbn = convert_for_drawing(m_bbn)
+g, variable_def = generate_singly_bbn(5, max_iter=10)
+s_bbn = convert_for_exact_inference(g, variable_def)
 nx_singly_bbn = convert_for_drawing(s_bbn)

@@ -7,15 +7,15 @@ def lane_detection_ppline(image, k_size=3, vertex_ratio_h=0.45, vertex_ratio_v=0
      debugging or tuning purposes.
     """
     max_y, max_x = image.shape[:2]
-    variable_def = np.array([[(0, max_y), (round(max_x * vertex_ratio_h), round(max_y * vertex_ratio_v)), (round(max_x * (1 - vertex_ratio_h)), round(max_y * vertex_ratio_v)), (max_x, max_y)]])
+    roi = np.array([[(0, max_y), (round(max_x * vertex_ratio_h), round(max_y * vertex_ratio_v)), (round(max_x * (1 - vertex_ratio_h)), round(max_y * vertex_ratio_v)), (max_x, max_y)]])
     if debug:
         plt.subplot(4, 2, 1)
         plt.imshow(image)
-    gray = grayscale(image)
+    variable_def = grayscale(image)
     if debug:
         plt.subplot(4, 2, 2)
-        plt.imshow(gray, cmap='gray')
-    blur_gray = gaussian_blur(gray, k_size)
+        plt.imshow(variable_def, cmap='gray')
+    blur_gray = gaussian_blur(variable_def, k_size)
     if debug:
         plt.subplot(4, 2, 3)
         plt.imshow(blur_gray, cmap='gray')
@@ -23,7 +23,7 @@ def lane_detection_ppline(image, k_size=3, vertex_ratio_h=0.45, vertex_ratio_v=0
     if debug:
         plt.subplot(4, 2, 4)
         plt.imshow(edges)
-    masked_edges = region_of_interest(edges, variable_def)
+    masked_edges = region_of_interest(edges, roi)
     if debug:
         plt.subplot(4, 2, 5)
         plt.imshow(masked_edges)

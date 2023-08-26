@@ -1,4 +1,4 @@
-def rbg_to_hls(img):
+def function_def(img):
     """ 
     Takes an RGB image and converts it to HLS.
     Returns the converted image (3 channels)
@@ -6,7 +6,7 @@ def rbg_to_hls(img):
     hls_image = cv2.cvtColor(img, cv2.COLOR_RGB2HLS)
     return hls_image
 
-def function_def(images):
+def merge_channels(images):
     """
     Merge images from three different channels
      - images: a list of 3 images, each in a channel
@@ -32,7 +32,7 @@ def lane_detection_ppline_3_channels(image, k_size=3, vertex_ratio_h=0.45, verte
     if debug:
         plt.subplot(5, 3, 2)
         plt.imshow(blur)
-    hls = rbg_to_hls(blur)
+    hls = function_def(blur)
     if debug:
         plt.subplot(5, 3, 3)
         plt.imshow(hls)
@@ -58,7 +58,7 @@ def lane_detection_ppline_3_channels(image, k_size=3, vertex_ratio_h=0.45, verte
     for chan in range(0, 3):
         lines = np.concatenate((lines, lines_list[chan][1]), axis=0)
     if debug:
-        hls_lines_image = function_def([lines_list[0][0], lines_list[1][0], lines_list[2][0]])
+        hls_lines_image = merge_channels([lines_list[0][0], lines_list[1][0], lines_list[2][0]])
         plt.subplot(5, 3, 13)
         plt.imshow(hls_lines_image)
     try:

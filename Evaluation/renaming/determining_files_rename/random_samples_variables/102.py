@@ -18,11 +18,11 @@ def init_weights(shape, method='xavier'):
         high = 4 * np.sqrt(6.0 / (shape[0] + shape[1]))
         return tf.Variable(tf.random_uniform(shape, minval=low, maxval=high, dtype=tf.float32))
     elif method == 'xavier':
-        sd = np.sqrt(3.0 / (shape[0] + shape[1]))
-        return tf.Variable(tf.truncated_normal(shape, stddev=sd))
+        variable_def = np.sqrt(3.0 / (shape[0] + shape[1]))
+        return tf.Variable(tf.truncated_normal(shape, stddev=variable_def))
     else:
-        sd = np.sqrt(2.0 / shape[0])
-        return tf.Variable(tf.truncated_normal(shape, stddev=sd))
+        variable_def = np.sqrt(2.0 / shape[0])
+        return tf.Variable(tf.truncated_normal(shape, stddev=variable_def))
 graph = tf.Graph()
 with graph.as_default():
     tf_train_dataset = tf.placeholder(tf.float32, shape=(batch_size, image_size, image_size, num_channels))
@@ -35,7 +35,7 @@ with graph.as_default():
     layer2_biases = tf.Variable(tf.constant(1.0, shape=[depth * 2]))
     layer3_weights = init_weights([image_size // 4 * image_size // 4 * depth * 2, num_hidden_full_1])
     layer3_biases = init_weights([num_hidden_full_1], method='ones')
-    variable_def = tf.placeholder('float')
+    keep3 = tf.placeholder('float')
     layer4_weights = init_weights([num_hidden_full_1, num_hidden_full_2])
     layer4_biases = init_weights([num_hidden_full_2], method='ones')
     keep4 = tf.placeholder('float')
@@ -52,7 +52,7 @@ with graph.as_default():
         shape = hidden.get_shape().as_list()
         reshape = tf.reshape(hidden, [shape[0], shape[1] * shape[2] * shape[3]])
         hidden = tf.nn.elu(tf.matmul(reshape, layer3_weights) + layer3_biases)
-        hidden = tf.nn.dropout(hidden, variable_def)
+        hidden = tf.nn.dropout(hidden, keep3)
         hidden = tf.nn.elu(tf.matmul(hidden, layer4_weights) + layer4_biases)
         hidden = tf.nn.dropout(hidden, keep4)
         output = tf.matmul(hidden, layer5_weights) + layer5_biases

@@ -2,8 +2,8 @@ softmax_logits = tf.nn.softmax(logits)
 top_k = tf.nn.top_k(softmax_logits, k=3)
 with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
-    saver = tf.train.import_meta_graph('./lenet.meta')
-    saver.restore(sess, './lenet')
+    variable_def = tf.train.import_meta_graph('./lenet.meta')
+    variable_def.restore(sess, './lenet')
     batch_x = np.expand_dims(my_images_normalized, axis=3)
     sample_softmax_logits = sess.run(softmax_logits, feed_dict={x: batch_x, keep_prob: 1.0})
     my_top_k = sess.run(top_k, feed_dict={x: batch_x, keep_prob: 1.0})
@@ -18,7 +18,7 @@ with tf.Session() as sess:
         guess2 = my_top_k[1][i][1]
         index2 = np.argwhere(y_valid == guess2)[0]
         guess3 = my_top_k[1][i][2]
-        variable_def = np.argwhere(y_valid == guess3)[0]
+        index3 = np.argwhere(y_valid == guess3)[0]
         title = ''
         title += 'guess 1: class ' + sign_dict[str(guess1)] + ', probability: ' + str(100 * my_top_k[0][i][0]) + '\n'
         title += 'guess 2: class ' + sign_dict[str(guess2)] + ', probability: ' + str(100 * my_top_k[0][i][1]) + '\n'

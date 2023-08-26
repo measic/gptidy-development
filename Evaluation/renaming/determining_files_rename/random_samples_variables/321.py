@@ -12,7 +12,7 @@ conv2_stride = 2
 conv2_pad = 'SAME'
 pool3_fmaps = conv2_fmaps
 n_fc1 = 64
-n_outputs = 10
+variable_def = 10
 reset_graph()
 with tf.name_scope('inputs'):
     X = tf.placeholder(tf.float32, shape=[None, n_inputs], name='X')
@@ -26,13 +26,13 @@ with tf.name_scope('pool3'):
 with tf.name_scope('fc1'):
     fc1 = tf.layers.dense(pool3_flat, n_fc1, activation=tf.nn.relu, name='fc1')
 with tf.name_scope('output'):
-    logits = tf.layers.dense(fc1, n_outputs, name='output')
+    logits = tf.layers.dense(fc1, variable_def, name='output')
     Y_proba = tf.nn.softmax(logits, name='Y_proba')
 with tf.name_scope('train'):
     xentropy = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=y)
-    variable_def = tf.reduce_mean(xentropy)
+    loss = tf.reduce_mean(xentropy)
     optimizer = tf.train.AdamOptimizer()
-    training_op = optimizer.minimize(variable_def)
+    training_op = optimizer.minimize(loss)
 with tf.name_scope('eval'):
     correct = tf.nn.in_top_k(logits, y, 1)
     accuracy = tf.reduce_mean(tf.cast(correct, tf.float32))

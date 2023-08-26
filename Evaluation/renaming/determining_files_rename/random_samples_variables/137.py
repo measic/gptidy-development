@@ -1,7 +1,7 @@
 barwidth = 0.75
 fig, ax = plt.subplots(figsize=(9, 7))
-variable_def = ax.bar(0.5, RTanalysis.Valid.mean(), barwidth, yerr=RTstderror.Valid, ecolor='k', edgecolor=sns.xkcd_rgb['green'], linewidth=2, facecolor='none', error_kw=dict(lw=3))
-rects2 = ax.bar(1.5, RTanalysis.Invalid.mean(), barwidth, color=sns.xkcd_rgb['green'], yerr=RTstderror.Invalid, ecolor='k', error_kw=dict(lw=3))
+rects1 = ax.bar(0.5, RTanalysis.Valid.mean(), barwidth, yerr=RTstderror.Valid, ecolor='k', edgecolor=sns.xkcd_rgb['green'], linewidth=2, facecolor='none', error_kw=dict(lw=3))
+variable_def = ax.bar(1.5, RTanalysis.Invalid.mean(), barwidth, color=sns.xkcd_rgb['green'], yerr=RTstderror.Invalid, ecolor='k', error_kw=dict(lw=3))
 sns.set(context='notebook', style='white', font='Myriad Pro', font_scale=2, color_codes=False, rc=None)
 ax.set_ylim(550, 610)
 ax.set_xlim(0, 2.5)

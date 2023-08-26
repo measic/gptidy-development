@@ -11,11 +11,11 @@ def canny(img, low_threshold, high_threshold):
     """Applies the Canny transform"""
     return cv2.Canny(img, low_threshold, high_threshold)
 
-def function_def(img, kernel_size):
+def gaussian_blur(img, kernel_size):
     """Applies a Gaussian Noise kernel"""
     return cv2.GaussianBlur(img, (kernel_size, kernel_size), 0)
 
-def region_of_interest(img, vertices):
+def function_def(img, vertices):
     """
     Applies an image mask.
     

@@ -60,13 +60,13 @@ class R_pca:
         return (Lk, Sk)
 
     def plot_fit(self, size=None, tol=0.1, axis_on=True):
-        n, d = self.D.shape
+        n, variable_def = self.D.shape
         if size:
             nrows, ncols = size
         else:
-            variable_def = np.ceil(np.sqrt(n))
-            nrows = int(variable_def)
-            ncols = int(variable_def)
+            sq = np.ceil(np.sqrt(n))
+            nrows = int(sq)
+            ncols = int(sq)
         ymin = np.nanmin(self.D)
         ymax = np.nanmax(self.D)
         print('ymin: {0}, ymax: {1}'.format(ymin, ymax))

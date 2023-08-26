@@ -12,7 +12,7 @@ def canny(img, low_threshold, high_threshold):
     """Applies the Canny transform"""
     return cv2.Canny(img, low_threshold, high_threshold)
 
-def gaussian_blur(img, kernel_size):
+def function_def(img, kernel_size):
     """Applies a Gaussian Noise kernel"""
     return cv2.GaussianBlur(img, (kernel_size, kernel_size), 0)
 
@@ -112,7 +112,7 @@ def hough_lines(img, rho, theta, threshold, min_line_len, max_line_gap):
     draw_lines(line_img, lines)
     return line_img
 
-def function_def(img, initial_img, α=0.8, β=1.0, λ=0.0):
+def weighted_img(img, initial_img, α=0.8, β=1.0, λ=0.0):
     """
     `img` is the output of the hough_lines(), An image with lines drawn on it.
     Should be a blank image (all black) with lines drawn on it.

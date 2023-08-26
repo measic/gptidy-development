@@ -25,7 +25,7 @@ def get_name(IATA_code):
         result = 'NOT FOUND IATA CODE'
     return result
 
-def get_airports_arrival_sorted(dataframe):
+def function_def(dataframe):
     """
   Method to print the get arrivals airports in 2013 from searches file
   
@@ -50,13 +50,13 @@ def add_airports_name(dataframe):
     dataframe['airport_name'] = dataframe['arr_port'].apply(lambda x: get_name(x))
     return dataframe
 
-def function_def(dataframe, n):
+def print_top_n_arrival_airport(dataframe, n):
     """
   Method to print the top n of arrival airports in 2013
   
   @dataframe : the preformatted dataframe by columns containing the data
   @n         : the number of airports to show
   """
-    df = get_airports_arrival_sorted(dataframe)
+    df = function_def(dataframe)
     df = add_airports_name(df)
     print(df.head(n))

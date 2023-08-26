@@ -5,16 +5,16 @@ def scale(train, test):
     scaler = MinMaxScaler(feature_range=(-1, 1))
     scaler = scaler.fit(train)
     train = train.reshape(train.shape[0], train.shape[1])
-    variable_def = scaler.transform(train)
+    train_scaled = scaler.transform(train)
     test = test.reshape(test.shape[0], test.shape[1])
     test_scaled = scaler.transform(test)
-    return (scaler, variable_def, test_scaled)
+    return (scaler, train_scaled, test_scaled)
 
 def invert_scale(scaler, X, value):
     new_row = [x for x in X] + [value]
-    array = numpy.array(new_row)
-    array = array.reshape(1, len(array))
-    inverted = scaler.inverse_transform(array)
+    variable_def = numpy.array(new_row)
+    variable_def = variable_def.reshape(1, len(variable_def))
+    inverted = scaler.inverse_transform(variable_def)
     return inverted[0, -1]
 
 def fit_lstm(train, batch_size, nb_epoch, neurons):

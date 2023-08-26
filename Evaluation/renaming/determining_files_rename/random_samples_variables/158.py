@@ -20,11 +20,11 @@ with graph.as_default():
     layer4_biases = tf.Variable(tf.constant(1.0, shape=[num_labels]))
 
     def model(data):
-        variable_def = tf.nn.conv2d(data, layer1_weights, [1, 1, 1, 1], padding='SAME')
-        pool = tf.nn.max_pool(variable_def, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
+        conv = tf.nn.conv2d(data, layer1_weights, [1, 1, 1, 1], padding='SAME')
+        pool = tf.nn.max_pool(conv, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
         hidden = tf.nn.relu(pool + layer1_biases)
-        variable_def = tf.nn.conv2d(hidden, layer2_weights, [1, 1, 1, 1], padding='SAME')
-        pool = tf.nn.max_pool(variable_def, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
+        conv = tf.nn.conv2d(hidden, layer2_weights, [1, 1, 1, 1], padding='SAME')
+        pool = tf.nn.max_pool(conv, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
         hidden = tf.nn.relu(pool + layer2_biases)
         shape = hidden.get_shape().as_list()
         reshape = tf.reshape(hidden, [shape[0], shape[1] * shape[2] * shape[3]])
@@ -34,5 +34,5 @@ with graph.as_default():
     loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits, tf_train_labels))
     optimizer = tf.train.GradientDescentOptimizer(0.05).minimize(loss)
     train_prediction = tf.nn.softmax(logits)
-    valid_prediction = tf.nn.softmax(model(tf_valid_dataset))
+    variable_def = tf.nn.softmax(model(tf_valid_dataset))
     test_prediction = tf.nn.softmax(model(tf_test_dataset))

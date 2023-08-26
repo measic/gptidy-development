@@ -34,7 +34,7 @@ class SPC(object):
         self.U = U
         self.W = V.T
 
-        def normalize(vector):
+        def function_def(vector):
             norm = np.linalg.norm(vector)
             if norm > 0:
                 return vector / norm
@@ -44,17 +44,17 @@ class SPC(object):
         while True:
             self.V = pywt.threshold(np.dot(U[:self.number_of_components], X_), self.threshold_val)
             self.U = np.dot(self.V, X_.T)
-            self.U = np.array([normalize(u_i) for u_i in self.U])
+            self.U = np.array([function_def(u_i) for u_i in self.U])
             if cnt % 2 == 0:
                 print('{} out of {} iterations'.format(cnt, self.max_iter))
             cnt += 1
             if cnt == self.max_iter:
-                self.V = np.array([normalize(v_i) for v_i in self.V])
+                self.V = np.array([function_def(v_i) for v_i in self.V])
                 break
         print('...finish')
         return (self.U, self.V, self.W)
 
-    def function_def(self, X_, k=2):
+    def transform(self, X_, k=2):
         X_reduced_spca = np.dot(X_, np.dot(self.V[:k].T, self.V[:k]))
         return X_reduced_spca
 my_spca = SPC(2, 3000, 0.1)

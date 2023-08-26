@@ -8,7 +8,7 @@ def calc_spectrum_filter_flux(filter_name, SpecClass):
     integrated_flux = simps(transmitted_spec, SpecClass.wavelength)
     return integrated_flux / filter_area
 
-def function_def(sn, filtername):
+def calc_specphot(sn, filtername):
     specphot = np.array([])
     specepoch = np.array([])
     for spec in sn.mangledspec:
@@ -16,9 +16,9 @@ def function_def(sn, filtername):
         specepoch = np.append(specepoch, sn.mangledspec[spec].mjd_obs)
     return (specepoch, specphot)
 
-def compare_phot_specphot(sn, filtername):
+def function_def(sn, filtername):
     """"""
-    specepoch, specphot = function_def(sn, filtername)
+    specepoch, specphot = calc_specphot(sn, filtername)
     fig = plt.figure()
     ax = fig.add_subplot(111)
     ax.scatter(specepoch, specphot, label='specphot')

@@ -1,6 +1,6 @@
 from IPython.display import clear_output
 
-def function_def(adict):
+def save_annotations(adict):
     timestamp = datetime.datetime.today().strftime('%Y%m%d%H%M')
     filename = 'annotations_' + timestamp + '.csv'
     print(filename)
@@ -10,7 +10,7 @@ def function_def(adict):
             line = [key, *value]
             writer.writerow(line)
 
-def create_anottations(lista, save=True):
+def function_def(lista, save=True):
     """Use dumb walk heuristic to create anottations
     Args: 
     
@@ -33,7 +33,7 @@ def create_anottations(lista, save=True):
             clear_output()
             print('...', cont, '...')
     if save:
-        function_def(result)
+        save_annotations(result)
     return result
 
 def draw_anottation():

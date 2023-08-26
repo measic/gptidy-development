@@ -6,16 +6,16 @@ with tf.variable_scope('train'):
     else:
         crossent = tf.nn.sparse_softmax_cross_entropy_with_logits(labels=dataset.tgt_out_ids, logits=logits)
         target_weights = tf.sequence_mask(dataset.tgt_size, tf.shape(logits)[1], tf.float32)
-    loss = tf.reduce_sum(crossent * target_weights) / tf.to_float(batch_size)
-    tf.summary.scalar('loss', loss)
+    variable_def = tf.reduce_sum(crossent * target_weights) / tf.to_float(batch_size)
+    tf.summary.scalar('loss', variable_def)
     learning_rate = tf.placeholder(dtype=tf.float32, name='learning_rate')
     max_global_norm = tf.placeholder(dtype=tf.float32, name='max_global_norm')
     optimizer = tf.train.MomentumOptimizer(learning_rate, momentum=0.5)
     params = tf.trainable_variables()
-    gradients = tf.gradients(loss, params)
+    gradients = tf.gradients(variable_def, params)
     for grad, var in zip(gradients, params):
         tf.summary.histogram(var.op.name + '/gradient', grad)
     gradients, _ = tf.clip_by_global_norm(gradients, max_global_norm)
     for grad, var in zip(gradients, params):
         tf.summary.histogram(var.op.name + '/clipped_gradient', grad)
-    variable_def = optimizer.apply_gradients(zip(gradients, params))
+    update = optimizer.apply_gradients(zip(gradients, params))

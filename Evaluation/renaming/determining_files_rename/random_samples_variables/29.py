@@ -17,8 +17,8 @@ def friction(vi, vf, F0):
     -10.0
     """
     if vi == 0:
-        sign = 1
+        variable_def = 1
     else:
-        sign = vi / abs(vi)
-    variable_def = -(F0 * sign / (1 + abs(vi / vf)))
-    return variable_def
+        variable_def = vi / abs(vi)
+    force = -(F0 * variable_def / (1 + abs(vi / vf)))
+    return force

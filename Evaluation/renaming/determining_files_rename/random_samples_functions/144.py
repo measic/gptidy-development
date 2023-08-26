@@ -30,21 +30,21 @@ class BatchGenerator(object):
         self._last_batch = batches[-1]
         return batches
 
-def characters(probabilities):
+def function_def(probabilities):
     """Turn a 1-hot encoding or a probability distribution over the possible
   characters back into its (most likely) character representation."""
     return [id2char(c) for c in np.argmax(probabilities, 1)]
 
-def function_def(batches):
+def batches2string(batches):
     """Convert a sequence of batches back into their (most likely) string
   representation."""
     s = [''] * batches[0].shape[0]
     for b in batches:
-        s = [''.join(x) for x in zip(s, characters(b))]
+        s = [''.join(x) for x in zip(s, function_def(b))]
     return s
 train_batches = BatchGenerator(train_text, batch_size, num_unrollings)
 valid_batches = BatchGenerator(valid_text, 1, 1)
-print(function_def(train_batches.next()))
-print(function_def(train_batches.next()))
-print(function_def(valid_batches.next()))
-print(function_def(valid_batches.next()))
+print(batches2string(train_batches.next()))
+print(batches2string(train_batches.next()))
+print(batches2string(valid_batches.next()))
+print(batches2string(valid_batches.next()))

@@ -1,4 +1,4 @@
-def function_def(text):
+def hypothesis_inlinecounter(text):
     hyp = np.concatenate([np.linspace(1, -1, len(x) + 1) for x in text.split('\n')])[:-1]
     return hyp
 
@@ -20,7 +20,7 @@ def hypothesis_inside_two(text, left, right):
 hypothesis_inside_quotation = lambda x: hypothesis_inside_one(x, '"')
 hypothesis_inside_parantheses = lambda x: hypothesis_inside_two(x, '(', ')')
 
-def hypothesis_comments(text):
+def function_def(text):
     hyp = np.full(len(text), -1)
     in_brac_comment = False
     in_line_comment = False
