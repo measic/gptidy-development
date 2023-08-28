@@ -5,6 +5,7 @@ class Notebook:
     def __init__(self, notebook):
         self.notebook = notebook
         self.num_cells = len(notebook['cells'])
+        self.purpose = None
 
     def _get_single_cell_text_outputs(self, cell):
         # if the cell has outputs

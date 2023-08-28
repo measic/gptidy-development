@@ -1,11 +1,18 @@
 from notebook_processing import *
 
-def introduction_prompt(notebook, context):
+introduction_main = """"Write an introductory cell in markdown for this Jupyter Notebook under the following headings:
+- Title
+- Background (2-3 sentences briefly introducing the wider topic)
+- Goals (2-3 sentences specifically relating the wider topic to the purpose of the project)
+- Structure (concise bulleted list of the organization of the notebook's cells)
+
+You are given a short description of the project's purpose which provides background information to the project. You are also given all of the notebook's cells."""
+
+def introduction_prompt(notebook: Notebook):
     cell_contents = notebook.get_all_cells(include_outputs=False)
     messages = [
-        {"role": "system", "content": "You are an expert at writing introductions for Jupyter Notebooks."},
-        {"role": "user", "content": "Write an introductory cell in markdown for this Jupyter Notebook under the following headings:\n- Title\n- Background (2-3 sentences briefly introducing the wider topic)\n- Goals (2-3 sentences specifically relating the wider topic to the purpose of the project)\n- Structure (concise bulleted list of the organization of the notebook's cells)\n`Context` provides background information to the project and `Notebook` contains all cells."},
-        {"role": "user", "content": f"Context:\n```{context}```"},
+        {"role": "user", "content": introduction_main},
+        {"role": "user", "content": f"Context:\n{notebook.purpose}"},
         {"role": "user", "content": f"Notebook:\n```{cell_contents}```"},
         {"role": "assistant", "content": "# Title"},
     ]
@@ -19,7 +26,6 @@ def summarize_cell_prompt(notebook: Notebook, introduction: str, cell_id: int):
 
     output_msg = '- Output (2-3 sentences interpreting the meaning of the output and linking this to the project)\n' if includes_output else ''
     messages = [
-        {"role": "system", "content": "You are an expert at summarizing code cells in Jupyter Notebooks."},
         {"role": "user", "content": f"Summarize this code cell under the following headings in markdown:\n- Explanation (2-3 sentences summarizing what the code is doing)\n- Reasoning (2-3 sentences linking the code to the project's purpose under a specific section)\n{output_msg}Provided below is the code cell itself{', its output,' if includes_output else ''} as well as the introduction to the Jupyter Notebook"},
         {"role": "user", "content": f"Introduction:\n```{introduction}```"},
         {"role": "user", "content": f"Code cell:\n```{cell_src}```"}
@@ -29,14 +35,19 @@ def summarize_cell_prompt(notebook: Notebook, introduction: str, cell_id: int):
     messages.append({"role": "assistant", "content": "## Explanation"})
     return messages
 
+conclusion_main = """Write a conclusion in markdown for this Jupyter Notebook in past tense under the following headings:
+- Summary (2-3 sentences very briefly reiterating the purpose and goals of the notebook and explaining what was done in the notebook)
+- Interpretation (2-3 sentences interpreting key results, findings, or outputs and linking these to the project)
+
+Provided is 'Introduction' which contains the introduction of the notebook and 'Notebook' which contains all cells and any associated outputs."""
+
 def conclusion_prompt(notebook: Notebook, introduction: str):
     cells = notebook.get_all_cells(include_outputs=True)
 
     messages = [
-        {"role": "system", "content": "You are an expert at writing conclusions for Jupyter Notebooks."},
-        {"role": "user", "content": "Write a conclusion in markdown for this Jupyter Notebook in past tense under the following headings:\n- Summary (2-3 sentences very briefly reiterating the purpose and goals of the notebook and explaining what was done in the notebook)\n- Interpretation (2-3 sentences interpreting key results, findings, or outputs and linking these to the project)\nProvided below is `Introduction` which contains the introduction of the notebook and `Notebook` which contains all cells and any associated outputs."},
-        {"role": "user", "content": f"Introduction:\n```{introduction}```"},
-        {"role": "user", "content": f"Notebook:\n```{cells}```"},
+        {"role": "user", "content": conclusion_main},
+        {"role": "user", "content": f"Introduction:\n{introduction}"},
+        {"role": "user", "content": f"Notebook:\n{cells}"},
         {"role": "assistant", "content": "## Summary"}
     ]
     return messages
