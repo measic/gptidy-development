@@ -2,10 +2,24 @@ import json
 
 
 class Notebook:
-    def __init__(self, notebook):
-        self.notebook = notebook
-        self.num_cells = len(notebook['cells'])
+    def __init__(self, notebook=None, file_path=None):
+        if notebook is None and file_path is not None:
+            self._read_notebook_file(file_path)
+        elif notebook is not None and file_path is None:
+            self.notebook = notebook
+        else:
+            raise Exception("Must provide either notebook or file_path, not both or none")
+        self.num_cells = len(self.notebook['cells'])
+        self._join_each_cell()
         self.purpose = None
+
+    def _read_notebook_file(self, file_path):
+        with open(file_path) as f:
+            self.notebook = json.load(f)
+
+    def _join_each_cell(self):
+        for cell in self.notebook['cells']:
+            cell['source'] = ''.join(cell['source'])
 
     def _get_single_cell_text_outputs(self, cell):
         # if the cell has outputs
@@ -75,3 +89,33 @@ class Notebook:
     def export_notebook_file(self):
         with open("file.ipynb", 'w') as f:
             json.dump(self.notebook, f)
+    
+    def get_average_cell_length(self):
+        total_length = 0
+        for cell in self.notebook['cells']:
+            total_length += len(cell['source'])
+        return total_length / self.num_cells
+    
+    def get_average_md_cell_length(self):
+        total_length = 0
+        num_md_cells = 0
+        for cell in self.notebook['cells']:
+            if cell['cell_type'] == 'markdown':
+                num_md_cells += 1
+                total_length += len(cell['source'])
+        return total_length / num_md_cells
+
+    def get_average_code_cell_length(self):
+        total_length = 0
+        num_code_cells = 0
+        for cell in self.notebook['cells']:
+            if cell['cell_type'] == 'code':
+                num_code_cells += 1
+                total_length += len(cell['source'])
+        return total_length / num_code_cells
+
+    def get_number_of_code_cells(self):
+        return len([cell for cell in self.notebook['cells'] if cell['cell_type'] == 'code'])
+
+    def get_number_of_md_cells(self):
+        return len([cell for cell in self.notebook['cells'] if cell['cell_type'] == 'markdown'])
