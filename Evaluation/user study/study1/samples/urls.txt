@@ -1,0 +1,10 @@
+https://raw.githubusercontent.com/schen57/AI-ML-DL-Playground/a9c9c24b0a659c3b669b05908330903322fd0705/Local%20Python/AI-ML-DL%20Algorithms/LSTM%20Neural%20Networks/Time%20Series%20Forecasting%20with%20the%20Long%20Short-Term%20Memory%20Network%20in%20Python.ipynb
+https://raw.githubusercontent.com/ZaraYar/Analyzing-NYC-High-School-Data/88d2fa7974800142157e068fe7a97b7f345bcfeb/Basics.ipynb
+https://raw.githubusercontent.com/IvanBrasilico/ajna_docs/5a7255e8d063505240132ac362a456caf85b3247/notebooks/ContainerDetectionTraining1.ipynb
+https://raw.githubusercontent.com/sakshi30/tensorflow/bbe056e5a0ab81b67fcb6053400812b3d5805fc7/tensorflow/examples/udacity/5_word2vec.ipynb
+https://raw.githubusercontent.com/jangeloni/challenge_amadeus/304529ed07b06c0aca900f5bbe4938aa7a087514/second_exercise.ipynb
+https://raw.githubusercontent.com/lealldiogo/CarND-Traffic-Sign-Classifier-Project/e629044c0b68fd6992a0ff3e582bb2cd63a0acc3/Traffic_Sign_Classifier.ipynb
+https://raw.githubusercontent.com/mgribov/coursera-uw-ml/a98a5034fbb5426bf8ff1cec7955b2e9ec26e1fb/course-4/2_kmeans-with-text-data_blank.ipynb
+https://raw.githubusercontent.com/jpbarto/ml_lifecycle_lab/cc2c1a47f290cd415de6e5c8d930dee99ea18e57/03%20Hyperparameter%20tuning.ipynb
+https://raw.githubusercontent.com/mdeff/dlaudio/0b214ac787ba8763cc660ae0c1bac9079e0e1e58/audio_features.ipynb
+https://raw.githubusercontent.com/zzjf/tensorflow-ios-simple-project/f143790323781e87b45abb96e641de3c9531e617/tensorflow/examples/udacity/6_lstm.ipynb

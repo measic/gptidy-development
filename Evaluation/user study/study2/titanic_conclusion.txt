@@ -1,0 +1,5 @@
+## Summary
+The purpose of this notebook was to clean the Titanic survival prediction dataset, train a Logistic Regression model, and predict the survival of passengers based on their characteristics. The notebook is structured into different sections, including data cleaning, model training, evaluation, and submission.
+
+## Interpretation
+The Logistic Regression model was trained using the cleaned dataset, and the predictions were made on the same dataset. The Jaccard index was used for accuracy evaluation, and the confusion matrix was plotted to visualize the performance of the model. Precision, recall, F1 score, and log loss were also calculated to assess the model's performance. Finally, the model was used to predict survival on a test dataset, and the results were prepared for submission to Kaggle.

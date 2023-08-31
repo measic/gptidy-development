@@ -1,5 +1,12 @@
 import json
+import tiktoken
+from math import floor
 
+def num_tokens_from_string(string: str) -> int:
+    """Returns the number of tokens in a text string."""
+    encoding = tiktoken.encoding_for_model("gpt-3.5-turbo")
+    num_tokens = len(encoding.encode(string))
+    return num_tokens
 
 class Notebook:
     def __init__(self, notebook=None, file_path=None):
@@ -62,26 +69,33 @@ class Notebook:
             src_lines = cell['source'].split('\n')[lines[0]:lines[1] + 1]
         return ''.join(src_lines)
 
-    def get_single_cell(self, cell_id, include_outputs=True):
+    def get_single_cell(self, cell_id, include_outputs=True, tokens=None):
         cell = self.notebook['cells'][cell_id]
         cell['source'] = ''.join(cell['source'])
         object = {
             'id': cell_id,
             'type': cell['cell_type'],
-            'src': cell['source']
+            'src': cell['source'] if tokens is None else cell['source'][:tokens],
         }
         if include_outputs:
             output = self._get_single_cell_text_outputs(cell)
             if output:
-                object['outputs'] = output
+                object['outputs'] = output if tokens is None else output[:tokens]
         return object
 
     def get_multiple_cells(self, cell_ids, include_outputs=True):
         return [self.get_single_cell(cell_id, include_outputs) for cell_id in cell_ids]
 
-    def get_all_cells(self, include_outputs=True, include_markdown=True):
-        return [self.get_single_cell(cell_id, include_outputs) for cell_id in range(self.num_cells) if include_markdown or self.notebook['cells'][cell_id]['cell_type'] != 'markdown']
-
+    def get_all_cells(self, token_limit=None, include_outputs=True, include_markdown=True):
+        if token_limit is None:
+            return [self.get_single_cell(cell_id, include_outputs) for cell_id in range(self.num_cells) if include_markdown or self.notebook['cells'][cell_id]['cell_type'] != 'markdown']
+        else:
+            # divide by token limit to get how many tokens each cell should have
+            tokens_per_cell = floor(token_limit / self.num_cells)
+            print(tokens_per_cell)
+            # now we take all cells but only take tokens_per_cell tokens from each cell
+            return [self.get_single_cell(cell_id, include_outputs, tokens_per_cell) for cell_id in range(self.num_cells) if include_markdown or self.notebook['cells'][cell_id]['cell_type'] != 'markdown']
+        
     def update_cell_src(self, cell_id, new_src):
         self.notebook['cells'][cell_id]['source'] = new_src
         print("Cell updated")

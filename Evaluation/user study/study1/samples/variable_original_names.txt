@@ -1,0 +1,10 @@
+X
+lon
+IMG_PATH
+x
+dataframe
+EPOCHS
+distances
+xgb_data
+filename
+statinfo

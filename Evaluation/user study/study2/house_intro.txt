@@ -1,0 +1,20 @@
+# House Price Prediction Using Random Forest Regression
+
+# Background
+This Jupyter Notebook is based on the Kaggle House Price Prediction competition. The competition involves using regression techniques and creative feature engineering to predict residential home sale prices in Ames, Iowa, based on a dataset with 79 variables.
+
+# Goals
+The purpose of this project is to explore the dataset, preprocess the data, and build a random forest regression model to predict house prices. The ultimate goal is to accurately predict house prices based on the given features and improve upon the baseline models.
+
+# Structure
+This notebook is organized in the following manner:
+- Reading the dataset using Pandas
+- Checking the Null values
+- Handling missing values by creating new features
+- Filling the Null/Missing Values
+- Converting categorical data to numeric data using Ordinal encoding
+- Data Visualization using correlation matrix and histograms
+- Analysis of highly correlated features with the SalePrice
+- Splitting the data into training and testing sets
+- Building the XGBoost regression model
+- Making predictions and generating the submission file

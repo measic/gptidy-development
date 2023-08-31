@@ -1,0 +1,15 @@
+# Title
+Titanic Survival Prediction using Logistic Regression
+
+# Background
+The Titanic Survival Prediction competition on Kaggle involves using machine learning techniques to predict which passengers survived the Titanic shipwreck. The dataset includes information such as the passenger's class, gender, age, number of siblings/spouses aboard, number of parents/children aboard, fare, cabin, and port of embarkation.
+
+# Goals
+The goal of this project is to clean the dataset, train a Logistic Regression model, and predict the survival of passengers on the Titanic based on their characteristics.
+
+# Structure
+The notebook is organized into the following cells:
+- Data Cleaning: Various steps to clean the dataset, such as filling missing values for age and embarked, handling cabin data, and encoding categorical variables.
+- Model Training: Scaling the features, fitting the Logistic Regression model to the training data, and predicting the survival of passengers.
+- Evaluation: Calculating the Jaccard index for accuracy evaluation, plotting the confusion matrix, and calculating precision, recall, and F1 score for each class.
+- Submission: Preparing the predicted survival data for submission to Kaggle.
