@@ -1,18 +1,7 @@
-cols = ['SAT Math Avg. Score', 'SAT Critical Reading Avg. Score', 'SAT Writing Avg. Score']
-for c in cols:
-    data['sat_results'][c] = pd.to_numeric(data['sat_results'][c], errors='coerce')
-data['sat_results']['sat_score'] = data['sat_results'][cols[0]] + data['sat_results'][cols[1]] + data['sat_results'][cols[2]]
-
-def find_lat(loc):
-    coords = re.findall('\\(.+, .+\\)', loc)
-    lat = coords[0].split(',')[0].replace('(', '')
-    return lat
-
-def find_lon(loc):
-    coords = re.findall('\\(.+, .+\\)', loc)
-    variable_def = coords[0].split(',')[1].replace(')', '').strip()
-    return variable_def
-data['hs_directory']['lat'] = data['hs_directory']['Location 1'].apply(find_lat)
-data['hs_directory']['lon'] = data['hs_directory']['Location 1'].apply(find_lon)
-data['hs_directory']['lat'] = pd.to_numeric(data['hs_directory']['lat'], errors='coerce')
-data['hs_directory']['lon'] = pd.to_numeric(data['hs_directory']['lon'], errors='coerce')
+variable_def['Hotel_Count'] = variable_def.groupby(
+    'Hotel Name')['Hotel Name'].transform('count')
+descending_hotels = variable_def.sort_values(
+    by=['Hotel_Count'], ascending=False).reset_index()
+df_hotels = descending_hotels['Hotel Name'].unique()[:150]
+most_common_hotels = descending_hotels[descending_hotels['Hotel Name'].isin(
+    df_hotels)]

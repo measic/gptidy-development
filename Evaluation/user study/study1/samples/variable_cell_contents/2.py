@@ -1,12 +1,7 @@
-import csv
-import datetime
-import os
-import glob
-variable_def = '/home/ivan/Área de trabalho/2017'
-lista = []
-for filename in glob.iglob(variable_def + '**/*/*/*/*stamp.jpg*', recursive=True):
-    lista.append(filename)
-print(lista[:4])
-print(len(lista))
-print(find_conteiner(lista[1]))
-print(find_conteiner(lista[15]))
+output_directory = 'test_images_output'
+if not os.path.exists(output_directory):
+    os.makedirs(output_directory)
+variable_def = mpimg.imread('test_images/solidYellowLeft.jpg')
+print('This image is:', type(variable_def),
+      'with dimensions:', variable_def.shape)
+plt.imshow(variable_def)

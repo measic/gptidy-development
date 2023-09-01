@@ -1,11 +1,20 @@
-def function_def(train, batch_size, nb_epoch, neurons):
-    X, y = (train[:, 0:-1], train[:, -1])
-    X = X.reshape(X.shape[0], 1, X.shape[1])
-    model = Sequential()
-    model.add(LSTM(neurons, batch_input_shape=(batch_size, X.shape[1], X.shape[2]), stateful=True))
-    model.add(Dense(1))
-    model.compile(loss='mean_squared_error', optimizer='adam')
-    for i in range(nb_epoch):
-        model.fit(X, y, epochs=1, batch_size=batch_size, verbose=0, shuffle=False)
-        model.reset_states()
-    return model
+from GeoBases import GeoBase
+geo_o = GeoBase(data='ori_por', verbose=False)
+
+def function_def(IATA_code):
+    """
+    Function to return the name of the airport linked to IATA_code
+    
+    @IATA_code : String object which is a IATA_code
+   
+    @return    : String object which is the name of the airport
+  """
+    try:
+        result = geo_o.get(IATA_code.replace(' ', ''), 'name')
+    except KeyError as e:
+        result = 'NOT FOUND IATA CODE'
+    return result
+BOOKINGS_GROUP_BY_ARR_PORT.columns.values
+new_df = BOOKINGS_GROUP_BY_ARR_PORT.reset_index()
+new_df['airport_name'] = new_df['arr_port'].apply(lambda x: function_def(x))
+new_df
