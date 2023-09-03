@@ -49,7 +49,7 @@ def tally_votes(gpt_votes, choices, num_trials):
                 if vote in range(len(choices)):
                     vote_results[vote] += 1
                 else:
-                    print(f'INFO: GPT did not choose anything: {[vote_output]}')
+                    print(f'INFO: GPT did not choose anything: {match}, {[vote_output]}')
             else:
                 print(f'ERROR: vote no match: {[vote_output]}')
         else:
@@ -74,8 +74,11 @@ def solve_toc(input_msgs_cot, identify_trials, code_trials, identify_vote_trials
         
     # if the options are the same, we return first trial
     if len(identified_names_set) == 1:
-        print("INFO: Depth 1: identified names are the same for all trials so we don't vote")
         most_popular_identify = identified_names_set[0]
+        print(f"INFO: Depth 1: identified names are the same for all trials so we don't vote, {most_popular_identify}")
+        if most_popular_identify == 'None':
+            print("ERROR: Depth 1: identified names are None for all trials")
+            return None, None
     else:
         # Depth 1: Vote on the best choice using GPT
         gpt_identify_votes = prompt_vote(

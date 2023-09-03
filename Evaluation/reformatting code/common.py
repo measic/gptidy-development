@@ -9,16 +9,20 @@ def unpack_gpt(gpt_results):
     # get all the code from the results
     for i, result in enumerate(gpt_results):
         if gpt_results[i]['reason'] == 'stop':
-            #TODO if we fail at a split later we will return None
             split = result['result'].split('Formatted code:')
-            changes = split[0].split("Identified formatting issues:")[1].strip("\n")
             try:
-                code = split[1].split("```")[1].strip("\n")
+                changes = split[0].split("Identified formatting issues:")[1].strip("\n")
             except:
+                changes = None
                 code = None
             else:
-                if code.startswith('python'):
-                    code = code[6:].strip("\n")
+                try:
+                    code = split[1].split("```")[1].strip("\n")
+                except:
+                    code = None
+                else:
+                    if code.startswith('python'):
+                        code = code[6:].strip("\n")
                 
             gpt_formatted_code.append(code)
             gpt_changes.append(changes)
