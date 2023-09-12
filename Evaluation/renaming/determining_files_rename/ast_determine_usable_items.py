@@ -164,6 +164,9 @@ def change_item_name(code, old_name, new_name):
         if isinstance(node, ast.Name):
             if node.id == old_name:
                 node.id = new_name
+        if isinstance(node, ast.Attribute):
+            if node.attr == old_name:
+                node.attr = new_name
         elif isinstance(node, ast.FunctionDef) or isinstance(node, ast.AsyncFunctionDef):
             if node.name == old_name:
                 node.name = new_name
