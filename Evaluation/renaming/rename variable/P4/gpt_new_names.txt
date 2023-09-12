@@ -19,7 +19,7 @@ x_normalized
 output_activation
 biodiversity_index_value
 pairwise_distances_tf_idf
-character_vocab
+segmentation_characters
 image_file_paths
 audio_features_size
 hidden_layer_data

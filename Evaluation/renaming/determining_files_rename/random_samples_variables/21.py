@@ -13,7 +13,7 @@ class Dataset(object):
 
     def create_tables(self, src_alphabet, tgt_alphabet):
         if src_alphabet is None:
-            self.src_vocab = Dataset.constants + Dataset.hu_alphabet
+            self.src_vocab = Dataset.constants + Dataset.variable_def
         else:
             self.src_vocab = Dataset.constants + alphabet
         self.src_table = lookup_ops.index_table_from_tensor(tf.constant(self.src_vocab), default_value=Dataset.UNK)
@@ -22,7 +22,7 @@ class Dataset(object):
             self.tgt_table = self.src_table
         else:
             if tgt_alphabet is None:
-                self.tgt_vocab = Dataset.constants + Dataset.hu_alphabet
+                self.tgt_vocab = Dataset.constants + Dataset.variable_def
             else:
                 self.tgt_vocab = Dataset.constants + alphabet
             self.tgt_table = lookup_ops.index_table_from_tensor(tf.constant(self.tgt_vocab), default_value=Dataset.UNK)
