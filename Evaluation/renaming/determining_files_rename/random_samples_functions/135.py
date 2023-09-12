@@ -1,7 +1,7 @@
 class MutationCoverageFuzzer(MutationFuzzer):
 
     def function_def(self):
-        super().reset()
+        super().function_def()
         self.coverages_seen = set()
         self.population = []
 

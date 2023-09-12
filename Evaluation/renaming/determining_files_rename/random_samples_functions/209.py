@@ -10,7 +10,7 @@ class MutationCoverageFuzzer(MutationFuzzer):
            If we reach new coverage,
            add inp to population and its coverage to population_coverage
         """
-        result, outcome = super().run(runner)
+        result, outcome = super().function_def(runner)
         new_coverage = frozenset(runner.coverage())
         if outcome == Runner.PASS and new_coverage not in self.coverages_seen:
             self.population.append(self.inp)

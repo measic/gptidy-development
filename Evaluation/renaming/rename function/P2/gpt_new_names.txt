@@ -39,7 +39,7 @@ calculate_classification_gradients
 send_max_sum_message
 pad_image
 evaluate_supervised_learner
-get_option_model
+get_option_pricing_model
 initialize_centroids
 load_dog_data
 parse_date
@@ -133,7 +133,7 @@ compute_half_life_times
 apply_random_image_transform
 mask_image
 decode_morphological_segmentation
-reset_and_track_coverage
+initialize_mutation_coverage_fuzzer
 calculate_eeg_statistics
 calculate_option_payoff
 prepare_datasets
@@ -207,7 +207,7 @@ print_function_arguments
 test_features_def
 plot_spectral_photometry
 send_message_to_variable
-run_function_with_coverage_tracking
+track_coverage_and_population
 train_and_validate_classification_model
 apply_random_mutation
 augment_training_data

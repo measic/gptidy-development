@@ -39,13 +39,13 @@ calculate_gradients_and_logprob
 send_max_sum_message
 pad_image
 train_and_evaluate_learner
-get_pricing_model
+get_option_pricing_model
 choose_initial_centroids
 load_and_process_dog_images
 parse_date
 read_coordinate_table
 split_train_valid_data
-apply_shrinkage
+r_pca_fit_and_plot
 calculate_estimated_end_time
 draw_lines_on_image
 pix_to_world_coords
@@ -119,7 +119,7 @@ neural_network_model
 generate_training_batch
 apply_gaussian_blur
 define_hypotheses
-define_loss_function
+loss_function
 analyze_earthquake_data
 send_sp_message_to_factor
 apply_shuffle_mutation
@@ -133,7 +133,7 @@ compute_and_print_half_lives
 translate_image
 apply_image_mask
 decode_input_output_pairs
-initialize_and_track_coverage
+initialize_population_tracking
 calculate_eeg_statistics
 calculate_option_payoff
 prepare_datasets
@@ -207,7 +207,7 @@ print_keyword_arguments
 test_sample_feature_ground
 plot_spectrophotometry
 send_sum_product_message
-run_function_with_coverage_tracking
+track_coverage_and_update_population
 train_classification_model
 apply_random_mutation
 augment_training_data

@@ -37,7 +37,7 @@ class two_layer_nn(tf.keras.Model):
             forward pass.
         """
         with tfe.GradientTape() as tape:
-            loss = self.loss_fn(input_data, target)
+            loss = self.function_def(input_data, target)
         return tape.gradient(loss, self.variables)
 
     def fit(self, input_data, target, optimizer, num_epochs=500, verbose=50, track_accuracy=True):

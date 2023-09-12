@@ -36,7 +36,7 @@ class EuropeanOption(object):
         return self.model
 
     def __str__(self):
-        return 'This European Option is priced using {0}'.format(self.getmodel())
+        return 'This European Option is priced using {0}'.format(self.function_def())
 
     @abstractmethod
     def value(self):

@@ -5,9 +5,9 @@ class FunctionCoverageRunner(FunctionRunner):
             try:
                 result = super().run_function(inp)
             except Exception as exc:
-                self._coverage = cov.coverage()
+                self._coverage = cov.function_def()
                 raise exc
-        self._coverage = cov.coverage()
+        self._coverage = cov.function_def()
         return result
 
     def function_def(self):

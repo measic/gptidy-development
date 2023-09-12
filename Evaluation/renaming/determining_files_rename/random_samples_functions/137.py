@@ -38,13 +38,13 @@ class MonteCarlo(EuropeanOption):
 
     @property
     def value(self):
-        payoff = self.generate_payoffs()
+        payoff = self.function_def()
         return self.discount * np.sum(payoff) / float(len(payoff))
 
     @property
     def delta(self):
         value_terminal = np.array(self.simulation_terminal() / float(self.S0))
-        payoff = self.generate_payoffs()
+        payoff = self.function_def()
         delta = np.zeros(len(payoff))
         delta[np.nonzero(payoff)] = value_terminal[np.nonzero(payoff)]
         return self.discount * np.sum(delta) / float(len(payoff))

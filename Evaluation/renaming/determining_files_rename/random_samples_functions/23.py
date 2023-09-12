@@ -49,7 +49,7 @@ class two_layer_nn(tf.keras.Model):
             self.hist_accuracy = []
             accuracy = tfe.metrics.Accuracy()
         for i in range(num_epochs):
-            grads = self.grads_fn(input_data, target)
+            grads = self.function_def(input_data, target)
             optimizer.apply_gradients(zip(grads, self.variables))
             if track_accuracy:
                 logits = self.predict(X)

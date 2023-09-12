@@ -48,7 +48,7 @@ class R_pca:
         else:
             _tol = 1e-07 * self.norm_p(np.abs(self.D), 2)
         while err > _tol and iter < max_iter:
-            Lk = self.svd_threshold(self.D - Sk + self.mu_inv * Yk, self.mu_inv)
+            Lk = self.function_def(self.D - Sk + self.mu_inv * Yk, self.mu_inv)
             Sk = self.shrink(self.D - Lk + self.mu_inv * Yk, self.mu_inv * self.lmbda)
             Yk = Yk + self.mu * (self.D - Lk - Sk)
             err = self.norm_p(np.abs(self.D - Lk - Sk), 2)
