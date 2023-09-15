@@ -58,25 +58,47 @@ def stats_results_unused(gpt_unused_names, before):
     print("------------")
 
     # determine number of false and true positive identifications using gpt_unused_function_names and before
-    true_positives = 0
-    false_positives = 0
-    false_negatives = 0
+    true_positives = []
+    false_positives = []
+    false_negatives = []
+
     for i, gpt_names in enumerate(gpt_unused_names):
+        local_true_positives = 0
+        local_false_positives = 0
+
         before_names = before[i]
         gpt_names = gpt_names if gpt_names is not None else []
         for name in gpt_names:
             if name in before_names:
-                true_positives += 1
+                local_true_positives += 1
             else:
-                false_positives += 1
+                local_false_positives += 1
+        
+        true_positives.append(local_true_positives)
+        false_positives.append(local_false_positives)
 
     for i, before_names in enumerate(before):
+        local_false_negatives = 0
+
         gpt_names = gpt_unused_names[i] if gpt_unused_names[i] is not None else []
         for name in before_names:
             if name not in gpt_names:
-                false_negatives += 1
+                local_false_negatives += 1
+        
+        false_negatives.append(local_false_negatives)
 
     # print the results
-    print(f'True positives: {true_positives}')
-    print(f'False positives: {false_positives}')
-    print(f'False negatives: {false_negatives}')
+    print(f'True positives: {sum(true_positives)}')
+    print(f'False positives: {sum(false_positives)}')
+    print(f'False negatives: {sum(false_negatives)}')
+
+    print("------------")
+    print("Files with at least one false positive (and no false negatives)")
+    for i in range(len(false_positives)):
+        if false_positives[i] > 0 and false_negatives[i] == 0:
+            print(f'{i}: {false_positives[i]} false positives')
+    print("------------")
+    print("Files with at least one false negative (and no false positives)")
+    for i in range(len(false_positives)):
+        if false_positives[i] == 0 and false_negatives[i] > 0:
+            print(f'{i}: {false_negatives[i]} false negatives')
