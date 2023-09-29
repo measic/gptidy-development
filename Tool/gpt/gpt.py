@@ -1,7 +1,5 @@
 import openai
 
-openai.api_key = "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"
-
 def gpt_wrapper(msgs, n=1, stop=None, temperature=0):
     while True:
         try:
