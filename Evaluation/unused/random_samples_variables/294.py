@@ -1,1 +1,0 @@
-letter,bigram=get_probabilities()

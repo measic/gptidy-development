@@ -1,1 +1,0 @@
-predictions_5K = model_5K.predict(X_test_5K)

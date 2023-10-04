@@ -1,1 +1,0 @@
-X, y, accuracy, training_op = tf.get_collection("my_important_ops")

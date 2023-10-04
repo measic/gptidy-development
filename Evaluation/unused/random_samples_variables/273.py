@@ -1,1 +1,0 @@
-X_batch, y_batch = prepare_batch(flower_paths_and_classes_train, batch_size=4)

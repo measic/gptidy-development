@@ -288,3 +288,44 @@ if __name__ == "__main__":
     # 6. rename variable
     # 7. rename function
     # 8. format code
+    # 9. exit
+    while True:
+        print("What type of refactoring would you like to do?")
+        print("1. Introduction")
+        print("2. Summarize cell")
+        print("3. Conclusion")
+        print("4. Remove unused variables")
+        print("5. Remove unused functions")
+        print("6. Rename variable")
+        print("7. Rename function")
+        print("8. Format code")
+        print("9. Exit")
+        choice = input("Enter a number: ")
+        if choice == '1':
+            print(gptidy.generate_introduction())
+        elif choice == '2':
+            cell_id = int(input("Enter the cell id: "))
+            print(gptidy.generate_summarize_cell(cell_id))
+        elif choice == '3':
+            print(gptidy.generate_conclusion())
+        elif choice == '4':
+            cell_id = int(input("Enter the cell id: "))
+            print(gptidy.remove_unused_variables(cell_id))
+        elif choice == '5':
+            cell_id = int(input("Enter the cell id: "))
+            print(gptidy.remove_unused_functions(cell_id))
+        elif choice == '6':
+            cell_id = int(input("Enter the cell id: "))
+            name = input("Enter the name of the variable: ")
+            print(gptidy.rename_variable(cell_id, name))
+        elif choice == '7':
+            cell_id = int(input("Enter the cell id: "))
+            name = input("Enter the name of the function: ")
+            print(gptidy.rename_function(cell_id, name))
+        elif choice == '8':
+            cell_id = int(input("Enter the cell id: "))
+            print(gptidy.format_code(cell_id))
+        elif choice == '9':
+            break
+        else:
+            print("Invalid choice. Try again.")

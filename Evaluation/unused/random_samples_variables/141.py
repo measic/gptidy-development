@@ -1,1 +1,0 @@
-root = create_decision_tree(dataset)

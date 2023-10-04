@@ -1,1 +1,0 @@
-betweenness_dict = nx.algorithms.centrality.betweenness_centrality(gig_comp_graph)

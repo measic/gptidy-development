@@ -1,1 +1,0 @@
-f_M_Nm = sy.lambdify(x, M_Nm)

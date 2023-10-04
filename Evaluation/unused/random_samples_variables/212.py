@@ -1,1 +1,0 @@
-X_test = vectorizer.transform(data_test.values)
