@@ -1,6 +1,6 @@
 # using PT3
 
-from Tool.notebook_processing import Notebook
+from notebook_processing import Notebook
 
 
 task1_prompt = "A function/method is unused if it is defined using 'def' but is not referenced after being defined. Identify unused functions/methods in the code delimited by triple backticks. Output this as a list of function names."

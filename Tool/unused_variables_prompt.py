@@ -1,4 +1,6 @@
 # using PT2
+from notebook_processing import Notebook
+
 
 task = "A variable is unused if it is assigned using an equals operator but is not referenced after being defined. Identify and remove unused variables in the code delimited by triple backticks. For unused variables in unpacking, change these to underscores. Ignore unused functions, imports, or classes. Output under the headings 'Unused variables' and 'Updated code'"
 

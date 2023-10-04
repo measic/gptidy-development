@@ -1,13 +1,14 @@
 import sys
 import json
-from Tool.gpt.rename_function_prompt import rename_function_prompt_task1, rename_function_prompt_task2
+from rename_function_prompt import rename_function_prompt_task1, rename_function_prompt_task2
 from notebook_processing import Notebook
-from gpt.gpt import gpt_wrapper, gpt_unpack_simple
-from Tool.gpt.markdown_prompts import introduction_prompt, summarize_cell_prompt, conclusion_prompt
-from Tool.gpt.unused_variables_prompt import unused_variables_prompt
-from Tool.gpt.unused_functions_prompt import unused_functions_prompt_task1, unused_functions_prompt_task2
-from Tool.gpt.rename_variable_prompt import rename_variable_prompt_task1, rename_variable_prompt_task2
-from Tool.gpt.format_prompt import format_code_prompt
+from gpt import gpt_wrapper, gpt_unpack_simple
+from markdown_prompts import introduction_prompt, summarize_cell_prompt, conclusion_prompt
+from unused_variables_prompt import unused_variables_prompt
+from unused_functions_prompt import unused_functions_prompt_task1, unused_functions_prompt_task2
+from rename_variable_prompt import rename_variable_prompt_task1, rename_variable_prompt_task2
+from format_prompt import format_code_prompt
+
 
 class GPTidy:
     def __init__(self, notebook: Notebook):
@@ -228,8 +229,7 @@ class GPTidy:
             return gpt_new_name, gpt_explanation, updated_code
         else:
             raise Exception("Error: GPT-3.5 returned an invalid result.")
-        
-    
+
     def format_code(self, cell_id: int):
         """
         Returns a tuple of (code, changes)
@@ -241,18 +241,20 @@ class GPTidy:
         if finish_reason == 'stop':
             split = result['result'].split('Formatted code:')
             try:
-                changes = split[0].split("Identified formatting issues:")[1].strip("\n")
+                changes = split[0].split("Identified formatting issues:")[
+                    1].strip("\n")
             except:
                 raise Exception("Error: GPT-3.5 returned an invalid result.")
             else:
                 try:
                     code = split[1].split("```")[1].strip("\n")
                 except:
-                    raise Exception("Error: GPT-3.5 returned an invalid result.")
+                    raise Exception(
+                        "Error: GPT-3.5 returned an invalid result.")
                 else:
                     if code.startswith('python'):
                         code = code[6:].strip("\n")
-                
+
             return code, changes
         else:
             raise Exception("Error: GPT-3.5 returned an invalid result.")
@@ -264,6 +266,8 @@ if __name__ == "__main__":
         print("Usage: python3 gptidy.py <path to notebook>")
         sys.exit(1)
     file_path = sys.argv[1]
+
+    print("----------------------------------------")
 
     # read in notebook using io
     with open(file_path, 'r') as f:
@@ -290,10 +294,11 @@ if __name__ == "__main__":
     # 8. format code
     # 9. exit
     while True:
+        print("----------------------------------------")
         print("What type of refactoring would you like to do?")
-        print("1. Introduction")
-        print("2. Summarize cell")
-        print("3. Conclusion")
+        print("1. Generate introduction")
+        print("2. Explain a code cell")
+        print("3. Generate conclusion")
         print("4. Remove unused variables")
         print("5. Remove unused functions")
         print("6. Rename variable")
@@ -301,6 +306,7 @@ if __name__ == "__main__":
         print("8. Format code")
         print("9. Exit")
         choice = input("Enter a number: ")
+        print("----------------------------------------")
         if choice == '1':
             print(gptidy.generate_introduction())
         elif choice == '2':

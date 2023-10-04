@@ -1,3 +1,6 @@
+from notebook_processing import Notebook
+
+
 introduction_main = """"Write an introductory cell in markdown for this Jupyter Notebook under the following headings:
 - Title
 - Background (2-4 sentences briefly introducing the wider topic)

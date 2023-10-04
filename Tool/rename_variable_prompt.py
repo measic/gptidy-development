@@ -1,6 +1,6 @@
 # using PT3
 
-from Tool.notebook_processing import Notebook
+from notebook_processing import Notebook
 
 t1task = "Suggest a better name for the variable specified in the code delimited by triple backticks that is more meaningful and better reflects its usage and/or better aligns with the project's purpose. Only suggest for the single variable specified. Structure your response under the following headings: 'New variable name' (only one variable name) and 'Explanation' (a 1-2 sentence explanation of the new variable name)."
 
